@@ -1,0 +1,24 @@
+# 依赖目录
+node_modules/
+packages/*/node_modules/
+examples/node_modules/
+docs/node_modules/
+
+# 构建输出
+dist/
+lib/
+*.log
+
+# IDE配置
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 环境变量
+.env
+.env.local
+
+# 系统文件
+.DS_Store
+Thumbs.db

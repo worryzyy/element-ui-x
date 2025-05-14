@@ -1,0 +1,68 @@
+.typer-container{
+  overflow-x: auto;
+}
+.markdown-content ::v-deep ul {
+  list-style-type: disc;
+}
+
+
+.typing-markdown-cursor-foggy,
+.typing-cursor-foggy {
+  &.markdown-content ::v-deep h1,
+  &.markdown-content ::v-deep h2,
+  &.markdown-content ::v-deep h3,
+  &.markdown-content ::v-deep h4,
+  &.markdown-content ::v-deep h5,
+  &.markdown-content ::v-deep h6,
+  &.markdown-content ::v-deep p,
+  &.markdown-content ::v-deep ol:last-child li,
+  &.markdown-content ::v-deep ul:last-child li {
+    position: relative;
+    overflow: hidden;
+
+    &:last-child:after {
+      content: '';
+      width: var(--cursor-fog-width);
+      height: 1.5em;
+      background: linear-gradient(90deg, transparent, var(--cursor-fog-bg-color));
+      position: absolute;
+      margin-left: calc(-1 * var(--cursor-fog-width));
+    }
+  }
+
+  // // 单独处理pre标签
+  // &.markdown-content ::v-deep pre {
+  //   position: relative;
+  //   overflow: hidden;
+
+  //   &:last-child:after {
+  //     content: '';
+  //     width: var(--cursor-fog-width);
+  //     height: 1.5em;
+  //     background: linear-gradient(90deg, transparent, var(--cursor-fog-bg-color));
+  //     position: absolute;
+  //     margin-left: calc(-1 * var(--cursor-fog-width) );
+  //   }
+  // }
+  
+}
+
+.typer-content.typing-cursor::after {
+  content: var(--cursor-char);
+  margin-left: 2px;
+  display: inline-block;
+}
+
+.typer-content.typing-cursor-foggy {
+  position: relative;
+  overflow: hidden;
+
+  &:last-child:after {
+    content: '';
+    width: var(--cursor-fog-width);
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--cursor-fog-bg-color));
+    position: absolute;
+    margin-left: calc(-1 * var(--cursor-fog-width));
+  }
+}

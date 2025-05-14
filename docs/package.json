@@ -1,0 +1,23 @@
+{
+  "name": "@element-x/docs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Element-X组件库的文档站点",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "dependencies": {
+    "element-x-ui": "file:../packages/element-x-ui",
+    "element-ui": "^2.15.14",
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "vuepress": "^1.9.7",
+    "vuepress-plugin-demo-container": "^0.2.0",
+    "sass": "^1.43.4",
+    "sass-loader": "^10.1.1"
+  },
+  "author": "",
+  "license": "MIT"
+}

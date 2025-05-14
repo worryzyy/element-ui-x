@@ -1,0 +1,13 @@
+@import "~element-ui/packages/theme-chalk/src/common/var";
+/* AI聊天组件主题变量 */
+$--color-ai-bubble-user: $--color-primary !default;
+$--color-ai-bubble-bot: $--color-white !default;
+$--color-ai-text-user: $--color-white !default;
+$--color-ai-text-bot: $--color-text-primary !default;
+
+$--transition-ai-typewriter: 0.1s !default;
+$--transition-ai-bubble: 0.3s ease-in-out !default;
+
+$--ai-border-radius: $--border-radius-base !default;
+$--ai-padding: 12px 16px !default;
+$--ai-margin: 8px 0 !default;

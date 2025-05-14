@@ -1,0 +1,21 @@
+# 开发配置文件
+build/
+examples/
+demo/
+docs/
+*.config.js
+*.conf.js
+
+# 开发工具配置
+.babelrc
+.eslintrc.js
+.prettierrc
+
+# 测试文件
+__tests__/
+*.test.js
+*.spec.js
+
+# 其他
+.gitignore
+.npmrc

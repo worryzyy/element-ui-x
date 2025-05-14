@@ -1,0 +1,43 @@
+/* 二次元风格主题 */
+:root {
+  --color-primary: #ff6b9e; /* 粉色 */
+  --color-success: #6bd9a7; /* 薄荷绿 */
+  --color-warning: #ffcc5e; /* 亮黄色 */
+  --color-danger: #ff7d7d;  /* 浅红色 */
+  --color-info: #7dcfff;    /* 天蓝色 */
+}
+
+/* 覆盖Element UI主题色 */
+.el-header {
+  background-color: var(--color-primary) !important;
+}
+
+.el-menu {
+  background-color: #ffebf2 !important;
+}
+
+.el-menu-item {
+  color: #ff6b9e !important;
+}
+
+.el-menu-item.is-active {
+  background-color: #ffe6ee !important;
+  color: #ff4d8a !important;
+}
+
+/* 按钮样式 */
+.el-button--primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.el-button--success {
+  background-color: var(--color-success) !important;
+  border-color: var(--color-success) !important;
+}
+
+/* 卡片样式 */
+.el-card {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(255, 107, 158, 0.2) !important;
+}

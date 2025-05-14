@@ -1,0 +1,10 @@
+{
+  "name": "element-ui-x",
+  "private": true,
+  "scripts": {
+    "build": "cd packages/element-x-ui && npm run build",
+    "dev:example": "cd examples && npm run serve",
+    "dev:docs": "cd docs && npm run dev",
+    "build:docs": "cd docs && npm run build"
+  }
+}
