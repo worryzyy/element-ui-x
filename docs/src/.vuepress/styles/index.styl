@@ -1,0 +1,85 @@
+// 主题色变量
+$accentColor = #409EFF
+
+// 设置侧边栏字体大小
+.sidebar-heading {
+  font-size: 16px !important;
+}
+
+.sidebar-link {
+  font-size: 16px !important;
+}
+
+// 表格样式
+.theme-default-content:not(.custom) {
+  // 表格宽度铺满
+  table {
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+  
+  // 表头不换行
+  th {
+    white-space: nowrap;
+    background-color: #fafafa;
+    padding: 12px 8px;
+    font-weight: 500;
+    color: #333;
+    border-bottom: 2px solid #ebeef5;
+  }
+  
+  // 表格单元格样式
+  td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #ebeef5;
+  }
+  
+  // 表格行悬停效果
+  tr:hover {
+    background-color: #fafafa;
+  }
+  
+  // 表格内的代码样式
+  td code {
+    background-color: rgba(64, 158, 255, 0.1);
+    color: $accentColor;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+  }
+}
+
+// 按钮样式
+.el-button--primary {
+  background-color: $accentColor;
+  border-color: $accentColor;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $accentColor;
+}
+
+// 回到顶部按钮样式
+.back-to-top {
+  background-color: $accentColor;
+}
+
+.back-to-top:hover {
+  background-color: lighten($accentColor, 10%);
+}

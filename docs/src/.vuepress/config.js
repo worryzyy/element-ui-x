@@ -130,12 +130,14 @@ module.exports = {
     docsDir: 'packages/docs/src',
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',
-    smoothScroll: true
+    smoothScroll: true,
+    sidebarDepth: 2,           // 嵌套的标题链接深度，默认为1，最大为2，提取h2和h3标题
+    activeHeaderLinks: true,   // 页面滚动时自动激活侧边栏链接
+    displayAllHeaders: false,  // 默认值：false，设置为true会显示所有页面的标题链接
   },
   markdown: {
     lineNumbers: true,
     extractHeaders: ['h2', 'h3', 'h4', 'h5', 'h6']
   },
   plugins: ['demo-container'],
-
-}; 
+};
