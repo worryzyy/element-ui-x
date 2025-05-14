@@ -34,12 +34,17 @@ module.exports = {
 						{
 							title: '通用',
 							collapsable: true,
-							children: ['typewriter']
+							children: [
+								'typewriter'
+							]
 						},
 						{
 							title: '对话类组件',
 							collapsable: true,
-							children: ['bubble', 'bubble-list']
+							children: [
+								'bubble',
+								'bubble-list'
+							]
 						},
 						{
 							title: '交互类组件',
@@ -54,12 +59,19 @@ module.exports = {
 						{
 							title: '导航类组件',
 							collapsable: true,
-							children: ['conversations', 'welcome', 'prompts']
+							children: [
+								'conversations',
+								'welcome',
+								'prompts'
+							]
 						},
 						{
 							title: '确认',
 							collapsable: true,
-							children: ['thinking', 'thought-chain']
+							children: [
+								'thinking',
+								'thought-chain'
+							]
 						}
 					]
 				}
@@ -68,7 +80,11 @@ module.exports = {
 				{
 					title: '📚 示例',
 					collapsable: false,
-					children: ['', 'simple-typewriter', 'typewriter/']
+					children: [
+						'',
+						'simple-typewriter', 
+						'typewriter/'
+					]
 				}
 			],
 			'/roadmap/': [
