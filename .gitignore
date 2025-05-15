@@ -4,6 +4,9 @@ packages/*/node_modules/
 examples/node_modules/
 docs/node_modules/
 
+/packages/*/src/styles/button.scss
+/packages/*/src/styles/var.scss
+docs/package-lock.json
 # 构建输出
 dist/
 lib/
@@ -23,7 +26,6 @@ lib/
 .DS_Store
 Thumbs.db
 .windsurf
-/packages/*/src/styles/button.scss
-/packages/*/src/styles/var.scss
+
 
 

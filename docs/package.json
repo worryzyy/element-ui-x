@@ -8,15 +8,16 @@
     "build": "vuepress build src"
   },
   "dependencies": {
-    "element-x-ui": "file:../packages/element-x-ui",
+    "@vuepress/plugin-active-header-links": "^1.9.10",
     "element-ui": "^2.15.14",
+    "element-x-ui": "file:../packages/element-x-ui",
     "vue": "^2.6.14"
   },
   "devDependencies": {
-    "vuepress": "^1.9.7",
-    "vuepress-plugin-demo-container": "^0.2.0",
     "sass": "^1.43.4",
-    "sass-loader": "^10.1.1"
+    "sass-loader": "^10.1.1",
+    "vuepress": "^1.9.7",
+    "vuepress-plugin-demo-container": "^0.2.0"
   },
   "author": "",
   "license": "MIT"
