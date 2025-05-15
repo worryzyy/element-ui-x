@@ -1,7 +1,10 @@
 import ElXTypewriter from './components/Typewriter.vue'
+import ElXBubble from './components/Bubble.vue'
+
 
 const components = [
-  ElXTypewriter
+  ElXTypewriter,
+  ElXBubble
 ]
 
 const install = function (Vue) {

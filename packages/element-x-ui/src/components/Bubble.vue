@@ -146,7 +146,7 @@ export default {
             this.$refs.typewriterRef && this.$refs.typewriterRef.interrupt()
         },
         continueTyping() {
-            this.$refs.typewriterRef && this.$refs.typewriterRef.continue()
+            this.$refs.typewriterRef && this.$refs.typewriterRef.continueTyping()
         },
         restart() {
             this.internalDestroyed = false
@@ -159,6 +159,7 @@ export default {
     },
     beforeDestroy() {
         this.destroy()
+        console.log('Bubble component destroyed')
     },
 }
 </script>

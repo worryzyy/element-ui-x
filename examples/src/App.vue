@@ -11,6 +11,10 @@
                             <i class="el-icon-edit"></i>
                             <span>Typewriter</span>
                         </el-menu-item>
+                        <el-menu-item index="/bubble">
+                            <i class="el-icon-edit"></i>
+                            <span>Bubble</span>
+                        </el-menu-item>
                     </el-menu>
                 </el-aside>
                 <el-main>
