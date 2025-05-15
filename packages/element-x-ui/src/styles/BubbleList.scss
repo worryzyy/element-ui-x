@@ -1,3 +1,5 @@
+@import '../theme/var.scss';
+
 .el-x-bubble-list {
   display: flex;
   flex-direction: column;
@@ -104,6 +106,24 @@
           }
       }
   }
+  .back-to-bottom-loading-svg-bg {
+    position: absolute;
+    font-size: calc(var(--el-x-bubble-list-btn-size) + 26px);
+    animation: is-loading 1s infinite linear;
+    width: 40px;
+    height: 40px;
+    color: $--el-x-color-primary;
+}
+
+@keyframes is-loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+  
 }
 
 .el-x-bubble-list-back-to-bottom-solt {

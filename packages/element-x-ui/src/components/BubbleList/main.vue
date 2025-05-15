@@ -62,9 +62,10 @@
             @click="scrollToBottom"
         >
             <slot name="backToBottom">
-                <i class="el-icon-edit el-x-bubble-list-back-to-bottom-icon">
-                    <loadingBg v-if="btnLoading" class="back-to-bottom-loading-svg-bg" />
+                <i class="el-icon-bottom el-x-bubble-list-back-to-bottom-icon">
                 </i>
+                <loadingBg v-if="btnLoading" class="back-to-bottom-loading-svg-bg" />
+
             </slot>
         </div>
     </div>
