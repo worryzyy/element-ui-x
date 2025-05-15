@@ -1,0 +1,159 @@
+
+@import '../theme/var.scss';
+.el-x-bubble {
+  display: flex;
+  gap: var(--el-x-bubble-avatar-placeholder-gap);
+}
+
+.el-x-bubble-avatar-size {
+  :deep(.el-avatar) {
+    width: var(--el-x-bubble-avatar-placeholder-width);
+    height: var(--el-x-bubble-avatar-placeholder-height);
+  }
+}
+
+.el-x-bubble-avatar-placeholder {
+  width: var(--el-x-bubble-avatar-placeholder-width);
+  height: var(--el-x-bubble-avatar-placeholder-height);
+}
+
+.el-x-bubble-start {
+  .el-x-bubble-content-wrapper {
+    .el-x-bubble-content-corner {
+      border-start-start-radius: calc($--el-x-border-radius-base - 2px);
+    }
+  }
+}
+
+.el-x-bubble-end {
+  justify-content: end;
+  flex-direction: row-reverse;
+
+  .el-x-bubble-content-wrapper {
+    align-items: flex-end;
+
+    .el-x-bubble-content-corner {
+      border-start-end-radius: calc($--el-x-border-radius-base - 2px);
+    }
+  }
+}
+
+.el-x-bubble-no-style {
+  .el-x-bubble-content-wrapper {
+    .el-x-bubble-content {
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+}
+
+.el-x-bubble-content-wrapper {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  max-width: 100%;
+
+  .el-x-bubble-header,
+  .el-x-bubble-content,
+  .el-x-bubble-footer {
+    font-size: $--el-x-font-size-base;
+    color: $--el-x-text-color-primary;
+    line-height: $--el-x-font-line-height-primary;
+  }
+
+  // .el-x-bubble-header {
+  //   margin-bottom: var();
+  // }
+
+  .el-x-bubble-content {
+    background-color: $--el-x-fill-color;
+    padding:  $--el-x-padding-md  $--el-x-padding-lg;
+    border-radius: calc($--el-x-border-radius-base + 4px);
+    position: relative;
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: var(--bubble-content-max-width);
+    color: $--el-x-text-color-primary;
+    font-size: $--el-x-font-size-base;
+    line-height: $--el-x-font-line-height-primary;
+    // min-height: calc(#{$--el-x-padding-md} * 2 + #{$--el-x-font-line-height-primary} * #{$--el-x-font-size-base} );
+    word-break: break-word;
+
+    // 打字器没有内容时候展示高度
+    .no-content {
+      // height: 16px;
+      height: 0;
+    }
+  }
+
+  // 气泡圆角
+  .el-x-bubble-content-round {
+    border-radius: $--el-x-border-radius-round;
+  }
+
+  // 气泡样式
+  .el-x-bubble-content-filled {
+    background-color: $--el-x-fill-color;
+
+  }
+
+  .el-x-bubble-content-borderless {
+    background-color: $--el-x-fill-color;
+    border: $--el-x-border-width solid   $--el-x-border-color;
+  }
+
+  .el-x-bubble-content-outlined {
+    background: none;
+    border: $--el-x-border-width solid   $--el-x-border-color;
+  }
+
+  .el-x-bubble-content-shadow {
+    background: none;
+    // box-shadow: var(--el-box-shadow-tertiary);
+    box-shadow: $--el-x-box-shadow-base;
+  }
+
+  .el-x-bubble-content-loading {
+    width: fit-content;
+
+    .el-x-bubble-loading-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // height: 16px;
+      /* 盒子高度 */
+      gap: 5px;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      background-color: $--color-primary;
+      /* 点的颜色 */
+      border-radius: 50%;
+      /* 圆形 */
+      animation: wave 1s infinite ease-in-out;
+      /* 动画 */
+    }
+
+    /* 波浪动画 */
+    @keyframes wave {
+
+      0%,
+      100% {
+        transform: translateY(-2px);
+      }
+
+      50% {
+        transform: translateY(2px);
+        /* 上下波动 */
+      }
+    }
+  }
+
+  .el-x-bubble-footer {
+    margin-top: $--el-x-padding-md;
+  }
+}
