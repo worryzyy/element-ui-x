@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Typewriter from '../views/Typewriter.vue'
 import Bubble from '../views/Bubble.vue'
+import BubbleList from '../views/BubbleList.vue'
 
 
 Vue.use(Router)
@@ -17,6 +18,11 @@ export default new Router({
       path: '/bubble',
       name: 'Bubble',
       component: Bubble
+    },
+    {
+      path: '/bubbleList',
+      name: 'BubbleList',
+      component: BubbleList
     },
     {
       path: '*',
