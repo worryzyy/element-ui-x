@@ -7,7 +7,18 @@
 
             <div class="demo-block">
                 <h3>基础用法</h3>
-                <el-x-bubble-list :list="basicList" max-height="300px" ref="basicDemo" />
+                <el-x-bubble-list :list="basicList" max-height="300px" ref="basicDemo">
+                    <template slot="footer" slot-scope="{ item }">
+                        <div class="bubble-footer" v-if="item.placement === 'start'">
+                            <el-button size="mini" type="text" icon="el-icon-edit" @click="replyToMessage(item)">回复</el-button>
+                            <el-button size="mini" type="text" icon="el-icon-delete" @click="deleteMessage(item)">删除</el-button>
+                        </div>
+                        <div class="bubble-footer text-right" v-else>
+                            <el-button size="mini" type="text" icon="el-icon-refresh-left" @click="recallMessage(item)">撤回</el-button>
+                            <el-button size="mini" type="text" icon="el-icon-delete" @click="deleteMessage(item)">删除</el-button>
+                        </div>
+                    </template>
+                </el-x-bubble-list>
                 <div class="demo-controls">
                     <el-button-group>
                         <el-button size="small" type="primary" @click="addMessage('start')">添加左侧消息</el-button>
@@ -26,7 +37,20 @@
                 <div class="control-row">
                     <el-switch v-model="showBackButton" active-text="显示返回按钮" />
                 </div>
-                <el-x-bubble-list :list="scrollList" :max-height="maxHeight + 'px'" :show-back-button="showBackButton" :back-button-position="backButtonPosition" ref="scrollDemo" />
+                <el-x-bubble-list :list="scrollList" :max-height="maxHeight + 'px'" :show-back-button="showBackButton" :back-button-position="backButtonPosition" ref="scrollDemo" >
+                    <template slot="footer" slot-scope="{ item }">
+                        <div class="bubble-footer" v-if="item.placement === 'start'">
+                            <el-button size="mini" type="info" icon="el-icon-refresh" circle></el-button>
+                                <el-button size="mini" type="success" icon="el-icon-search" circle></el-button>
+                                <el-button size="mini" type="warning" icon="el-icon-star-on" circle></el-button>
+                                <el-button size="mini" icon="el-icon-document" circle></el-button>
+                        </div>
+                        <div class="bubble-footer text-right" v-else>
+                            <el-button size="mini" type="text" icon="el-icon-refresh-left" @click="recallMessage(item)">撤回</el-button>
+                            <el-button size="mini" type="text" icon="el-icon-delete" @click="deleteMessage(item)">删除</el-button>
+                        </div>
+                    </template>
+                </el-x-bubble-list>
                 <div class="demo-controls">
                     <el-button-group>
                         <el-button size="small" type="primary" @click="scrollToTop">滚动到顶部</el-button>
@@ -153,6 +177,32 @@ export default {
         scrollToMessage(index) {
             this.$refs.scrollDemo.scrollToBubble(index - 1)
         },
+        replyToMessage(item) {
+            this.$message({
+                message: `回复消息: ${item.content}`,
+                type: 'success'
+            })
+        },
+        deleteMessage(item) {
+            const index = this.basicList.indexOf(item)
+            if (index !== -1) {
+                this.basicList.splice(index, 1)
+                this.$message({
+                    message: '消息已删除',
+                    type: 'warning'
+                })
+            }
+        },
+        recallMessage(item) {
+            const index = this.basicList.indexOf(item)
+            if (index !== -1) {
+                this.basicList.splice(index, 1)
+                this.$message({
+                    message: '消息已撤回',
+                    type: 'info'
+                })
+            }
+        },
         sendMessage() {
             if (!this.newMessage.trim()) return
 
@@ -222,6 +272,26 @@ h3 {
         font-size: 14px;
         font-weight: normal;
         width: 80px;
+    }
+}
+
+.bubble-footer {
+    padding: 4px 0 0;
+    display: flex;
+    gap: 8px;
+    
+    &.text-right {
+        justify-content: flex-end;
+    }
+    
+    .el-button--text {
+        padding: 2px 4px;
+        font-size: 12px;
+        // color: $--color-text-secondary;
+        
+        // &:hover {
+        //     color: $--color-primary;
+        // }
     }
 }
 </style>
