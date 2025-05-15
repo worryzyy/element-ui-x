@@ -14,7 +14,7 @@
     ]"
             :style="{
       '--cursor-char': `'${mergedConfig.suffix}'`,
-      '--cursor-fog-bg-color': isFog ? (typeof isFog === 'object' ? (isFog.bgColor || 'var(--el-fill-color)') : 'var(--el-fill-color)') : '',
+      '--cursor-fog-bg-color': isFog ? (typeof isFog === 'object' ? (isFog.bgColor || '#ffffff') : '#ffffff') : '',
       '--cursor-fog-width': isFog ? (typeof isFog === 'object' ? (isFog.width || '80px') : '80px') : '',
       }"
             v-html="renderedContent"
