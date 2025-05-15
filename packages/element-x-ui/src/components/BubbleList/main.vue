@@ -32,19 +32,19 @@
             :no-style="item.noStyle"
             @finish="(instance) => handleBubbleComplete(index, instance)"
         >
-            <template v-if="$scopedSlots.avatar" slot="avatar" slot-scope="{ item }">
+            <template v-if="$scopedSlots.avatar" slot="avatar">
                 <slot name="avatar" :item="item" />
             </template>
-            <template v-if="$scopedSlots.header" slot="header" slot-scope="{ item }">
+            <template v-if="$scopedSlots.header" slot="header">
                 <slot name="header" :item="item" />
             </template>
-            <template v-if="$scopedSlots.content" slot="content" slot-scope="{ item }">
+            <template v-if="$scopedSlots.content" slot="content">
                 <slot name="content" :item="item" />
             </template>
-            <template v-if="$scopedSlots.footer" slot="footer" slot-scope="{ item }">
+            <template v-if="$scopedSlots.footer" slot="footer">
                 <slot name="footer" :item="item" />
             </template>
-            <template v-if="$scopedSlots.loading" slot="loading" slot-scope="{ item }">
+            <template v-if="$scopedSlots.loading" slot="loading">
                 <slot name="loading" :item="item" />
             </template>
         </Bubble>
@@ -62,10 +62,9 @@
             @click="scrollToBottom"
         >
             <slot name="backToBottom">
-                <el-icon class="el-x-bubble-list-back-to-bottom-icon" :style="{ color: btnColor }">
-                    <ArrowDownBold />
+                <i class="el-icon-edit el-x-bubble-list-back-to-bottom-icon">
                     <loadingBg v-if="btnLoading" class="back-to-bottom-loading-svg-bg" />
-                </el-icon>
+                </i>
             </slot>
         </div>
     </div>

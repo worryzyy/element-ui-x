@@ -65,8 +65,8 @@
   position: sticky;
   user-select: none;
   cursor: pointer;
-  width: fit-content;
-  height: fit-content;
+  width: 40px;
+  height: 40px;
   padding: 10px;
   box-sizing: border-box;
   display: flex;
@@ -91,6 +91,8 @@
           position: absolute;
           font-size: calc(var(--el-x-bubble-list-btn-size) + 26px);
           animation: is-loading 1s infinite linear;
+          width: 40px;
+          height: 40px;
       }
 
       @keyframes is-loading {
