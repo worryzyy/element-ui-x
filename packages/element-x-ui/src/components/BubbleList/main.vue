@@ -32,19 +32,23 @@
             :no-style="item.noStyle"
             @finish="(instance) => handleBubbleComplete(index, instance)"
         >
-            <template v-if="$scopedSlots.avatar" slot="avatar">
-                <slot name="avatar" :item="item" />
+            <template slot="avatar">
+                <slot name="avatar" :item="item">
+                    <template v-if="item.avatar">
+                        <el-avatar :size="item.avatarSize || ''" :src="item.avatar" :shape="item.avatarShape || 'circle'" :icon="item.avatarIcon" :src-set="item.avatarSrcSet" :alt="item.avatarAlt" :fit="item.avatarFit || 'cover'" />
+                    </template>
+                </slot>
             </template>
-            <template v-if="$scopedSlots.header" slot="header">
+            <template v-if="$scopedSlots.header || $slots.header" slot="header">
                 <slot name="header" :item="item" />
             </template>
-            <template v-if="$scopedSlots.content" slot="content">
+            <template v-if="$scopedSlots.content || $slots.content" slot="content">
                 <slot name="content" :item="item" />
             </template>
-            <template v-if="$scopedSlots.footer" slot="footer">
+            <template v-if="$scopedSlots.footer || $slots.footer" slot="footer">
                 <slot name="footer" :item="item" />
             </template>
-            <template v-if="$scopedSlots.loading" slot="loading">
+            <template v-if="$scopedSlots.loading || $slots.loading" slot="loading">
                 <slot name="loading" :item="item" />
             </template>
         </Bubble>
@@ -53,7 +57,7 @@
             v-if="showBackToBottom && hasVertical"
             class="el-x-bubble-list-default-back-button"
             :class="{
-        'el-x-bubble-list-back-to-bottom-solt': $scopedSlots.backToBottom,
+        'el-x-bubble-list-back-to-bottom-solt': $scopedSlots.backToBottom || $slots.backToBottom,
       }"
             :style="{
         bottom: backButtonPosition.bottom,

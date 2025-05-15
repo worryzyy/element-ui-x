@@ -179,27 +179,27 @@ export default {
       0 1px 6px -1px rgba(0, 0, 0, 0.02),
       0 2px 4px 0 rgba(0, 0, 0, 0.02)`,
       '--bubble-content-max-width': `${maxWidth}`,
-      '--el-x-bubble-avatar-placeholder-width': `${$scopedSlots.avatar ? '' : avatarSize}`,
-      '--el-x-bubble-avatar-placeholder-height': `${$scopedSlots.avatar ? '' : avatarSize}`,
+      '--el-x-bubble-avatar-placeholder-width': `${$scopedSlots.avatar || $slots.avatar ? '' : avatarSize}`,
+      '--el-x-bubble-avatar-placeholder-height': `${$scopedSlots.avatar || $slots.avatar ? '' : avatarSize}`,
       '--el-x-bubble-avatar-placeholder-gap': `${avatarGap}`,
     }"
     >
         <!-- 头像 -->
-        <div v-if="!$scopedSlots.avatar && avatar" class="el-x-bubble-avatar el-x-bubble-avatar-size">
+        <div v-if="!($scopedSlots.avatar || $slots.avatar) && avatar" class="el-x-bubble-avatar el-x-bubble-avatar-size">
             <el-avatar :size="0" :src="avatar" :shape="avatarShape" :icon="avatarIcon" :src-set="avatarSrcSet" :alt="avatarFit" @error="avatarError" />
         </div>
 
         <!-- 头像属性进行占位 -->
-        <div v-if="!$scopedSlots.avatar && !avatar && avatarSize" class="el-x-bubble-avatar-placeholder" />
+        <div v-if="!($scopedSlots.avatar || $slots.avatar) && !avatar && avatarSize" class="el-x-bubble-avatar-placeholder" />
 
-        <div v-if="$scopedSlots.avatar" class="el-x-bubble-avatar">
+        <div v-if="$scopedSlots.avatar || $slots.avatar" class="el-x-bubble-avatar">
             <slot name="avatar" />
         </div>
 
         <!-- 内容 -->
         <div class="el-x-bubble-content-wrapper">
             <!-- 头部内容 -->
-            <div v-if="$scopedSlots.header" class="el-x-bubble-header">
+            <div v-if="$scopedSlots.header || $slots.header" class="el-x-bubble-header">
                 <slot name="header" />
             </div>
 
@@ -219,7 +219,7 @@ export default {
             'no-content': !content,
           }">
                     <Typewriter
-                        v-if="!$scopedSlots.content && content"
+                        v-if="!($scopedSlots.content || $slots.content) && content"
                         ref="typewriterRef"
                         :typing="_typing"
                         :content="content"
@@ -232,20 +232,20 @@ export default {
                 </div>
 
                 <!-- 内容-自定义 -->
-                <slot v-if="!internalDestroyed && $scopedSlots.content && !loading" name="content" />
+                <slot v-if="!internalDestroyed && ($scopedSlots.content || $slots.content) && !loading" name="content" />
 
                 <!-- 加载中-默认 -->
-                <div v-if="loading && !$scopedSlots.loading" class="el-x-bubble-loading-wrap">
+                <div v-if="loading && !($scopedSlots.loading || $slots.loading)" class="el-x-bubble-loading-wrap">
                     <div v-for="(_, index) in dots" :key="index" class="dot" :style="{ animationDelay: `${index * 0.2}s` }" />
                 </div>
 
                 <!-- 加载中-自定义 -->
-                <div v-if="loading && $scopedSlots.loading" class="el-x-bubble-loading-wrap">
+                <div v-if="loading && ($scopedSlots.loading || $slots.loading)" class="el-x-bubble-loading-wrap">
                     <slot name="loading" />
                 </div>
             </div>
 
-            <div v-if="$scopedSlots.footer" class="el-x-bubble-footer">
+            <div v-if="$scopedSlots.footer || $slots.footer" class="el-x-bubble-footer">
                 <slot name="footer" />
             </div>
         </div>
