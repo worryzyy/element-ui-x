@@ -1,0 +1,124 @@
+.el-x-bubble-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  max-height: var(--el-x-bubble-list-max-height);
+  overflow: auto;
+  scroll-behavior: smooth;
+
+  position: relative;
+  &::-webkit-scrollbar {
+      width: 6px;
+      height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background: transparent;
+      background-color: #0003;
+      border-radius: 10px;
+      transition: background-color 0.2s ease-in-out;
+  }
+
+  &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background: transparent;
+  }
+
+  &:hover {
+      &::-webkit-scrollbar-thumb {
+          background: #c1c1c1;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+          background: #a8a8a8;
+      }
+  }
+
+  &.always-scrollbar {
+      &::-webkit-scrollbar-thumb {
+          background: #c1c1c1;
+      }
+
+      &:hover::-webkit-scrollbar-thumb {
+          background: #a8a8a8;
+      }
+  }
+}
+
+@supports (scrollbar-color: auto) {
+  .el-x-bubble-list {
+      scrollbar-color: transparent transparent;
+      scrollbar-width: thin;
+
+      &:hover {
+          scrollbar-color: #c1c1c1 transparent;
+      }
+
+      &.always-scrollbar {
+          scrollbar-color: #c1c1c1 transparent;
+      }
+  }
+}
+
+.el-x-bubble-list-default-back-button {
+  position: sticky;
+  user-select: none;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.02), 0 6px 10px 0 rgba(47, 53, 64, 0.1);
+  transition: all 0.3s ease;
+  z-index: 100;
+
+  &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .el-x-bubble-list-back-to-bottom-icon {
+      font-size: var(--el-x-bubble-list-btn-size);
+      position: relative;
+
+      .back-to-bottom-loading-svg-bg {
+          position: absolute;
+          font-size: calc(var(--el-x-bubble-list-btn-size) + 26px);
+          animation: is-loading 1s infinite linear;
+      }
+
+      @keyframes is-loading {
+          0% {
+              transform: rotate(0deg);
+          }
+          100% {
+              transform: rotate(360deg);
+          }
+      }
+  }
+}
+
+.el-x-bubble-list-back-to-bottom-solt {
+  position: sticky;
+  user-select: none;
+  cursor: initial;
+  width: fit-content;
+  height: fit-content;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: initial;
+
+  &:hover {
+      transform: translateY(0px);
+      box-shadow: initial;
+  }
+}

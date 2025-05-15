@@ -23,3 +23,7 @@ lib/
 .DS_Store
 Thumbs.db
 .windsurf
+/packages/*/src/styles/button.scss
+/packages/*/src/styles/var.scss
+
+
