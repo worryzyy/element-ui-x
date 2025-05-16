@@ -26,6 +26,8 @@ lib/
 .DS_Store
 Thumbs.db
 .windsurf
+.cursor
+.clinerules
 
 
 
