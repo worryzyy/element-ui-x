@@ -7,7 +7,20 @@
 
             <div class="demo-block">
                 <h3>基础用法</h3>
-                <el-x-bubble-list :list="basicList" max-height="300px" ref="basicDemo">
+                <div class="control-row">
+                    <el-switch v-model="isMarkdown" active-text="启用Markdown" />
+                    <el-switch v-model="isFog" active-text="启用雾化效果" style="margin-left: 20px;" />
+                    <el-switch v-model="isTyping" active-text="启用打字效果" style="margin-left: 20px;" />
+                </div>
+                <el-x-bubble-list 
+                    :list="basicList" 
+                    max-height="300px" 
+                    ref="basicDemo"
+                    :show-back-button="true"
+                    :back-button-position="backButtonPosition" 
+                    :default-is-markdown="isMarkdown"
+                    :default-is-fog="isFog"
+                    :default-typing="typingConfig">
                     <template slot="footer" slot-scope="{ item }">
                         <div class="bubble-footer" v-if="item.placement === 'start'">
                             <el-button size="mini" type="text" icon="el-icon-edit" @click="replyToMessage(item)">回复</el-button>
@@ -23,21 +36,41 @@
                     <el-button-group>
                         <el-button size="small" type="primary" @click="addMessage('start')">添加左侧消息</el-button>
                         <el-button size="small" type="primary" @click="addMessage('end')">添加右侧消息</el-button>
+                        <el-button size="small" type="success" @click="addMarkdownMessage('start')">添加Markdown消息</el-button>
                         <el-button size="small" @click="clearMessages">清空列表</el-button>
                     </el-button-group>
                 </div>
             </div>
 
             <div class="demo-block">
-                <h3>滚动与返回按钮</h3>
+                <h3>滚动与返回按钮 & 加载状态与样式</h3>
                 <div class="control-row">
                     <h4>最大高度：</h4>
-                    <el-slider v-model="maxHeight" :min="200" :max="500" :step="50" />
+                    <el-slider style="width: 200px;" v-model="maxHeight" :min="200" :max="500" :step="50" />
                 </div>
                 <div class="control-row">
                     <el-switch v-model="showBackButton" active-text="显示返回按钮" />
                 </div>
-                <el-x-bubble-list :list="scrollList" :max-height="maxHeight + 'px'" :show-back-button="showBackButton" :back-button-position="backButtonPosition" ref="scrollDemo" >
+                <div class="control-row">
+                    <h4>按钮颜色：</h4>
+                    <el-color-picker v-model="btnColor" size="small" />
+                </div>
+                <div class="control-row">
+                    <h4>图标大小：</h4>
+                    <el-slider style="width: 200px;" v-model="btnIconSize" :min="16" :max="32" :step="2" />
+                </div>
+                <div class="control-row">
+                    <el-switch v-model="btnLoading" active-text="显示加载状态" />
+                </div>
+                <el-x-bubble-list 
+                    :list="scrollList" 
+                    :max-height="maxHeight + 'px'" 
+                    :show-back-button="showBackButton" 
+                    :back-button-position="backButtonPosition" 
+                    :btn-loading="btnLoading" 
+                    :btn-color="btnColor" 
+                    :btn-icon-size="btnIconSize"
+                    ref="scrollDemo" >
                     <template slot="footer" slot-scope="{ item }">
                         <div class="bubble-footer" v-if="item.placement === 'start'">
                             <el-button size="mini" type="info" icon="el-icon-refresh" circle></el-button>
@@ -56,22 +89,11 @@
                         <el-button size="small" type="primary" @click="scrollToTop">滚动到顶部</el-button>
                         <el-button size="small" type="primary" @click="scrollToBottom">滚动到底部</el-button>
                         <el-button size="small" @click="scrollToMessage(5)">滚动到第5条</el-button>
+                        <el-button size="small" type="warning" @click="toggleLoading">切换加载状态</el-button>
                     </el-button-group>
                 </div>
             </div>
 
-            <div class="demo-block">
-                <h3>加载状态与按钮样式</h3>
-                <div class="control-row">
-                    <h4>按钮颜色：</h4>
-                    <el-color-picker v-model="btnColor" size="small" />
-                </div>
-                <div class="control-row">
-                    <h4>图标大小：</h4>
-                    <el-slider v-model="btnIconSize" :min="16" :max="32" :step="2" />
-                </div>
-                <el-x-bubble-list :list="loadingList" max-height="300px" :btn-loading="btnLoading" :btn-color="btnColor" :btn-icon-size="btnIconSize" ref="loadingDemo" />
-            </div>
         </el-card>
 
         <el-card class="demo-card">
@@ -96,6 +118,9 @@
 export default {
     data() {
         return {
+            isFog:true,
+            isMarkdown:true,
+            isTyping:true,
             basicList: [
                 {
                     content: '这是一个左侧气泡消息',
@@ -107,6 +132,12 @@ export default {
                     placement: 'end',
                     avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
                 },
+                {
+                    content: '# Markdown 标题\n这是一个**Markdown**格式的消息，支持*斜体*和`代码`\n```js\nconst hello = "world";\nconsole.log(hello);\n```',
+                    placement: 'start',
+                    avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+                    isMarkdown: true
+                }
             ],
             scrollList: Array.from({ length: 20 }, (_, i) => ({
                 content: `滚动列表消息${i + 1}`,
@@ -115,19 +146,8 @@ export default {
                     i % 2 === 0
                         ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
                         : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                loading: i >= 18 // 最后两条消息显示加载状态
             })),
-            loadingList: [
-                {
-                    content: '加载中消息1',
-                    placement: 'start',
-                    loading: true,
-                },
-                {
-                    content: '加载中消息2',
-                    placement: 'end',
-                    loading: true,
-                },
-            ],
             chatList: [
                 {
                     content: '你好，我是AI助手，有什么可以帮您？',
@@ -148,6 +168,15 @@ export default {
             messageCount: 0,
         }
     },
+    computed: {
+        typingConfig() {
+            return this.isTyping ? {
+                interval: this.typingSpeed,
+                step: this.typingStep,
+                suffix: '|'
+            } : false;
+        }
+    },
     methods: {
         addMessage(placement) {
             this.messageCount++
@@ -158,6 +187,26 @@ export default {
                     placement === 'start'
                         ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
                         : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+            }
+            this.basicList.push(message)
+            this.$nextTick(() => {
+                this.$refs.basicDemo.scrollToBottom()
+            })
+        },
+        addMarkdownMessage(placement) {
+            this.messageCount++
+            const markdownContent = `# 标题 ${this.messageCount}\n
+这是一个**Markdown**格式的消息 ${this.messageCount}\n
+- 列表项 1\n- 列表项 2\n
+\`\`\`javascript\nconst count = ${this.messageCount};\nconsole.log("Hello Markdown #" + count);\n\`\`\``;
+            
+            const message = {
+                content: markdownContent,
+                placement,
+                avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+                isMarkdown: true,
+                isFog: this.isFog,
+                typing: this.isTyping ? this.typingConfig : false
             }
             this.basicList.push(message)
             this.$nextTick(() => {
@@ -176,6 +225,14 @@ export default {
         },
         scrollToMessage(index) {
             this.$refs.scrollDemo.scrollToBubble(index - 1)
+        },
+        toggleLoading() {
+            // 切换最后两条消息的加载状态
+            const len = this.scrollList.length
+            if (len >= 2) {
+                this.scrollList[len-1].loading = !this.scrollList[len-1].loading
+                this.scrollList[len-2].loading = !this.scrollList[len-2].loading
+            }
         },
         replyToMessage(item) {
             this.$message({
