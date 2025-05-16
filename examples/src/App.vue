@@ -19,6 +19,10 @@
                             <i class="el-icon-edit"></i>
                             <span>BubbleList</span>
                         </el-menu-item>
+                        <el-menu-item index="/welcome">
+                            <i class="el-icon-edit"></i>
+                            <span>Welcome</span>
+                        </el-menu-item>
                     </el-menu>
                 </el-aside>
                 <el-main>
