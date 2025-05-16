@@ -8,12 +8,12 @@
             <div class="demo-block">
                 <h3>基础用法</h3>
                 <el-x-bubble content="右侧气泡示例" placement="end" :avatarSize="avatarSizeValue" avatar="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" class="mt-10" />
-                <el-x-bubble 
-                    ref="basicBubble" 
-                    content="这是一个基本的Bubble组件示例" 
-                    placement="start" 
-                    :avatarSize="avatarSizeValue" 
-                    avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" 
+                <el-x-bubble
+                    ref="basicBubble"
+                    content="这是一个基本的Bubble组件示例"
+                    placement="start"
+                    :avatarSize="avatarSizeValue"
+                    avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
                     :typing="true"
                     :is-fog="true"
                 />
@@ -36,7 +36,7 @@
                 </div>
                 <div class="control-row">
                     <h4>光标符号：</h4>
-                    <el-select v-model="typingSuffix" style="width: 120px;" placeholder="选择表情">
+                    <el-select v-model="typingSuffix" style="width: 200px;" placeholder="选择表情">
                         <el-option label="😂" value="😂" />
                         <el-option label="🤣" value="🤣" />
                         <el-option label="😜" value="😜" />
@@ -49,18 +49,18 @@
                         <el-option label="|" value="|" />
                     </el-select>
                 </div>
-                <el-x-bubble 
-                    ref="typingBubble" 
+                <el-x-bubble
+                    ref="typingBubble"
                     :typing="{
                         interval: typingInterval,
                         step: typingStep,
                         suffix: typingSuffix
-                    }" 
-                    content="这是一个展示打字机效果的Bubble组件，文字会逐个显示出来" 
-                    placement="start" 
-                    @start="onTypingStart" 
-                    @finish="onTypingFinish" 
-                    @writing="onTypingStart" 
+                    }"
+                    content="这是一个展示打字机效果的Bubble组件，文字会逐个显示出来"
+                    placement="start"
+                    @start="onTypingStart"
+                    @finish="onTypingFinish"
+                    @writing="onTypingStart"
                 />
                 <div class="demo-controls">
                     <el-button-group>
@@ -85,7 +85,7 @@
                 <div class="control-row">
                     <h4>形状：</h4>
                     <el-radio-group v-model="currentShape">
-                        <el-radio-button label="">默认</el-radio-button>
+                        <el-radio-button label>默认</el-radio-button>
                         <el-radio-button label="round">圆角</el-radio-button>
                         <el-radio-button label="corner">直角</el-radio-button>
                     </el-radio-group>
@@ -97,14 +97,7 @@
                 <div class="control-row">
                     <el-switch v-model="noStyleValue" active-text="无样式模式" />
                 </div>
-                <el-x-bubble 
-                    content="样式变体与形状示例" 
-                    :variant="currentVariant" 
-                    :shape="currentShape" 
-                    :max-width="maxWidthValue + 'px'" 
-                    :no-style="noStyleValue"
-                    placement="start" 
-                />
+                <el-x-bubble content="样式变体与形状示例" :variant="currentVariant" :shape="currentShape" :max-width="maxWidthValue + 'px'" :no-style="noStyleValue" placement="start" />
             </div>
 
             <div class="demo-block">
@@ -127,14 +120,14 @@
                 <div class="control-row">
                     <el-switch v-model="loadingValue" active-text="显示加载状态" />
                 </div>
-                <el-x-bubble 
-                    :loading="loadingValue" 
-                    content="头像与加载状态示例" 
-                    placement="start" 
-                    avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" 
-                    :avatar-size="avatarSizeValue" 
-                    :avatar-gap="avatarGapValue" 
-                    :avatar-shape="avatarShapeValue" 
+                <el-x-bubble
+                    :loading="loadingValue"
+                    content="头像与加载状态示例"
+                    placement="start"
+                    avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                    :avatar-size="avatarSizeValue"
+                    :avatar-gap="avatarGapValue"
+                    :avatar-shape="avatarShapeValue"
                     avatar-icon="el-icon-user-solid"
                 />
             </div>
@@ -147,14 +140,7 @@
                 <div class="control-row">
                     <el-switch v-model="isFogValue" active-text="启用雾化效果" />
                 </div>
-                <el-x-bubble 
-                    ref="markdownBubble" 
-                    :typing="true" 
-                    :is-fog="isFogValue" 
-                    :is-markdown="isMarkdownValue" 
-                    :content="markdownContent" 
-                    placement="start" 
-                />
+                <el-x-bubble ref="markdownBubble" :typing="true" :is-fog="isFogValue" :is-markdown="isMarkdownValue" :content="markdownContent" placement="start" />
                 <div class="demo-controls">
                     <el-button size="small" type="primary" @click="restartmdTyping">预览</el-button>
                 </div>
@@ -207,7 +193,13 @@
                 <div class="chat-container">
                     <el-x-bubble content="你好，有什么可以帮您的吗？" placement="start" :avatarSize="avatarSizeValue" avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
                     <el-x-bubble content="我想了解这个组件如何使用" placement="end" :avatarSize="avatarSizeValue" avatar="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" class="mt-10" />
-                    <el-x-bubble content="这个组件支持打字机效果、Markdown渲染等功能"  placement="start" :avatarSize="avatarSizeValue" avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="mt-10" />
+                    <el-x-bubble
+                        content="这个组件支持打字机效果、Markdown渲染等功能"
+                        placement="start"
+                        :avatarSize="avatarSizeValue"
+                        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                        class="mt-10"
+                    />
                 </div>
                 <div class="demo-controls">
                     <el-input v-model="newMessage" placeholder="输入消息..." @keyup.enter="sendMessage">
@@ -228,7 +220,7 @@ export default {
             isPaused: false,
             typingInterval: 50,
             typingStep: 2,
-            typingSuffix: '|',
+            typingSuffix: '🤡',
             currentVariant: 'filled',
             currentShape: '',
             maxWidthValue: 500,
@@ -386,7 +378,7 @@ h3 {
     padding: 4px 0 0;
     display: flex;
     gap: 8px;
-    
+
     ::v-deep .el-button + .el-button {
         margin-left: 8px;
     }
