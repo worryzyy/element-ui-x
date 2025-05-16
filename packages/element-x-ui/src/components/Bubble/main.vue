@@ -33,7 +33,7 @@ export default {
         },
         avatarSize: {
             type: Number,
-            default: 40,
+            default: 0,
         },
         avatarGap: {
             type: Number,
@@ -77,7 +77,7 @@ export default {
         },
         isMarkdown: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         isFog: {
             type: Boolean,
