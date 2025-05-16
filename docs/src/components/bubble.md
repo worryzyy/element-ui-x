@@ -12,57 +12,6 @@
 - 加载状态显示
 - 自定义头像和布局
 
-## 属性
-
-| 参数 | 说明 | 类型 | 默认值 |
-| ---- | ---- | ---- | ------ |
-| content | 气泡内容文本 | String | '' |
-| reasoning_content | 推理内容（备用内容） | String | '' |
-| avatar | 头像图片地址 | String | '' |
-| placement | 气泡位置，可选值：'start'(左侧)/'end'(右侧) | String | 'start' |
-| variant | 气泡样式，可选值：'filled'/'borderless'/'outlined'/'shadow' | String | 'filled' |
-| maxWidth | 气泡最大宽度 | String | '500px' |
-| avatarSize | 头像尺寸 | String | '' |
-| avatarGap | 头像与气泡间距 | String | '12px' |
-| avatarShape | 头像形状，可选值：'circle'/'square' | String | 'circle' |
-| avatarIcon | 头像图标（当没有头像图片时） | String | '' |
-| avatarSrcSet | 头像图片 srcset 属性 | String | '' |
-| avatarAlt | 头像图片 alt 属性 | String | '' |
-| avatarFit | 头像图片填充方式 | String | 'cover' |
-| noStyle | 是否移除默认样式 | Boolean | false |
-| typing | 打字效果配置，设为 true 使用默认值或传入对象配置：<br>- interval: 打字间隔(ms)<br>- step: 每次打字字符数<br>- suffix: 光标字符 | Boolean/Object | undefined |
-| loading | 是否显示加载状态 | Boolean | false |
-| shape | 气泡形状，可选值：''/'round'/'corner' | String | '' |
-| isMarkdown | 是否解析 Markdown 内容 | Boolean | false |
-| isFog | 是否启用雾化效果 | Boolean | false |
-
-## 方法
-
-| 方法名 | 说明 | 参数 | 返回值 |
-|--------|------|------|--------|
-| interrupt | 中断打字过程 | - | - |
-| continueTyping | 继续被中断的打字 | - | - |
-| restart | 重新开始打字 | - | - |
-| destroy | 销毁组件实例 | - | - |
-
-## 事件
-
-| 事件名 | 说明 | 回调参数 |
-|--------|------|----------|
-| start | 打字开始事件 | 组件实例 |
-| writing | 打字进行事件 | 组件实例 |
-| finish | 打字完成事件 | 组件实例 |
-| avatarError | 头像加载错误事件 | 错误对象 |
-
-## 插槽
-
-| 插槽名 | 说明 |
-|--------|------|
-| avatar | 自定义头像内容 |
-| header | 自定义气泡头部内容 |
-| content | 自定义气泡主体内容 |
-| footer | 自定义气泡底部内容 |
-| loading | 自定义加载状态内容 |
 
 ## 使用示例
 
@@ -105,7 +54,8 @@
         content="默认填充样式 (filled)"
         variant="filled"
         placement="start"
-        avatarSize="40px"
+        :avatarSize="40"
+        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       />
     </div>
     
@@ -114,7 +64,8 @@
         content="带边框样式 (borderless)"
         variant="borderless"
         placement="start"
-        avatarSize="40px"
+       :avatarSize="40"
+       avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       />
     </div>
     
@@ -123,7 +74,8 @@
         content="轮廓样式 (outlined)"
         variant="outlined"
         placement="start"
-        avatarSize="40px"
+       :avatarSize="40"
+       avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       />
     </div>
     
@@ -132,7 +84,8 @@
         content="阴影样式 (shadow)"
         variant="shadow"
         placement="start"
-        avatarSize="40px"
+       :avatarSize="40"
+       avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       />
     </div>
     
@@ -141,7 +94,8 @@
         content="圆角样式 (shape='round')"
         shape="round"
         placement="start"
-        avatarSize="40px"
+       :avatarSize="40"
+       avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       />
     </div>
     
@@ -150,7 +104,8 @@
         content="尖角样式 (shape='corner')"
         shape="corner"
         placement="start"
-        avatarSize="40px"
+       :avatarSize="40"
+       avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       />
     </div>
   </div>
@@ -268,7 +223,7 @@ export default {
       <el-x-bubble
         loading
         placement="start"
-        avatarSize="40px"
+       :avatarSize="40"
       />
     </div>
     
@@ -276,7 +231,7 @@ export default {
       <el-x-bubble
         loading
         placement="end"
-        avatarSize="40px"
+       :avatarSize="40"
       >
         <template #loading>
           <el-icon class="is-loading"><loading /></el-icon>
@@ -469,3 +424,55 @@ npm i element-ui -S
 </style>
 ```
 :::
+
+## 属性
+
+| 参数 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |
+| content | 气泡内容文本 | String | '' |
+| reasoning_content | 推理内容（备用内容） | String | '' |
+| avatar | 头像图片地址 | String | '' |
+| placement | 气泡位置，可选值：'start'(左侧)/'end'(右侧) | String | 'start' |
+| variant | 气泡样式，可选值：'filled'/'borderless'/'outlined'/'shadow' | String | 'filled' |
+| maxWidth | 气泡最大宽度 | String | '500px' |
+| avatarSize | 头像尺寸 | String | '' |
+| avatarGap | 头像与气泡间距 | String | '12px' |
+| avatarShape | 头像形状，可选值：'circle'/'square' | String | 'circle' |
+| avatarIcon | 头像图标（当没有头像图片时） | String | '' |
+| avatarSrcSet | 头像图片 srcset 属性 | String | '' |
+| avatarAlt | 头像图片 alt 属性 | String | '' |
+| avatarFit | 头像图片填充方式 | String | 'cover' |
+| noStyle | 是否移除默认样式 | Boolean | false |
+| typing | 打字效果配置，设为 true 使用默认值或传入对象配置：<br>- interval: 打字间隔(ms)<br>- step: 每次打字字符数<br>- suffix: 光标字符 | Boolean/Object | undefined |
+| loading | 是否显示加载状态 | Boolean | false |
+| shape | 气泡形状，可选值：''/'round'/'corner' | String | '' |
+| isMarkdown | 是否解析 Markdown 内容 | Boolean | false |
+| isFog | 是否启用雾化效果 | Boolean | false |
+
+## 方法
+
+| 方法名 | 说明 | 参数 | 返回值 |
+|--------|------|------|--------|
+| interrupt | 中断打字过程 | - | - |
+| continueTyping | 继续被中断的打字 | - | - |
+| restart | 重新开始打字 | - | - |
+| destroy | 销毁组件实例 | - | - |
+
+## 事件
+
+| 事件名 | 说明 | 回调参数 |
+|--------|------|----------|
+| start | 打字开始事件 | 组件实例 |
+| writing | 打字进行事件 | 组件实例 |
+| finish | 打字完成事件 | 组件实例 |
+| avatarError | 头像加载错误事件 | 错误对象 |
+
+## 插槽
+
+| 插槽名 | 说明 |
+|--------|------|
+| avatar | 自定义头像内容 |
+| header | 自定义气泡头部内容 |
+| content | 自定义气泡主体内容 |
+| footer | 自定义气泡底部内容 |
+| loading | 自定义加载状态内容 |
