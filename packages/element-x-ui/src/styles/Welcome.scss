@@ -1,0 +1,72 @@
+.el-welcome {
+  display: flex;
+  gap: 16px;
+
+  &-icon {
+    height: 56px;
+    display: flex;
+    margin-right: 16px;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  &-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+
+    .el-welcome-title-wrapper {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .el-welcome-title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #303133;
+    }
+
+    .el-welcome-extra {
+      margin-left: auto;
+    }
+  }
+
+  &-filled {
+    padding: 12px 16px;
+    background: #f5f7fa;
+    border-radius: 8px;
+  }
+
+  &-borderless {
+    .el-welcome-title {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+  }
+
+  &-rtl {
+    direction: rtl;
+
+    .el-welcome-icon {
+      margin-right: 0;
+      margin-left: 16px;
+    }
+
+    .el-welcome-extra {
+      margin-right: auto;
+      margin-left: 0;
+    }
+  }
+
+  &-description {
+    color: #606266;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
