@@ -211,8 +211,10 @@ export default {
             lastScrollTop: 0,
             accumulatedScrollUpDistance: 0,
             resizeObserver: null,
+            containerResizeObserver: null, // 新增容器尺寸监听器引用
             showBackToBottom: false,
             hasVertical: false,
+            backButtonTimer: null, // 新增计时器变量
         }
     },
     computed: {
@@ -245,10 +247,20 @@ export default {
         this.scrollDetector = createScrollDetector(this.$refs.scrollContainer)
         this.scrollDetector.init()
         this.hasVertical = this.scrollDetector.state.hasVertical
+
+        // 添加容器尺寸变化监听
+        const containerResizeObserver = new ResizeObserver(() => {
+            this.hasVertical = this.$refs.scrollContainer.scrollHeight > this.$refs.scrollContainer.clientHeight
+        })
+        containerResizeObserver.observe(this.$refs.scrollContainer)
+        this.containerResizeObserver = containerResizeObserver
     },
     beforeDestroy() {
         if (this.resizeObserver) {
             this.resizeObserver.disconnect()
+        }
+        if (this.containerResizeObserver) {
+            this.containerResizeObserver.disconnect()
         }
         if (this.scrollDetector) {
             this.scrollDetector.destroy()
@@ -341,7 +353,32 @@ export default {
                 const { scrollTop, scrollHeight, clientHeight } = this.$refs.scrollContainer
 
                 const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
-                this.showBackToBottom = this.showBackButton && distanceToBottom > this.backButtonThreshold
+
+                // 更新 hasVertical 状态
+                this.hasVertical = scrollHeight > clientHeight
+
+                // 使用延迟逻辑处理按钮显示
+                if (this.showBackButton && distanceToBottom > this.backButtonThreshold) {
+                    // 如果应该显示按钮，但还没有设置计时器
+                    if (!this.backButtonTimer) {
+                        this.backButtonTimer = setTimeout(() => {
+                            // 再次检查条件，确保 500ms 后仍然需要显示按钮
+                            const { scrollTop, scrollHeight, clientHeight } = this.$refs.scrollContainer
+                            const newDistanceToBottom = scrollHeight - (scrollTop + clientHeight)
+                            if (newDistanceToBottom > this.backButtonThreshold) {
+                                this.showBackToBottom = true
+                            }
+                            this.backButtonTimer = null
+                        }, 200) // 200ms 延迟
+                    }
+                } else {
+                    // 如果不应该显示按钮
+                    if (this.backButtonTimer) {
+                        clearTimeout(this.backButtonTimer)
+                        this.backButtonTimer = null
+                    }
+                    this.showBackToBottom = false
+                }
 
                 const isCloseToBottom = scrollTop + clientHeight >= scrollHeight - 30
                 const isScrollingUp = this.lastScrollTop > scrollTop
