@@ -1,99 +1,127 @@
 <template>
-    <div :class="[
-        'el-x-welcome',
-        className,
-        rootClassName,
-        `el-x-welcome-${variant}`,
-        { [`el-x-welcome-rtl`]: direction === 'rtl' }
-      ]" :style="style">
-        <!-- Icon -->
-        <div v-if="iconNode" :class="[`el-x-welcome-icon`, classNames.icon]" :style="styles.icon">
-            <img v-if="typeof icon === 'string' && icon.startsWith('http')" :src="icon" alt="icon" />
-            <template v-else>
-                {{ icon }}
-                <i :class="`el-icon-${icon}`"></i>
-            </template>
-        </div>
+    <div :class="containerClass" :style="styleConfig" class="el-x-welcome">
+        <!--  image -->
+        <slot name="image">
+            <div v-if="hasIcon" :class="iconClass" :style="styles && styles.icon" class="el-x-welcome-icon">
+                <el-image :src="icon" class="icon-image" />
+            </div>
+        </slot>
 
-        <!-- Content -->
-        <div :class="`el-x-welcome-content-wrapper`">
-            <!-- Title -->
-            <div v-if="extra" :class="`el-x-welcome-title-wrapper`">
-                <div v-if="title" :class="[`el-x-welcome-title`, classNames.title]" :style="styles.title">
-                    <h4>{{ title }}</h4>
+        <div class="content-wrapper">
+            <!-- extra -->
+            <div v-if="hasTitleOrExtra" class="title-wrapper">
+                <div v-if="title" :class="titleClass" :style="styles && styles.title" class="el-x-welcome-title">
+                    {{ title }}
                 </div>
-                <div v-if="extra" :class="[`el-x-welcome-extra`, classNames.extra]" :style="styles.extra">{{ extra }}</div>
-            </div>
-            <div v-else-if="title" :class="[`el-x-welcome-title`, classNames.title]" :style="styles.title">
-                <h4>{{ title }}</h4>
+                <div v-if="hasExtraOrSlot" :class="extraClass" :style="styles && styles.extra"
+                    class="el-x-welcome-extra">
+                    <slot name="extra">
+                        {{ extra }}
+                    </slot>
+                </div>
             </div>
 
-            <!-- Description -->
-            <div v-if="description" :class="[`el-x-welcome-description`, classNames.description]" :style="styles.description">{{ description }}</div>
+            <!--  description -->
+            <div v-if="hasDescription" :class="descriptionClass" :style="styles && styles.description"
+                class="el-x-welcome-description">
+                {{ description }}
+            </div>
+
         </div>
     </div>
 </template>
-  
-  <script>
+
+<script>
 export default {
-    name: 'ElXWelcome',
+    name: "ElXWelcome",
     props: {
-        rootClassName: {
-            type: String,
-            default: '',
-        },
+
         className: {
             type: String,
-            default: '',
+            default: ''
         },
-        style: {
-            type: Object,
-            default: () => ({}),
+        rootClassName: {
+            type: String,
+            default: ''
         },
         variant: {
             type: String,
             default: 'filled',
-            validator: (value) => ['filled', 'borderless'].includes(value),
-        },
-        // Semantic
-        classNames: {
-            type: Object,
-            default: () => ({}),
-        },
-        styles: {
-            type: Object,
-            default: () => ({}),
-        },
-        // Layout
-        icon: {
-            type: [String, Object],
-            default: null,
-        },
-        title: {
-            type: [String, Object],
-            default: null,
-        },
-        description: {
-            type: [String, Object],
-            default: null,
-        },
-        extra: {
-            type: [String, Object],
-            default: null,
+            validator: value => ['filled', 'borderless'].includes(value)
         },
         direction: {
             type: String,
             default: 'ltr',
+            validator: value => ['ltr', 'rtl'].includes(value)
         },
+        classNames: {
+            type: Object,
+            default: () => ({})
+        },
+        icon: {
+            type: String,
+            default: ''
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        extra: {
+            type: [String, Object],
+            default: ''
+        },
+        description: {
+            type: String,
+            default: ''
+        },
+        styleConfig: {
+            type: Object,
+            default: () => ({})
+        },
+        styles: {
+            type: Object,
+            default: () => ({})
+        }
     },
     computed: {
-        iconNode() {
-            return this.icon !== null
+        hasIcon() {
+            return !!this.icon;
         },
-    },
-}
+        hasTitleOrExtra() {
+            return !!this.title || !!this.extra;
+        },
+        hasExtraOrSlot() {
+            return !!this.extra || !!this.$slots.extra;
+        },
+        hasDescription() {
+            return !!this.description;
+        },
+        containerClass() {
+            return [
+                this.className,
+                this.rootClassName,
+                `el-x-welcome-${this.variant}`,
+                {
+                    'el-x-welcome-rtl': this.direction === 'rtl',
+                },
+            ];
+        },
+        iconClass() {
+            return this.classNames && this.classNames.icon;
+        },
+        titleClass() {
+            return this.classNames && this.classNames.title;
+        },
+        extraClass() {
+            return this.classNames && this.classNames.extra;
+        },
+        descriptionClass() {
+            return this.classNames && this.classNames.description;
+        }
+    }
+};
 </script>
-  
- <style scoped lang="scss">
+
+<style lang="scss">
 @import '../../styles/Welcome.scss';
 </style>

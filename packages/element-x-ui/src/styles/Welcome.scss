@@ -1,72 +1,106 @@
-.el-welcome {
+@import '../theme/var.scss';
+
+// Element UI theme variables
+$--color-el-x-welcome-filled-bg: #e6f4ff !default;
+$--color-el-x-welcome-filled-border: #91caff !default;
+$--color-el-x-welcome-title: $--el-x-text-color-primary !default;
+$--color-el-x-welcome-description: $--color-text-regular !default;
+$--el-x-welcome-border-radius: $--el-x-border-radius-base !default;
+
+// Component variables
+.el-x-welcome{
+  --border-radius: #{$--el-x-welcome-border-radius};
+  --icon-size: 64px;
+  --icon-size-small: 48px;
+  --gap: 16px;
+  --gap-small: 8px;
+  --padding: 24px;
+  --color-filled-bg: #{$--color-el-x-welcome-filled-bg};
+  --color-filled-border: #{$--color-el-x-welcome-filled-border};
+  --color-title: #{$--color-el-x-welcome-title};
+  --color-description: #{$--color-el-x-welcome-description};
+
   display: flex;
-  gap: 16px;
+  gap: var(--gap);
+  padding: var(--padding);
+  border-radius: var(--border-radius);
 
-  &-icon {
-    height: 56px;
-    display: flex;
-    margin-right: 16px;
-
-    img {
-      height: 100%;
-    }
+  &.el-x-welcome-filled {
+    background-color: var(--color-filled-bg);
+    border: 1px solid var(--color-filled-border);
   }
 
-  &-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-    min-width: 0;
-
-    .el-welcome-title-wrapper {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-
-    .el-welcome-title {
-      margin: 0;
-      font-size: 18px;
-      line-height: 1.5;
-      color: #303133;
-    }
-
-    .el-welcome-extra {
-      margin-left: auto;
-    }
+  &.el-x-welcome-borderless {
+    border: none;
   }
 
-  &-filled {
-    padding: 12px 16px;
-    background: #f5f7fa;
-    border-radius: 8px;
-  }
-
-  &-borderless {
-    .el-welcome-title {
-      font-size: 18px;
-      line-height: 1.5;
-    }
-  }
-
-  &-rtl {
+  &.el-x-welcome-rtl {
     direction: rtl;
+  }
+}
 
-    .el-welcome-icon {
-      margin-right: 0;
-      margin-left: 16px;
-    }
+.el-x-welcome-icon {
+  // 图标容器样式
+  flex: 0 0 auto;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(var(--border-radius) / 2);
+  overflow: hidden;
+  font-size: 24px;
 
-    .el-welcome-extra {
-      margin-right: auto;
-      margin-left: 0;
-    }
+  .icon-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
   }
 
-  &-description {
-    color: #606266;
-    font-size: 14px;
-    line-height: 1.5;
+  // 小尺寸适配
+  @media (max-width: 480px) {
+    width: var(--icon-size-small);
+    height: var(--icon-size-small);
   }
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap-small);
+}
+
+.el-x-welcome-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-title);
+}
+
+.el-x-welcome-extra {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-small);
+
+  /* 如果内容需要换行 */
+  .el-dropdown, .el-button, .el-link {
+    flex-shrink: 0;
+  }
+}
+
+.el-x-welcome-description {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-description);
+  line-height: 1.5;
 }
