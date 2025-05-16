@@ -13,29 +13,37 @@
             v-for="(item, index) in list"
             :key="index"
             :content="item.content"
-            :placement="item.placement"
-            :loading="item.loading"
-            :shape="item.shape"
-            :variant="item.variant"
-            :is-markdown="item.isMarkdown"
-            :is-fog="item.isFog"
-            :typing="item.typing"
-            :max-width="item.maxWidth"
-            :avatar="item.avatar"
-            :avatar-size="item.avatarSize"
-            :avatar-gap="item.avatarGap"
-            :avatar-shape="item.avatarShape"
-            :avatar-icon="item.avatarIcon"
-            :avatar-src-set="item.avatarSrcSet"
-            :avatar-alt="item.avatarAlt"
-            :avatar-fit="item.avatarFit"
-            :no-style="item.noStyle"
+            :placement="defaultPlacement || item.placement"
+            :loading="defaultLoading !== undefined ? defaultLoading : item.loading"
+            :shape="defaultShape || item.shape"
+            :variant="defaultVariant || item.variant"
+            :is-markdown="defaultIsMarkdown !== undefined ? defaultIsMarkdown : item.isMarkdown"
+            :is-fog="(defaultPlacement === 'start' || item.placement === 'start') ? (defaultIsFog !== undefined ? defaultIsFog : item.isFog) : false"
+            :typing="(defaultPlacement === 'start' || item.placement === 'start') ? (defaultTyping !== undefined ? defaultTyping : item.typing) : false"
+            :max-width="defaultMaxWidth || item.maxWidth"
+            :avatar="defaultAvatar || item.avatar"
+            :avatar-size="defaultAvatarSize || item.avatarSize"
+            :avatar-gap="defaultAvatarGap || item.avatarGap"
+            :avatar-shape="defaultAvatarShape || item.avatarShape"
+            :avatar-icon="defaultAvatarIcon || item.avatarIcon"
+            :avatar-src-set="defaultAvatarSrcSet || item.avatarSrcSet"
+            :avatar-alt="defaultAvatarAlt || item.avatarAlt"
+            :avatar-fit="defaultAvatarFit || item.avatarFit"
+            :no-style="defaultNoStyle !== undefined ? defaultNoStyle : item.noStyle"
             @finish="(instance) => handleBubbleComplete(index, instance)"
         >
             <template slot="avatar">
                 <slot name="avatar" :item="item">
-                    <template v-if="item.avatar">
-                        <el-avatar :size="item.avatarSize || ''" :src="item.avatar" :shape="item.avatarShape || 'circle'" :icon="item.avatarIcon" :src-set="item.avatarSrcSet" :alt="item.avatarAlt" :fit="item.avatarFit || 'cover'" />
+                    <template v-if="defaultAvatar || item.avatar">
+                        <el-avatar
+                            :size="defaultAvatarSize || item.avatarSize || 40"
+                            :src="defaultAvatar || item.avatar"
+                            :shape="defaultAvatarShape || item.avatarShape || 'circle'"
+                            :icon="defaultAvatarIcon || item.avatarIcon"
+                            :src-set="defaultAvatarSrcSet || item.avatarSrcSet"
+                            :alt="defaultAvatarAlt || item.avatarAlt"
+                            :fit="defaultAvatarFit || item.avatarFit || 'cover'"
+                        />
                     </template>
                 </slot>
             </template>
@@ -53,6 +61,7 @@
             </template>
         </Bubble>
 
+        <!-- 保持原有的返回底部按钮代码不变 -->
         <div
             v-if="showBackToBottom && hasVertical"
             class="el-x-bubble-list-default-back-button"
@@ -66,10 +75,8 @@
             @click="scrollToBottom"
         >
             <slot name="backToBottom">
-                <i class="el-icon-bottom el-x-bubble-list-back-to-bottom-icon">
-                </i>
-                <loadingBg v-if="btnLoading" class="back-to-bottom-loading-svg-bg" />
-
+                <i class="el-icon-bottom el-x-bubble-list-back-to-bottom-icon" :style="{ color: btnColor }"></i>
+                <loadingBg v-if="btnLoading" class="back-to-bottom-loading-svg-bg" :style="{ color: btnColor }" />
             </slot>
         </div>
     </div>
@@ -127,6 +134,75 @@ export default {
             type: Number,
             default: 24,
         },
+        // 新增全局默认属性
+        defaultPlacement: {
+            type: String,
+            default: '',
+        },
+        defaultLoading: {
+            type: Boolean,
+            default: undefined,
+        },
+        defaultShape: {
+            type: String,
+            default: '',
+        },
+        defaultVariant: {
+            type: String,
+            default: '',
+        },
+        defaultIsMarkdown: {
+            type: Boolean,
+            default: true,
+        },
+        defaultIsFog: {
+            type: Boolean,
+            default: false,
+        },
+        defaultTyping: {
+            type: [Boolean, Object],
+            default: undefined,
+        },
+        defaultMaxWidth: {
+            type: String,
+            default: '',
+        },
+        defaultAvatar: {
+            type: String,
+            default: '',
+        },
+        defaultAvatarSize: {
+            type: Number,
+            default: undefined,
+        },
+        defaultAvatarGap: {
+            type: Number,
+            default: undefined,
+        },
+        defaultAvatarShape: {
+            type: String,
+            default: '',
+        },
+        defaultAvatarIcon: {
+            type: String,
+            default: '',
+        },
+        defaultAvatarSrcSet: {
+            type: String,
+            default: '',
+        },
+        defaultAvatarAlt: {
+            type: String,
+            default: '',
+        },
+        defaultAvatarFit: {
+            type: String,
+            default: '',
+        },
+        defaultNoStyle: {
+            type: Boolean,
+            default: undefined,
+        },
     },
     data() {
         return {
@@ -169,7 +245,6 @@ export default {
         this.scrollDetector = createScrollDetector(this.$refs.scrollContainer)
         this.scrollDetector.init()
         this.hasVertical = this.scrollDetector.state.hasVertical
-        console.log('hasVertical', this.hasVertical)
     },
     beforeDestroy() {
         if (this.resizeObserver) {

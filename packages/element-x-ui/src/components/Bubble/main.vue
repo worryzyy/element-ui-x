@@ -32,12 +32,12 @@ export default {
             default: '500px',
         },
         avatarSize: {
-            type: String,
-            default: '',
+            type: Number,
+            default: 40,
         },
         avatarGap: {
-            type: String,
-            default: '12px',
+            type: Number,
+            default: 12,
         },
         avatarShape: {
             type: String,
@@ -77,7 +77,7 @@ export default {
         },
         isMarkdown: {
             type: Boolean,
-            default: false,
+            default: true,
         },
         isFog: {
             type: Boolean,
@@ -159,7 +159,6 @@ export default {
     },
     beforeDestroy() {
         this.destroy()
-        console.log('Bubble component destroyed')
     },
 }
 </script>
@@ -179,14 +178,14 @@ export default {
       0 1px 6px -1px rgba(0, 0, 0, 0.02),
       0 2px 4px 0 rgba(0, 0, 0, 0.02)`,
       '--bubble-content-max-width': `${maxWidth}`,
-      '--el-x-bubble-avatar-placeholder-width': `${$scopedSlots.avatar || $slots.avatar ? '' : avatarSize}`,
-      '--el-x-bubble-avatar-placeholder-height': `${$scopedSlots.avatar || $slots.avatar ? '' : avatarSize}`,
-      '--el-x-bubble-avatar-placeholder-gap': `${avatarGap}`,
+      '--el-x-bubble-avatar-placeholder-width': `${$scopedSlots.avatar || $slots.avatar ? '' : avatarSize + 'px'}`,
+      '--el-x-bubble-avatar-placeholder-height': `${$scopedSlots.avatar || $slots.avatar ? '' : avatarSize + 'px'}`,
+      '--el-x-bubble-avatar-placeholder-gap': `${avatarGap}px`,
     }"
     >
         <!-- 头像 -->
         <div v-if="!($scopedSlots.avatar || $slots.avatar) && avatar" class="el-x-bubble-avatar el-x-bubble-avatar-size">
-            <el-avatar :size="0" :src="avatar" :shape="avatarShape" :icon="avatarIcon" :src-set="avatarSrcSet" :alt="avatarFit" @error="avatarError" />
+            <el-avatar :size="avatarSize" :src="avatar" :shape="avatarShape" :icon="avatarIcon" :src-set="avatarSrcSet" :alt="avatarAlt" @error="avatarError" />
         </div>
 
         <!-- 头像属性进行占位 -->
