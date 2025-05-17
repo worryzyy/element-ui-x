@@ -213,7 +213,7 @@ export default {
     },
     
     handleItemClick(info) {
-      if (!this.hasChildren(info) && this.onItemClick) {
+      if (this.onItemClick && !info.disabled) {
         this.onItemClick({ data: info });
       }
     }
