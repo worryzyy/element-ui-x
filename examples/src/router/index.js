@@ -4,7 +4,7 @@ import Typewriter from '../views/Typewriter.vue'
 import Bubble from '../views/Bubble.vue'
 import BubbleList from '../views/BubbleList.vue'
 import Welcome from '../views/Welcome.vue'
-
+import Prompts from '../views/Prompts.vue'
 
 
 Vue.use(Router)
@@ -30,6 +30,11 @@ export default new Router({
       path: '/welcome',
       name: 'Welcome',
       component: Welcome
+    },
+    {
+      path: '/prompts',
+      name: 'Prompts',
+      component: Prompts
     },
     {
       path: '*',

@@ -23,6 +23,10 @@
                             <i class="el-icon-edit"></i>
                             <span>Welcome</span>
                         </el-menu-item>
+                        <el-menu-item index="/prompts">
+                            <i class="el-icon-edit"></i>
+                            <span>Prompts</span>
+                        </el-menu-item>
                     </el-menu>
                 </el-aside>
                 <el-main>
