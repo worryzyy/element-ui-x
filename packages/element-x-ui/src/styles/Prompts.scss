@@ -16,10 +16,11 @@
   
   // 标题样式
   .el-x-prompts-title {
+    font-weight: normal;
+    font-size: $--el-x-font-size-medium;
+    color: $--color-text-secondary;
     margin-top: 0;
     margin-bottom: 0.5em;
-    font-weight: $--el-x-font-size-medium;
-    color: $--color-text-secondary;
   }
   
   // 列表样式
