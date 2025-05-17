@@ -296,20 +296,20 @@ export default {
                 }
             ],
             relaxItems: [
-                {
+            {
                     key: '5',
                     icon: 'el-icon-check',
                     iconStyle: { color: '#52C41A' },
-                    label: 'Task Completion Secrets',
-                    description: 'What are some tricks for getting tasks done?',
+                    label: '任务完成秘诀',
+                    description: '有哪些完成任务的技巧？',
                     disabled: true
                 },
                 {
                     key: '6',
                     icon: 'el-icon-coffee-cup',
                     iconStyle: { color: '#964B00' },
-                    label: 'Time for a Coffee Break',
-                    description: 'How to rest effectively after long hours of work?'
+                    label: '是时候喝杯咖啡了',
+                    description: '长时间工作后如何有效休息？'
                 }
             ],
             disabledItems: [
@@ -494,22 +494,23 @@ export default {
         
         // 处理点击事件
         handleInspirationalItemClick(info) {
+            
             this.selectedItem = info.data;
             this.$message({
-                message: `You clicked a prompt: ${info.data.label}`,
+                message: `点击了: ${info.data.label}`,
                 type: 'success'
             });
         },
         handleItemClick(info) {
             this.selectedItem = info.data;
             this.$message({
-                message: `您选择了: ${info.data.label}`,
+                message: `选择了: ${info.data.label}`,
                 type: 'success'
             });
         },
         handleAntdItemClick(info) {
             this.$message({
-                message: `You clicked a prompt: ${info.data.key}`,
+                message: `点击了: ${info.data.description}`,
                 type: 'success'
             });
         },
