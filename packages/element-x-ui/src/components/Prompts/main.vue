@@ -79,7 +79,7 @@
             class="el-x-prompts-nested"
             :items="info.children"
             :vertical="true"
-            :on-item-click="onItemClick"
+            @on-item-click="$emit('on-item-click', $event)"
             :class-names="{
               list: classNames.subList,
               item: classNames.subItem
@@ -214,6 +214,10 @@ export default {
     
     handleItemClick(info) {
       if (info.disabled) {
+        return;
+      }
+      // 如果有子项，不触发点击事件
+      if (this.hasChildren(info)) {
         return;
       }
       this.$emit('on-item-click', { data: info });
