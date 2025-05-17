@@ -213,7 +213,12 @@ export default {
     },
     
     handleItemClick(info) {
-      if (this.onItemClick && !info.disabled) {
+      if (info.disabled) {
+        return;
+      }
+      this.$emit('on-item-click', { data: info });
+      // 向后兼容性
+      if (this.onItemClick) {
         this.onItemClick({ data: info });
       }
     }
