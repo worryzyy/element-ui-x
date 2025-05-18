@@ -54,7 +54,7 @@
 
 ## 使用示例
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter

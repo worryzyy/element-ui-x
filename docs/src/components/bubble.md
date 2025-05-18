@@ -20,7 +20,7 @@
 基本的气泡组件使用，展示不同位置的气泡效果。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <el-x-bubble
@@ -46,7 +46,7 @@
 通过 `variant` 和 `shape` 属性配置不同样式和形状的气泡。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <div class="bubble-row">
@@ -124,7 +124,7 @@
 通过 `typing` 属性启用打字机效果，模拟实时输入。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <el-x-bubble
@@ -216,7 +216,7 @@ export default {
 通过 `loading` 属性显示加载状态，支持自定义加载动画。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <div class="bubble-row">
@@ -249,7 +249,7 @@ export default {
 通过 `isMarkdown` 属性启用 Markdown 内容渲染。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <el-x-bubble
@@ -304,7 +304,7 @@ console.log(greet('World'));
 使用插槽自定义气泡的头像和内容。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <el-x-bubble placement="start">
@@ -350,7 +350,7 @@ export default {
 结合多个气泡组件，模拟完整的聊天对话场景。
 
 :::demo
-```vue
+```html
 <template>
   <div class="chat-container">
     <el-x-bubble

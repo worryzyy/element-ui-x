@@ -18,7 +18,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
 	<div>
 		<el-x-bubble-list :list="messageList" />
@@ -64,7 +64,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
 	<div>
 		<el-x-bubble-list
@@ -115,7 +115,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
 	<div>
 		<el-x-bubble-list
@@ -204,7 +204,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
 	<div>
 		<el-x-bubble-list
@@ -248,7 +248,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
 	<div>
 		<el-x-bubble-list :list="customMessages" :max-height="'300px'">
@@ -344,7 +344,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
 	<div>
 		<el-x-bubble-list

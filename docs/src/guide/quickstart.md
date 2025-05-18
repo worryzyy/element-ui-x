@@ -6,7 +6,7 @@
 
 在成功 [安装](./installation.md) Element-X 之后，你可以开始使用组件库中的组件。以下是一个简单的示例，展示如何使用打字机组件：
 
-```vue
+```html
 <template>
   <div class="demo-container">
     <h3>AI 回复示例</h3>
@@ -130,7 +130,7 @@ export default {
 
 Element-X 提供了多个组件，你可以组合使用它们来构建完整的 AI 交互界面。以下是一个简化的示例：
 
-```vue
+```html
 <template>
   <div class="ai-chat">
     <!-- 思考动画组件 -->
@@ -213,7 +213,7 @@ $--color-ai-cursor: $--color-primary;
 
 Element-X 的组件支持通过 ref 引用来调用组件方法：
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter ref="typewriter" :text="text" />

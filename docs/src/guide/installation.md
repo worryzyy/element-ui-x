@@ -171,7 +171,7 @@ $--color-ai-bubble-bot: #f7f7f7;
 
 安装完成后，你可以在组件中使用 Element-X 的组件：
 
-```vue
+```html
 <template>
   <div>
     <el-button>Element UI 按钮</el-button>

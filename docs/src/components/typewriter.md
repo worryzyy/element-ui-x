@@ -20,7 +20,7 @@
 最简单的打字效果，使用默认配置。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter
@@ -69,7 +69,7 @@ export default {
 通过 `typing` 属性配置打字速度和每次打字的字符数。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <div class="control-panel">
@@ -151,7 +151,7 @@ export default {
 通过 `typing.suffix` 属性自定义光标字符。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <div class="control-panel">
@@ -203,7 +203,7 @@ export default {
 通过 `isFog` 属性配置光标雾化效果，可以自定义雾化区域宽度和背景色。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <div class="control-panel">
@@ -271,7 +271,7 @@ export default {
 通过 `isMarkdown` 属性启用 Markdown 内容渲染。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter
@@ -323,7 +323,7 @@ console.log(greet('World'));
 使用 `interrupt()` 和 `continueTyping()` 方法控制打字过程的暂停和继续。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter
@@ -411,7 +411,7 @@ export default {
 结合 Element UI 组件，模拟 AI 对话场景。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <div class="chat-container">
@@ -517,7 +517,7 @@ export default {
 综合展示 Typewriter 组件的所有主要功能。
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter

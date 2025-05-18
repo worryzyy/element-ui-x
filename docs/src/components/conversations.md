@@ -30,7 +30,7 @@
 ## 使用示例
 
 :::demo
-```vue
+```html
 <template>
   <div>
     <!-- 示例代码 -->

@@ -56,7 +56,7 @@ export default {
 
 ## 核心代码
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter

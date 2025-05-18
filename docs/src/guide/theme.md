@@ -127,7 +127,7 @@ document.documentElement.style.setProperty("--color-ai-bubble-bot", "#f5f5f5");
 
 在组件中使用 `scoped` 样式时，你可以使用深度选择器 `::v-deep` 或 `/deep/` 修改子组件样式：
 
-```vue
+```html
 <style scoped>
 /* Vue 2.x 使用 ::v-deep 或 /deep/ */
 ::v-deep .el-x-typewriter__cursor {
@@ -169,7 +169,7 @@ document.documentElement.classList.remove("dark");
 
 以下是一个动态切换主题的示例：
 
-```vue
+```html
 <template>
   <div>
     <el-switch
