@@ -34,7 +34,7 @@ Vue.use(ElementX);
 
 ### 基础用法
 
-```html
+```vue
 <template>
   <div>
     <el-x-typewriter
@@ -48,35 +48,35 @@ Vue.use(ElementX);
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        aiResponse:
-          "这是一段 AI 生成的回复内容，使用打字机效果逐字显示，提升用户体验。",
-      };
+export default {
+  data() {
+    return {
+      aiResponse:
+        "这是一段 AI 生成的回复内容，使用打字机效果逐字显示，提升用户体验。",
+    };
+  },
+  mounted() {
+    // 页面加载后自动开始打字效果
+    this.$nextTick(() => {
+      this.$refs.typewriter.startTyping();
+    });
+  },
+  methods: {
+    onTypingComplete(text) {
+      console.log("打字效果完成:", text);
+      // 可以在此处执行后续操作
     },
-    mounted() {
-      // 页面加载后自动开始打字效果
-      this.$nextTick(() => {
+    regenerateResponse() {
+      // 模拟重新生成回复
+      this.$refs.typewriter.eraseAll();
+      setTimeout(() => {
+        this.aiResponse =
+          "这是一段新生成的 AI 回复内容，展示了打字机组件的重新开始功能。";
         this.$refs.typewriter.startTyping();
-      });
+      }, 300);
     },
-    methods: {
-      onTypingComplete(text) {
-        console.log("打字效果完成:", text);
-        // 可以在此处执行后续操作
-      },
-      regenerateResponse() {
-        // 模拟重新生成回复
-        this.$refs.typewriter.eraseAll();
-        setTimeout(() => {
-          this.aiResponse =
-            "这是一段新生成的 AI 回复内容，展示了打字机组件的重新开始功能。";
-          this.$refs.typewriter.startTyping();
-        }, 300);
-      },
-    },
-  };
+  },
+};
 </script>
 ```
 
@@ -84,7 +84,7 @@ Vue.use(ElementX);
 
 打字机组件支持多种配置，以满足不同场景的需求：
 
-```html
+```vue
 <el-x-typewriter :text="text" :type-speed="50" <!-- 打字速度，数值越大越慢 -->
   :start-delay="1000"
   <!-- 开始前延迟1秒 -->
@@ -96,15 +96,14 @@ Vue.use(ElementX);
   <!-- 禁用自动开始 -->
   @typing-start="onStart" @typing-progress="onProgress"
   @typing-complete="onComplete" @typing-erased="onErased" ref="typewriter"
-  /></el-x-typewriter
->
+  /></el-x-typewriter>
 ```
 
 ### 与 AI 聊天界面集成
 
 打字机组件通常与聊天气泡组件一起使用，构建完整的 AI 对话界面：
 
-```html
+```vue
 <div class="message-container">
   <!-- 用户消息 -->
   <div class="message user">
@@ -126,7 +125,7 @@ Vue.use(ElementX);
 
 打字机组件可以与其他组件组合使用，例如与思考动画组件配合：
 
-```html
+```vue
 <div class="ai-response">
   <el-x-thinking v-if="isThinking" />
   <el-x-typewriter v-else :text="response" :type-speed="30" ref="typewriter" />

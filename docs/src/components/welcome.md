@@ -18,13 +18,13 @@
 
 :::demo
 
-```html
+```vue
 <template>
-	<el-x-welcome
-		icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-		title="欢迎使用 Element X UI"
-		description="基于 Element UI 的企业级中后台组件库扩展"
-	/>
+  <el-x-welcome
+    icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
+    title="欢迎使用 Element X UI"
+    description="基于 Element UI 的企业级中后台组件库扩展"
+  />
 </template>
 ```
 
@@ -36,23 +36,23 @@
 
 :::demo
 
-```html
+```vue
 <template>
-	<div>
-		<el-x-welcome
-			icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-			title="默认填充样式 (filled)"
-			description="带有背景色和边框的欢迎组件"
-			style="margin-bottom: 20px;"
-		/>
+  <div>
+    <el-x-welcome
+      icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
+      title="默认填充样式 (filled)"
+      description="带有背景色和边框的欢迎组件"
+      style="margin-bottom: 20px;"
+    />
 
-		<el-x-welcome
-			variant="borderless"
-			icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-			title="无边框样式 (borderless)"
-			description="不带背景和边框的简洁欢迎组件"
-		/>
-	</div>
+    <el-x-welcome
+      variant="borderless"
+      icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
+      title="无边框样式 (borderless)"
+      description="不带背景和边框的简洁欢迎组件"
+    />
+  </div>
 </template>
 ```
 
@@ -64,23 +64,23 @@
 
 :::demo
 
-```html
+```vue
 <template>
-	<div>
-		<el-x-welcome
-			icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-			title="从左到右布局 (ltr)"
-			description="默认的布局方向，适合大多数场景"
-			style="margin-bottom: 20px;"
-		/>
+  <div>
+    <el-x-welcome
+      icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
+      title="从左到右布局 (ltr)"
+      description="默认的布局方向，适合大多数场景"
+      style="margin-bottom: 20px;"
+    />
 
-		<el-x-welcome
-			direction="rtl"
-			icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-			title="从右到左布局 (rtl)"
-			description="适合阿拉伯语等从右到左书写的语言环境"
-		/>
-	</div>
+    <el-x-welcome
+      direction="rtl"
+      icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
+      title="从右到左布局 (rtl)"
+      description="适合阿拉伯语等从右到左书写的语言环境"
+    />
+  </div>
 </template>
 ```
 
@@ -92,27 +92,27 @@
 
 :::demo
 
-```html
+```vue
 <template>
-	<div>
-		<el-x-welcome
-			icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-			title="带有额外内容的欢迎组件"
-			description="通过 extra 属性添加简单文本内容"
-			extra="2023-12-31"
-			style="margin-bottom: 20px;"
-		/>
+  <div>
+    <el-x-welcome
+      icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
+      title="带有额外内容的欢迎组件"
+      description="通过 extra 属性添加简单文本内容"
+      extra="2023-12-31"
+      style="margin-bottom: 20px;"
+    />
 
-		<el-x-welcome
-			icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-			title="使用插槽添加复杂内容"
-			description="通过 extra 插槽可以添加按钮等交互元素"
-		>
-			<template #extra>
-				<el-button type="primary" size="small">开始使用</el-button>
-			</template>
-		</el-x-welcome>
-	</div>
+    <el-x-welcome
+      icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
+      title="使用插槽添加复杂内容"
+      description="通过 extra 插槽可以添加按钮等交互元素"
+    >
+      <template #extra>
+        <el-button type="primary" size="small">开始使用</el-button>
+      </template>
+    </el-x-welcome>
+  </div>
 </template>
 ```
 
@@ -124,20 +124,20 @@
 
 :::demo
 
-```html
+```vue
 <template>
-	<el-x-welcome
-		title="自定义图标区域"
-		description="使用 image 插槽定制图标内容"
-	>
-		<template #image>
-			<div
-				style="width: 64px; height: 64px; background: #409EFF; border-radius: 8px; display: flex; align-items: center; justify-content: center;"
-			>
-				<i class="el-icon-star-on" style="font-size: 32px; color: white;"></i>
-			</div>
-		</template>
-	</el-x-welcome>
+  <el-x-welcome
+    title="自定义图标区域"
+    description="使用 image 插槽定制图标内容"
+  >
+    <template #image>
+      <div
+        style="width: 64px; height: 64px; background: #409EFF; border-radius: 8px; display: flex; align-items: center; justify-content: center;"
+      >
+        <i class="el-icon-star-on" style="font-size: 32px; color: white;"></i>
+      </div>
+    </template>
+  </el-x-welcome>
 </template>
 ```
 
@@ -149,23 +149,23 @@
 
 :::demo
 
-```html
+```vue
 <template>
-	<el-x-welcome
-		icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-		title="自定义样式"
-		description="通过样式属性定制组件外观"
-		:styleConfig="{
-			background: '#f0f9eb',
-			border: '1px solid #e1f3d8',
-			borderRadius: '12px'
-		}"
-		:styles="{
-			icon: { background: '#f0f9eb' },
-			title: { color: '#67c23a', fontSize: '18px' },
-			description: { color: '#85ce61' }
-		}"
-	/>
+  <el-x-welcome
+    icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
+    title="自定义样式"
+    description="通过样式属性定制组件外观"
+    :styleConfig="{
+      background: '#f0f9eb',
+      border: '1px solid #e1f3d8',
+      borderRadius: '12px',
+    }"
+    :styles="{
+      icon: { background: '#f0f9eb' },
+      title: { color: '#67c23a', fontSize: '18px' },
+      description: { color: '#85ce61' },
+    }"
+  />
 </template>
 ```
 

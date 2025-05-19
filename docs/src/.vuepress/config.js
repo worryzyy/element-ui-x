@@ -64,7 +64,7 @@ module.exports = {
           ],
         },
       ],
-  
+
       "/roadmap/": [
         {
           title: "🎀 开发计划",
@@ -105,14 +105,9 @@ module.exports = {
     },
   },
   markdown: {
-    extendMarkdown: md => {
-      // md.set({ highlight: false }) // 禁用默认高亮
-    }
+
   },
-  // markdown: {
-  //   lineNumbers: true,
-  //   extractHeaders: ["h2", "h3", "h4", "h5", "h6"],
-  // },
+
   plugins: {
     "demo-container": {
       component: "demo-block",
@@ -123,36 +118,5 @@ module.exports = {
       headerAnchorSelector: ".header-anchor",
     },
   },
-  // 	plugins: ['demo-container','@vuepress/active-header-links', {
-  //     sidebarLinkSelector: '.sidebar-link',
-  //     headerAnchorSelector: '.header-anchor'
-  //   }],
-  // plugins: [
-  // 	[
-  // 		'demo-container',
-  // 		{
-  // 			component: 'demo-block',
-  // 			componentName: 'demo-block',
-  // 			className: 'ElementUI-X-demo',
 
-  // 			locales: {
-  // 				'/': {
-  // 					'demo-block': {
-  // 						'hide-text': '隐藏代码',
-  // 						'show-text': '显示代码',
-  // 						'copy-text': '复制代码',
-  // 						'copy-success': '复制成功'
-  // 					}
-  // 				}
-  // 			}
-  // 		}
-  // 	],
-  // 	[
-  // 		'@vuepress/active-header-links',
-  // 		{
-  // 			sidebarLinkSelector: '.sidebar-link',
-  // 			headerAnchorSelector: '.header-anchor',
-  // 		}
-  // 	]
-  // ]
 };

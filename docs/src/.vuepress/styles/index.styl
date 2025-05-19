@@ -85,6 +85,24 @@ $accentColor = #409EFF
 }
 
 // Element UI 文档风格的代码块样式
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
+   background:none;
+}
+div[class*=language-] pre,div[class*=language-] pre[class*=language-] code{
+    font-size:12px;
+    color:#000;
+}
+div[class*="language-"]::before {
+    color:$accentColor;
+}
+
+.demo-block .meta {
+   background:none !important;
+}
+.demo-block .demo-block-control .copy-action-success {
+  color: #67c23a !important;
+}
+
 
 
 div,dl,dt,dd,ul,ol,li,tr,td,th,
