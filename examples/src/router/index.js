@@ -8,54 +8,60 @@ import Prompts from '../views/Prompts.vue'
 import Conversations from '../views/Conversations.vue'
 import Thinking from '../views/Thinking.vue'
 import Think from '../views/Think.vue'
+import ThoughtChain from '../views/ThoughtChain.vue'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/typewriter',
-      name: 'Typewriter',
-      component: Typewriter
-    },
-    {
-      path: '/bubble',
-      name: 'Bubble',
-      component: Bubble
-    },
-    {
-      path: '/bubbleList',
-      name: 'BubbleList',
-      component: BubbleList
-    },
-    {
-      path: '/welcome',
-      name: 'Welcome',
-      component: Welcome
-    },
-    {
-      path: '/prompts',
-      name: 'Prompts',
-      component: Prompts
-    },
-    {
-      path: '/conversations',
-      name: 'Conversations',
-      component: Conversations
-    },
-    {
-      path: '/thinking',
-      name: 'Thinking',
-      component: Thinking
-    },
-    {
-      path: '/think',
-      name: 'Think',
-      component: Think
-    },
-    {
-      path: '*',
-      redirect: '/typewriter'
-    }
-  ]
+	routes: [
+		{
+			path: '/typewriter',
+			name: 'Typewriter',
+			component: Typewriter
+		},
+		{
+			path: '/bubble',
+			name: 'Bubble',
+			component: Bubble
+		},
+		{
+			path: '/bubbleList',
+			name: 'BubbleList',
+			component: BubbleList
+		},
+		{
+			path: '/welcome',
+			name: 'Welcome',
+			component: Welcome
+		},
+		{
+			path: '/prompts',
+			name: 'Prompts',
+			component: Prompts
+		},
+		{
+			path: '/conversations',
+			name: 'Conversations',
+			component: Conversations
+		},
+		{
+			path: '/thinking',
+			name: 'Thinking',
+			component: Thinking
+		},
+		{
+			path: '/think',
+			name: 'Think',
+			component: Think
+		},
+		{
+			path: '/thoughtchain',
+			name: 'ThoughtChain',
+			component: ThoughtChain
+		},
+		{
+			path: '*',
+			redirect: '/typewriter'
+		}
+	]
 })

@@ -6,7 +6,8 @@
             </el-header>
             <el-container>
                 <el-aside width="200px">
-                    <el-menu router :default-active="$route.path" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                    <el-menu router :default-active="$route.path" background-color="#545c64" text-color="#fff"
+                        active-text-color="#ffd04b">
                         <el-menu-item index="/typewriter">
                             <i class="el-icon-edit"></i>
                             <span>Typewriter</span>
@@ -39,6 +40,10 @@
                             <i class="el-icon-edit"></i>
                             <span>Think</span>
                         </el-menu-item>
+                        <el-menu-item index="/thoughtchain">
+                            <i class="el-icon-edit"></i>
+                            <span>ThoughtChain</span>
+                        </el-menu-item>
                     </el-menu>
                 </el-aside>
                 <el-main>
@@ -62,6 +67,7 @@ export default {
     display: flex;
     flex-direction: column;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -69,6 +75,7 @@ body {
     color: #333;
     overflow: hidden;
 }
+
 .el-header {
     color: #fff;
     line-height: 60px;
