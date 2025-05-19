@@ -1,47 +1,68 @@
 @import "~element-ui/packages/theme-chalk/src/common/var";
 
-$--el-x-color-primary: $--color-primary ;
+$--el-x-color-primary: $--color-primary;
 // 字体大小
-  $--el-x-font-size-base: $--font-size-base;
-  $--el-x-font-size-medium: $--font-size-medium;
-  $--el-x-font-size-large: $--font-size-large;
-  $--el-x-font-size-extra-large:  $--font-size-extra-large;
+$--el-x-font-size-small: $--font-size-small !default;
+$--el-x-font-size-base: $--font-size-base !default;
+$--el-x-font-size-medium: $--font-size-medium !default;
+$--el-x-font-size-large: $--font-size-large !default;
+$--el-x-font-size-extra-large: $--font-size-extra-large !default;
+
 
 // 字体颜色
-  $--el-x-text-color-primary: $--color-text-primary;
-  $--el-x-text-color-secondary: $--color-text-regular;
+$--el-x-text-color-primary: $--color-text-primary !default;
+$--el-x-text-color-regular: $--color-text-regular !default;
+$--el-x-text-color-secondary:$--color-text-secondary !default;
+$--el-x-text-color-placeholder: $--color-text-placeholder !default;
+$--el-x-text-color-disabled: $--color-text-placeholder !default;
 
-  $--el-x-text-color-placeholder: $--color-text-placeholder;
+
+
 
 // 行高
-  $--el-x-font-line-height-primary: $--font-line-height-primary;
+$--el-x-font-line-height-primary: $--font-line-height-primary;
 
-  // 填充背景
-  $--el-x-fill-color: $--message-background-color;
+// 填充背景
+$--el-x-fill-color: $--message-background-color;
 
-  // 边框
-  
-  $--el-x-border-radius-base: $--border-radius-base;
-  $--el-x-border-radius-md:8px;
-  $--el-x-border-radius-round: 20px ;
-  $--el-x-border-radius-small: $--border-radius-small;
-  $--el-x-border-radius-circle:$--border-radius-circle;
+// 边框
 
-  
-  // 边框颜色
-  $--el-x-border-color: $--border-color-base;
+$--el-x-border-radius-base: $--border-radius-base;
+$--el-x-border-radius-md:8px;
+$--el-x-border-radius-round: 20px;
+$--el-x-border-radius-small: $--border-radius-small;
+$--el-x-border-radius-circle:$--border-radius-circle;
 
-  // 边框宽度
-  $--el-x-border-width: $--border-width-base;
-  
-  // 内边距
-  $--el-x-padding-sm: 8px;
-  $--el-x-padding-md: 12px;
-  $--el-x-padding-lg: 16px;
+//间距
+
+$--el-x-spacing-xs: 4px !default;
+$--el-x-spacing-sm: 8px !default;
+$--el-x-spacing-md: 12px !default;
+$--el-x-spacing-lg: 16px !default;
+$--el-x-spacing-xl: 20px !default;
+
+// 内边距
+
+$--el-x-padding-xs: $--border-radius-base !default;
+$--el-x-padding-sm: $--font-size-base !default;
+$--el-x-padding-md: $--font-size-medium !default;
+$--el-x-padding-lg: $--font-size-large !default;
+$--el-x-padding-xl: $--font-size-extra-large !default;
+
+// 边框颜色
+$--el-x-border-color: $--border-color-base;
+
+// 边框宽度
+$--el-x-border-width: $--border-width-base;
 
 
-  // 阴影
-  $--el-x-box-shadow-base: $--box-shadow-base;
 
-  // 气泡内容最大宽度
-  // $--bubble-content-max-width: 300px;
+
+// 阴影
+$--el-x-box-shadow-base: $--box-shadow-base;
+
+
+// 边框半径
+$--el-x-border-radius-sm: 2px !default;
+$--el-x-border-radius-md: $--border-radius-base !default;
+$--el-x-border-radius-lg: 8px !default;

@@ -104,21 +104,21 @@
                                 </template>
                             </conversations-item>
                         </template>
-                    </div>
 
-                    <!-- 加载更多 -->
-                    <div v-if="loadMoreLoading" class="el-x-conversations-load-more">
-                        <slot name="load-more">
-                            <i class="el-icon-loading el-x-conversations-load-more-is-loading"></i>
-                            <span>加载更多...</span>
-                        </slot>
+                        <!-- 加载更多 -->
+                        <div v-if="loadMoreLoading" class="el-x-conversations-load-more">
+                            <slot name="load-more">
+                                <i class="el-icon-loading el-x-conversations-load-more-is-loading"></i>
+                                <span>加载更多...</span>
+                            </slot>
+                        </div>
                     </div>
                 </div>
             </li>
         </ul>
         <slot name="footer"></slot>
         <!-- 滚动到顶部按钮 -->
-        <el-button v-show="showScrollTop && showToTopBtn" class="scroll-to-top-btn" circle @click="scrollToTop">
+        <el-button v-show="showScrollTop && showToTopBtn" class="scroll-to-top-btn" circle :type="toTopBtnType" :style="toTopBtnStyle" @click="scrollToTop">
             <i class="el-icon-top"></i>
         </el-button>
     </div>
@@ -245,6 +245,15 @@ export default {
         showToTopBtn: {
             type: Boolean,
             default: false,
+        },
+        toTopBtnType: {
+            type: String,
+            default: 'primary',
+            validator: (value) => ['primary', 'success', 'warning', 'danger', 'info', 'text'].includes(value),
+        },
+        toTopBtnStyle: {
+            type: Object,
+            default: () => ({}),
         },
         labelKey: {
             type: String,
@@ -486,6 +495,12 @@ export default {
             if (this.$refs.scrollContainer) {
                 this.$refs.scrollContainer.scrollTop = 0
             }
+
+            // 确保吸顶组状态也被重置
+            if (this.shouldUseGrouping && this.groups.length > 0) {
+                this.stickyGroupKeys.clear()
+                this.stickyGroupKeys.add(this.groups[0].key)
+            }
         },
 
         handleMenuItemClick(command, item) {
@@ -509,21 +524,39 @@ export default {
 .el-x-conversations-scrollbar {
     height: 100%;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #e0e0e0 transparent;
 
+    /* 隐藏默认滚动条 */
     &::-webkit-scrollbar {
         width: 6px;
-        height: 6px;
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: #e0e0e0;
+        background-color: transparent;
         border-radius: 3px;
+        transition: background-color 0.3s ease;
     }
 
     &::-webkit-scrollbar-track {
         background-color: transparent;
+    }
+
+    /* 鼠标悬停时显示滚动条 */
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+            background-color: #e0e0e0;
+        }
+    }
+}
+
+/* 为Firefox添加滚动条样式 */
+@supports (scrollbar-width: thin) {
+    .el-x-conversations-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+
+        &:hover {
+            scrollbar-color: #e0e0e0 transparent;
+        }
     }
 }
 </style>

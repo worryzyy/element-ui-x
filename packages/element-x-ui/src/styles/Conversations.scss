@@ -46,14 +46,18 @@
 .el-x-conversations-load-more {
   display: flex;
   width: calc(100% - 20px);
-  padding: 4px 0;
+  padding: 14px 10px;
   justify-content: center;
   align-items: center;
   font-size: 12px;
   gap: 3px;
-  height: 100%;
   color: #909399;
   background-color: var(--conversation-list-auto-bg-color, #fff);
+  margin-right: 20px;
+  border-radius: 8px;
+  height: auto;
+  min-height: var(--conversation-label-height, 20px);
+  box-sizing: border-box;
 }
 
 // 加载动画
