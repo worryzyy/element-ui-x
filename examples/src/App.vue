@@ -27,6 +27,10 @@
                             <i class="el-icon-edit"></i>
                             <span>Prompts</span>
                         </el-menu-item>
+                        <el-menu-item index="/conversations">
+                            <i class="el-icon-edit"></i>
+                            <span>Conversations</span>
+                        </el-menu-item>
                     </el-menu>
                 </el-aside>
                 <el-main>

@@ -5,7 +5,7 @@ import Bubble from '../views/Bubble.vue'
 import BubbleList from '../views/BubbleList.vue'
 import Welcome from '../views/Welcome.vue'
 import Prompts from '../views/Prompts.vue'
-
+import Conversations from '../views/Conversations.vue'
 
 Vue.use(Router)
 
@@ -35,6 +35,11 @@ export default new Router({
       path: '/prompts',
       name: 'Prompts',
       component: Prompts
+    },
+    {
+      path: '/conversations',
+      name: 'Conversations',
+      component: Conversations
     },
     {
       path: '*',

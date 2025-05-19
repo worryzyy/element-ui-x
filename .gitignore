@@ -7,7 +7,11 @@ docs/node_modules/
 
 /packages/*/src/styles/button.scss
 /packages/*/src/styles/var.scss
-docs/package-lock.json
+
+# 忽略所有 package-lock.json 文件
+package-lock.json
+**/package-lock.json
+
 # 构建输出
 dist/
 lib/
