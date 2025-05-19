@@ -1,0 +1,114 @@
+@import "../theme/var";
+
+.el-x-thoughtchain {
+  &-item-dot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .el-button {
+      cursor: default !important;
+
+      &:active {
+        background-color: $--el-x-fill-color !important;
+        border-color: $--el-x-fill-color !important;
+      }
+
+      &:hover {
+        background-color: $--el-x-fill-color !important;
+        border-color: $--el-x-fill-color !important;
+      }
+    }
+  }
+
+  .el-collapse {
+    border: none;
+
+    .el-collapse-item__header {
+      height: 20px;
+      font-weight: normal;
+    }
+
+    .el-collapse-item__arrow {
+      margin: 0 0 0 8px;
+    }
+
+    .el-collapse-item__header {
+      margin-bottom: 5px;
+    }
+
+    .el-collapse-item__header,
+    .el-collapse-item__wrap {
+      border: none;
+    }
+
+    .el-collapse-item__content {
+      color: $--el-x-text-color-secondary;
+      padding: 0;
+    }
+  }
+
+  .el-timeline {
+    padding: 10px 0 0 5px;
+  }
+
+  .el-timeline-item__timestamp {
+    color: $--el-x-text-color-primary;
+  }
+
+  .el-timeline-item__content {
+    color: $--el-x-text-color-secondary;
+  }
+
+  .el-timeline-item {
+    // 清除 li 样式
+    list-style: none !important;
+  }
+}
+
+.thought-chain-move,
+.thought-chain-enter-active,
+.thought-chain-leave-active {
+  transition: all 0.5s ease;
+}
+
+.thought-chain-enter,
+.thought-chain-leave-to {
+  opacity: 0;
+  transform: translateY(10px) scaleY(0.9);
+}
+
+.thought-chain-leave-active {
+  position: absolute;
+}
+
+.el-x-thoughtchain-loading {
+  animation: thoughtchain-rotating 1.5s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes thoughtchain-rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(90deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  75% {
+    transform: rotate(270deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
