@@ -4,6 +4,8 @@ import ElXBubbleList from './components/BubbleList/main.vue'
 import ElXWelcome from './components/Welcome/main.vue'
 import ElXPrompts from './components/Prompts/main.vue'
 import ElXConversations from './components/Conversations/main.vue';
+import ElXThinking from './components/Thinking/main.vue'
+import ElXThink from './components/Think/main.vue'
 
 
 
@@ -13,7 +15,9 @@ const components = [
   ElXBubbleList,
   ElXWelcome,
   ElXPrompts,
-  ElXConversations
+  ElXConversations,
+  ElXThinking,
+  ElXThink
 ]
 
 const install = function (Vue) {

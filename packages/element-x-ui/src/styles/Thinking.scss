@@ -1,0 +1,112 @@
+@import "../theme/var";
+
+.el-x-thinking {
+  margin: 0 auto;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: var(--el-x-thinking-button-width);
+  gap: $--el-x-spacing-xs;
+  padding: $--el-x-padding-sm calc($--el-x-padding-sm + 4px);
+  border: $--el-x-border-width $--border-style-base $--el-x-border-color;
+  border-radius: $--el-x-border-radius-md;
+  background: $--color-white;
+  cursor: pointer;
+  margin-bottom: $--el-x-spacing-xs;
+
+  .el-icon-center {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .start-color {
+    color: $--color-warning;
+  }
+
+  .end-color {
+    color: $--color-success;
+  }
+
+  .is-loading {
+    color: $--el-x-color-primary;
+  }
+
+  .error-color {
+    color: $--color-danger;
+  }
+}
+
+.trigger:hover {
+  background: $--background-color-base;
+}
+
+.trigger.disabled {
+  cursor: pointer;
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.status-icon {
+  font-size: $--el-x-font-size-medium;
+}
+
+.arrow {
+  margin-left: auto;
+  transition: transform var(--el-x-thinking-animation-duration);
+}
+
+.arrow.expanded {
+  transform: rotate(180deg);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  height: max-content;
+  transition: height var(--el-x-thinking-animation-duration) ease-in-out,
+    opacity var(--el-x-thinking-animation-duration) ease-in-out;
+  overflow: hidden;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  height: 0 !important;
+  opacity: 0;
+}
+
+.content-wrapper {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.content pre {
+  border: $--el-x-border-width $--border-style-base $--el-x-border-color;
+  background: var(--el-x-thinking-content-wrapper-background-color);
+  padding: $--el-x-padding-sm calc($--el-x-padding-sm + 4px);
+  border-radius: $--el-x-border-radius-lg;
+  max-width: var(--el-x-thinking-content-wrapper-width);
+  font-size: $--el-x-font-size-base;
+  color: var(--el-x-thinking-content-wrapper-color);
+  white-space: pre-wrap;
+  margin: 0;
+  line-height: $--el-x-font-line-height-primary;
+}
+
+.error-state {
+  border-color: $--color-danger-lighter;
+  background: $--color-danger-lighter;
+}
+
+.error-message {
+  color: $--color-danger;
+  height: fit-content;
+  padding: $--el-x-spacing-xs;
+  background: $--color-danger-lighter;
+  border-radius: $--el-x-border-radius-md;
+}
