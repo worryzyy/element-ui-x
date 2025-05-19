@@ -1,0 +1,256 @@
+/* ElXConversations 组件样式 */
+
+/* 主容器 */
+.el-x-conversations-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  width: fit-content;
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.el-x-conversations-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.el-x-conversations-scroll-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+
+  /* 在右侧添加留白区域 */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    /* 右侧留白宽度 */
+    height: 100%;
+    background-color: transparent;
+    pointer-events: none;
+    /* 确保不影响交互 */
+  }
+}
+
+// 加载更多
+.el-x-conversations-load-more {
+  display: flex;
+  width: calc(100% - 20px);
+  padding: 4px 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  gap: 3px;
+  height: 100%;
+  color: #909399;
+  background-color: var(--conversation-list-auto-bg-color, #fff);
+}
+
+// 加载动画
+.el-x-conversations-load-more-is-loading {
+  margin-top: 2px;
+  animation: spinloading 2s linear infinite;
+}
+
+@keyframes spinloading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.scroll-content {
+  min-height: 100%;
+}
+
+.loading-more {
+  text-align: center;
+  padding: 10px 0;
+  color: #909399;
+  font-size: 14px;
+}
+
+.el-x-conversation-group {
+  position: relative;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .el-x-conversation-group-title {
+    font-size: 14px;
+    color: #909399;
+    padding: 8px 0;
+    font-weight: 500;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    // 预留滚动条宽度
+    width: calc(100% - 10px);
+    box-sizing: border-box;
+  }
+
+  .sticky-title {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: var(--conversation-list-auto-bg-color, #fff);
+  }
+
+  .active-sticky {
+    z-index: 10;
+  }
+
+  .el-x-conversation-group-items {
+    padding-top: 0;
+  }
+}
+
+.scroll-to-top-btn {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 99;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+/* 项目样式 */
+.el-x-conversation-item {
+  padding: 14px 10px;
+  margin-right: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &+& {
+    margin-top: 4px;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: #c0c4cc;
+  }
+
+  &.active {
+    background-color: #f0f0f0;
+  }
+
+  &.hovered,
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  &.menu-opened {
+    background-color: #f0f0f0;
+  }
+}
+
+.el-x-conversation-content {
+  display: flex;
+  align-items: center;
+  height: var(--conversation-label-height, 20px);
+
+  .el-x-conversation-prefix-icon {
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .el-x-conversation-content-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .el-x-conversation-label-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .el-x-conversation-label {
+    font-size: 14px;
+    color: #303133;
+    position: relative;
+    white-space: nowrap;
+
+    &.text-gradient {
+      mask-image: linear-gradient(to right, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
+    }
+  }
+
+  .el-x-conversation-timestamp {
+    font-size: 14px;
+    color: #909399;
+    margin-left: 8px;
+  }
+
+  .el-x-conversation-suffix-icon {
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .el-x-conversation-dropdown-more {
+    justify-self: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .el-x-conversation-dropdown-more-icon {
+    font-size: 16px;
+    padding: 2px;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: #d3d3d3;
+    }
+  }
+
+  .el-x-conversation-menu {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    .hovered &,
+    .active & {
+      opacity: 1;
+    }
+  }
+}
+
+// Dropdown菜单样式
+.el-x-conversation-dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+}
