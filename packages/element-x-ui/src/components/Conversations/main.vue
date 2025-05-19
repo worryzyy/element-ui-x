@@ -118,7 +118,7 @@
         </ul>
         <slot name="footer"></slot>
         <!-- 滚动到顶部按钮 -->
-        <el-button v-show="showScrollTop && showToTopBtn" class="scroll-to-top-btn" circle :type="toTopBtnType" :style="toTopBtnStyle" @click="scrollToTop">
+        <el-button v-show="showScrollTop && showToTopBtn" class="scroll-to-top-btn" size="small" circle :type="toTopBtnType" :style="toTopBtnStyle" @click="scrollToTop">
             <i class="el-icon-top"></i>
         </el-button>
     </div>
