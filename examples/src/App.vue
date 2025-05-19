@@ -31,6 +31,14 @@
                             <i class="el-icon-edit"></i>
                             <span>Conversations</span>
                         </el-menu-item>
+                        <el-menu-item index="/thinking">
+                            <i class="el-icon-edit"></i>
+                            <span>Thinking</span>
+                        </el-menu-item>
+                        <el-menu-item index="/think">
+                            <i class="el-icon-edit"></i>
+                            <span>Think</span>
+                        </el-menu-item>
                     </el-menu>
                 </el-aside>
                 <el-main>

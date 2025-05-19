@@ -6,6 +6,8 @@ import BubbleList from '../views/BubbleList.vue'
 import Welcome from '../views/Welcome.vue'
 import Prompts from '../views/Prompts.vue'
 import Conversations from '../views/Conversations.vue'
+import Thinking from '../views/Thinking.vue'
+import Think from '../views/Think.vue'
 
 Vue.use(Router)
 
@@ -40,6 +42,16 @@ export default new Router({
       path: '/conversations',
       name: 'Conversations',
       component: Conversations
+    },
+    {
+      path: '/thinking',
+      name: 'Thinking',
+      component: Thinking
+    },
+    {
+      path: '/think',
+      name: 'Think',
+      component: Think
     },
     {
       path: '*',
