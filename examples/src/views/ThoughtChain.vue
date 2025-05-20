@@ -59,6 +59,11 @@
                 </div>
                 <el-x-thought-chain :thinking-items="iconItems" :dot-is-icon="dotIsIcon" class="mt-10" />
             </div>
+
+            <div class="demo-block">
+                <h3>自定义状态枚举</h3>
+                <el-x-thought-chain :thinking-items="customStatusItems" :status-enum="customStatusEnum" class="mt-10" />
+            </div>
         </el-card>
     </div>
 </template>
@@ -172,6 +177,43 @@ export default {
                 },
             ],
             dotIsIcon: false,
+            customStatusEnum: {
+                loading: {
+                    value: 'processing',
+                    type: 'primary',
+                },
+                error: {
+                    value: 'failed',
+                    type: 'danger',
+                },
+                success: {
+                    value: 'completed',
+                    type: 'success',
+                },
+            },
+            customStatusItems: [
+                {
+                    id: 1,
+                    title: '处理中状态',
+                    status: 'processing',
+                    thinkTitle: '正在处理中...',
+                    thinkContent: '这是处理中的详细内容',
+                },
+                {
+                    id: 2,
+                    title: '已完成状态',
+                    status: 'completed',
+                    thinkTitle: '处理完成',
+                    thinkContent: '这是处理完成的详细内容',
+                },
+                {
+                    id: 3,
+                    title: '失败状态',
+                    status: 'failed',
+                    thinkTitle: '处理失败',
+                    thinkContent: '处理过程中出现了错误',
+                },
+            ],
         }
     },
     watch: {
