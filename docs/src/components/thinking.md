@@ -19,25 +19,25 @@
 
 :::demo
 
-```vue
+```html
 <template>
-	<div>
-		<el-x-thinking status="start" />
+  <div>
+    <el-x-thinking status="start" />
 
-		<el-x-thinking
-			status="thinking"
-			content="正在处理您的请求..."
-			style="margin-top: 20px;"
-		/>
+    <el-x-thinking
+      status="thinking"
+      content="正在处理您的请求..."
+      style="margin-top: 20px;"
+    />
 
-		<el-x-thinking
-			status="end"
-			content="思考完成，结果如下：1. 第一点 2. 第二点"
-			style="margin-top: 20px;"
-		/>
+    <el-x-thinking
+      status="end"
+      content="思考完成，结果如下：1. 第一点 2. 第二点"
+      style="margin-top: 20px;"
+    />
 
-		<el-x-thinking status="error" style="margin-top: 20px;" />
-	</div>
+    <el-x-thinking status="error" style="margin-top: 20px;" />
+  </div>
 </template>
 ```
 
@@ -49,41 +49,34 @@
 
 :::demo
 
-```vue
+```html
 <template>
-	<div>
-		<el-x-thinking status="thinking">
-			<template #status-icon="{ status }">
-				<i v-if="status === 'thinking'" class="el-icon-loading"></i>
-			</template>
+  <div>
+    <el-x-thinking status="thinking">
+      <template #status-icon="{ status }">
+        <i v-if="status === 'thinking'" class="el-icon-loading"></i>
+      </template>
 
-			<template #label="{ status }">
-				{{
-					status === 'thinking'
-						? 'AI思考中...'
-						: status === 'error'
-						? '出错了'
-						: status === 'end'
-						? '已完成'
-						: '开始思考'
-				}}
-			</template>
+      <template #label="{ status }">
+        {{ status === 'thinking' ? 'AI思考中...' : status === 'error' ? '出错了'
+        : status === 'end' ? '已完成' : '开始思考' }}
+      </template>
 
-			<template #content="{ content }">
-				<div class="custom-content">
-					<pre>{{ content }}</pre>
-				</div>
-			</template>
-		</el-x-thinking>
-	</div>
+      <template #content="{ content }">
+        <div class="custom-content">
+          <pre>{{ content }}</pre>
+        </div>
+      </template>
+    </el-x-thinking>
+  </div>
 </template>
 
 <style>
-.custom-content {
-	padding: 10px;
-	background: #f5f7fa;
-	border-radius: 4px;
-}
+  .custom-content {
+    padding: 10px;
+    background: #f5f7fa;
+    border-radius: 4px;
+  }
 </style>
 ```
 
@@ -95,33 +88,33 @@
 
 :::demo
 
-```vue
+```html
 <template>
-	<div>
-		<el-x-thinking
-			:status="status"
-			auto-collapse
-			content="这是一个自动折叠的示例。当状态变为'end'时，内容区域会自动折叠。"
-		/>
+  <div>
+    <el-x-thinking
+      :status="status"
+      auto-collapse
+      content="这是一个自动折叠的示例。当状态变为'end'时，内容区域会自动折叠。"
+    />
 
-		<div style="margin-top: 20px;">
-			<el-button-group>
-				<el-button size="small" @click="status = 'start'">开始</el-button>
-				<el-button size="small" @click="status = 'thinking'">思考中</el-button>
-				<el-button size="small" @click="status = 'end'">完成</el-button>
-			</el-button-group>
-		</div>
-	</div>
+    <div style="margin-top: 20px;">
+      <el-button-group>
+        <el-button size="small" @click="status = 'start'">开始</el-button>
+        <el-button size="small" @click="status = 'thinking'">思考中</el-button>
+        <el-button size="small" @click="status = 'end'">完成</el-button>
+      </el-button-group>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			status: 'start'
-		}
-	}
-}
+  export default {
+    data() {
+      return {
+        status: "start",
+      };
+    },
+  };
 </script>
 ```
 

@@ -6,7 +6,7 @@
 
 在成功 [安装](./installation.md) Element-X 之后，你可以开始使用组件库中的组件。以下是一个简单的示例，展示如何使用打字机组件：
 
-```vue
+```html
 <template>
   <div class="demo-container">
     <h3>AI 回复示例</h3>
@@ -37,92 +37,92 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      aiResponse:
-        "Vue的生命周期钩子函数是Vue实例在特定阶段自动执行的函数。主要包括：\n\n1. beforeCreate: 实例初始化之后，数据观测和事件配置之前调用\n2. created: 实例创建完成后调用，此时已完成数据观测、属性和方法的运算\n3. beforeMount: 挂载开始之前调用\n4. mounted: 挂载完成后调用，此时可以访问DOM元素\n5. beforeUpdate: 数据更新时调用，发生在虚拟DOM重新渲染之前\n6. updated: 数据更改导致的虚拟DOM重新渲染后调用\n7. beforeDestroy: 实例销毁之前调用\n8. destroyed: 实例销毁后调用",
-    };
-  },
-  mounted() {
-    // 页面加载后自动开始打字效果
-    this.$nextTick(() => {
-      this.$refs.typewriter.startTyping();
-    });
-  },
-  methods: {
-    onTypingComplete(text) {
-      console.log("打字效果完成:", text);
+  export default {
+    data() {
+      return {
+        aiResponse:
+          "Vue的生命周期钩子函数是Vue实例在特定阶段自动执行的函数。主要包括：\n\n1. beforeCreate: 实例初始化之后，数据观测和事件配置之前调用\n2. created: 实例创建完成后调用，此时已完成数据观测、属性和方法的运算\n3. beforeMount: 挂载开始之前调用\n4. mounted: 挂载完成后调用，此时可以访问DOM元素\n5. beforeUpdate: 数据更新时调用，发生在虚拟DOM重新渲染之前\n6. updated: 数据更改导致的虚拟DOM重新渲染后调用\n7. beforeDestroy: 实例销毁之前调用\n8. destroyed: 实例销毁后调用",
+      };
     },
-    regenerateResponse() {
-      // 模拟重新生成回复
-      this.$refs.typewriter.eraseAll();
-      setTimeout(() => {
+    mounted() {
+      // 页面加载后自动开始打字效果
+      this.$nextTick(() => {
         this.$refs.typewriter.startTyping();
-      }, 300);
+      });
     },
-  },
-};
+    methods: {
+      onTypingComplete(text) {
+        console.log("打字效果完成:", text);
+      },
+      regenerateResponse() {
+        // 模拟重新生成回复
+        this.$refs.typewriter.eraseAll();
+        setTimeout(() => {
+          this.$refs.typewriter.startTyping();
+        }, 300);
+      },
+    },
+  };
 </script>
 
 <style>
-.demo-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
+  .demo-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
-.chat-container {
-  border: 1px solid #ebeef5;
-  border-radius: 4px;
-  padding: 15px;
-  background-color: #f8f8f8;
-  margin-bottom: 20px;
-}
+  .chat-container {
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    margin-bottom: 20px;
+  }
 
-.message {
-  display: flex;
-  margin-bottom: 15px;
-}
+  .message {
+    display: flex;
+    margin-bottom: 15px;
+  }
 
-.message .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
+  .message .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
 
-.message .content {
-  margin-left: 10px;
-  padding: 10px;
-  border-radius: 4px;
-  max-width: 80%;
-}
+  .message .content {
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    max-width: 80%;
+  }
 
-.message.user .avatar {
-  background-color: #67c23a;
-}
+  .message.user .avatar {
+    background-color: #67c23a;
+  }
 
-.message.user .content {
-  background-color: #f0f9eb;
-}
+  .message.user .content {
+    background-color: #f0f9eb;
+  }
 
-.message.ai .avatar {
-  background-color: #409eff;
-}
+  .message.ai .avatar {
+    background-color: #409eff;
+  }
 
-.message.ai .content {
-  background-color: #ecf5ff;
-  white-space: pre-wrap;
-}
+  .message.ai .content {
+    background-color: #ecf5ff;
+    white-space: pre-wrap;
+  }
 
-.actions {
-  text-align: center;
-}
+  .actions {
+    text-align: center;
+  }
 </style>
 ```
 
@@ -130,7 +130,7 @@ export default {
 
 Element-X 提供了多个组件，你可以组合使用它们来构建完整的 AI 交互界面。以下是一个简化的示例：
 
-```vue
+```html
 <template>
   <div class="ai-chat">
     <!-- 思考动画组件 -->
@@ -153,34 +153,34 @@ Element-X 提供了多个组件，你可以组合使用它们来构建完整的 
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      userInput: "",
-      aiResponse: "",
-      isThinking: false,
-    };
-  },
-  methods: {
-    sendMessage() {
-      if (!this.userInput.trim()) return;
-
-      const userMessage = this.userInput;
-      this.userInput = "";
-      this.isThinking = true;
-
-      // 模拟AI响应
-      setTimeout(() => {
-        this.isThinking = false;
-        this.aiResponse = `你发送的消息是: "${userMessage}"。这是一个AI响应示例。`;
-
-        this.$nextTick(() => {
-          this.$refs.typewriter.startTyping();
-        });
-      }, 1500);
+  export default {
+    data() {
+      return {
+        userInput: "",
+        aiResponse: "",
+        isThinking: false,
+      };
     },
-  },
-};
+    methods: {
+      sendMessage() {
+        if (!this.userInput.trim()) return;
+
+        const userMessage = this.userInput;
+        this.userInput = "";
+        this.isThinking = true;
+
+        // 模拟AI响应
+        setTimeout(() => {
+          this.isThinking = false;
+          this.aiResponse = `你发送的消息是: "${userMessage}"。这是一个AI响应示例。`;
+
+          this.$nextTick(() => {
+            this.$refs.typewriter.startTyping();
+          });
+        }, 1500);
+      },
+    },
+  };
 </script>
 ```
 
@@ -213,7 +213,7 @@ $--color-ai-cursor: $--color-primary;
 
 Element-X 的组件支持通过 ref 引用来调用组件方法：
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter ref="typewriter" :text="text" />
@@ -225,24 +225,24 @@ Element-X 的组件支持通过 ref 引用来调用组件方法：
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      text: "这是一段示例文本",
-    };
-  },
-  methods: {
-    startTyping() {
-      this.$refs.typewriter.startTyping();
+  export default {
+    data() {
+      return {
+        text: "这是一段示例文本",
+      };
     },
-    typeAll() {
-      this.$refs.typewriter.typeAll();
+    methods: {
+      startTyping() {
+        this.$refs.typewriter.startTyping();
+      },
+      typeAll() {
+        this.$refs.typewriter.typeAll();
+      },
+      eraseAll() {
+        this.$refs.typewriter.eraseAll();
+      },
     },
-    eraseAll() {
-      this.$refs.typewriter.eraseAll();
-    },
-  },
-};
+  };
 </script>
 ```
 

@@ -20,7 +20,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble
@@ -48,7 +48,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <div class="bubble-row">
@@ -114,9 +114,9 @@
 </template>
 
 <style>
-.bubble-row {
-  margin-bottom: 15px;
-}
+  .bubble-row {
+    margin-bottom: 15px;
+  }
 </style>
 ```
 
@@ -128,7 +128,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble
@@ -172,60 +172,60 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      typingContent:
-        "这是一个带有打字机效果的气泡示例，可以模拟实时输入的效果。你可以通过下方的按钮控制打字过程。",
-      typingConfig: {
-        interval: 50,
-        step: 1,
-        suffix: "|",
+  export default {
+    data() {
+      return {
+        typingContent:
+          "这是一个带有打字机效果的气泡示例，可以模拟实时输入的效果。你可以通过下方的按钮控制打字过程。",
+        typingConfig: {
+          interval: 50,
+          step: 1,
+          suffix: "|",
+        },
+        isTyping: false,
+        progress: 0,
+      };
+    },
+    methods: {
+      startTyping() {
+        this.$refs.typingDemo.restart();
       },
-      isTyping: false,
-      progress: 0,
-    };
-  },
-  methods: {
-    startTyping() {
-      this.$refs.typingDemo.restart();
+      pauseTyping() {
+        this.$refs.typingDemo.interrupt();
+        this.isTyping = false;
+      },
+      continueTyping() {
+        this.$refs.typingDemo.continueTyping();
+        this.isTyping = true;
+      },
+      onStart() {
+        this.isTyping = true;
+        this.progress = 0;
+      },
+      onWriting({ progress }) {
+        this.progress = progress;
+      },
+      onFinish() {
+        this.isTyping = false;
+        this.progress = 100;
+      },
     },
-    pauseTyping() {
-      this.$refs.typingDemo.interrupt();
-      this.isTyping = false;
-    },
-    continueTyping() {
-      this.$refs.typingDemo.continueTyping();
-      this.isTyping = true;
-    },
-    onStart() {
-      this.isTyping = true;
-      this.progress = 0;
-    },
-    onWriting({ progress }) {
-      this.progress = progress;
-    },
-    onFinish() {
-      this.isTyping = false;
-      this.progress = 100;
-    },
-  },
-};
+  };
 </script>
 
 <style>
-.progress-bar {
-  margin: 15px 0;
-  display: flex;
-  align-items: center;
-}
-.progress-text {
-  margin-left: 10px;
-  width: 40px;
-}
-.demo-controls {
-  margin-top: 15px;
-}
+  .progress-bar {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+  }
+  .progress-text {
+    margin-left: 10px;
+    width: 40px;
+  }
+  .demo-controls {
+    margin-top: 15px;
+  }
 </style>
 ```
 
@@ -237,7 +237,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <div class="bubble-row">
@@ -264,7 +264,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble
@@ -286,10 +286,10 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      markdownContent: `# Markdown示例
+  export default {
+    data() {
+      return {
+        markdownContent: `# Markdown示例
 这是一个支持**Markdown**渲染的气泡组件。
 
 ## 功能特点
@@ -304,14 +304,14 @@ function greet(name) {
 }
 console.log(greet('World'));
 \`\`\``,
-    };
-  },
-  methods: {
-    startMarkdown() {
-      this.$refs.markdownDemo.restart();
+      };
     },
-  },
-};
+    methods: {
+      startMarkdown() {
+        this.$refs.markdownDemo.restart();
+      },
+    },
+  };
 </script>
 ```
 
@@ -323,7 +323,7 @@ console.log(greet('World'));
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble placement="start">
@@ -357,13 +357,13 @@ console.log(greet('World'));
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      rating: 4.5,
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        rating: 4.5,
+      };
+    },
+  };
 </script>
 ```
 
@@ -375,7 +375,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div class="chat-container">
     <el-x-bubble
@@ -410,10 +410,10 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      aiResponse: `**Element UI** 是一套基于 Vue 2.0 的桌面端组件库，提供了丰富的组件和功能：
+  export default {
+    data() {
+      return {
+        aiResponse: `**Element UI** 是一套基于 Vue 2.0 的桌面端组件库，提供了丰富的组件和功能：
 
 - 丰富的组件：包括表单、表格、导航、通知等
 - 一致的设计：遵循统一的设计规范
@@ -424,30 +424,30 @@ export default {
 \`\`\`bash
 npm i element-ui -S
 \`\`\``,
-    };
-  },
-  methods: {
-    regenerateResponse() {
-      this.$refs.responseDemo.restart();
+      };
     },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.responseDemo.restart();
-    });
-  },
-};
+    methods: {
+      regenerateResponse() {
+        this.$refs.responseDemo.restart();
+      },
+    },
+    mounted() {
+      this.$nextTick(() => {
+        this.$refs.responseDemo.restart();
+      });
+    },
+  };
 </script>
 
 <style>
-.chat-container {
-  border: 1px solid #ebeef5;
-  border-radius: 4px;
-  padding: 15px;
-  background-color: #f8f8f8;
-  max-height: 400px;
-  overflow-y: auto;
-}
+  .chat-container {
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    max-height: 400px;
+    overflow-y: auto;
+  }
 </style>
 ```
 

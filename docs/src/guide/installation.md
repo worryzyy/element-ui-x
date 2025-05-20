@@ -148,7 +148,7 @@ $--color-ai-bubble-bot: #f7f7f7;
 
 你也可以通过 CDN 引入 Element-X（暂未提供）：
 
-```vue
+```html
 <!-- 引入 Vue -->
 <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
 
@@ -171,7 +171,7 @@ $--color-ai-bubble-bot: #f7f7f7;
 
 安装完成后，你可以在组件中使用 Element-X 的组件：
 
-```vue
+```html
 <template>
   <div>
     <el-button>Element UI 按钮</el-button>

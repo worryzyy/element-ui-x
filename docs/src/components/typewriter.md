@@ -18,7 +18,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter :content="basicContent" :typing="true" ref="basicDemo" />
@@ -35,27 +35,28 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      basicContent: "这是一个基础打字效果演示，展示Typewriter组件的基本功能。",
-    };
-  },
-  methods: {
-    startBasic() {
-      this.$refs.basicDemo.restart();
+  export default {
+    data() {
+      return {
+        basicContent:
+          "这是一个基础打字效果演示，展示Typewriter组件的基本功能。",
+      };
     },
-    resetBasic() {
-      this.$refs.basicDemo.restart();
+    methods: {
+      startBasic() {
+        this.$refs.basicDemo.restart();
+      },
+      resetBasic() {
+        this.$refs.basicDemo.restart();
+      },
     },
-  },
-};
+  };
 </script>
 
 <style>
-.demo-controls {
-  margin-top: 15px;
-}
+  .demo-controls {
+    margin-top: 15px;
+  }
 </style>
 ```
 
@@ -67,7 +68,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <div class="control-panel">
@@ -109,39 +110,39 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      speedContent:
-        "通过配置可以调整打字速度和每次打字的字符数，实现不同的打字效果。速度越慢，interval值越大；步长越大，每次显示的字符越多。",
-      typingConfig: {
-        interval: 40,
-        step: 2,
-        suffix: "|",
-      },
-    };
-  },
-  methods: {
-    startSpeedDemo() {
-      this.$refs.speedDemo.restart();
+  export default {
+    data() {
+      return {
+        speedContent:
+          "通过配置可以调整打字速度和每次打字的字符数，实现不同的打字效果。速度越慢，interval值越大；步长越大，每次显示的字符越多。",
+        typingConfig: {
+          interval: 40,
+          step: 2,
+          suffix: "|",
+        },
+      };
     },
-  },
-};
+    methods: {
+      startSpeedDemo() {
+        this.$refs.speedDemo.restart();
+      },
+    },
+  };
 </script>
 
 <style>
-.control-panel {
-  margin-bottom: 20px;
-  border: 1px solid #ebeef5;
-  border-radius: 4px;
-  padding: 15px;
-  background-color: #f8f8f8;
-}
-.control-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
+  .control-panel {
+    margin-bottom: 20px;
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #f8f8f8;
+  }
+  .control-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
 </style>
 ```
 
@@ -153,7 +154,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <div class="control-panel">
@@ -189,20 +190,20 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      cursorContent:
-        "通过自定义光标字符，可以实现不同的视觉效果。尝试切换不同的光标字符来体验。",
-      cursorChar: "|",
-    };
-  },
-  methods: {
-    startCursorDemo() {
-      this.$refs.cursorDemo.restart();
+  export default {
+    data() {
+      return {
+        cursorContent:
+          "通过自定义光标字符，可以实现不同的视觉效果。尝试切换不同的光标字符来体验。",
+        cursorChar: "|",
+      };
     },
-  },
-};
+    methods: {
+      startCursorDemo() {
+        this.$refs.cursorDemo.restart();
+      },
+    },
+  };
 </script>
 ```
 
@@ -214,7 +215,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <div class="control-panel">
@@ -255,27 +256,27 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      fogContent:
-        "雾化效果可以增强打字过程的视觉体验，通过调整雾化宽度和背景色来匹配不同的设计风格。",
-      fogWidth: 80,
-      fogConfig: {
-        bgColor: "#FFFFFF",
-        width: "80px",
+  export default {
+    data() {
+      return {
+        fogContent:
+          "雾化效果可以增强打字过程的视觉体验，通过调整雾化宽度和背景色来匹配不同的设计风格。",
+        fogWidth: 80,
+        fogConfig: {
+          bgColor: "#FFFFFF",
+          width: "80px",
+        },
+      };
+    },
+    methods: {
+      updateFogConfig() {
+        this.fogConfig.width = `${this.fogWidth}px`;
       },
-    };
-  },
-  methods: {
-    updateFogConfig() {
-      this.fogConfig.width = `${this.fogWidth}px`;
+      startFogDemo() {
+        this.$refs.fogDemo.restart();
+      },
     },
-    startFogDemo() {
-      this.$refs.fogDemo.restart();
-    },
-  },
-};
+  };
 </script>
 ```
 
@@ -287,7 +288,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter
@@ -306,10 +307,10 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      markdownContent: `# Markdown示例
+  export default {
+    data() {
+      return {
+        markdownContent: `# Markdown示例
 这是一个支持**Markdown**渲染的打字机效果演示。
 
 ## 功能特点
@@ -324,14 +325,14 @@ function greet(name) {
 }
 console.log(greet('World'));
 \`\`\``,
-    };
-  },
-  methods: {
-    startMarkdownDemo() {
-      this.$refs.markdownDemo.restart();
+      };
     },
-  },
-};
+    methods: {
+      startMarkdownDemo() {
+        this.$refs.markdownDemo.restart();
+      },
+    },
+  };
 </script>
 ```
 
@@ -343,7 +344,7 @@ console.log(greet('World'));
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter
@@ -387,56 +388,56 @@ console.log(greet('World'));
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      controlContent:
-        "这个示例展示了如何控制打字过程，包括开始、暂停、继续和重置功能。你可以通过下方的按钮来体验这些控制功能。",
-      isTyping: false,
-      progress: 0,
-    };
-  },
-  methods: {
-    startControl() {
-      this.$refs.controlDemo.restart();
+  export default {
+    data() {
+      return {
+        controlContent:
+          "这个示例展示了如何控制打字过程，包括开始、暂停、继续和重置功能。你可以通过下方的按钮来体验这些控制功能。",
+        isTyping: false,
+        progress: 0,
+      };
     },
-    pauseControl() {
-      this.$refs.controlDemo.interrupt();
+    methods: {
+      startControl() {
+        this.$refs.controlDemo.restart();
+      },
+      pauseControl() {
+        this.$refs.controlDemo.interrupt();
+      },
+      continueControl() {
+        this.$refs.controlDemo.continueTyping();
+      },
+      resetControl() {
+        this.progress = 0;
+        this.$refs.controlDemo.restart();
+      },
+      onStart() {
+        this.isTyping = true;
+      },
+      onWriting({ progress }) {
+        this.progress = progress;
+        this.isTyping = true;
+      },
+      onFinish() {
+        this.isTyping = false;
+      },
+      onInterrupt() {
+        this.isTyping = false;
+      },
     },
-    continueControl() {
-      this.$refs.controlDemo.continueTyping();
-    },
-    resetControl() {
-      this.progress = 0;
-      this.$refs.controlDemo.restart();
-    },
-    onStart() {
-      this.isTyping = true;
-    },
-    onWriting({ progress }) {
-      this.progress = progress;
-      this.isTyping = true;
-    },
-    onFinish() {
-      this.isTyping = false;
-    },
-    onInterrupt() {
-      this.isTyping = false;
-    },
-  },
-};
+  };
 </script>
 
 <style>
-.progress-bar {
-  margin: 15px 0;
-  display: flex;
-  align-items: center;
-}
-.progress-text {
-  margin-left: 10px;
-  width: 40px;
-}
+  .progress-bar {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+  }
+  .progress-text {
+    margin-left: 10px;
+    width: 40px;
+  }
 </style>
 ```
 
@@ -448,7 +449,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <div class="chat-container">
@@ -478,76 +479,76 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      aiResponse:
-        "Typewriter组件是一个模拟打字效果的UI组件，支持自定义打字速度、步长和光标样式。它可以用于展示AI生成内容、代码示例或任何需要逐步显示的场景。\n\n该组件还支持Markdown渲染和代码高亮，以及光标雾化效果，使得内容展示更加生动有趣。",
-    };
-  },
-  methods: {
-    regenerateResponse() {
-      this.$refs.aiDemo.restart();
+  export default {
+    data() {
+      return {
+        aiResponse:
+          "Typewriter组件是一个模拟打字效果的UI组件，支持自定义打字速度、步长和光标样式。它可以用于展示AI生成内容、代码示例或任何需要逐步显示的场景。\n\n该组件还支持Markdown渲染和代码高亮，以及光标雾化效果，使得内容展示更加生动有趣。",
+      };
     },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.aiDemo.restart();
-    });
-  },
-};
+    methods: {
+      regenerateResponse() {
+        this.$refs.aiDemo.restart();
+      },
+    },
+    mounted() {
+      this.$nextTick(() => {
+        this.$refs.aiDemo.restart();
+      });
+    },
+  };
 </script>
 
 <style>
-.chat-container {
-  border: 1px solid #ebeef5;
-  border-radius: 4px;
-  padding: 15px;
-  background-color: #f8f8f8;
-  height: 200px;
-  overflow-y: auto;
-}
+  .chat-container {
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    height: 200px;
+    overflow-y: auto;
+  }
 
-.message {
-  display: flex;
-  margin-bottom: 15px;
-}
+  .message {
+    display: flex;
+    margin-bottom: 15px;
+  }
 
-.message .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #409eff;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
+  .message .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #409eff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
 
-.message .content {
-  margin: 0 10px;
-  padding: 10px;
-  border-radius: 4px;
-  max-width: 80%;
-}
+  .message .content {
+    margin: 0 10px;
+    padding: 10px;
+    border-radius: 4px;
+    max-width: 80%;
+  }
 
-.message.user {
-  flex-direction: row-reverse;
-}
+  .message.user {
+    flex-direction: row-reverse;
+  }
 
-.message.user .avatar {
-  background-color: #67c23a;
-}
+  .message.user .avatar {
+    background-color: #67c23a;
+  }
 
-.message.user .content {
-  background-color: #f0f9eb;
-}
+  .message.user .content {
+    background-color: #f0f9eb;
+  }
 
-.message.bot .content {
-  background-color: #eceff1;
-  white-space: pre-wrap;
-}
+  .message.bot .content {
+    background-color: #eceff1;
+    white-space: pre-wrap;
+  }
 </style>
 ```
 
@@ -559,7 +560,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter
@@ -603,10 +604,10 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      contentText: `# 完整功能演示
+  export default {
+    data() {
+      return {
+        contentText: `# 完整功能演示
 - 支持**Markdown**渲染
 - 代码高亮: \`const example = true\`
 - 可配置的打字效果
@@ -617,25 +618,25 @@ function demo() {
   console.log('Typewriter组件');
 }
 \`\`\``,
-      typingSpeed: 40,
-      progress: 0,
-    };
-  },
-  methods: {
-    handleStart() {
-      console.log("打字开始");
+        typingSpeed: 40,
+        progress: 0,
+      };
     },
-    handleTyping({ progress }) {
-      this.progress = progress;
+    methods: {
+      handleStart() {
+        console.log("打字开始");
+      },
+      handleTyping({ progress }) {
+        this.progress = progress;
+      },
+      handleFinish(instance) {
+        console.log("打字完成", instance);
+      },
+      startComplete() {
+        this.$refs.completeDemo.restart();
+      },
     },
-    handleFinish(instance) {
-      console.log("打字完成", instance);
-    },
-    startComplete() {
-      this.$refs.completeDemo.restart();
-    },
-  },
-};
+  };
 </script>
 ```
 

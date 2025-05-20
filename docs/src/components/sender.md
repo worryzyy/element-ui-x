@@ -31,7 +31,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <!-- 示例代码 -->
@@ -39,16 +39,16 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      // 数据
-    };
-  },
-  methods: {
-    // 方法
-  },
-};
+  export default {
+    data() {
+      return {
+        // 数据
+      };
+    },
+    methods: {
+      // 方法
+    },
+  };
 </script>
 ```
 

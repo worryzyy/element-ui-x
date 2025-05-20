@@ -54,7 +54,7 @@
 
 ## 使用示例
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter
@@ -78,28 +78,28 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      contentText: `# 完整功能演示
+  export default {
+    data() {
+      return {
+        contentText: `# 完整功能演示
 - 支持**Markdown**渲染
 - 代码高亮: \`const example = true\`
 - 可配置的打字效果`,
-      typingSpeed: 40,
-      progress: 0,
-    };
-  },
-  methods: {
-    handleStart() {
-      console.log("打字开始");
+        typingSpeed: 40,
+        progress: 0,
+      };
     },
-    handleTyping({ progress }) {
-      this.progress = progress;
+    methods: {
+      handleStart() {
+        console.log("打字开始");
+      },
+      handleTyping({ progress }) {
+        this.progress = progress;
+      },
+      handleFinish(instance) {
+        console.log("打字完成", instance);
+      },
     },
-    handleFinish(instance) {
-      console.log("打字完成", instance);
-    },
-  },
-};
+  };
 </script>
 ```

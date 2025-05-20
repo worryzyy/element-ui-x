@@ -18,7 +18,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble-list :list="messageList" />
@@ -26,33 +26,33 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      messageList: [
-        {
-          content: "你好，我是AI助手，有什么可以帮助你的？",
-          placement: "start",
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        },
-        {
-          content: "我想了解如何使用Element UI组件库",
-          placement: "end",
-          avatar:
-            "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-        },
-        {
-          content:
-            "Element UI是一套为开发者、设计师和产品经理准备的基于Vue 2.0的桌面端组件库，提供了丰富的组件和功能。",
-          placement: "start",
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        },
-      ],
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        messageList: [
+          {
+            content: "你好，我是AI助手，有什么可以帮助你的？",
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+          },
+          {
+            content: "我想了解如何使用Element UI组件库",
+            placement: "end",
+            avatar:
+              "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+          },
+          {
+            content:
+              "Element UI是一套为开发者、设计师和产品经理准备的基于Vue 2.0的桌面端组件库，提供了丰富的组件和功能。",
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+          },
+        ],
+      };
+    },
+  };
 </script>
 ```
 
@@ -64,7 +64,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble-list
@@ -78,32 +78,32 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      messageList: [
-        {
-          content: "全局设置了圆形气泡和阴影效果",
-          placement: "start",
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        },
-        {
-          content: "所有气泡都会应用这些默认设置",
-          placement: "end",
-          avatar:
-            "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-        },
-        {
-          content: "即使单个气泡没有指定这些属性",
-          placement: "start",
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        },
-      ],
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        messageList: [
+          {
+            content: "全局设置了圆形气泡和阴影效果",
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+          },
+          {
+            content: "所有气泡都会应用这些默认设置",
+            placement: "end",
+            avatar:
+              "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+          },
+          {
+            content: "即使单个气泡没有指定这些属性",
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+          },
+        ],
+      };
+    },
+  };
 </script>
 ```
 
@@ -115,7 +115,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble-list
@@ -138,61 +138,61 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      typingMessages: [
-        {
-          content: "这是一条普通消息",
-          placement: "start",
+  export default {
+    data() {
+      return {
+        typingMessages: [
+          {
+            content: "这是一条普通消息",
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+          },
+          {
+            content: "这是我的回复",
+            placement: "end",
+            avatar:
+              "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+          },
+          {
+            content:
+              "这是一条**带有打字效果**的消息，会逐字显示出来。\n\n当消息很长时，会自动滚动到底部。",
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+            typing: true,
+          },
+        ],
+        messageCounter: 0,
+      };
+    },
+    methods: {
+      addMessage() {
+        this.messageCounter++;
+        this.typingMessages.push({
+          content: `这是新添加的第${this.messageCounter}条普通消息`,
+          placement: this.messageCounter % 2 === 0 ? "end" : "start",
           avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        },
-        {
-          content: "这是我的回复",
-          placement: "end",
-          avatar:
-            "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-        },
-        {
-          content:
-            "这是一条**带有打字效果**的消息，会逐字显示出来。\n\n当消息很长时，会自动滚动到底部。",
+            this.messageCounter % 2 === 0
+              ? "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+              : "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+        });
+      },
+      addTypingMessage() {
+        this.messageCounter++;
+        this.typingMessages.push({
+          content: `这是新添加的第${this.messageCounter}条**打字效果**消息，会自动滚动到底部。\n\n- 项目1\n- 项目2\n- 项目3`,
           placement: "start",
           avatar:
             "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
           typing: true,
-        },
-      ],
-      messageCounter: 0,
-    };
-  },
-  methods: {
-    addMessage() {
-      this.messageCounter++;
-      this.typingMessages.push({
-        content: `这是新添加的第${this.messageCounter}条普通消息`,
-        placement: this.messageCounter % 2 === 0 ? "end" : "start",
-        avatar:
-          this.messageCounter % 2 === 0
-            ? "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
-            : "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-      });
+        });
+      },
+      onTypingComplete(instance, index) {
+        console.log(`索引 ${index} 的消息完成打字`);
+      },
     },
-    addTypingMessage() {
-      this.messageCounter++;
-      this.typingMessages.push({
-        content: `这是新添加的第${this.messageCounter}条**打字效果**消息，会自动滚动到底部。\n\n- 项目1\n- 项目2\n- 项目3`,
-        placement: "start",
-        avatar:
-          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        typing: true,
-      });
-    },
-    onTypingComplete(instance, index) {
-      console.log(`索引 ${index} 的消息完成打字`);
-    },
-  },
-};
+  };
 </script>
 ```
 
@@ -204,7 +204,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble-list
@@ -219,24 +219,26 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      longMessages: Array.from({ length: 20 }, (_, i) => ({
-        content: `这是第 ${
-          i + 1
-        } 条消息，向上滚动查看更多内容，滚动距离超过阈值时会显示返回底部按钮。${
-          i % 3 === 0 ? "这是一条较长的消息内容，用于测试换行和布局效果。" : ""
-        }`,
-        placement: i % 2 === 0 ? "start" : "end",
-        avatar:
-          i % 2 === 0
-            ? "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-            : "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-      })),
-    };
-  },
-};
+  export default {
+    data() {
+      return {
+        longMessages: Array.from({ length: 20 }, (_, i) => ({
+          content: `这是第 ${
+            i + 1
+          } 条消息，向上滚动查看更多内容，滚动距离超过阈值时会显示返回底部按钮。${
+            i % 3 === 0
+              ? "这是一条较长的消息内容，用于测试换行和布局效果。"
+              : ""
+          }`,
+          placement: i % 2 === 0 ? "start" : "end",
+          avatar:
+            i % 2 === 0
+              ? "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              : "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+        })),
+      };
+    },
+  };
 </script>
 ```
 
@@ -248,7 +250,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble-list :list="customMessages" :max-height="'300px'">
@@ -267,8 +269,7 @@ export default {
       <template #header="{ item }">
         <div style="font-weight: bold; margin-bottom: 5px; color: #606266;">
           {{ item.placement === "start" ? "AI助手" : "用户" }}
-          <span
-            style="font-size: 12px; margin-left: 10px; font-weight: normal;"
+          <span style="font-size: 12px; margin-left: 10px; font-weight: normal;"
             >{{ item.time }}</span
           >
         </div>
@@ -305,34 +306,34 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      customMessages: Array.from({ length: 5 }, (_, i) => ({
-        content: `这是第 ${
-          i + 1
-        } 条自定义消息，使用插槽自定义了头像、头部和底部内容。`,
-        placement: i % 2 === 0 ? "start" : "end",
-        time: new Date().toLocaleTimeString(),
-        id: i,
-      })),
-    };
-  },
-  methods: {
-    copyMessage(item) {
-      this.$message.success(`已复制消息: ${item.id}`);
+  export default {
+    data() {
+      return {
+        customMessages: Array.from({ length: 5 }, (_, i) => ({
+          content: `这是第 ${
+            i + 1
+          } 条自定义消息，使用插槽自定义了头像、头部和底部内容。`,
+          placement: i % 2 === 0 ? "start" : "end",
+          time: new Date().toLocaleTimeString(),
+          id: i,
+        })),
+      };
     },
-    favoriteMessage(item) {
-      this.$message.success(`已收藏消息: ${item.id}`);
+    methods: {
+      copyMessage(item) {
+        this.$message.success(`已复制消息: ${item.id}`);
+      },
+      favoriteMessage(item) {
+        this.$message.success(`已收藏消息: ${item.id}`);
+      },
+      likeMessage(item) {
+        this.$message.success(`已点赞消息: ${item.id}`);
+      },
+      dislikeMessage(item) {
+        this.$message.warning(`已踩消息: ${item.id}`);
+      },
     },
-    likeMessage(item) {
-      this.$message.success(`已点赞消息: ${item.id}`);
-    },
-    dislikeMessage(item) {
-      this.$message.warning(`已踩消息: ${item.id}`);
-    },
-  },
-};
+  };
 </script>
 ```
 
@@ -344,7 +345,7 @@ export default {
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-bubble-list
@@ -363,24 +364,24 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      complexMessages: [
-        {
-          content: "你好，请问有什么可以帮助你的？",
-          placement: "start",
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        },
-        {
-          content: "我想了解Element UI的表格组件",
-          placement: "end",
-          avatar:
-            "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-        },
-        {
-          content: `# Element UI 表格组件
+  export default {
+    data() {
+      return {
+        complexMessages: [
+          {
+            content: "你好，请问有什么可以帮助你的？",
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+          },
+          {
+            content: "我想了解Element UI的表格组件",
+            placement: "end",
+            avatar:
+              "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+          },
+          {
+            content: `# Element UI 表格组件
 
 Element UI 表格组件是一个强大的数据展示工具，提供了以下功能：
 
@@ -396,58 +397,58 @@ Element UI 表格组件是一个强大的数据展示工具，提供了以下功
   <el-table-column prop="address" label="地址"></el-table-column>
 </el-table>
 \`\`\``,
-          placement: "start",
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+            isMarkdown: true,
+          },
+          {
+            loading: true,
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+          },
+        ],
+      };
+    },
+    methods: {
+      sendMessage() {
+        // 移除加载消息
+        this.complexMessages.pop();
+
+        // 添加用户消息
+        this.complexMessages.push({
+          content: "谢谢，这个表格组件看起来很强大！",
+          placement: "end",
           avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          isMarkdown: true,
-        },
-        {
+            "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+        });
+
+        // 添加加载中状态
+        this.complexMessages.push({
           loading: true,
           placement: "start",
           avatar:
             "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        },
-      ],
-    };
-  },
-  methods: {
-    sendMessage() {
-      // 移除加载消息
-      this.complexMessages.pop();
-
-      // 添加用户消息
-      this.complexMessages.push({
-        content: "谢谢，这个表格组件看起来很强大！",
-        placement: "end",
-        avatar:
-          "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-      });
-
-      // 添加加载中状态
-      this.complexMessages.push({
-        loading: true,
-        placement: "start",
-        avatar:
-          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-      });
-
-      // 模拟加载完成后添加新消息
-      setTimeout(() => {
-        // 移除加载消息
-        this.complexMessages.pop();
-
-        // 添加新消息
-        this.complexMessages.push({
-          content: "你还有其他关于Element UI的问题吗？",
-          placement: "start",
-          avatar:
-            "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-          typing: true,
         });
-      }, 2000);
+
+        // 模拟加载完成后添加新消息
+        setTimeout(() => {
+          // 移除加载消息
+          this.complexMessages.pop();
+
+          // 添加新消息
+          this.complexMessages.push({
+            content: "你还有其他关于Element UI的问题吗？",
+            placement: "start",
+            avatar:
+              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+            typing: true,
+          });
+        }, 2000);
+      },
     },
-  },
-};
+  };
 </script>
 ```
 

@@ -6,7 +6,7 @@
 
 下面是打字机组件的基本示例代码：
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter
@@ -26,32 +26,32 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      demoText:
-        "欢迎使用 Element-X 打字机组件！这是一个用于模拟 AI 回复内容逐字显示的组件，可以提升用户交互体验。",
-      typeSpeed: 30,
-      hasBlur: false,
-    };
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.typewriter.startTyping();
-    });
-  },
-  methods: {
-    startTyping() {
-      this.$refs.typewriter.startTyping();
+  export default {
+    data() {
+      return {
+        demoText:
+          "欢迎使用 Element-X 打字机组件！这是一个用于模拟 AI 回复内容逐字显示的组件，可以提升用户交互体验。",
+        typeSpeed: 30,
+        hasBlur: false,
+      };
     },
-    typeAll() {
-      this.$refs.typewriter.typeAll();
+    mounted() {
+      this.$nextTick(() => {
+        this.$refs.typewriter.startTyping();
+      });
     },
-    eraseAll() {
-      this.$refs.typewriter.eraseAll();
+    methods: {
+      startTyping() {
+        this.$refs.typewriter.startTyping();
+      },
+      typeAll() {
+        this.$refs.typewriter.typeAll();
+      },
+      eraseAll() {
+        this.$refs.typewriter.eraseAll();
+      },
     },
-  },
-};
+  };
 </script>
 ```
 
@@ -115,7 +115,7 @@ typewriter.resetTypewriter();
 
 ### AI 聊天应用
 
-```vue
+```html
 <template>
   <div class="chat-container">
     <!-- 用户消息 -->
@@ -143,42 +143,42 @@ typewriter.resetTypewriter();
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      isThinking: true,
-      aiResponse:
-        "您好！我是一个AI助手，可以回答您的问题、提供信息以及帮助您完成各种任务。",
-    };
-  },
-  mounted() {
-    // 模拟AI思考过程
-    setTimeout(() => {
-      this.isThinking = false;
-      this.$nextTick(() => {
-        this.$refs.typewriter.startTyping();
-      });
-    }, 1500);
-  },
-  methods: {
-    regenerateResponse() {
-      this.isThinking = true;
+  export default {
+    data() {
+      return {
+        isThinking: true,
+        aiResponse:
+          "您好！我是一个AI助手，可以回答您的问题、提供信息以及帮助您完成各种任务。",
+      };
+    },
+    mounted() {
+      // 模拟AI思考过程
       setTimeout(() => {
         this.isThinking = false;
         this.$nextTick(() => {
-          this.$refs.typewriter.eraseAll();
           this.$refs.typewriter.startTyping();
         });
-      }, 1000);
+      }, 1500);
     },
-    skipAnimation() {
-      this.isThinking = false;
-      this.$nextTick(() => {
-        this.$refs.typewriter.typeAll();
-      });
+    methods: {
+      regenerateResponse() {
+        this.isThinking = true;
+        setTimeout(() => {
+          this.isThinking = false;
+          this.$nextTick(() => {
+            this.$refs.typewriter.eraseAll();
+            this.$refs.typewriter.startTyping();
+          });
+        }, 1000);
+      },
+      skipAnimation() {
+        this.isThinking = false;
+        this.$nextTick(() => {
+          this.$refs.typewriter.typeAll();
+        });
+      },
     },
-  },
-};
+  };
 </script>
 ```
 

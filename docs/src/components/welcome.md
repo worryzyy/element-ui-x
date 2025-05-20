@@ -18,7 +18,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <el-x-welcome
     icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
@@ -36,7 +36,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-welcome
@@ -64,7 +64,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-welcome
@@ -92,7 +92,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <div>
     <el-x-welcome
@@ -124,7 +124,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <el-x-welcome
     title="自定义图标区域"
@@ -149,7 +149,7 @@
 
 :::demo
 
-```vue
+```html
 <template>
   <el-x-welcome
     icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"

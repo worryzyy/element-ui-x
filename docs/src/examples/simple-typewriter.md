@@ -56,7 +56,7 @@ export default {
 
 ## 核心代码
 
-```vue
+```html
 <template>
   <div>
     <el-x-typewriter
@@ -75,21 +75,21 @@ export default {
 </template>
 
 <script>
-export default {
-  methods: {
-    restart() {
-      this.$refs.typewriter.eraseAll();
-      setTimeout(() => {
-        this.$refs.typewriter.startTyping();
-      }, 300);
+  export default {
+    methods: {
+      restart() {
+        this.$refs.typewriter.eraseAll();
+        setTimeout(() => {
+          this.$refs.typewriter.startTyping();
+        }, 300);
+      },
+      showAll() {
+        this.$refs.typewriter.typeAll();
+      },
+      clear() {
+        this.$refs.typewriter.eraseAll();
+      },
     },
-    showAll() {
-      this.$refs.typewriter.typeAll();
-    },
-    clear() {
-      this.$refs.typewriter.eraseAll();
-    },
-  },
-};
+  };
 </script>
 ```

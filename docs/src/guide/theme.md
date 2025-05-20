@@ -127,17 +127,17 @@ document.documentElement.style.setProperty("--color-ai-bubble-bot", "#f5f5f5");
 
 在组件中使用 `scoped` 样式时，你可以使用深度选择器 `::v-deep` 或 `/deep/` 修改子组件样式：
 
-```vue
+```html
 <style scoped>
-/* Vue 2.x 使用 ::v-deep 或 /deep/ */
-::v-deep .el-x-typewriter__cursor {
-  animation-duration: 0.5s;
-}
+  /* Vue 2.x 使用 ::v-deep 或 /deep/ */
+  ::v-deep .el-x-typewriter__cursor {
+    animation-duration: 0.5s;
+  }
 
-/* 自定义气泡文本颜色 */
-::v-deep .el-x-bubble--user .el-x-bubble__content {
-  color: #345678;
-}
+  /* 自定义气泡文本颜色 */
+  ::v-deep .el-x-bubble--user .el-x-bubble__content {
+    color: #345678;
+  }
 </style>
 ```
 
@@ -169,7 +169,7 @@ document.documentElement.classList.remove("dark");
 
 以下是一个动态切换主题的示例：
 
-```vue
+```html
 <template>
   <div>
     <el-switch
@@ -193,82 +193,82 @@ document.documentElement.classList.remove("dark");
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      isDarkMode: false,
-      colors: [
-        "#409EFF", // 默认蓝色
-        "#67C23A", // 绿色
-        "#E6A23C", // 黄色
-        "#F56C6C", // 红色
-        "#909399", // 灰色
-        "#6b46c1", // 紫色
-      ],
-    };
-  },
-  methods: {
-    toggleTheme(value) {
-      if (value) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    },
-    changeThemeColor(color) {
-      // 设置主色调
-      document.documentElement.style.setProperty("--color-primary", color);
-
-      // 根据主色调生成相关的 AI 组件颜色
-      document.documentElement.style.setProperty(
-        "--color-ai-bubble-user",
-        this.lightenColor(color, 0.9)
-      );
-      document.documentElement.style.setProperty("--color-ai-cursor", color);
-    },
-    lightenColor(color, amount) {
-      // 简单的颜色变浅算法（实际开发中可以使用color库）
-      const rgb = this.hexToRgb(color);
-      const lightened = {
-        r: Math.round(rgb.r + (255 - rgb.r) * amount),
-        g: Math.round(rgb.g + (255 - rgb.g) * amount),
-        b: Math.round(rgb.b + (255 - rgb.b) * amount),
+  export default {
+    data() {
+      return {
+        isDarkMode: false,
+        colors: [
+          "#409EFF", // 默认蓝色
+          "#67C23A", // 绿色
+          "#E6A23C", // 黄色
+          "#F56C6C", // 红色
+          "#909399", // 灰色
+          "#6b46c1", // 紫色
+        ],
       };
-      return `rgb(${lightened.r}, ${lightened.g}, ${lightened.b})`;
     },
-    hexToRgb(hex) {
-      // 将十六进制颜色转换为RGB
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result
-        ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16),
-          }
-        : null;
+    methods: {
+      toggleTheme(value) {
+        if (value) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      },
+      changeThemeColor(color) {
+        // 设置主色调
+        document.documentElement.style.setProperty("--color-primary", color);
+
+        // 根据主色调生成相关的 AI 组件颜色
+        document.documentElement.style.setProperty(
+          "--color-ai-bubble-user",
+          this.lightenColor(color, 0.9)
+        );
+        document.documentElement.style.setProperty("--color-ai-cursor", color);
+      },
+      lightenColor(color, amount) {
+        // 简单的颜色变浅算法（实际开发中可以使用color库）
+        const rgb = this.hexToRgb(color);
+        const lightened = {
+          r: Math.round(rgb.r + (255 - rgb.r) * amount),
+          g: Math.round(rgb.g + (255 - rgb.g) * amount),
+          b: Math.round(rgb.b + (255 - rgb.b) * amount),
+        };
+        return `rgb(${lightened.r}, ${lightened.g}, ${lightened.b})`;
+      },
+      hexToRgb(hex) {
+        // 将十六进制颜色转换为RGB
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result
+          ? {
+              r: parseInt(result[1], 16),
+              g: parseInt(result[2], 16),
+              b: parseInt(result[3], 16),
+            }
+          : null;
+      },
     },
-  },
-};
+  };
 </script>
 
 <style>
-.theme-colors {
-  display: flex;
-  margin-top: 15px;
-}
+  .theme-colors {
+    display: flex;
+    margin-top: 15px;
+  }
 
-.color-block {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
+  .color-block {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
 
-.color-block:hover {
-  transform: scale(1.1);
-}
+  .color-block:hover {
+    transform: scale(1.1);
+  }
 </style>
 ```
 
