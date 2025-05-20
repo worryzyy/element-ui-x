@@ -9,15 +9,15 @@
     .el-button {
       cursor: default !important;
 
-      &:active {
-        background-color: $--el-x-fill-color !important;
-        border-color: $--el-x-fill-color !important;
-      }
+      // &:active {
+      //   background-color: $--el-x-fill-color !important;
+      //   border-color: $--el-x-fill-color !important;
+      // }
 
-      &:hover {
-        background-color: $--el-x-fill-color !important;
-        border-color: $--el-x-fill-color !important;
-      }
+      // &:hover {
+      //   background-color: $--el-x-fill-color !important;
+      //   border-color: $--el-x-fill-color !important;
+      // }
     }
   }
 
@@ -111,4 +111,3 @@
     transform: rotate(360deg);
   }
 }
-

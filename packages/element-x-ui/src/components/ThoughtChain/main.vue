@@ -52,7 +52,6 @@
 <script>
 import { get } from 'lodash'
 import ElXTypewriter from '../Typewriter/main.vue'
-
 export default {
     name: 'ElXThoughtChain',
     components: {
@@ -120,11 +119,12 @@ export default {
     data() {
         return {
             colorArr: {
-                info: 'var(--el-color-primary)',
-                success: 'var(--el-color-success)',
-                warning: 'var(--el-color-warning)',
-                danger: 'var(--el-color-danger)',
-                primary: 'var(--el-color-primary)',
+                // 使用与SCSS变量对应的字符串表示
+                info: 'var(--color-info, #909399)',
+                success: 'var(--color-success, #67C23A)',
+                warning: 'var(--color-warning, #E6A23C)',
+                danger: 'var(--color-danger, #F56C6C)',
+                primary: 'var(--color-primary, #409EFF)',
             },
             defaultActiveNodes: [],
         }
@@ -200,8 +200,6 @@ export default {
         getEle() {
             if (this.getLineColor && this.$refs.timelineRef && this.lineGradient) {
                 const ele = this.$refs.timelineRef.$el.children[0].children
-                console.log(ele)
-
                 this.setRadialGradient(this.getLineColor, ele)
             }
         },

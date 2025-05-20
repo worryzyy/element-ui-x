@@ -1,6 +1,18 @@
 @import "~element-ui/packages/theme-chalk/src/common/var";
 
+:root {
+  --color-primary: #{$--color-primary};
+  --color-success: #{$--color-success};
+  --color-warning: #{$--color-warning};
+  --color-danger: #{$--color-danger};
+  --color-info: #{$--color-info};
+
+  $--el-x-color-primary: $--color-primary;
+  $--el-x-color-success: $--color-success;
+}
+
 $--el-x-color-primary: $--color-primary;
+$--el-x-color-success: $--color-success;
 // 字体大小
 $--el-x-font-size-small: $--font-size-small !default;
 $--el-x-font-size-base: $--font-size-base !default;
