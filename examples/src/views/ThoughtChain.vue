@@ -31,7 +31,7 @@
             </div>
 
             <div class="demo-block">
-                <h3>时间轴样式</h3>
+                <h3>时间轴样式:渐变连线</h3>
                 <div class="control-row">
                     <h4>节点大小：</h4>
                     <el-radio-group v-model="dotSize">
@@ -40,9 +40,6 @@
                         <el-radio-button label="medium">中等</el-radio-button>
                         <el-radio-button label>超大</el-radio-button>
                     </el-radio-group>
-                </div>
-                <div class="control-row">
-                    <el-switch v-model="lineGradient" active-text="渐变连线" />
                 </div>
                 <el-x-thought-chain :thinking-items="styleItems" :dot-size="dotSize" :line-gradient="lineGradient" class="mt-10" />
             </div>
@@ -74,7 +71,7 @@ export default {
             currentStatus: 'loading',
             isDefaultExpand: false,
             dotSize: 'mini',
-            lineGradient: false,
+            lineGradient: true,
             typingEnabled: true,
             basicItems: [
                 {
@@ -137,7 +134,7 @@ export default {
                 {
                     id: 2,
                     title: '样式演示2',
-                    status: 'success',
+                    status: 'error',
                     thinkTitle: '样式演示2',
                     thinkContent: '这是样式演示2的内容',
                 },
