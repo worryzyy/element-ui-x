@@ -23,7 +23,7 @@
 ```html
 <template>
   <div>
-    <el-x-thoughtchain :thinking-items="thinkingItems" />
+    <el-x-thought-chain :thinking-items="thinkingItems" />
   </div>
 </template>
 
@@ -71,7 +71,7 @@
 ```html
 <template>
   <div>
-    <el-x-thoughtchain
+    <el-x-thought-chain
       :thinking-items="thinkingItems"
       :line-gradient="true"
       dot-size="small"
@@ -119,7 +119,7 @@
 ```html
 <template>
   <div>
-    <el-x-thoughtchain
+    <el-x-thought-chain
       :thinking-items="thinkingItems"
       :status-enum="customStatusEnum"
       max-width="800px"
