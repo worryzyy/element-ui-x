@@ -9,6 +9,7 @@ import Conversations from '../views/Conversations.vue'
 import Thinking from '../views/Thinking.vue'
 import Think from '../views/Think.vue'
 import ThoughtChain from '../views/ThoughtChain.vue'
+import Sender from '../views/Sender.vue'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ export default new Router({
 			path: '/thoughtchain',
 			name: 'ThoughtChain',
 			component: ThoughtChain
+		},
+		{
+			path: '/sender',
+			name: 'Sender',
+			component: Sender
 		},
 		{
 			path: '*',

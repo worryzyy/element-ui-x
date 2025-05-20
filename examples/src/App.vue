@@ -6,8 +6,7 @@
             </el-header>
             <el-container>
                 <el-aside width="200px">
-                    <el-menu router :default-active="$route.path" background-color="#545c64" text-color="#fff"
-                        active-text-color="#ffd04b">
+                    <el-menu router :default-active="$route.path" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
                         <el-menu-item index="/typewriter">
                             <i class="el-icon-edit"></i>
                             <span>Typewriter</span>
@@ -43,6 +42,10 @@
                         <el-menu-item index="/thoughtchain">
                             <i class="el-icon-edit"></i>
                             <span>ThoughtChain</span>
+                        </el-menu-item>
+                        <el-menu-item index="/sender">
+                            <i class="el-icon-message"></i>
+                            <span>Sender</span>
                         </el-menu-item>
                     </el-menu>
                 </el-aside>
