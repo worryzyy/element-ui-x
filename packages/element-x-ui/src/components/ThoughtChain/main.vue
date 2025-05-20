@@ -216,7 +216,9 @@ export default {
         },
         getType(item) {
             const status = this.getStatus(item)
-            return (this.statusEnum[status] && this.statusEnum[status].type) || 'success'
+            // 优先查找statusEnum中value匹配的项
+            const matchedStatus = Object.values(this.statusEnum).find((s) => s.value === status)
+            return matchedStatus ? matchedStatus.type : 'success'
         },
 
         getTitle(item) {
