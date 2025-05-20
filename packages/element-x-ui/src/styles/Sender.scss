@@ -1,0 +1,193 @@
+@import '../theme/var.scss';
+
+
+$--el-x-sender-box-shadow-tertiary: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
+0 1px 6px -1px rgba(0, 0, 0, 0.02),
+0 2px 4px 0 rgba(0, 0, 0, 0.02);
+$--el-x-sender-input-font-size: 14px;
+$--el-x-sender-header-animation-duration: 300ms;
+$--el-x-border-width: $--border-width-base;
+$--el-x-padding-xs: 8px;
+$--el-x-padding-sm: 12px;
+$--el-x-padding: 16px;
+$--el-x-transition-duration: 0.3s;
+$--el-x-color-primary: $--color-primary;
+$--el-x-color-white: $--color-white;
+$--el-x-box-shadow: $--box-shadow-base;
+$--el-x-border-color: $--border-color-base;
+$--el-x-text-color-primary: $--color-text-primary;
+$--el-x-font-line-height-primary: $--font-line-height-primary;
+$--el-x-fill-color: $--background-color-base;
+
+.el-x-sender {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  box-sizing: border-box;
+  box-shadow: $--el-x-sender-box-shadow-tertiary;
+  transition: background $--el-x-transition-duration;
+  border-radius: calc(#{$--border-radius-base} * 2);
+  border-color: $--el-x-border-color;
+  border-width: 0;
+  border-style: solid;
+  transition: width $--el-x-sender-header-animation-duration;
+
+  &:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: border-color $--el-x-transition-duration;
+    border-radius: inherit;
+    border-style: inherit;
+    border-color: inherit;
+    border-width: $--el-x-border-width;
+  }
+
+  &:focus-within {
+    box-shadow: $--el-x-box-shadow;
+    border-color: $--el-x-color-primary;
+
+    &::after {
+      border-width: 2px;
+    }
+  }
+
+  .el-x-sender-header-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: $--el-x-padding-xs;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  // 展开收起动画
+  .slide-enter-active,
+  .slide-leave-active {
+    transition:
+      height $--el-x-sender-header-animation-duration,
+      opacity $--el-x-sender-header-animation-duration,
+      border $--el-x-sender-header-animation-duration;
+    overflow: hidden;
+  }
+
+  // .slide-enter-from,
+  // .slide-leave-to {
+  //   height: 0;
+  //   opacity: 0;
+  // }
+
+  .slide-enter,
+  .slide-leave-to {
+    height: 0;
+    opacity: 0;
+  }
+
+  .el-x-sender-header {
+    border-bottom-width: $--el-x-border-width;
+    border-bottom-style: solid;
+    border-bottom-color: $--el-x-border-color;
+  }
+
+  .el-x-sender-content {
+    display: flex;
+    gap: $--el-x-padding-xs;
+    width: 100%;
+    padding-block: $--el-x-padding-sm;
+    padding-inline-start: $--el-x-padding;
+    padding-inline-end: $--el-x-padding-sm;
+    box-sizing: border-box;
+    align-items: flex-end;
+
+    // 前缀
+    .el-x-sender-prefix {
+      flex: none;
+    }
+
+    // 输入框
+    .el-x-sender-input {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      align-self: center;
+
+      ::v-deep .el-textarea__inner {
+        padding: 0;
+        margin: 0;
+        color: $--el-x-text-color-primary;
+        font-size: $--el-x-sender-input-font-size;
+        line-height: $--el-x-font-line-height-primary;
+        list-style: none;
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        height: auto;
+        min-height: auto !important;
+        border-radius: 0;
+        border: none;
+        flex: auto;
+        align-self: center;
+        vertical-align: bottom;
+        resize: none;
+        background-color: transparent;
+        transition:
+          all $--el-x-transition-duration,
+          height 0s;
+        box-shadow: none !important;
+      }
+    }
+
+    // 操作列表
+    .el-x-sender-action-list-presets {
+      display: flex;
+      gap: $--el-x-padding-xs;
+      flex-direction: row-reverse;
+    }
+  }
+
+  // 变体样式 --variant
+  .content-variant-updown {
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+
+    .el-x-sender-updown-wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+
+      // 前缀
+      .el-x-sender-prefix {
+        flex: initial;
+      }
+
+      .el-x-sender-action-list {
+        margin-left: auto;
+      }
+    }
+  }
+
+  // 底部容器
+  .el-x-sender-footer {
+    border-top-width: $--el-x-border-width;
+    border-top-style: solid;
+    border-top-color: $--el-x-border-color;
+  }
+}
+
+.el-x-sender-disabled {
+  background-color: $--el-x-fill-color;
+  pointer-events: none;
+}
+
+.el-x-sender-trigger-popover {
+  width: var(--el-x-sender-trigger-popover-width, fit-content) !important;
+  max-width: calc(100% - 54px) !important;
+  margin-left: var(--el-x-sender-trigger-popover-left, 0px) !important;
+}

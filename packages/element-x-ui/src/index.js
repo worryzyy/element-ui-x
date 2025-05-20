@@ -6,7 +6,9 @@ import ElXPrompts from './components/Prompts/main.vue'
 import ElXConversations from './components/Conversations/main.vue'
 import ElXThinking from './components/Thinking/main.vue'
 import ElXThink from './components/Think/main.vue'
-import ElThoughtChain from './components/ThoughtChain/main.vue'
+import ElXThoughtChain from './components/ThoughtChain/main.vue'
+import ElXSender from './components/Sender/main.vue'
+
 
 const components = [
 	ElXTypewriter,
@@ -17,7 +19,8 @@ const components = [
 	ElXConversations,
 	ElXThinking,
 	ElXThink,
-	ElThoughtChain
+	ElXThoughtChain,
+	ElXSender
 ]
 
 const install = function (Vue) {
