@@ -139,5 +139,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/Think.scss';
+@import '../../../styles/Think.scss';
 </style>
