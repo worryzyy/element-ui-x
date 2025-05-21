@@ -1,0 +1,221 @@
+@import "~element-ui/packages/theme-chalk/src/common/var";
+
+.el-x-filescard {
+  width: fit-content;
+  padding: 12px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: center;
+  border-radius: 8px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.06);
+  max-width: var(--elx-files-card-max-width);
+
+  .el-x-filescard-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    transition: width 0.2s ease;
+  }
+
+  .el-x-filescard-delete-icon {
+    position: absolute;
+    top: -8px;
+    right: -6px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.4);
+    display: none;
+
+    &:hover {
+      color: #ff4d4f;
+    }
+  }
+
+  &:hover .el-x-filescard-delete-icon {
+    display: block;
+  }
+}
+
+.el-x-filescard-square {
+  padding: 0;
+  margin: 0;
+}
+
+.el-x-filescard-icon {
+  flex: none;
+  font-size: var(--elx-files-card-icon-size);
+}
+
+.el-x-filescard-img {
+  flex: none;
+  width: var(--elx-files-card-icon-size);
+  height: var(--elx-files-card-icon-size);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.el-x-filescard-content {
+  flex: auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  height: 100%;
+
+  .el-x-filescard-name {
+    display: flex;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    font-size: 14px;
+
+    .el-x-filescard-name-prefix {
+      flex: 0 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .el-x-filescard-name-suffix {
+      flex: none;
+    }
+  }
+
+  .el-x-filescard-description {
+    flex: none;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 12px;
+  }
+
+  .el-x-filescard-description-error {
+    color: #ff4d4f;
+  }
+}
+
+/* 遮罩层样式 */
+.image-preview-container {
+  position: relative;
+  padding: 0px;
+  width: var(--elx-files-card-icon-size);
+  height: var(--elx-files-card-icon-size);
+  display: inline-block;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s;
+
+  .preview-mask {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 10px;
+    transition: opacity 0.3s;
+
+    .el-icon-view {
+      font-size: 10px;
+      margin-right: 2px;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      margin-top: 2px;
+    }
+
+    &:hover {
+      opacity: 1;
+      transition: opacity 0.3s;
+      cursor: pointer;
+    }
+  }
+}
+
+.image-preview-container-square {
+  .preview-mask {
+    font-size: 14px;
+
+    .el-icon-view {
+      font-size: 12px;
+    }
+  }
+}
+
+// 正方形变体，加载中样式,不悬停直接展示
+.preview-mask-loading {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  transition: all 0.3s;
+
+  .circle-progress {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .el-progress-circle {
+      width: calc(100% - 12px) !important;
+      height: calc(100% - 12px) !important;
+
+      svg>path:nth-child(1) {
+        stroke: rgba(255, 255, 255, 0.2);
+        stroke-width: 8px;
+      }
+    }
+    .el-progress__text {
+      color: #fff;
+      font-size: 14px;
+    }
+  }
+}
+
+// 正方形变体，加载中样式,不悬停直接展示
+.preview-mask-error {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  transition: all 0.3s;
+  color: #ff4d4f;
+  // 溢出隐藏
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.el-image-viewer__progress {
+  display: none;
+}
+
+/* 过渡动画样式 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

@@ -8,7 +8,8 @@ import ElXThinking from './components/Thinking/index.js'
 import ElXThink from './components/Think/index.js'
 import ElXThoughtChain from './components/ThoughtChain/index.js'
 import ElXSender from './components/Sender/index.js'
-
+import ElXFilesCard from './components/FilesCard/index.js'
+ 
 
 const components = [
 	ElXTypewriter,
@@ -20,7 +21,8 @@ const components = [
 	ElXThinking,
 	ElXThink,
 	ElXThoughtChain,
-	ElXSender
+	ElXSender,
+	ElXFilesCard
 ]
 
 const install = function (Vue) {
