@@ -1,4 +1,4 @@
-import ElXThink from './main.vue';
+import ElXThink from './src/main.vue';
 
 /* istanbul ignore next */
 ElXThink.install = function (Vue) {

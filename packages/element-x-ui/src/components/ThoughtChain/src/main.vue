@@ -51,7 +51,7 @@
 
 <script>
 import { get } from 'lodash'
-import ElXTypewriter from '../Typewriter/main.vue'
+import ElXTypewriter from '../../Typewriter/index.js'
 export default {
     name: 'ElXThoughtChain',
     components: {
@@ -237,5 +237,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../../styles/ThoughtChain.scss';
+@import '../../../styles/ThoughtChain.scss';
 </style>
