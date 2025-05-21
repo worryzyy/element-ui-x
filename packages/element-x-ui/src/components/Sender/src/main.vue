@@ -110,16 +110,16 @@
                 ref="popoverRef"
                 v-model="popoverVisible"
                 :disabled="disabled"
-                :show-arrow="false"
+                :visible-arrow="false"
                 :placement="triggerPopoverPlacement"
                 :offset="triggerPopoverOffset"
                 popper-class="el-x-sender-trigger-popover"
                 trigger="manual"
+                @show="onPopoverShow"
             >
                 <template slot="default">
                     <slot name="trigger-popover" :trigger-string="triggerString" :readonly="readOnly">当前触发的字符为：{{ `${triggerString}` }} 在这里定义的内容，但注意这里的回车事件将会被 输入框 覆盖</slot>
                 </template>
-                <span slot="reference"></span>
             </el-popover>
         </div>
     </div>
@@ -219,7 +219,7 @@ export default {
         },
         triggerPopoverPlacement: {
             type: String,
-            default: 'top',
+            default: 'top-start',
             validator: (value) =>
                 [
                     'top',
@@ -384,6 +384,16 @@ export default {
     },
 
     methods: {
+        /* 手动更新 popover 位置 */
+        onPopoverShow() {
+            if (this.$refs.popoverRef) {
+                this.$nextTick(() => {
+                    this.$refs.popoverRef.referenceElm = this.$refs.senderRef
+                    this.$refs.popoverRef.doDestroy()
+                    this.$refs.popoverRef.updatePopper()
+                })
+            }
+        },
         /* 内容容器聚焦 开始 */
         onContentMouseDown(e) {
             // 点击容器后设置输入框的聚焦，会触发 &:focus-within 样式
