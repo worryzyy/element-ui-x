@@ -31,7 +31,7 @@
                         <el-radio label="shiftEnter">Shift+Enter 提交</el-radio>
                     </el-radio-group>
                 </div>
-                <el-x-sender v-model="submitContent" :submit-type="submitType" placeholder="尝试不同提交方式..." clearable></el-x-sender>
+                <el-x-sender v-model="submitContent" :submit-type="submitType" :loading="enterLoading" placeholder="尝试不同提交方式..." clearable @submit="enterSubmit"></el-x-sender>
                 <div class="demo-controls">
                     <p>当前提交方式：{{ submitType === 'enter' ? 'Enter 提交，Shift+Enter 换行' : 'Shift+Enter 提交，Enter 换行' }}</p>
                 </div>
@@ -184,6 +184,7 @@ export default {
 
             // 提交方式
             submitType: 'enter',
+            enterLoading:false,
             submitContent: '',
 
             // 状态
@@ -237,7 +238,15 @@ export default {
             this.basicSubmitted = content
             this.basicContent = ''
         },
-
+        // 键盘提交
+        enterSubmit(content){
+            this.enterLoading = true
+            setTimeout(() => {
+                this.enterLoading = false
+                this.submitContent = ''
+                this.$message.success('提交成功：' + content)
+            }, 2000)
+        },
         // 加载状态
         handleLoadingSubmit(content) {
             this.isLoading = true
