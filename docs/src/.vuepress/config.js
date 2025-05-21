@@ -117,6 +117,5 @@ module.exports = {
       sidebarLinkSelector: ".sidebar-link",
       headerAnchorSelector: ".header-anchor",
     },
-  },
-
+  }
 };
