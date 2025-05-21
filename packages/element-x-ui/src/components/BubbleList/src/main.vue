@@ -83,9 +83,9 @@
 </template>
 
 <script>
-import Bubble from '../Bubble/main.vue'
+import Bubble from '../../Bubble/index.js'
 import loadingBg from './loading.vue'
-import createScrollDetector from '../../utils/scrollDetector'
+import createScrollDetector from '../../../utils/scrollDetector'
 
 export default {
     name: 'ElXBubbleList',
@@ -410,5 +410,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/BubbleList.scss';
+@import '../../../styles/BubbleList.scss';
 </style>
