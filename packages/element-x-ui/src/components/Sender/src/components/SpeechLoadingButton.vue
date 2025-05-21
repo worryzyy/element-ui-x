@@ -28,6 +28,8 @@ export default {
 .el-x-send-button {
     .el-button {
         padding: 0;
+        width: 32px;
+        height: 32px;
     }
     .loading-svg {
         color: $--color-primary;

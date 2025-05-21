@@ -1,5 +1,10 @@
 @import '../theme/var.scss';
 
+// 设置全局CSS变量默认值
+:root {
+  --el-x-sender-trigger-popover-width: fit-content;
+  --el-x-sender-trigger-popover-left: 0px;
+}
 
 $--el-x-sender-box-shadow-tertiary: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
 0 1px 6px -1px rgba(0, 0, 0, 0.02),
@@ -187,7 +192,12 @@ $--el-x-fill-color: $--background-color-base;
 }
 
 .el-x-sender-trigger-popover {
-  width: var(--el-x-sender-trigger-popover-width, fit-content) !important;
+  // 设置默认值
+  width: fit-content !important;
+  margin-left: 0px !important;
   max-width: calc(100% - 54px) !important;
-  margin-left: var(--el-x-sender-trigger-popover-left, 0px) !important;
+
+  // 应用自定义变量（如果存在）
+  width: var(--el-x-sender-trigger-popover-width) !important;
+  margin-left: var(--el-x-sender-trigger-popover-left) !important;
 }

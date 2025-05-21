@@ -1,13 +1,13 @@
-import ElXTypewriter from './components/Typewriter/main.vue'
-import ElXBubble from './components/Bubble/main.vue'
-import ElXBubbleList from './components/BubbleList/main.vue'
-import ElXWelcome from './components/Welcome/main.vue'
-import ElXPrompts from './components/Prompts/main.vue'
-import ElXConversations from './components/Conversations/main.vue'
-import ElXThinking from './components/Thinking/main.vue'
-import ElXThink from './components/Think/main.vue'
-import ElXThoughtChain from './components/ThoughtChain/main.vue'
-import ElXSender from './components/Sender/main.vue'
+import ElXTypewriter from './components/Typewriter/index.js'
+import ElXBubble from './components/Bubble/index.js'
+import ElXBubbleList from './components/BubbleList/index.js'
+import ElXWelcome from './components/Welcome/index.js'
+import ElXPrompts from './components/Prompts/index.js'
+import ElXConversations from './components/Conversations/index.js'
+import ElXThinking from './components/Thinking/index.js'
+import ElXThink from './components/Think/index.js'
+import ElXThoughtChain from './components/ThoughtChain/index.js'
+import ElXSender from './components/Sender/index.js'
 
 
 const components = [

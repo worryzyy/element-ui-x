@@ -3,18 +3,18 @@
         class="el-x-sender-wrap"
         :style="{
       'cursor': disabled ? 'not-allowed' : 'default',
-      '--el-sender-trigger-popover-width': triggerPopoverWidth,
-      '--el-sender-trigger-popover-left': triggerPopoverLeft,
+      '--el-x-sender-trigger-popover-width': triggerPopoverWidth,
+      '--el-x-sender-trigger-popover-left': triggerPopoverLeft,
     }"
     >
         <div
             ref="senderRef"
             class="el-x-sender"
             :style="{
-        '--el-sender-box-shadow-tertiary':
+        '--el-x-sender-box-shadow-tertiary':
           '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)',
-        '--el-sender-input-font-size': '14px',
-        '--el-sender-header-animation-duration': `${headerAnimationTimer}ms`,
+        '--el-x-sender-input-font-size': '14px',
+        '--el-x-sender-header-animation-duration': `${headerAnimationTimer}ms`,
       }"
             :class="{
         'el-x-sender-disabled': disabled,
@@ -215,11 +215,11 @@ export default {
         },
         triggerPopoverOffset: {
             type: Number,
-            default: 8,
+            default: 0,
         },
         triggerPopoverPlacement: {
             type: String,
-            default: 'top-start',
+            default: 'top',
             validator: (value) =>
                 [
                     'top',
@@ -605,6 +605,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/Sender.scss';
+@import '../../../styles/Sender.scss';
 </style>
-
