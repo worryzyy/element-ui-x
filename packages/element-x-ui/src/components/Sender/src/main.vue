@@ -432,21 +432,21 @@ export default {
                 })
 
                 // 如果用户设置了字体大小，需要调整高度
-                if (this.inputStyle.fontSize) {
-                    // 确保高度能完全容纳当前字体大小
-                    const computedFontSize = window.getComputedStyle(textareaEl).fontSize
-                    const fontSize = parseInt(computedFontSize)
-                    const minHeight = Math.max(fontSize * 1.5, 24) + 'px'
-                    textareaEl.style.minHeight = minHeight
+                // if (this.inputStyle.fontSize) {
+                //     // 确保高度能完全容纳当前字体大小
+                //     const computedFontSize = window.getComputedStyle(textareaEl).fontSize
+                //     const fontSize = parseInt(computedFontSize)
+                //     const minHeight = Math.max(fontSize * 1.5, 24) + 'px'
+                //     textareaEl.style.minHeight = minHeight
 
-                    // 重新触发 autosize
-                    this.$nextTick(() => {
-                        // 在某些情况下需要手动触发Element UI的autosize更新
-                        const event = document.createEvent('Event')
-                        event.initEvent('autosize:update', true, false)
-                        textareaEl.dispatchEvent(event)
-                    })
-                }
+                //     // 重新触发 autosize
+                //     this.$nextTick(() => {
+                //         // 在某些情况下需要手动触发Element UI的autosize更新
+                //         const event = document.createEvent('Event')
+                //         event.initEvent('autosize:update', true, false)
+                //         textareaEl.dispatchEvent(event)
+                //     })
+                // }
             }
         },
 
