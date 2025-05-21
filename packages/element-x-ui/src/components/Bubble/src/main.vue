@@ -1,10 +1,10 @@
 <script>
-import Typewriter from '../Typewriter/main.vue'
+import ElXTypewriter from '../../Typewriter/index'
 
 export default {
     name: 'ElXBubble',
     components: {
-        Typewriter,
+        ElXTypewriter,
     },
     props: {
         content: {
@@ -217,7 +217,7 @@ export default {
                 <div v-if="!loading" class="el-typewriter" :class="{
             'no-content': !content,
           }">
-                    <Typewriter
+                    <el-x-typewriter
                         v-if="!($scopedSlots.content || $slots.content) && content"
                         ref="typewriterRef"
                         :typing="_typing"
