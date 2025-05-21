@@ -10,7 +10,7 @@ import Thinking from '../views/Thinking.vue'
 import Think from '../views/Think.vue'
 import ThoughtChain from '../views/ThoughtChain.vue'
 import Sender from '../views/Sender.vue'
-
+import FilesCard from '../views/FilesCard.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -64,6 +64,11 @@ export default new Router({
 			path: '/sender',
 			name: 'Sender',
 			component: Sender
+		},
+		{
+			path: '/filescard',
+			name: 'FilesCard',
+			component: FilesCard
 		},
 		{
 			path: '*',
