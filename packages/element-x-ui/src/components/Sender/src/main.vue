@@ -472,8 +472,6 @@ export default {
 
         /* 头部显示隐藏 开始 */
         openHeader() {
-            console.log('openHeader', this.$slots.header)
-
             if (!this.$slots.header) return false
             if (this.readOnly) return false
             this.visiableHeader = true
@@ -672,12 +670,12 @@ export default {
     },
 
     mounted() {
-        // 获取组件引用
-        this.senderRef = this.$refs.senderRef
-        this.inputRef = this.$refs.inputRef
-        this.popoverRef = this.$refs.popoverRef
         // 应用样式
         this.$nextTick(() => {
+            // 获取组件引用
+            this.senderRef = this.$refs.senderRef
+            this.inputRef = this.$refs.inputRef
+            this.popoverRef = this.$refs.popoverRef
             this.applyInputStyles()
         })
     },
