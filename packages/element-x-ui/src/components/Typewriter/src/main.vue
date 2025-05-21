@@ -217,7 +217,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/Typewriter.scss';
+@import '../../../styles/Typewriter.scss';
 @import 'prismjs/themes/prism.css';
 // You can also use other themes from prismjs like:
 // @import 'prismjs/themes/prism-coy.css';

@@ -253,5 +253,5 @@ export default {
 
 
 <style lang="scss" scoped>
-@import '../../styles/Bubble.scss';
+@import '../../../styles/Bubble.scss';
 </style>
