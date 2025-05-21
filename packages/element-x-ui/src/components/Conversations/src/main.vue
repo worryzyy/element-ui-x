@@ -518,7 +518,7 @@ export default {
 
 <style lang="scss" scoped>
 // 引入外部样式文件
-@import '../../../styles/Conversations.scss';
+@import '../../../../styles/Conversations.scss';
 
 /* 自定义滚动条样式 */
 .el-x-conversations-scrollbar {
