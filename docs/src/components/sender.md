@@ -30,7 +30,11 @@
       @submit="handleSubmit"
     />
     <br />
-    <el-x-sender placeholder="💌 欢迎使用 Element-X ~" />
+    <el-x-sender
+      style="width: fit-content;"
+      inputWidth="500px"
+      placeholder="💌 欢迎使用 Element-X"
+    />
   </div>
 </template>
 
@@ -50,6 +54,90 @@
   };
 </script>
 ```
+
+:::
+
+### 组件实例方法
+
+使用组件实例调用方法示例。
+
+:::demo
+
+```html
+<template>
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <div style="display: flex;">
+      <el-button
+        type="primary"
+        style="width: fit-content;"
+        @click="$refs.senderRef.clear()"
+      >
+        使用组件实例清空
+      </el-button>
+      <el-button
+        type="primary"
+        style="width: fit-content;"
+        :disabled="!senderValue"
+        @click="$refs.senderRef.submit()"
+      >
+        使用组件实例提交
+      </el-button>
+      <el-button
+        type="primary"
+        style="width: fit-content;"
+        @click="$refs.senderRef.cancel()"
+      >
+        使用组件实例取消
+      </el-button>
+    </div>
+    <el-x-sender
+      ref="senderRef"
+      v-model="senderValue"
+      :submit-btn-disabled="submitBtnDisabled"
+      :loading="senderLoading"
+      clearable
+      @submit="handleSubmit"
+      @cancel="handleCancel"
+    />
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        senderRef: null,
+        timeValue: null,
+        senderValue: "",
+        senderLoading: false,
+        submitBtnDisabled: false,
+      };
+    },
+    methods: {
+      handleSubmit(value) {
+        this.$message.info("发送中");
+        this.senderLoading = true;
+        this.timeValue = setTimeout(() => {
+          console.log("submit-> value：", value);
+          console.log("submit-> senderValue", this.senderValue);
+          this.senderLoading = false;
+          this.$message.success("发送成功");
+        }, 3500);
+      },
+      handleCancel() {
+        this.senderLoading = false;
+        if (this.timeValue) {
+          clearTimeout(this.timeValue);
+        }
+        this.timeValue = null;
+        this.$message.info("取消发送");
+      },
+    },
+  };
+</script>
+```
+
+:::
 
 ### 不同布局变体
 
@@ -187,8 +275,7 @@
       v-model="message"
       placeholder="输入 @ 或 # 触发弹出框"
       :trigger-strings="['@', '#']"
-      triggerPopoverLeft="100px"
-      triggerPopoverPlacement="top"
+      triggerPopoverOffset="0"
       :trigger-popover-visible.sync="showTriggerPopover"
       @submit="handleSubmit"
       @trigger="handleTrigger"
@@ -250,15 +337,45 @@
     >
       <template #action-list>
         <div class="custom-actions">
-          <el-button type="text" icon="el-icon-picture" @click="handleAttach" />
           <el-button
-            type="text"
-            icon="el-icon-video-camera"
-            @click="handleVideo"
+            icon="el-icon-picture"
+            size="small"
+            circle
+            @click.stop="handleAttach"
           />
-          <el-button type="primary" :disabled="!message" @click="submit">
-            发送
+          <el-button
+            circle
+            size="small"
+            icon="el-icon-video-camera"
+            @click.stop="handleVideo"
+          />
+          <el-button
+            circle
+            size="small"
+            type="primary"
+            :disabled="!message"
+            @click="submit"
+            icon="el-icon-position"
+          >
           </el-button>
+        </div>
+      </template>
+    </el-x-sender>
+    <br />
+    <el-x-sender
+      v-model="message"
+      placeholder="自定义操作按钮..."
+      @submit="handleSubmit"
+    >
+      <template #action-list>
+        <div class="custom-actions">
+          <el-button icon="el-icon-delete" size="small" type="danger" circle />
+          <el-button
+            circle
+            type="warning"
+            size="small"
+            icon="el-icon-loading"
+          />
         </div>
       </template>
     </el-x-sender>
@@ -291,7 +408,7 @@
   .custom-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
   }
 </style>
 ```
@@ -300,6 +417,10 @@
 
 ### 自定义头部和底部
 
+:::tip 注意
+显示头部需要在挂载的时候手动调用组件的 `openHeader`方法
+:::
+
 通过 `header` 和 `footer` 插槽自定义头部和底部内容。
 
 :::demo
@@ -307,18 +428,44 @@
 ```html
 <template>
   <div>
+    <div style="text-align:right;margin-bottom:10px">
+      <el-button
+        size="small"
+        v-if="!showHeader"
+        type="primary"
+        @click="toggleHeader"
+        >{{ showHeader ? '关闭头部' : '显示头部' }}</el-button
+      >
+    </div>
+
     <el-x-sender
+      ref="customSender"
       v-model="message"
       placeholder="带自定义头部和底部的输入框..."
       @submit="handleSubmit"
     >
-      <template #header>
-        <div class="custom-header">
-          <span>消息发送</span>
-          <el-tag size="mini">工作区</el-tag>
+      <template #prefix>
+        <div
+          style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;"
+        >
+          <el-button round plain size="small">
+            <i class="el-icon-paperclip"></i>
+          </el-button>
         </div>
       </template>
-
+      <template #header>
+        <div class="header-self-wrap">
+          <div class="header-self-title">
+            <div class="header-left">💯 欢迎使用 Element X</div>
+            <div class="header-right">
+              <el-button @click.stop="toggleHeader" icon="el-icon-circle-close">
+                <span>关闭头部</span>
+              </el-button>
+            </div>
+          </div>
+          <div class="header-self-content">🦜 自定义头部内容</div>
+        </div>
+      </template>
       <template #footer>
         <div class="custom-footer">
           <span>字符数: {{ message.length }}</span>
@@ -334,25 +481,59 @@
     data() {
       return {
         message: "",
+        showHeader: true,
       };
+    },
+    mounted() {
+      this.$refs.customSender.openHeader();
     },
     methods: {
       handleSubmit(value) {
         this.$message.success(`发送消息: ${value}`);
         this.message = "";
       },
+      // 插槽用法
+      toggleHeader() {
+        this.showHeader = !this.showHeader;
+        if (this.showHeader) {
+          this.$nextTick(() => {
+            if (this.$refs.customSender) {
+              this.$refs.customSender.openHeader();
+            }
+          });
+        } else {
+          if (this.$refs.customSender) {
+            this.$refs.customSender.closeHeader();
+          }
+        }
+      },
     },
   };
 </script>
 
 <style>
-  .custom-header {
+  .header-self-wrap {
     display: flex;
+    flex-direction: column;
+    padding: 16px;
+    height: 200px;
+  }
+  .header-self-wrap .header-self-title {
+    width: 100%;
+    display: flex;
+    height: 30px;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 12px;
-    background-color: #f5f7fa;
-    border-bottom: 1px solid #ebeef5;
+    padding-bottom: 8px;
+  }
+  .header-self-wrap .header-self-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #626aef;
+    font-weight: 600;
   }
 
   .custom-footer {
@@ -369,31 +550,138 @@
 
 :::
 
+### 自定义输入框样式
+
+通过 `input-style` 方便对输入框的样式透传
+
+:::demo
+
+```html
+<template>
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+    <el-x-sender
+      v-model="senderValue"
+      variant="updown"
+      :input-style="{ backgroundColor: 'rgb(243 244 246)', color: '#626aef', fontSize: '24px', fontWeight: 700 }"
+      style="background: rgb(243 244 246); border-radius: 8px;"
+    />
+
+    <el-x-sender
+      v-model="senderValue"
+      variant="updown"
+      :input-style="{ backgroundColor: 'transparent', color: '#F0F2F5', fontSize: '24px', fontWeight: 700 }"
+      style="background-image: linear-gradient(to left, #434343 0%, black 100%); border-radius: 8px;"
+    />
+
+    <el-x-sender
+      v-model="senderValue"
+      :input-style="{ backgroundColor: 'transparent', color: '#FF5454', fontSize: '20px', fontWeight: 700 }"
+      style="background-image: linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%); border-radius: 8px;"
+    />
+
+    <el-x-sender
+      v-model="senderValue"
+      variant="updown"
+      :input-style="{ backgroundColor: 'transparent', color: '#303133', fontSize: '16px', fontWeight: 700 }"
+      style="background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%); border-radius: 8px;"
+    >
+      <template #prefix>
+        <div
+          style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;"
+        >
+          <el-button round plain color="#626aef" size="small">
+            <i class="el-icon-paperclip"></i>
+          </el-button>
+
+          <div
+            class="thinking"
+            :style="[thinkStyle, isSelect ? selectStyle : {}]"
+            @click="isSelect = !isSelect"
+          >
+            <i class="el-icon-plus"></i>
+            <span>深度思考</span>
+          </div>
+        </div>
+      </template>
+
+      <template #action-list>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <el-button
+            round
+            class="send-btn"
+            style=" background: #626aef;color:#FFF"
+            size="small"
+          >
+            <i class="el-icon-position"></i>
+          </el-button>
+        </div>
+      </template>
+    </el-x-sender>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        senderValue: "这是自定义输入框样式",
+        isSelect: false,
+        thinkStyle: {
+          display: "flex",
+          height: "32px",
+          boxSizing: "border-box",
+          alignItems: "center",
+          gap: "4px",
+          padding: "2px 12px",
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: "black",
+          borderRadius: "15px",
+          cursor: "pointer",
+          fontSize: "12px",
+          color: "black",
+        },
+        selectStyle: {
+          color: "#626aef",
+          borderColor: "#626aef",
+          padding: "3px 12px",
+          fontWeight: "700",
+        },
+      };
+    },
+  };
+</script>
+
+<style scoped></style>
+```
+
+:::
+
 ## 属性
 
-| 参数                    | 说明                                   | 类型                | 默认值                     |
-| ----------------------- | -------------------------------------- | ------------------- | -------------------------- |
-| value / v-model         | 绑定值                                 | String              | ''                         |
-| placeholder             | 输入框占位文本                         | String              | '请输入内容'               |
-| autoSize                | 输入框自适应配置                       | Object              | { minRows: 1, maxRows: 6 } |
-| readOnly                | 是否只读                               | Boolean             | false                      |
-| disabled                | 是否禁用                               | Boolean             | false                      |
-| loading                 | 是否显示加载状态                       | Boolean             | false                      |
-| clearable               | 是否显示清除按钮                       | Boolean             | false                      |
-| allowSpeech             | 是否启用语音输入                       | Boolean             | false                      |
-| submitType              | 提交方式，可选 'enter' 或 'shiftEnter' | String              | 'enter'                    |
-| headerAnimationTimer    | 头部动画持续时间(ms)                   | Number              | 300                        |
-| inputWidth              | 输入框宽度                             | String              | '100%'                     |
-| variant                 | 布局变体，可选 'default' 或 'updown'   | String              | 'default'                  |
-| showUpdown              | 在 updown 变体下是否显示操作栏         | Boolean             | true                       |
-| submitBtnDisabled       | 手动控制提交按钮禁用状态               | Boolean             | -                          |
-| inputStyle              | 输入框样式透传                         | Object/String/Array | {}                         |
-| triggerStrings          | 触发弹出框的字符数组                   | Array               | []                         |
-| triggerPopoverVisible   | 弹出框显示状态                         | Boolean             | false                      |
-| triggerPopoverWidth     | 弹出框宽度                             | String              | 'fit-content'              |
-| triggerPopoverLeft      | 弹出框左侧偏移                         | String              | '0px'                      |
-| triggerPopoverOffset    | 弹出框偏移量                           | Number              | 8                          |
-| triggerPopoverPlacement | 弹出框位置                             | String              | 'top-start'                |
+| 参数                    | 说明                                   | 类型    | 默认值                     |
+| ----------------------- | -------------------------------------- | ------- | -------------------------- |
+| value / v-model         | 绑定值                                 | String  | ''                         |
+| placeholder             | 输入框占位文本                         | String  | '请输入内容'               |
+| autoSize                | 输入框自适应配置                       | Object  | { minRows: 1, maxRows: 6 } |
+| readOnly                | 是否只读                               | Boolean | false                      |
+| disabled                | 是否禁用                               | Boolean | false                      |
+| loading                 | 是否显示加载状态                       | Boolean | false                      |
+| clearable               | 是否显示清除按钮                       | Boolean | false                      |
+| allowSpeech             | 是否启用语音输入                       | Boolean | false                      |
+| submitType              | 提交方式，可选 'enter' 或 'shiftEnter' | String  | 'enter'                    |
+| headerAnimationTimer    | 头部动画持续时间(ms)                   | Number  | 300                        |
+| inputWidth              | 输入框宽度                             | String  | '100%'                     |
+| variant                 | 布局变体，可选 'default' 或 'updown'   | String  | 'default'                  |
+| showUpdown              | 在 updown 变体下是否显示操作栏         | Boolean | true                       |
+| submitBtnDisabled       | 手动控制提交按钮禁用状态               | Boolean | -                          |
+| inputStyle              | 输入框样式透传                         | Object  | {}                         |
+| triggerStrings          | 触发弹出框的字符数组                   | Array   | []                         |
+| triggerPopoverVisible   | 弹出框显示状态                         | Boolean | false                      |
+| triggerPopoverWidth     | 弹出框宽度                             | String  | 'fit-content'              |
+| triggerPopoverLeft      | 弹出框左侧偏移                         | String  | '0px'                      |
+| triggerPopoverOffset    | 弹出框偏移量                           | Number  | 8                          |
+| triggerPopoverPlacement | 弹出框位置                             | String  | 'top-start'                |
 
 ## 方法
 
