@@ -39,13 +39,8 @@
                     ref="inputRef"
                     v-model="internalValue"
                     class="el-x-sender-input"
-                    :input-style="inputStyle || {
-            'resize': 'none',
-            'max-height': '176px',
-            'max-width': inputWidth,
-          }"
                     :rows="1"
-                    :autosize="autoSize"
+                    :autosize="computedAutoSize"
                     type="textarea"
                     :validate-event="false"
                     :placeholder="placeholder"
@@ -190,9 +185,8 @@ export default {
         },
         submitBtnDisabled: Boolean,
 
-        // 新增 el-input 样式透传
         inputStyle: {
-            type: [Object, String, Array],
+            type: Object,
             default: () => ({}),
         },
 
@@ -274,11 +268,37 @@ export default {
             // 否则保持默认逻辑：无内容时禁用
             return !this.internalValue
         },
+
+        // 根据字体大小动态计算 autoSize
+        computedAutoSize() {
+            // 如果用户提供了autoSize，则优先使用
+            if (this.autoSize) return this.autoSize
+
+            // 否则返回默认值
+            return {
+                minRows: 1,
+                maxRows: 6,
+            }
+        },
     },
 
     watch: {
         value(val) {
             this.internalValue = val
+        },
+        // 监听样式变化
+        inputStyle: {
+            handler() {
+                this.$nextTick(() => {
+                    this.applyInputStyles()
+                })
+            },
+            deep: true,
+        },
+        inputWidth() {
+            this.$nextTick(() => {
+                this.applyInputStyles()
+            })
         },
         // 监听外部传入的 triggerPopoverVisible 变化
         triggerPopoverVisible(val) {
@@ -303,6 +323,8 @@ export default {
         },
         internalValue(newVal, oldVal) {
             this.$emit('input', newVal)
+
+            // 当内容变化时，修复高度问题
 
             if (this.isComposing) return
             // 新增：如果处于防抖状态，则不进行触发检测
@@ -384,6 +406,50 @@ export default {
     },
 
     methods: {
+        /* 直接应用输入框样式 */
+        applyInputStyles() {
+            if (!this.inputRef) return
+
+            const textareaEl = this.inputRef.$el.querySelector('textarea')
+            if (!textareaEl) return
+
+            // 设置默认基础样式
+            const defaultStyles = {
+                maxHeight: '176px',
+                maxWidth: this.inputWidth || '100%',
+                boxSizing: 'border-box',
+            }
+
+            // 应用默认样式
+            Object.keys(defaultStyles).forEach((key) => {
+                textareaEl.style[key] = defaultStyles[key]
+            })
+
+            // 如果用户传入了样式对象，则应用覆盖默认样式
+            if (this.inputStyle && typeof this.inputStyle === 'object') {
+                Object.keys(this.inputStyle).forEach((key) => {
+                    textareaEl.style[key] = this.inputStyle[key]
+                })
+
+                // 如果用户设置了字体大小，需要调整高度
+                if (this.inputStyle.fontSize) {
+                    // 确保高度能完全容纳当前字体大小
+                    const computedFontSize = window.getComputedStyle(textareaEl).fontSize
+                    const fontSize = parseInt(computedFontSize)
+                    const minHeight = Math.max(fontSize * 1.5, 24) + 'px'
+                    textareaEl.style.minHeight = minHeight
+
+                    // 重新触发 autosize
+                    this.$nextTick(() => {
+                        // 在某些情况下需要手动触发Element UI的autosize更新
+                        const event = document.createEvent('Event')
+                        event.initEvent('autosize:update', true, false)
+                        textareaEl.dispatchEvent(event)
+                    })
+                }
+            }
+        },
+
         /* 手动更新 popover 位置 */
         onPopoverShow() {
             if (this.$refs.popoverRef) {
@@ -610,6 +676,15 @@ export default {
         this.senderRef = this.$refs.senderRef
         this.inputRef = this.$refs.inputRef
         this.popoverRef = this.$refs.popoverRef
+        // 应用样式
+        this.$nextTick(() => {
+            this.applyInputStyles()
+        })
+    },
+
+    updated() {
+        // 确保在组件更新后重新应用样式
+        this.applyInputStyles()
     },
 }
 </script>
