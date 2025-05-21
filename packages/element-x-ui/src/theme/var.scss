@@ -55,9 +55,9 @@ $--el-x-spacing-xl: 20px !default;
 
 // 内边距
 
-$--el-x-padding-xs: $--border-radius-base !default;
-$--el-x-padding-sm: $--font-size-base !default;
-$--el-x-padding-md: $--font-size-medium !default;
+$--el-x-padding-xs: 4px !default;
+$--el-x-padding-sm: 8px !default;
+$--el-x-padding-md: 12px !default;
 $--el-x-padding-lg: $--font-size-large !default;
 $--el-x-padding-xl: $--font-size-extra-large !default;
 

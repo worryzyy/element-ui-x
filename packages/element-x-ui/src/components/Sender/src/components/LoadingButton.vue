@@ -21,6 +21,7 @@ export default {
 @import '~element-ui/packages/theme-chalk/src/common/var';
 
 .el-x-send-button {
+    height: 32px;
     .el-button {
         padding: 0;
         width: 32px;
@@ -29,7 +30,6 @@ export default {
     .loading-svg {
         color: $--color-primary;
         width: 100%;
-        height: 100%;
     }
 }
 </style> 

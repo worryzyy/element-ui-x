@@ -1,12 +1,12 @@
-
 @import '../theme/var.scss';
+
 .el-x-bubble {
   display: flex;
   gap: var(--el-x-bubble-avatar-placeholder-gap);
 }
 
 .el-x-bubble-avatar-size {
-  :deep(.el-avatar) {
+  ::v-deep .el-avatar {
     width: var(--el-x-bubble-avatar-placeholder-width);
     height: var(--el-x-bubble-avatar-placeholder-height);
   }
@@ -69,7 +69,7 @@
 
   .el-x-bubble-content {
     background-color: $--el-x-fill-color;
-    padding:  $--el-x-padding-md  $--el-x-padding-lg;
+    padding: $--el-x-padding-md $--el-x-padding-lg;
     border-radius: calc($--el-x-border-radius-base + 4px);
     position: relative;
     box-sizing: border-box;
@@ -101,12 +101,12 @@
 
   .el-x-bubble-content-borderless {
     background-color: $--el-x-fill-color;
-    border: $--el-x-border-width solid   $--el-x-border-color;
+    border: $--el-x-border-width solid $--el-x-border-color;
   }
 
   .el-x-bubble-content-outlined {
     background: none;
-    border: $--el-x-border-width solid   $--el-x-border-color;
+    border: $--el-x-border-width solid $--el-x-border-color;
   }
 
   .el-x-bubble-content-shadow {
