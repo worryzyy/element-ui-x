@@ -1,13 +1,15 @@
 <template>
-    <div class="el-x-thinking" :style="{
+    <div
+        class="el-x-thinking"
+        :style="{
         '--el-x-thinking-button-width': buttonWidth,
         '--el-x-thinking-animation-duration': duration,
         '--el-x-thinking-content-wrapper-width': maxWidth,
         '--el-x-thinking-content-wrapper-background-color': backgroundColor,
         '--el-x-thinking-content-wrapper-color': color,
-    }">
-        <button class="trigger" :class="[localStatus, { disabled: !disabled }]" :disabled="disabled"
-            @click="changeExpand">
+    }"
+    >
+        <button class="trigger" :class="[localStatus, { disabled: !disabled }]" :disabled="disabled" @click="changeExpand">
             <span class="status-icon">
                 <slot name="status-icon" :status="localStatus">
                     <i v-if="localStatus === 'thinking'" class="is-loading el-icon-center el-icon-loading"></i>
@@ -20,9 +22,9 @@
             <span class="label">
                 <slot name="label" :status="localStatus">
                     {{
-                        localStatus === 'thinking' ? '思考中...'
-                            : localStatus === 'error' ? '思考遇到问题'
-                                : localStatus === 'end' ? '思考完成' : '开始思考'
+                    localStatus === 'thinking' ? '思考中...'
+                    : localStatus === 'error' ? '思考遇到问题'
+                    : localStatus === 'end' ? '思考完成' : '开始思考'
                     }}
                 </slot>
             </span>
@@ -37,8 +39,7 @@
         </button>
 
         <Transition name="slide">
-            <div v-show="isExpanded" v-if="displayedContent" class="content-wrapper"
-                :class="{ 'error-state': localStatus === 'error' }">
+            <div v-show="isExpanded" v-if="displayedContent" class="content-wrapper" :class="{ 'error-state': localStatus === 'error' }">
                 <div class="content">
                     <slot v-if="localStatus !== 'error'" name="content" :content="displayedContent">
                         <pre>{{ displayedContent }}</pre>
@@ -142,6 +143,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import '../../styles/Thinking.scss';
+<style lang="scss" scoped>
+@import '../../../styles/Thinking.scss';
 </style>
