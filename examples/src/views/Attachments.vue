@@ -97,6 +97,62 @@
                     <el-button type="danger" @click="resetCustomFiles">清空自定义文件</el-button>
                 </div>
             </div>
+
+            <div class="demo-block">
+                <h3>自定义拖拽区域</h3>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <p>
+                        设置全屏拖拽上传：
+                        <el-switch v-model="isFull" />
+                    </p>
+                    <el-x-attachments
+                        :file-list="dragFiles"
+                        :http-request="handleDragHttpRequest"
+                        :items="dragFiles"
+                        drag
+                        :drag-target="dragArea"
+                        :before-upload="handleBeforUpload"
+                        :hide-upload="false"
+                        @upload-drop="handleDragUploadDrop"
+                        @delete-card="handleDragDeleteCard"
+                    />
+
+                    <div id="drag-area" style="border: 2px dashed #ccc; padding: 20px; height: 250px; text-align: center; display: flex; align-items: center; justify-content: center;">在此处拖拽文件上传</div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <el-button type="danger" @click="resetDragFiles">清空文件</el-button>
+                </div>
+            </div>
+
+            <div class="demo-block">
+                <h3>自定义导航按钮</h3>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="position: relative;">
+                        <el-x-attachments
+                            :file-list="navFiles"
+                            :http-request="handleNavHttpRequest"
+                            :items="navFiles"
+                            drag
+                            overflow="scrollX"
+                            :before-upload="handleBeforUpload"
+                            :hide-upload="false"
+                            @upload-drop="handleNavUploadDrop"
+                            @delete-card="handleNavDeleteCard"
+                        >
+                            <template slot="prev-button" slot-scope="{ show, onScrollLeft }">
+                                <button v-if="show" class="custom-prev" @click="onScrollLeft">👈</button>
+                            </template>
+                            <template slot="next-button" slot-scope="{ show, onScrollRight }">
+                                <button v-if="show" class="custom-next" @click="onScrollRight">👉</button>
+                            </template>
+                        </el-x-attachments>
+                    </div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <el-button type="primary" @click="generateNavFiles">生成演示文件</el-button>
+                    <el-button type="danger" @click="resetNavFiles">清空文件</el-button>
+                </div>
+            </div>
         </el-card>
     </div>
 </template>
@@ -109,6 +165,10 @@ export default {
             files: [],
             demoFiles: [],
             customFiles: [],
+            dragFiles: [],
+            navFiles: [],
+            isFull: false,
+            dragArea: 'drag-area',
             limit: 5,
             hideUpload: false,
             drag: true,
@@ -134,6 +194,21 @@ export default {
     },
     mounted() {
         this.generateDemoFiles()
+        this.generateNavFiles()
+    },
+    watch: {
+        isFull: {
+            handler(newVal) {
+                console.log('isFull', newVal)
+                if (newVal) {
+                    this.dragArea = document.body
+                } else {
+                    this.dragArea = 'drag-area'
+                }
+            },
+            immediate: true,
+            deep: true,
+        },
     },
     methods: {
         handleBeforUpload(file) {
@@ -326,6 +401,120 @@ export default {
 
             this.$message.success('已生成5个自定义演示文件')
         },
+        async handleDragUploadDrop(files, props) {
+            if (files && files.length > 0) {
+                if (files[0].type === '') {
+                    this.$message.error('禁止上传文件夹！')
+                    return false
+                }
+
+                for (let index = 0; index < files.length; index++) {
+                    const file = files[index]
+                    await this.handleDragHttpRequest({ file })
+                }
+            }
+        },
+        async handleDragHttpRequest(options) {
+            this.$message.info('上传中...')
+
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const res = {
+                        message: '文件上传成功',
+                        fileName: options.file.name,
+                        uid: options.file.uid,
+                        fileSize: options.file.size,
+                        imgFile: options.file,
+                    }
+                    this.dragFiles.push({
+                        id: this.dragFiles.length,
+                        uid: res.uid,
+                        name: res.fileName,
+                        fileSize: res.fileSize,
+                        imgFile: res.imgFile,
+                        showDelIcon: true,
+                        imgVariant: 'square',
+                    })
+                    this.$message.success('上传成功')
+                    resolve(res)
+                }, 1000)
+            })
+        },
+        handleDragDeleteCard(item, index) {
+            console.log('删除拖拽文件', item, index)
+            this.dragFiles = this.dragFiles.filter((items) => items.id !== item.id)
+            this.$message.success('删除成功')
+        },
+        resetDragFiles() {
+            this.dragFiles = []
+        },
+        async handleNavUploadDrop(files, props) {
+            if (files && files.length > 0) {
+                if (files[0].type === '') {
+                    this.$message.error('禁止上传文件夹！')
+                    return false
+                }
+
+                for (let index = 0; index < files.length; index++) {
+                    const file = files[index]
+                    await this.handleNavHttpRequest({ file })
+                }
+            }
+        },
+        async handleNavHttpRequest(options) {
+            this.$message.info('上传中...')
+
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const res = {
+                        message: '文件上传成功',
+                        fileName: options.file.name,
+                        uid: options.file.uid,
+                        fileSize: options.file.size,
+                        imgFile: options.file,
+                    }
+                    this.navFiles.push({
+                        id: this.navFiles.length,
+                        uid: res.uid,
+                        name: res.fileName,
+                        fileSize: res.fileSize,
+                        imgFile: res.imgFile,
+                        showDelIcon: true,
+                        imgVariant: 'square',
+                    })
+                    this.$message.success('上传成功')
+                    resolve(res)
+                }, 1000)
+            })
+        },
+        handleNavDeleteCard(item, index) {
+            console.log('删除导航文件', item, index)
+            this.navFiles = this.navFiles.filter((items) => items.id !== item.id)
+            this.$message.success('删除成功')
+        },
+        resetNavFiles() {
+            this.navFiles = []
+        },
+        generateNavFiles() {
+            const typeList = Object.keys(this.colorMap)
+            this.navFiles = []
+
+            for (let index = 0; index < 15; index++) {
+                this.navFiles.push({
+                    id: index,
+                    uid: index,
+                    name: `导航文件${index}`,
+                    fileSize: 1024 * (index + 1),
+                    fileType: typeList[Math.floor(Math.random() * typeList.length)],
+                    url: 'https://www.baidu.com',
+                    thumbUrl: 'https://www.baidu.com',
+                    imgFile: new File([], 'test.txt'),
+                    showDelIcon: true,
+                })
+            }
+
+            this.$message.success('已生成15个导航演示文件')
+        },
     },
 }
 </script>
@@ -386,5 +575,35 @@ h4 {
 .custom-item-size {
     color: #909399;
     font-size: 12px;
+}
+
+.custom-prev,
+.custom-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.custom-prev {
+    left: 8px;
+}
+
+.custom-next {
+    right: 8px;
+}
+
+.custom-prev:hover,
+.custom-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.8);
 }
 </style>
