@@ -371,7 +371,7 @@ export default {
                     for (let i = 0; i < files.length; i++) {
                         filesArray.push(files[i])
                     }
-                    this.$emit('uploadDrop', filesArray, Object.assign({}, this.$props))
+                    this.$emit('upload-drop', filesArray, Object.assign({}, this.$props))
                 }
             }
         },
