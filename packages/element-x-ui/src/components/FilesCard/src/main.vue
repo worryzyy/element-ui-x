@@ -105,6 +105,7 @@
 <script>
 import svgIconMap from './fileSvg/index.js'
 import { colorMap } from './options.js'
+import { previewImage, getFileType, getSize } from '../../../utils/index.js'
 
 export default {
     name: 'ElXFilesCard',
@@ -232,7 +233,7 @@ export default {
             if (!this.nameSuffix) {
                 return 'unknown'
             }
-            return this.getFileType(this.nameSuffix).lowerCase
+            return getFileType(this.nameSuffix).lowerCase
         },
         _fileTypeUpperCase() {
             if (this.fileType) return this.fileType
@@ -240,14 +241,14 @@ export default {
             if (!this.nameSuffix) {
                 return 'Unknown'
             }
-            return this.getFileType(this.nameSuffix).upperCase
+            return getFileType(this.nameSuffix).upperCase
         },
         _description() {
             if (this.description) {
                 return this.description
             }
             const typeStr = this._fileTypeUpperCase
-            const sizeStr = this.fileSize ? `・${this.getSize(this.fileSize)}` : ''
+            const sizeStr = this.fileSize ? `・${getSize(this.fileSize)}` : ''
             if (this.status === 'uploading') {
                 return `上传中...${`・${this.percent || 0}`}%${sizeStr}`
             }
@@ -282,7 +283,7 @@ export default {
             handler: async function (newFile) {
                 if (newFile) {
                     try {
-                        const url = await this.previewImage(newFile)
+                        const url = await previewImage(newFile)
                         this._previewImg = url
                     } catch (error) {
                         console.error('Preview failed:', error)
@@ -327,93 +328,6 @@ export default {
                 this.namePrefix = this.name.substring(0, lastDotIndex)
                 this.nameSuffix = this.name.substring(lastDotIndex)
             }
-        },
-        getFileType(suffix) {
-            if (!suffix) return { lowerCase: 'unknown', upperCase: 'Unknown' }
-
-            const fileType = suffix.toLowerCase()
-
-            // 文档类
-            if (fileType.includes('.doc') || fileType.includes('.docx')) return { lowerCase: 'word', upperCase: 'Word' }
-            if (fileType.includes('.xls') || fileType.includes('.xlsx')) return { lowerCase: 'excel', upperCase: 'Excel' }
-            if (fileType.includes('.ppt') || fileType.includes('.pptx')) return { lowerCase: 'ppt', upperCase: 'PPT' }
-            if (fileType.includes('.pdf')) return { lowerCase: 'pdf', upperCase: 'PDF' }
-            if (fileType.includes('.txt')) return { lowerCase: 'txt', upperCase: 'TXT' }
-            if (fileType.includes('.md')) return { lowerCase: 'mark', upperCase: 'Markdown' }
-
-            // 图片类
-            if (['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg'].some((ext) => fileType.includes(ext))) {
-                return { lowerCase: 'image', upperCase: 'Image' }
-            }
-
-            // 音频类
-            if (['.mp3', '.wav', '.ogg', '.flac', '.aac'].some((ext) => fileType.includes(ext))) {
-                return { lowerCase: 'audio', upperCase: 'Audio' }
-            }
-
-            // 视频类
-            if (['.mp4', '.avi', '.mov', '.wmv', '.flv', '.mkv'].some((ext) => fileType.includes(ext))) {
-                return { lowerCase: 'video', upperCase: 'Video' }
-            }
-
-            // 3D模型类
-            if (['.obj', '.fbx', '.stl', '.gltf', '.glb'].some((ext) => fileType.includes(ext))) {
-                return { lowerCase: 'three', upperCase: '3D Model' }
-            }
-
-            // 代码类
-            if (['.js', '.ts', '.html', '.css', '.java', '.py', '.c', '.cpp', '.php', '.go', '.rb'].some((ext) => fileType.includes(ext))) {
-                return { lowerCase: 'code', upperCase: 'Code' }
-            }
-
-            // 数据库类
-            if (['.sql', '.db', '.sqlite', '.mdb'].some((ext) => fileType.includes(ext))) {
-                return { lowerCase: 'database', upperCase: 'Database' }
-            }
-
-            // 链接类
-            if (['.url', '.lnk', '.webloc'].some((ext) => fileType.includes(ext))) {
-                return { lowerCase: 'link', upperCase: 'Link' }
-            }
-
-            // 压缩包类
-            if (['.zip', '.rar', '.7z', '.tar', '.gz'].some((ext) => fileType.includes(ext))) {
-                return { lowerCase: 'zip', upperCase: 'Archive' }
-            }
-
-            return { lowerCase: 'unknown', upperCase: 'Unknown' }
-        },
-        getSize(size) {
-            if (typeof size === 'string') {
-                return size
-            }
-
-            const units = ['B', 'KB', 'MB', 'GB', 'TB']
-            let fileSize = size
-            let unitIndex = 0
-
-            while (fileSize >= 1024 && unitIndex < units.length - 1) {
-                fileSize /= 1024
-                unitIndex++
-            }
-
-            return `${fileSize.toFixed(2)} ${units[unitIndex]}`
-        },
-        async previewImage(file) {
-            return new Promise((resolve, reject) => {
-                try {
-                    const reader = new FileReader()
-                    reader.onload = (e) => {
-                        resolve(e.target.result)
-                    }
-                    reader.onerror = (e) => {
-                        reject(e)
-                    }
-                    reader.readAsDataURL(file)
-                } catch (error) {
-                    reject(error)
-                }
-            })
         },
     },
 }
