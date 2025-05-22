@@ -4,37 +4,20 @@
 
 ## 示例列表
 
-### 对话类组件示例
+### 对话组件示例
 
 - [Typewriter 打字机](./typewriter/) - 打字机效果组件的完整示例和用法
-
-### 即将推出的示例
-
-以下组件的示例将在后续版本中陆续添加：
-
-- Bubble 聊天气泡
-- BubbleList 消息列表
-- Thinking 思考动画
-- ThoughtChain 思维链
-- Sender 发送框
-- MentionSender 提及输入框
-- Attachments 附件上传
-- FilesCard 文件卡片
-- Conversations 会话列表
-- Welcome 欢迎页
-- Prompts 提示词库
-
-## 预览示例
-
-你可以通过以下方式启动示例预览：
-
-```bash
-# 启动文档开发服务器，查看组件文档和示例
-npm run dev:docs
-
-# 启动demo示例服务器，查看完整应用示例
-npm run dev:demo
-```
+- [Bubble 聊天气泡](./bubble/) - 聊天气泡组件的使用示例
+- [BubbleList 消息列表](./bubble-list/) - 消息列表组件的实现展示
+- [Thinking 思考动画](./thinking/) - 思考加载动画组件示例
+- [ThoughtChain 思维链](./thought-chain/) - 思维链展示组件的用法
+- [Sender 发送框](./sender/) - 消息发送框组件的使用方法
+- [MentionSender 提及输入框](./mention-sender/) - 带提及功能的输入框示例
+- [Attachments 附件上传](./attachments/) - 附件上传组件的实现方式
+- [FilesCard 文件卡片](./files-card/) - 文件卡片组件的展示效果
+- [Conversations 会话列表](./conversations/) - 会话管理列表组件示例
+- [Welcome 欢迎页](./welcome/) - 欢迎页面组件的使用方法
+- [Prompts 提示词库](./prompts/) - 提示词管理组件的完整示例
 
 ## 示例源码
 

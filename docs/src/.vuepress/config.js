@@ -15,8 +15,6 @@ module.exports = {
       { text: "📆 更新日志", link: "/changelog/" },
       { text: "🧭 指南", link: "/guide/" },
       { text: "🎨 组件", link: "/components/" },
-      { text: "📚 示例", link: "/examples/simple-typewriter" },
-      { text: "GitHub", link: "https://github.com/yourusername/element-x" },
     ],
     sidebar: {
       "/guide/": [
@@ -34,17 +32,17 @@ module.exports = {
             "",
             {
               title: "通用",
-              collapsable: true,
+              collapsable: false,
               children: ["typewriter"],
             },
             {
               title: "对话类组件",
-              collapsable: true,
+              collapsable: false,
               children: ["bubble", "bubble-list"],
             },
             {
               title: "交互类组件",
-              collapsable: true,
+              collapsable: false,
               children: [
                 "sender",
                 "mention-sender",
@@ -54,12 +52,12 @@ module.exports = {
             },
             {
               title: "导航类组件",
-              collapsable: true,
+              collapsable: false,
               children: ["conversations", "welcome", "prompts"],
             },
             {
               title: "确认",
-              collapsable: true,
+              collapsable: false,
               children: ["thinking", "thought-chain"],
             },
           ],
@@ -70,7 +68,7 @@ module.exports = {
         {
           title: "🎀 开发计划",
           collapsable: false,
-          children: ["", "upcoming-features", "contribution"],
+          children: ["", "contribution"],
         },
       ],
       "/changelog/": [
