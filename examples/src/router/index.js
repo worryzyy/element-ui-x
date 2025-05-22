@@ -11,6 +11,7 @@ import Think from '../views/Think.vue'
 import ThoughtChain from '../views/ThoughtChain.vue'
 import Sender from '../views/Sender.vue'
 import FilesCard from '../views/FilesCard.vue'
+import Attachments from '../views/Attachments.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -69,6 +70,11 @@ export default new Router({
 			path: '/filescard',
 			name: 'FilesCard',
 			component: FilesCard
+		},
+		{
+			path: '/attachments',
+			name: 'Attachments',
+			component: Attachments
 		},
 		{
 			path: '*',

@@ -6,8 +6,7 @@
             </el-header>
             <el-container>
                 <el-aside width="200px">
-                    <el-menu router :default-active="$route.path" background-color="#545c64" text-color="#fff"
-                        active-text-color="#ffd04b">
+                    <el-menu router :default-active="$route.path" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
                         <el-menu-item index="/typewriter">
                             <i class="el-icon-edit"></i>
                             <span>Typewriter</span>
@@ -51,6 +50,10 @@
                         <el-menu-item index="/filescard">
                             <i class="el-icon-edit"></i>
                             <span>FilesCard</span>
+                        </el-menu-item>
+                        <el-menu-item index="/attachments">
+                            <i class="el-icon-edit"></i>
+                            <span>Attachments</span>
                         </el-menu-item>
                     </el-menu>
                 </el-aside>
