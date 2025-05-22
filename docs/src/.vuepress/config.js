@@ -7,6 +7,7 @@ module.exports = {
   ],
   themeConfig: {
     logo: "/images/logo.png",
+    lastUpdated: 'Last Updated',
     nav: [
       { text: "首页", link: "/" },
       { text: "💌 交流邀请", link: "/community/" },
