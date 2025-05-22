@@ -380,7 +380,7 @@ export default {
         },
         // 卡片相关方法
         handleDelete(item, index) {
-            this.$emit('deleteCard', item, index)
+            this.$emit('delete-card', item, index)
             this.$nextTick(() => this.debouncedCheckPing())
         },
         // Vue2 中实现类似 teleport 的功能
