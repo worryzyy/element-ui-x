@@ -139,7 +139,7 @@ export default {
             default: undefined,
         },
         imgFile: {
-            type: Object,
+            type: [Object, File],
             default: undefined,
         },
         iconSize: {
@@ -197,9 +197,9 @@ export default {
             nameSuffix: '',
             isHovered: false,
             imageHovered: false,
-            localPreviewUrl: undefined,
             svgIconMap: svgIconMap,
             colorMap: colorMap,
+            previewImg: undefined,
         }
     },
     computed: {
@@ -267,7 +267,7 @@ export default {
             if (!this.isImageFile) return undefined
             if (this.thumbUrl) return this.thumbUrl
             if (this.url) return this.url
-            return this._previewImg
+            return this.previewImg
         },
         _iconSize() {
             if (
@@ -284,12 +284,15 @@ export default {
                 if (newFile) {
                     try {
                         const url = await previewImage(newFile)
-                        this._previewImg = url
+                        this.previewImg = url
+                        // this.$set(this, 'previewImg', url)
                     } catch (error) {
                         console.error('Preview failed:', error)
+                        this.previewImg = undefined
                     }
                 } else {
-                    this._previewImg = undefined
+                    this.$set(this, 'previewImg', undefined)
+                    this.previewImg = undefined
                 }
             },
             deep: true,
