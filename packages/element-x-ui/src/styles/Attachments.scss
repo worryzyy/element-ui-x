@@ -1,0 +1,237 @@
+@import '../theme/var.scss';
+
+/* CSS 动画样式调整 */
+.card-motion {
+
+  &-enter-active,
+  &-move,
+  &-leave-active {
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+    /* 从左侧外进入（进场）/ 移动到右侧外（退场） */
+    transform: translateX(-100%);
+    /* 进场初始位置在左侧外 */
+  }
+
+  &-leave-active {
+    /* 退场时从当前位置移动到右侧外 */
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.el-x-attachments {
+  &-file-card-wrap {
+    display: flex;
+    height: 100%;
+    align-items: center;
+  }
+
+  &-upload-placeholder {
+    display: inline-block;
+    width: fit-content;
+    align-self: center;
+    margin: 6px;
+  }
+
+  &-card {
+    display: inline-block;
+    vertical-align: top;
+
+    &-item {
+      margin: 6px;
+    }
+  }
+
+  &-prev-btn,
+  &-next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    padding: 4px 0px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:active {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  &-prev-btn {
+    left: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+
+  &-next-btn {
+    right: 8px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  &-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    pointer-events: none;
+
+    &-start {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+      z-index: 5;
+    }
+
+    &-end {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50px;
+      background: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+      z-index: 5;
+    }
+  }
+
+  &-overflow-scrollX {
+    height: 100%;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    scrollbar-width: none;
+  }
+
+  &-overflow-scrollY {
+    width: 100%;
+    height: 100%;
+  }
+
+  &-wrapper {
+    position: relative;
+    display: block;
+  }
+
+  &-upload-btn {
+    display: flex;
+
+    ::v-deep .el-upload {
+      border: 1px dashed $--border-color-base;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: $--all-transition;
+      box-sizing: border-box;
+      text-align: center;
+
+      &:hover {
+        border-color: $--color-primary;
+
+        .uploader-icon {
+          color: $--color-primary;
+        }
+      }
+    }
+
+    .uploader-icon {
+      font-size: 28px;
+      color: #8c939d;
+      text-align: center;
+      width: var(--el-x-attachments-upload-icon-size);
+      height: var(--el-x-attachments-upload-icon-size);
+      line-height: var(--el-x-attachments-upload-icon-size);
+    }
+
+    ::v-deep .el-upload-dragger {
+      padding: 0;
+      width: auto !important;
+      height: auto !important;
+      background-color: transparent;
+
+      &:hover .el-icon {
+        color: $--color-primary;
+      }
+    }
+  }
+
+  /* 设置拖放区域的样式 */
+  &-drop-area {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: calc(100% - 4px) !important;
+    height: calc(100% - 4px) !important;
+    border-radius: 15px !important;
+    border: 2px dashed $--color-primary !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    background: rgba(225, 225, 225, 0.8) !important; // 增加透明度
+    backdrop-filter: blur(4px) !important; // 增加模糊效果
+    animation: dragAreaShow 0.3s ease-in-out !important; // 添加显示动画
+    pointer-events: none !important; // 防止拖拽区域本身阻止事件
+
+    &-icon {
+      font-size: 50px !important;
+      color: $--color-primary !important;
+      animation: bounce 1s infinite alternate !important; // 添加跳动动画
+    }
+
+    &-text {
+      font-size: 16px !important;
+      color: $--color-primary !important;
+      margin-top: 10px !important;
+      text-align: center !important;
+      width: 100% !important;
+      max-width: 300px !important;
+      font-weight: bold !important;
+    }
+  }
+
+  // 添加动画关键帧
+  @keyframes dragAreaShow {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes bounce {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(-10px);
+    }
+  }
+}
