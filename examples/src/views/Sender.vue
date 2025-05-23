@@ -73,8 +73,9 @@
           <el-checkbox
             v-model="readOnlyState"
             style="margin-left: 20px"
-            >只读</el-checkbox
           >
+            只读
+          </el-checkbox>
         </div>
         <el-x-sender
           v-model="stateContent"
@@ -210,20 +211,23 @@
                   size="mini"
                   icon="el-icon-picture"
                   type="text"
-                  >图片</el-button
                 >
+                  图片
+                </el-button>
                 <el-button
                   size="mini"
                   icon="el-icon-video-camera"
                   type="text"
-                  >视频</el-button
                 >
+                  视频
+                </el-button>
                 <el-button
                   size="mini"
                   icon="el-icon-paperclip"
                   type="text"
-                  >附件</el-button
                 >
+                  附件
+                </el-button>
               </el-button-group>
             </div>
           </template>
@@ -233,8 +237,9 @@
             size="small"
             type="primary"
             @click="toggleHeader"
-            >{{ showHeader ? '关闭头部' : '显示头部' }}</el-button
           >
+            {{ showHeader ? '关闭头部' : '显示头部' }}
+          </el-button>
         </div>
       </div>
     </el-card>

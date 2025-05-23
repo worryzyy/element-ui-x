@@ -22,25 +22,29 @@
               size="small"
               type="primary"
               @click="startBasic"
-              >预览</el-button
             >
+              预览
+            </el-button>
             <el-button
               size="small"
               v-if="isBasicTyping && progress < 100"
               @click="pauseBasic"
-              >暂停</el-button
             >
+              暂停
+            </el-button>
             <el-button
               size="small"
               v-if="!isBasicTyping && progress < 100"
               @click="continueBasic"
-              >继续</el-button
             >
+              继续
+            </el-button>
             <el-button
               size="small"
               @click="resetBasic"
-              >重置</el-button
             >
+              重置
+            </el-button>
           </el-button-group>
         </div>
       </div>
@@ -68,8 +72,9 @@
             size="small"
             type="primary"
             @click="startSpeedDemo"
-            >预览</el-button
           >
+            预览
+          </el-button>
         </div>
       </div>
 
@@ -104,8 +109,9 @@
             size="small"
             type="primary"
             @click="startfogDemo"
-            >预览</el-button
           >
+            预览
+          </el-button>
         </div>
       </div>
 
@@ -123,8 +129,9 @@
             size="small"
             type="primary"
             @click="startMarkdownDemo"
-            >预览</el-button
           >
+            预览
+          </el-button>
         </div>
       </div>
     </el-card>
@@ -157,8 +164,9 @@
           <el-button
             type="primary"
             @click="regenerateAIResponse"
-            >重新生成回答</el-button
           >
+            重新生成回答
+          </el-button>
         </div>
       </div>
     </el-card>

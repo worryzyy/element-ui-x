@@ -167,20 +167,23 @@
               size="small"
               type="primary"
               @click="startThinking"
-              >开始思考</el-button
             >
+              开始思考
+            </el-button>
             <el-button
               size="small"
               type="success"
               @click="endThinking"
-              >思考完成</el-button
             >
+              思考完成
+            </el-button>
             <el-button
               size="small"
               type="danger"
               @click="errorThinking"
-              >思考错误</el-button
             >
+              思考错误
+            </el-button>
           </el-button-group>
         </div>
       </div>

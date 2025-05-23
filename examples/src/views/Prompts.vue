@@ -26,8 +26,7 @@
             type="success"
             :closable="false"
             show-icon
-          >
-          </el-alert>
+          ></el-alert>
         </div>
       </div>
 
