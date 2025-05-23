@@ -142,30 +142,42 @@
       @finish="onFinish"
     />
 
-    <div class="progress-bar" v-if="isTyping">
-      <el-progress :percentage="progress" :show-text="false"></el-progress>
+    <div
+      class="progress-bar"
+      v-if="isTyping"
+    >
+      <el-progress
+        :percentage="progress"
+        :show-text="false"
+      ></el-progress>
       <div class="progress-text">{{ Math.floor(progress) }}%</div>
     </div>
 
     <div class="demo-controls">
       <el-button-group>
-        <el-button size="small" type="primary" @click="startTyping"
-          >开始</el-button
+        <el-button
+          size="small"
+          type="primary"
+          @click="startTyping"
         >
+          开始
+        </el-button>
         <el-button
           size="small"
           type="warning"
           :disabled="!isTyping"
           @click="pauseTyping"
-          >暂停</el-button
         >
+          暂停
+        </el-button>
         <el-button
           size="small"
           type="success"
           :disabled="isTyping || progress >= 100"
           @click="continueTyping"
-          >继续</el-button
         >
+          继续
+        </el-button>
       </el-button-group>
     </div>
   </div>
@@ -176,11 +188,11 @@
     data() {
       return {
         typingContent:
-          "这是一个带有打字机效果的气泡示例，可以模拟实时输入的效果。你可以通过下方的按钮控制打字过程。",
+          '这是一个带有打字机效果的气泡示例，可以模拟实时输入的效果。你可以通过下方的按钮控制打字过程。',
         typingConfig: {
           interval: 50,
           step: 1,
-          suffix: "|",
+          suffix: '|',
         },
         isTyping: false,
         progress: 0,
@@ -241,13 +253,18 @@
 <template>
   <div>
     <div class="bubble-row">
-      <el-x-bubble loading placement="start" :avatarSize="40" />
+      <el-x-bubble
+        loading
+        placement="start"
+      />
     </div>
 
     <div class="bubble-row">
-      <el-x-bubble loading placement="end" :avatarSize="40">
+      <el-x-bubble
+        loading
+        placement="end"
+      >
         <template #loading>
-          <el-icon class="is-loading"><loading /></el-icon>
           <span style="margin-left: 5px;">正在输入...</span>
         </template>
       </el-x-bubble>
@@ -278,9 +295,13 @@
     />
 
     <div class="demo-controls">
-      <el-button size="small" type="primary" @click="startMarkdown"
-        >预览</el-button
+      <el-button
+        size="small"
+        type="primary"
+        @click="startMarkdown"
       >
+        预览
+      </el-button>
     </div>
   </div>
 </template>
@@ -342,14 +363,18 @@ console.log(greet('World'));
       <template #content>
         <div style="padding: 10px;">
           <p>这是使用内容插槽的自定义内容示例。</p>
-          <el-rate v-model="rating" disabled show-score></el-rate>
+          <el-rate
+            v-model="rating"
+            disabled
+            show-score
+          ></el-rate>
         </div>
       </template>
 
       <template #footer>
         <div style="font-size: 12px; color: #909399;">
-          <el-icon><time /></el-icon>
-          <span style="margin-left: 5px;">12:30</span>
+          <i class="el-icon-time"></i>
+          <span>12:30</span>
         </div>
       </template>
     </el-x-bubble>
@@ -402,9 +427,13 @@ console.log(greet('World'));
     />
 
     <div class="demo-controls">
-      <el-button size="small" type="primary" @click="regenerateResponse"
-        >重新生成回答</el-button
+      <el-button
+        size="small"
+        type="primary"
+        @click="regenerateResponse"
       >
+        重新生成回答
+      </el-button>
     </div>
   </div>
 </template>

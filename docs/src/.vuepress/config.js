@@ -22,7 +22,7 @@ module.exports = {
         {
           title: '指南',
           collapsable: false,
-          children: ['', 'installation', 'quickstart', 'theme', 'components'],
+          children: ['', 'installation', 'quickstart'],
         },
       ],
       '/components/': [
