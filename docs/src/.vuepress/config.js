@@ -1,6 +1,7 @@
 module.exports = {
-  title: 'Element-X',
-  description: '基于 Element UI 和 Vue 2.x 的企业级 AI 组件库',
+  title: 'Element-UI-X',
+  description:
+    '开箱即用的企业级 AI 交互组件库，让构建智能界面像搭积木一样简单。 RICH 设计范式，打造卓越 AI 界面解决方案，引领智能新体验',
   head: [
     ['link', { rel: 'icon', href: '/images/favicon.ico' }],
     ['meta', { name: 'theme-color', content: '#409EFF' }],
@@ -10,23 +11,23 @@ module.exports = {
     lastUpdated: 'Last Updated',
     nav: [
       { text: '首页', link: '/' },
-      { text: '💌 交流邀请', link: '/community/' },
-      { text: '🎀 开发计划', link: '/roadmap/' },
-      { text: '📆 更新日志', link: '/changelog/' },
-      { text: '🧭 指南', link: '/guide/' },
-      { text: '🎨 组件', link: '/components/' },
+      { text: '交流邀请', link: '/community/' },
+      { text: '开发计划', link: '/roadmap/' },
+      { text: '更新日志', link: '/changelog/' },
+      { text: '指南', link: '/guide/' },
+      { text: '组件', link: '/components/' },
     ],
     sidebar: {
       '/guide/': [
         {
-          title: '🧭 指南',
+          title: '指南',
           collapsable: false,
           children: ['', 'installation', 'quickstart', 'theme', 'components'],
         },
       ],
       '/components/': [
         {
-          title: '🎨 组件',
+          title: '组件',
           collapsable: false,
           children: [
             '',
@@ -61,21 +62,21 @@ module.exports = {
 
       '/roadmap/': [
         {
-          title: '🎀 开发计划',
+          title: '开发计划',
           collapsable: false,
           children: ['', 'contribution'],
         },
       ],
       '/changelog/': [
         {
-          title: '📆 更新日志',
+          title: '更新日志',
           collapsable: false,
           children: [''],
         },
       ],
       '/community/': [
         {
-          title: '💌 交流邀请',
+          title: '交流邀请',
           collapsable: false,
           children: ['', 'team', 'support'],
         },
@@ -94,7 +95,7 @@ module.exports = {
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: 'ElementUI-X',
+      title: 'Element-UI-X',
       description: '基于 Element UI 和 Vue 2.x 的企业级 AI 组件库',
     },
   },

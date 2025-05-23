@@ -1,11 +1,11 @@
 # 安装
 
-本节将介绍如何在项目中安装和配置 Element-X。
+本节将介绍如何在项目中安装和配置 Element-UI-X。
 
 ## 环境要求
 
-- Node.js 12.x+
-- Vue 2.6+
+- Node.js 14.x+
+- Vue 2.x
 - Element UI 2.15.0+
 
 ## 安装方式
@@ -16,8 +16,8 @@
 # 安装 Element UI
 npm install element-ui
 
-# 安装 Element-X
-npm install @element-x/core
+# 安装 Element-UI-X
+npm install Element-UI-X
 ```
 
 ### 使用 yarn 安装
@@ -26,33 +26,33 @@ npm install @element-x/core
 # 安装 Element UI
 yarn add element-ui
 
-# 安装 Element-X
-yarn add @element-x/core
+# 安装 Element-UI-X
+yarn add Element-UI-X
 ```
 
 ## 完整引入
 
-在 main.js 中引入 Element UI 和 Element-X：
+在 main.js 中引入 Element UI 和 Element-UI-X：
 
 ```js
-import Vue from "vue";
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
-import ElementX from "@element-x/core";
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import ElementUIX from 'vue-element-ui-x';
 
 // 引入 Element UI
 Vue.use(ElementUI);
 
-// 引入 Element-X
-Vue.use(ElementX);
+// 引入 Element-UI-X
+Vue.use(ElementUIX);
 
 new Vue({
-  el: "#app",
-  render: (h) => h(App),
+  el: '#app',
+  render: h => h(App),
 });
 ```
 
-以上代码便完成了 Element-X 的引入。需要注意的是，Element-X 依赖于 Element UI，所以必须先引入 Element UI。
+以上代码便完成了 Element-UI-X 的引入。需要注意的是，Element-UI-X 依赖于 Element UI，所以必须先引入 Element UI。
 
 ## 按需引入
 
@@ -61,8 +61,8 @@ new Vue({
 ### 方式一：手动引入
 
 ```js
-import Vue from "vue";
-import { ElXTypewriter } from "@element-x/core";
+import Vue from 'vue';
+import { ElXTypewriter } from '@element-x/core';
 
 // 注册组件
 Vue.component(ElXTypewriter.name, ElXTypewriter);
@@ -103,9 +103,9 @@ npm install babel-plugin-component -D
 接下来，在 main.js 中按需引入组件：
 
 ```js
-import Vue from "vue";
-import { Button, Select } from "element-ui";
-import { ElXTypewriter } from "@element-x/core";
+import Vue from 'vue';
+import { Button, Select } from 'element-ui';
+import { ElXTypewriter } from '@element-x/core';
 
 Vue.component(Button.name, Button);
 Vue.component(Select.name, Select);
@@ -114,14 +114,14 @@ Vue.component(ElXTypewriter.name, ElXTypewriter);
 
 ## 引入样式
 
-Element-X 的样式依赖于 Element UI 的主题系统。你需要在项目中引入样式文件：
+Element-UI-X 的样式依赖于 Element UI 的主题系统。你需要在项目中引入样式文件：
 
 ### 完整引入样式
 
 ```js
 // 在 main.js 中
-import "element-ui/lib/theme-chalk/index.css";
-import "@element-x/core/lib/theme/index.css";
+import 'element-ui/lib/theme-chalk/index.css';
+import '@element-x/core/lib/theme/index.css';
 ```
 
 ### 使用 SCSS
@@ -130,23 +130,23 @@ import "@element-x/core/lib/theme/index.css";
 
 ```scss
 /* 引入 Element UI 变量 */
-@import "~element-ui/packages/theme-chalk/src/common/var";
+@import '~element-ui/packages/theme-chalk/src/common/var';
 
-/* 引入 Element-X 变量 */
-@import "~@element-x/core/src/theme/common/var";
+/* 引入 Element-UI-X 变量 */
+@import '~@element-x/core/src/theme/common/var';
 
 /* 自定义变量 */
 $--color-ai-bubble-user: #e8f4ff;
 $--color-ai-bubble-bot: #f7f7f7;
 
 /* 引入组件样式 */
-@import "~element-ui/packages/theme-chalk/src/index";
-@import "~@element-x/core/src/theme/index";
+@import '~element-ui/packages/theme-chalk/src/index';
+@import '~@element-x/core/src/theme/index';
 ```
 
 ## CDN 引入
 
-你也可以通过 CDN 引入 Element-X（暂未提供）：
+你也可以通过 CDN 引入 Element-UI-X（暂未提供）：
 
 ```html
 <!-- 引入 Vue -->
@@ -159,7 +159,7 @@ $--color-ai-bubble-bot: #f7f7f7;
 />
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
-<!-- 引入 Element-X（未来将提供） -->
+<!-- 引入 Element-UI-X（未来将提供） -->
 <link
   rel="stylesheet"
   href="https://unpkg.com/@element-x/core/lib/theme/index.css"
@@ -169,7 +169,7 @@ $--color-ai-bubble-bot: #f7f7f7;
 
 ## 验证安装
 
-安装完成后，你可以在组件中使用 Element-X 的组件：
+安装完成后，你可以在组件中使用 Element-UI-X 的组件：
 
 ```html
 <template>
@@ -180,4 +180,4 @@ $--color-ai-bubble-bot: #f7f7f7;
 </template>
 ```
 
-接下来，请查看 [快速上手](./quickstart.md) 章节了解如何使用 Element-X 的组件。
+接下来，请查看 [快速上手](./quickstart.md) 章节了解如何使用 Element-UI-X 的组件。

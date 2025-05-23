@@ -1,6 +1,6 @@
 import ElementUI, { Message } from 'element-ui';
-import ElementUIX from 'vue-element-ui-x';
 import 'element-ui/lib/theme-chalk/index.css';
+import ElementUIX from 'vue-element-ui-x';
 // 导入 Element UI 文档风格的代码高亮样式
 import BackToTop from './components/BackToTop.vue';
 export default ({ Vue, router, isServer }) => {

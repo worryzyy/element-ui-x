@@ -1,6 +1,6 @@
 # 社区与交流
 
-Element-X 是一个开源组件库，我们欢迎所有开发者加入我们的社区，一起构建更好的 AI 交互组件。
+Element-UI-X 是一个开源组件库，我们欢迎所有开发者加入我们的社区，一起构建更好的 AI 交互组件。
 
 ## 社区资源
 
@@ -8,7 +8,7 @@ Element-X 是一个开源组件库，我们欢迎所有开发者加入我们的�
 
 我们的源代码托管在 GitHub 上，你可以通过 GitHub 提交 Issue 和 Pull Request：
 
-- [Element-X GitHub 仓库](https://github.com/yourusername/element-x)
+- [Element-UI-X GitHub 仓库](https://github.com/yourusername/element-x)
 - [Issue 跟踪](https://github.com/yourusername/element-x/issues)
 - [Pull Requests](https://github.com/yourusername/element-x/pulls)
 
@@ -41,14 +41,14 @@ Element-X 是一个开源组件库，我们欢迎所有开发者加入我们的�
 
 ## 团队成员
 
-Element-X 由一群热爱开源和前端技术的开发者共同维护。查看 [团队成员](./team.md) 了解更多详情。
+Element-UI-X 由一群热爱开源和前端技术的开发者共同维护。查看 [团队成员](./team.md) 了解更多详情。
 
 ## 支持我们
 
-如果你喜欢 Element-X，可以通过以下方式支持我们：
+如果你喜欢 Element-UI-X，可以通过以下方式支持我们：
 
 - 在 GitHub 上给我们的项目点 Star
-- 在社交媒体上分享 Element-X
+- 在社交媒体上分享 Element-UI-X
 - 提交 PR 帮助改进代码和文档
 - 加入我们的维护团队
 

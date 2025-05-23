@@ -2,7 +2,7 @@
   "name": "@element-x/docs",
   "version": "0.1.0",
   "private": true,
-  "description": "Element-X组件库的文档站点",
+  "description": "Element-UI-X组件库的文档站点",
   "scripts": {
     "dev": "vuepress dev src",
     "build": "vuepress build src"

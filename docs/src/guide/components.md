@@ -1,12 +1,12 @@
 # 组件使用指南
 
-Element-X 提供了一系列专为 AI 交互设计的 Vue 组件，让你能够轻松构建类似 ChatGPT 这样的现代化 AI 对话界面。
+Element-UI-X 提供了一系列专为 AI 交互设计的 Vue 组件，让你能够轻松构建类似 ChatGPT 这样的现代化 AI 对话界面。
 
 本指南将介绍如何使用这些组件。
 
 ## 安装组件库
 
-首先确保你已经安装了 Element-X：
+首先确保你已经安装了 Element-UI-X：
 
 ```bash
 # npm
@@ -19,10 +19,10 @@ yarn add @element-x/core
 然后在你的入口文件中引入组件库：
 
 ```js
-import Vue from "vue";
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
-import ElementX from "@element-x/core";
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import ElementX from '@element-x/core';
 
 Vue.use(ElementUI);
 Vue.use(ElementX);
@@ -51,8 +51,7 @@ Vue.use(ElementX);
   export default {
     data() {
       return {
-        aiResponse:
-          "这是一段 AI 生成的回复内容，使用打字机效果逐字显示，提升用户体验。",
+        aiResponse: '这是一段 AI 生成的回复内容，使用打字机效果逐字显示，提升用户体验。',
       };
     },
     mounted() {
@@ -63,15 +62,14 @@ Vue.use(ElementX);
     },
     methods: {
       onTypingComplete(text) {
-        console.log("打字效果完成:", text);
+        console.log('打字效果完成:', text);
         // 可以在此处执行后续操作
       },
       regenerateResponse() {
         // 模拟重新生成回复
         this.$refs.typewriter.eraseAll();
         setTimeout(() => {
-          this.aiResponse =
-            "这是一段新生成的 AI 回复内容，展示了打字机组件的重新开始功能。";
+          this.aiResponse = '这是一段新生成的 AI 回复内容，展示了打字机组件的重新开始功能。';
           this.$refs.typewriter.startTyping();
         }, 300);
       },
@@ -85,7 +83,13 @@ Vue.use(ElementX);
 打字机组件支持多种配置，以满足不同场景的需求：
 
 ```html
-<el-x-typewriter :text="text" :type-speed="50" <!-- 打字速度，数值越大越慢 -->
+<el-x-typewriter
+  :text="text"
+  :type-speed="50"
+  <!--
+  打字速度，数值越大越慢
+  --
+>
   :start-delay="1000"
   <!-- 开始前延迟1秒 -->
   :show-cursor="true"
@@ -94,10 +98,9 @@ Vue.use(ElementX);
   <!-- 启用模糊效果 -->
   :auto-start="false"
   <!-- 禁用自动开始 -->
-  @typing-start="onStart" @typing-progress="onProgress"
-  @typing-complete="onComplete" @typing-erased="onErased" ref="typewriter"
-  /></el-x-typewriter
->
+  @typing-start="onStart" @typing-progress="onProgress" @typing-complete="onComplete"
+  @typing-erased="onErased" ref="typewriter" />
+</el-x-typewriter>
 ```
 
 ### 与 AI 聊天界面集成
@@ -116,7 +119,11 @@ Vue.use(ElementX);
   <div class="message ai">
     <div class="avatar">AI</div>
     <div class="content">
-      <el-x-typewriter :text="aiResponse" :type-speed="20" ref="aiWriter" />
+      <el-x-typewriter
+        :text="aiResponse"
+        :type-speed="20"
+        ref="aiWriter"
+      />
     </div>
   </div>
 </div>
@@ -129,13 +136,18 @@ Vue.use(ElementX);
 ```html
 <div class="ai-response">
   <el-x-thinking v-if="isThinking" />
-  <el-x-typewriter v-else :text="response" :type-speed="30" ref="typewriter" />
+  <el-x-typewriter
+    v-else
+    :text="response"
+    :type-speed="30"
+    ref="typewriter"
+  />
 </div>
 ```
 
 ## 其他 AI 组件
 
-Element-X 还提供了其他 AI 交互组件，如：
+Element-UI-X 还提供了其他 AI 交互组件，如：
 
 - **Bubble** - 聊天气泡组件
 - **BubbleList** - 消息列表组件

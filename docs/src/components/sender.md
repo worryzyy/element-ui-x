@@ -33,7 +33,7 @@
     <el-x-sender
       style="width: fit-content;"
       inputWidth="500px"
-      placeholder="💌 欢迎使用 Element-X"
+      placeholder="💌 欢迎使用 Element-UI-X"
     />
   </div>
 </template>
@@ -42,13 +42,13 @@
   export default {
     data() {
       return {
-        message: "",
+        message: '',
       };
     },
     methods: {
       handleSubmit(value) {
         this.$message.success(`发送消息: ${value}`);
-        this.message = "";
+        this.message = '';
       },
     },
   };
@@ -108,20 +108,20 @@
       return {
         senderRef: null,
         timeValue: null,
-        senderValue: "",
+        senderValue: '',
         senderLoading: false,
         submitBtnDisabled: false,
       };
     },
     methods: {
       handleSubmit(value) {
-        this.$message.info("发送中");
+        this.$message.info('发送中');
         this.senderLoading = true;
         this.timeValue = setTimeout(() => {
-          console.log("submit-> value：", value);
-          console.log("submit-> senderValue", this.senderValue);
+          console.log('submit-> value：', value);
+          console.log('submit-> senderValue', this.senderValue);
           this.senderLoading = false;
-          this.$message.success("发送成功");
+          this.$message.success('发送成功');
         }, 3500);
       },
       handleCancel() {
@@ -130,7 +130,7 @@
           clearTimeout(this.timeValue);
         }
         this.timeValue = null;
-        this.$message.info("取消发送");
+        this.$message.info('取消发送');
       },
     },
   };
@@ -170,8 +170,8 @@
   export default {
     data() {
       return {
-        message1: "",
-        message2: "",
+        message1: '',
+        message2: '',
       };
     },
     methods: {
@@ -242,17 +242,17 @@
   export default {
     data() {
       return {
-        message: "",
+        message: '',
       };
     },
     methods: {
       handleSubmit(value) {
         this.$message.success(`发送消息: ${value}`);
-        this.message = "";
+        this.message = '';
       },
       handleRecordingChange(isRecording) {
-        this.$message[isRecording ? "info" : "success"](
-          isRecording ? "语音识别已开始" : "语音识别已结束"
+        this.$message[isRecording ? 'info' : 'success'](
+          isRecording ? '语音识别已开始' : '语音识别已结束',
         );
       },
     },
@@ -283,7 +283,10 @@
       <template #trigger-popover="{ triggerString }">
         <div style="padding: 10px;">
           <p>当前触发字符: {{ triggerString }}</p>
-          <el-button type="text" @click="insertText('用户名')">
+          <el-button
+            type="text"
+            @click="insertText('用户名')"
+          >
             插入用户名
           </el-button>
         </div>
@@ -296,19 +299,17 @@
   export default {
     data() {
       return {
-        message: "",
+        message: '',
         showTriggerPopover: false,
       };
     },
     methods: {
       handleSubmit(value) {
         this.$message.success(`发送消息: ${value}`);
-        this.message = "";
+        this.message = '';
       },
       handleTrigger({ triggerString, isOpen }) {
-        this.$message.info(
-          `${triggerString} 字符${isOpen ? "触发" : "关闭"}弹出框`
-        );
+        this.$message.info(`${triggerString} 字符${isOpen ? '触发' : '关闭'}弹出框`);
       },
       insertText(text) {
         this.message += text;
@@ -356,8 +357,7 @@
             :disabled="!message"
             @click="submit"
             icon="el-icon-position"
-          >
-          </el-button>
+          ></el-button>
         </div>
       </template>
     </el-x-sender>
@@ -369,7 +369,12 @@
     >
       <template #action-list>
         <div class="custom-actions">
-          <el-button icon="el-icon-delete" size="small" type="danger" circle />
+          <el-button
+            icon="el-icon-delete"
+            size="small"
+            type="danger"
+            circle
+          />
           <el-button
             circle
             type="warning"
@@ -386,19 +391,19 @@
   export default {
     data() {
       return {
-        message: "",
+        message: '',
       };
     },
     methods: {
       handleSubmit(value) {
         this.$message.success(`发送消息: ${value}`);
-        this.message = "";
+        this.message = '';
       },
       handleAttach() {
-        this.$message.info("点击了附件按钮");
+        this.$message.info('点击了附件按钮');
       },
       handleVideo() {
-        this.$message.info("点击了视频按钮");
+        this.$message.info('点击了视频按钮');
       },
     },
   };
@@ -434,8 +439,9 @@
         v-if="!showHeader"
         type="primary"
         @click="toggleHeader"
-        >{{ showHeader ? '关闭头部' : '显示头部' }}</el-button
       >
+        {{ showHeader ? '关闭头部' : '显示头部' }}
+      </el-button>
     </div>
 
     <el-x-sender
@@ -445,10 +451,12 @@
       @submit="handleSubmit"
     >
       <template #prefix>
-        <div
-          style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;"
-        >
-          <el-button round plain size="small">
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <el-button
+            round
+            plain
+            size="small"
+          >
             <i class="el-icon-paperclip"></i>
           </el-button>
         </div>
@@ -458,7 +466,10 @@
           <div class="header-self-title">
             <div class="header-left">💯 欢迎使用 Element X</div>
             <div class="header-right">
-              <el-button @click.stop="toggleHeader" icon="el-icon-circle-close">
+              <el-button
+                @click.stop="toggleHeader"
+                icon="el-icon-circle-close"
+              >
                 <span>关闭头部</span>
               </el-button>
             </div>
@@ -469,7 +480,12 @@
       <template #footer>
         <div class="custom-footer">
           <span>字符数: {{ message.length }}</span>
-          <el-button type="text" size="mini">添加表情</el-button>
+          <el-button
+            type="text"
+            size="mini"
+          >
+            添加表情
+          </el-button>
         </div>
       </template>
     </el-x-sender>
@@ -480,7 +496,7 @@
   export default {
     data() {
       return {
-        message: "",
+        message: '',
         showHeader: true,
       };
     },
@@ -490,7 +506,7 @@
     methods: {
       handleSubmit(value) {
         this.$message.success(`发送消息: ${value}`);
-        this.message = "";
+        this.message = '';
       },
       // 插槽用法
       toggleHeader() {
@@ -586,10 +602,13 @@
       style="background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%); border-radius: 8px;"
     >
       <template #prefix>
-        <div
-          style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;"
-        >
-          <el-button round plain color="#626aef" size="small">
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <el-button
+            round
+            plain
+            color="#626aef"
+            size="small"
+          >
             <i class="el-icon-paperclip"></i>
           </el-button>
 
@@ -624,28 +643,28 @@
   export default {
     data() {
       return {
-        senderValue: "这是自定义输入框样式",
+        senderValue: '这是自定义输入框样式',
         isSelect: false,
         thinkStyle: {
-          display: "flex",
-          height: "32px",
-          boxSizing: "border-box",
-          alignItems: "center",
-          gap: "4px",
-          padding: "2px 12px",
-          borderWidth: "1px",
-          borderStyle: "solid",
-          borderColor: "black",
-          borderRadius: "15px",
-          cursor: "pointer",
-          fontSize: "12px",
-          color: "black",
+          display: 'flex',
+          height: '32px',
+          boxSizing: 'border-box',
+          alignItems: 'center',
+          gap: '4px',
+          padding: '2px 12px',
+          borderWidth: '1px',
+          borderStyle: 'solid',
+          borderColor: 'black',
+          borderRadius: '15px',
+          cursor: 'pointer',
+          fontSize: '12px',
+          color: 'black',
         },
         selectStyle: {
-          color: "#626aef",
-          borderColor: "#626aef",
-          padding: "3px 12px",
-          fontWeight: "700",
+          color: '#626aef',
+          borderColor: '#626aef',
+          padding: '3px 12px',
+          fontWeight: '700',
         },
       };
     },

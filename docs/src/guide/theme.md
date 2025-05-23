@@ -1,13 +1,13 @@
 # 主题定制
 
-Element-X 的主题系统完全兼容并扩展了 Element UI 的主题系统，使你能够轻松定制组件的外观。
+Element-UI-X 的主题系统完全兼容并扩展了 Element UI 的主题系统，使你能够轻松定制组件的外观。
 
 ## 主题变量概述
 
-Element-X 使用 SCSS 变量系统来定义和扩展主题：
+Element-UI-X 使用 SCSS 变量系统来定义和扩展主题：
 
-1. **继承 Element UI 变量**：Element-X 的组件直接使用 Element UI 的主题变量，确保视觉一致性
-2. **扩展 AI 专用变量**：Element-X 定义了专门用于 AI 交互场景的变量，以 `$--color-ai-*` 为前缀
+1. **继承 Element UI 变量**：Element-UI-X 的组件直接使用 Element UI 的主题变量，确保视觉一致性
+2. **扩展 AI 专用变量**：Element-UI-X 定义了专门用于 AI 交互场景的变量，以 `$--color-ai-*` 为前缀
 3. **BEM 命名规范**：组件样式遵循 BEM（Block Element Modifier）命名规范
 
 ## 主题变量列表
@@ -55,7 +55,7 @@ Element-X 使用 SCSS 变量系统来定义和扩展主题：
 
 ```scss
 /* 引入 Element UI 变量 */
-@import "~element-ui/packages/theme-chalk/src/common/var";
+@import '~element-ui/packages/theme-chalk/src/common/var';
 
 /* 自定义 Element UI 主题变量 */
 $--color-primary: #409eff;
@@ -64,7 +64,7 @@ $--color-warning: #e6a23c;
 $--color-danger: #f56c6c;
 $--color-info: #909399;
 
-/* 自定义 Element-X 主题变量 */
+/* 自定义 Element-UI-X 主题变量 */
 $--color-ai-bubble-user: #f0f9ff;
 $--color-ai-bubble-bot: #f8f9fa;
 $--color-ai-cursor: $--color-primary;
@@ -72,17 +72,17 @@ $--color-ai-thinking: $--color-primary;
 $--color-ai-conversation-active: lighten($--color-primary, 35%);
 
 /* 引入组件样式 */
-@import "~element-ui/packages/theme-chalk/src/index";
-@import "~@element-x/core/src/theme/index";
+@import '~element-ui/packages/theme-chalk/src/index';
+@import '~@element-x/core/src/theme/index';
 ```
 
 然后在入口文件中引入这个样式文件：
 
 ```js
-import Vue from "vue";
-import ElementUI from "element-ui";
-import ElementX from "@element-x/core";
-import "./element-variables.scss";
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import ElementX from '@element-x/core';
+import './element-variables.scss';
 
 Vue.use(ElementUI);
 Vue.use(ElementX);
@@ -90,13 +90,13 @@ Vue.use(ElementX);
 
 ### 方式二：使用 CSS 变量
 
-Element-X 和 Element UI 都支持使用 CSS 变量进行主题定制，这种方式可以在运行时动态修改主题：
+Element-UI-X 和 Element UI 都支持使用 CSS 变量进行主题定制，这种方式可以在运行时动态修改主题：
 
 ```js
 // 在根元素上设置CSS变量
-document.documentElement.style.setProperty("--color-primary", "#6b46c1");
-document.documentElement.style.setProperty("--color-ai-bubble-user", "#f0e7ff");
-document.documentElement.style.setProperty("--color-ai-bubble-bot", "#f5f5f5");
+document.documentElement.style.setProperty('--color-primary', '#6b46c1');
+document.documentElement.style.setProperty('--color-ai-bubble-user', '#f0e7ff');
+document.documentElement.style.setProperty('--color-ai-bubble-bot', '#f5f5f5');
 ```
 
 ## 组件级样式定制
@@ -143,26 +143,26 @@ document.documentElement.style.setProperty("--color-ai-bubble-bot", "#f5f5f5");
 
 ## 完整暗黑模式支持
 
-Element-X 的组件完全支持 Element UI 的暗黑模式：
+Element-UI-X 的组件完全支持 Element UI 的暗黑模式：
 
 ```js
 // 引入 Element UI 暗黑主题
-import "element-ui/lib/theme-chalk/display.css";
-import "element-ui/lib/theme-chalk/index.css";
-import "element-ui/lib/theme-chalk/dark/css-vars.css";
+import 'element-ui/lib/theme-chalk/display.css';
+import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/dark/css-vars.css';
 
-// 引入 Element-X 暗黑模式适配
-import "@element-x/core/lib/theme/dark/css-vars.css";
+// 引入 Element-UI-X 暗黑模式适配
+import '@element-x/core/lib/theme/dark/css-vars.css';
 ```
 
 你可以通过添加 `dark` 类名到 HTML 或者 body 元素来切换暗黑模式：
 
 ```js
 // 启用暗黑模式
-document.documentElement.classList.add("dark");
+document.documentElement.classList.add('dark');
 
 // 禁用暗黑模式
-document.documentElement.classList.remove("dark");
+document.documentElement.classList.remove('dark');
 ```
 
 ## 主题切换
@@ -198,33 +198,33 @@ document.documentElement.classList.remove("dark");
       return {
         isDarkMode: false,
         colors: [
-          "#409EFF", // 默认蓝色
-          "#67C23A", // 绿色
-          "#E6A23C", // 黄色
-          "#F56C6C", // 红色
-          "#909399", // 灰色
-          "#6b46c1", // 紫色
+          '#409EFF', // 默认蓝色
+          '#67C23A', // 绿色
+          '#E6A23C', // 黄色
+          '#F56C6C', // 红色
+          '#909399', // 灰色
+          '#6b46c1', // 紫色
         ],
       };
     },
     methods: {
       toggleTheme(value) {
         if (value) {
-          document.documentElement.classList.add("dark");
+          document.documentElement.classList.add('dark');
         } else {
-          document.documentElement.classList.remove("dark");
+          document.documentElement.classList.remove('dark');
         }
       },
       changeThemeColor(color) {
         // 设置主色调
-        document.documentElement.style.setProperty("--color-primary", color);
+        document.documentElement.style.setProperty('--color-primary', color);
 
         // 根据主色调生成相关的 AI 组件颜色
         document.documentElement.style.setProperty(
-          "--color-ai-bubble-user",
-          this.lightenColor(color, 0.9)
+          '--color-ai-bubble-user',
+          this.lightenColor(color, 0.9),
         );
-        document.documentElement.style.setProperty("--color-ai-cursor", color);
+        document.documentElement.style.setProperty('--color-ai-cursor', color);
       },
       lightenColor(color, amount) {
         // 简单的颜色变浅算法（实际开发中可以使用color库）
@@ -274,4 +274,4 @@ document.documentElement.classList.remove("dark");
 
 ## 完整主题定制
 
-如果你需要进行更复杂的主题定制，可以参考 [Element UI 主题定制](https://element.eleme.cn/#/zh-CN/component/custom-theme) 文档，Element-X 与其完全兼容。
+如果你需要进行更复杂的主题定制，可以参考 [Element UI 主题定制](https://element.eleme.cn/#/zh-CN/component/custom-theme) 文档，Element-UI-X 与其完全兼容。

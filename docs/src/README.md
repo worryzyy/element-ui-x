@@ -6,7 +6,7 @@ actionLink: /guide/
 
 features:
   - title: 基于 Element UI
-    details: 完全兼容 Element UI 2.15.14，无缝集成到现有项目Vue2项目
+    details: 完全兼容 Element UI，无缝集成到现有项目Vue2项目
   - title: 高性能 灵活性兼备
     details: 精心优化的代码结构，保证组件高性能运行，同时支持高度自定义，适配各种复杂业务逻辑。
   - title: 可视化交互 体验升级
@@ -17,16 +17,16 @@ features:
 
 ```bash
 # 安装
-npm install @element-x/core
+npm install vue-element-ui-x
 
 # 引入
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import ElementX from '@element-x/core'
+import ElementUIX from 'vue-element-ui-x'
 
 Vue.use(ElementUI)
-Vue.use(ElementX)
+Vue.use(ElementUIX)
 ```
 
 查看 [快速上手](/guide/quickstart) 了解更多信息。
