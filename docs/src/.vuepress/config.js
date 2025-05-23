@@ -59,7 +59,7 @@ module.exports = {
             {
               title: '工具函数',
               collapsable: false,
-              children: ['record', 'send', 'stream'],
+              children: ['record', 'Send', 'Stream'],
             },
           ],
         },
