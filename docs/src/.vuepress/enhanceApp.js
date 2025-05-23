@@ -8,6 +8,8 @@ export default ({ Vue, router, isServer }) => {
   Vue.use(ElementUIX);
   Vue.component('BackToTop', BackToTop);
   Vue.prototype.$message = Message;
+  console.log(ElementUIX);
+
   // 添加全局的路由切换后回到顶部的功能
   router.options.scrollBehavior = (to, from, savedPosition) => {
     if (savedPosition) {
