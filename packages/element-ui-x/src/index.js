@@ -12,7 +12,7 @@ import ElXTypewriter from './components/Typewriter/index.js';
 import ElXWelcome from './components/Welcome/index.js';
 
 // 导入所有 mixins
-import * as mixins from './mixins';
+import * as customMixins from './mixins';
 
 const components = [
   ElXTypewriter,
@@ -38,8 +38,8 @@ const install = function (Vue) {
 export default {
   version: '1.0.0',
   install,
-  mixins,
+  customMixins,
   ...components,
 };
 // 单独导出 mixins 以便按需引入
-export { mixins };
+export { customMixins };
