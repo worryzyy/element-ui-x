@@ -10,7 +10,7 @@
   "dependencies": {
     "@vuepress/plugin-active-header-links": "^1.9.10",
     "element-ui": "^2.15.14",
-    "element-x-ui": "file:../packages/element-x-ui",
+    "vue-element-ui-x": "file:../packages/element-ui-x",
     "highlight.js": "^9.18.5",
     "vue": "^2.6.14"
   },

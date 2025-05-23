@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "element-ui": "2.15.14",
-    "element-x-ui": "file:../packages/element-x-ui",
+    "vue-element-ui-x": "file:../packages/element-ui-x",
     "vue": "^2.6.14",
     "vue-router": "^3.6.5"
   },
