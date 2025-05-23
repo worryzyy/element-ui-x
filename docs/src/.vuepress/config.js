@@ -56,6 +56,11 @@ module.exports = {
               collapsable: false,
               children: ['thinking', 'thought-chain'],
             },
+            {
+              title: '工具函数',
+              collapsable: false,
+              children: ['record', 'send', 'stream'],
+            },
           ],
         },
       ],
