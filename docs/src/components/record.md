@@ -11,6 +11,45 @@
 - 错误处理机制
 - 支持自定义回调函数
 
+## 导入和使用
+
+有以下几种方式可以导入和使用 recordMixin：
+
+### 方式一：通过 ES 模块导入
+
+```js
+// 单独导入 recordMixin
+import { customMixins } from 'vue-element-ui-x';
+
+export default {
+  mixins: [customMixins.recordMixin],
+  // ...
+};
+```
+
+### 方式二：通过 CommonJS 导入
+
+```js
+// 单独导入 recordMixin
+const { recordMixin } = require('vue-element-ui-x').customMixins;
+
+export default {
+  mixins: [recordMixin],
+  // ...
+};
+```
+
+### 方式三：通过全局变量使用（浏览器环境）
+
+如果您已经通过 CDN 或 script 标签引入了完整的组件库，可以这样使用：
+
+```js
+export default {
+  mixins: [window['vue-element-ui-x'].customMixins.recordMixin],
+  // ...
+};
+```
+
 ## 使用示例
 
 ### 基础用法
@@ -23,7 +62,7 @@
 <script>
   export default {
     name: 'BasicRecordDemo',
-    // mixins: [window?.['vue-element-ui-x']?.mixins?.recordMixin],
+    mixins: [require('vue-element-ui-x').customMixins.recordMixin],
     mounted() {
       this.initRecord({
         onStart: () => {
@@ -45,14 +84,26 @@
 
 <template>
   <div>
-    <el-button
-      type="primary"
-      :loading="recordLoading"
-      @mousedown="startRecord"
-      @mouseup="stopRecord"
-    >
-      {{ recordLoading ? '正在录音...' : '按住说话' }}
-    </el-button>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-button
+          type="primary"
+          :disabled="recordLoading"
+          @click="startRecord"
+        >
+          开始录音
+        </el-button>
+      </el-col>
+      <el-col :span="12">
+        <el-button
+          type="danger"
+          :disabled="!recordLoading"
+          @click="stopRecord"
+        >
+          停止录音
+        </el-button>
+      </el-col>
+    </el-row>
 
     <div
       class="result"
@@ -85,9 +136,8 @@
 <script>
   export default {
     name: 'CustomControlDemo',
-    // mixins: [window?.['vue-element-ui-x']?.mixins?.recordMixin],
+    mixins: [require('vue-element-ui-x').customMixins.recordMixin],
     mounted() {
-      console.log(window);
       this.initRecord({
         onStart: () => {
           this.$message({
@@ -194,7 +244,7 @@
 <script>
   export default {
     name: 'ErrorHandlingDemo',
-    // mixins: [window?.['vue-element-ui-x']?.mixins?.recordMixin],
+    mixins: [require('vue-element-ui-x').customMixins.recordMixin],
     data() {
       return {
         error: null,
