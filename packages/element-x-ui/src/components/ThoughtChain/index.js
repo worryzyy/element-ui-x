@@ -5,4 +5,4 @@ ElXThoughtChain.install = function (Vue) {
   Vue.component(ElXThoughtChain.name, ElXThoughtChain);
 };
 
-export default ElXThoughtChain; 
+export default ElXThoughtChain;

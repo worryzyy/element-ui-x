@@ -5,4 +5,4 @@ ElXThink.install = function (Vue) {
   Vue.component(ElXThink.name, ElXThink);
 };
 
-export default ElXThink; 
+export default ElXThink;

@@ -1,4 +1,3 @@
-
 export const colorMap = {
   word: '#0078D4',
   excel: '#00C851',
@@ -16,4 +15,4 @@ export const colorMap = {
   zip: '#673AB7',
   file: '#FFC757',
   unknown: '#6E9DA4',
-}
+};

@@ -1,35 +1,39 @@
 <template>
-    <div class="el-x-send-button">
-        <el-button circle @click="$emit('cancel')" size="small">
-            <loading class="loading-svg" />
-        </el-button>
-    </div>
+  <div class="el-x-send-button">
+    <el-button
+      circle
+      @click="$emit('cancel')"
+      size="small"
+    >
+      <loading class="loading-svg" />
+    </el-button>
+  </div>
 </template>
 
 <script>
-import Loading from './Loading.vue'
+  import Loading from './Loading.vue';
 
-export default {
+  export default {
     name: 'LoadingButton',
     components: {
-        Loading,
+      Loading,
     },
-}
+  };
 </script>
 
 <style scoped lang="scss">
-@import '~element-ui/packages/theme-chalk/src/common/var';
+  @import '~element-ui/packages/theme-chalk/src/common/var';
 
-.el-x-send-button {
+  .el-x-send-button {
     height: 32px;
     .el-button {
-        padding: 0;
-        width: 32px;
-        height: 32px;
+      padding: 0;
+      width: 32px;
+      height: 32px;
     }
     .loading-svg {
-        color: $--color-primary;
-        width: 100%;
+      color: $--color-primary;
+      width: 100%;
     }
-}
-</style> 
+  }
+</style>

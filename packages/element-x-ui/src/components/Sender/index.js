@@ -5,4 +5,4 @@ ElXSender.install = function (Vue) {
   Vue.component(ElXSender.name, ElXSender);
 };
 
-export default ElXSender; 
+export default ElXSender;
