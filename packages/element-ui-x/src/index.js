@@ -1,15 +1,18 @@
-import ElXTypewriter from './components/Typewriter/index.js';
+import ElXAttachments from './components/Attachments/index.js';
 import ElXBubble from './components/Bubble/index.js';
 import ElXBubbleList from './components/BubbleList/index.js';
-import ElXWelcome from './components/Welcome/index.js';
-import ElXPrompts from './components/Prompts/index.js';
 import ElXConversations from './components/Conversations/index.js';
-import ElXThinking from './components/Thinking/index.js';
-import ElXThink from './components/Think/index.js';
-import ElXThoughtChain from './components/ThoughtChain/index.js';
-import ElXSender from './components/Sender/index.js';
 import ElXFilesCard from './components/FilesCard/index.js';
-import ElXAttachments from './components/Attachments/index.js';
+import ElXPrompts from './components/Prompts/index.js';
+import ElXSender from './components/Sender/index.js';
+import ElXThink from './components/Think/index.js';
+import ElXThinking from './components/Thinking/index.js';
+import ElXThoughtChain from './components/ThoughtChain/index.js';
+import ElXTypewriter from './components/Typewriter/index.js';
+import ElXWelcome from './components/Welcome/index.js';
+
+// 导入所有 mixins
+import * as mixins from './mixins';
 
 const components = [
   ElXTypewriter,
@@ -35,5 +38,8 @@ const install = function (Vue) {
 export default {
   version: '1.0.0',
   install,
+  mixins,
   ...components,
 };
+// 单独导出 mixins 以便按需引入
+export { mixins };
