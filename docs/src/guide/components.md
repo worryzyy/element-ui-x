@@ -10,10 +10,10 @@ Element-UI-X 提供了一系列专为 AI 交互设计的 Vue 组件，让你能�
 
 ```bash
 # npm
-npm install @element-x/core
+npm install vue-element-ui-x
 
 # 或者使用 yarn
-yarn add @element-x/core
+yarn add vue-element-ui-x
 ```
 
 然后在你的入口文件中引入组件库：
@@ -22,7 +22,7 @@ yarn add @element-x/core
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import ElementX from '@element-x/core';
+import ElementX from 'vue-element-ui-x';
 
 Vue.use(ElementUI);
 Vue.use(ElementX);

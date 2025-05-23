@@ -16,7 +16,7 @@ Element-UI-X 是一个开源组件库，我们欢迎所有开发者加入我们�
 
 我们的组件库通过 NPM 发布：
 
-- [@element-x/core](https://www.npmjs.com/package/@element-x/core)
+- [vue-element-ui-x](https://www.npmjs.com/package/vue-element-ui-x)
 
 ## 加入我们
 

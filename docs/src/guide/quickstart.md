@@ -6,6 +6,8 @@
 
 在成功 [安装](./installation.md) Element-UI-X 之后，你可以开始使用组件库中的组件。以下是一个简单的示例，展示如何使用打字机组件：
 
+:::demo
+
 ```html
 <template>
   <div class="demo-container">
@@ -21,9 +23,9 @@
         <div class="avatar">AI</div>
         <div class="content">
           <el-x-typewriter
-            :text="aiResponse"
-            :type-speed="30"
-            @typing-complete="onTypingComplete"
+            :content="aiResponse"
+            :typing="{ interval: 30, step: 1 }"
+            @finish="onTypingComplete"
             ref="typewriter"
           />
         </div>
@@ -52,19 +54,16 @@
     mounted() {
       // 页面加载后自动开始打字效果
       this.$nextTick(() => {
-        this.$refs.typewriter.startTyping();
+        this.$refs.typewriter.restart();
       });
     },
     methods: {
-      onTypingComplete(text) {
-        console.log('打字效果完成:', text);
+      onTypingComplete(instance) {
+        console.log('打字效果完成:', instance);
       },
       regenerateResponse() {
         // 模拟重新生成回复
-        this.$refs.typewriter.eraseAll();
-        setTimeout(() => {
-          this.$refs.typewriter.startTyping();
-        }, 300);
+        this.$refs.typewriter.restart();
       },
     },
   };
@@ -131,28 +130,41 @@
 </style>
 ```
 
+:::
+
 ## 使用多个组件
 
 Element-UI-X 提供了多个组件，你可以组合使用它们来构建完整的 AI 交互界面。以下是一个简化的示例：
+
+:::demo
 
 ```html
 <template>
   <div class="ai-chat">
     <!-- 思考动画组件 -->
-    <el-x-thinking v-if="isThinking" />
+    <el-x-thinking
+      v-if="isThinking"
+      status="thinking"
+      content="AI正在思考中..."
+    />
 
     <!-- 打字机组件 -->
     <el-x-typewriter
       v-else-if="aiResponse"
-      :text="aiResponse"
+      :content="aiResponse"
+      :typing="{ interval: 40, step: 1 }"
       ref="typewriter"
     />
-
+    <br />
     <!-- 发送框组件 -->
     <el-x-sender
       v-model="userInput"
-      @send="sendMessage"
+      @submit="sendMessage"
       :disabled="isThinking"
+      :loading="senderLoading"
+      ref="sender"
+      clearable
+      @cancel="handleCancel"
     />
   </div>
 </template>
@@ -164,71 +176,78 @@ Element-UI-X 提供了多个组件，你可以组合使用它们来构建完整�
         userInput: '',
         aiResponse: '',
         isThinking: false,
+        senderLoading: false,
+        timeoutId: null,
       };
     },
     methods: {
-      sendMessage() {
-        if (!this.userInput.trim()) return;
+      sendMessage(message) {
+        if (!message.trim()) return;
 
-        const userMessage = this.userInput;
-        this.userInput = '';
-        this.isThinking = true;
+        const userMessage = message;
+        this.senderLoading = true;
 
         // 模拟AI响应
-        setTimeout(() => {
-          this.isThinking = false;
-          this.aiResponse = `你发送的消息是: "${userMessage}"。这是一个AI响应示例。`;
+        this.timeoutId = setTimeout(() => {
+          this.isThinking = true;
+          this.senderLoading = false;
 
-          this.$nextTick(() => {
-            this.$refs.typewriter.startTyping();
-          });
-        }, 1500);
+          setTimeout(() => {
+            this.isThinking = false;
+            this.aiResponse = `你发送的消息是: "${userMessage}"。这是一个AI响应示例。`;
+
+            this.$nextTick(() => {
+              this.$refs.typewriter.restart();
+            });
+          }, 1500);
+        }, 500);
+      },
+      handleCancel() {
+        this.senderLoading = false;
+        if (this.timeoutId) {
+          clearTimeout(this.timeoutId);
+          this.timeoutId = null;
+        }
+        this.$message.info('取消发送');
       },
     },
   };
 </script>
+
+<style>
+  .ai-chat {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ebeef5;
+    border-radius: 4px;
+  }
+</style>
 ```
 
-## 主题定制
-
-Element-UI-X 的组件样式继承自 Element UI 的主题系统，你可以通过修改主题变量来定制组件的外观：
-
-```scss
-/* 在你的样式文件中 */
-@import '~element-ui/packages/theme-chalk/src/common/var';
-
-/* 自定义 Element UI 主题变量 */
-$--color-primary: #6b46c1;
-$--color-success: #38a169;
-$--color-warning: #d69e2e;
-$--color-danger: #e53e3e;
-$--color-info: #4299e1;
-
-/* 自定义 Element-UI-X 主题变量 */
-$--color-ai-bubble-user: lighten($--color-primary, 40%);
-$--color-ai-bubble-bot: lighten($--color-info, 40%);
-$--color-ai-cursor: $--color-primary;
-
-/* 引入组件样式 */
-@import '~element-ui/packages/theme-chalk/src/index';
-@import '~@element-x/core/src/theme/index';
-```
+:::
 
 ## 组件引用和方法调用
 
 Element-UI-X 的组件支持通过 ref 引用来调用组件方法：
+
+:::demo
 
 ```html
 <template>
   <div>
     <el-x-typewriter
       ref="typewriter"
-      :text="text"
+      :content="text"
+      :typing="{ interval: 40, step: 1 }"
     />
 
-    <el-button @click="startTyping">开始打字</el-button>
-    <el-button @click="typeAll">立即完成</el-button>
-    <el-button @click="eraseAll">清空</el-button>
+    <div class="demo-controls">
+      <el-button-group>
+        <el-button @click="finishTyping">立即完成</el-button>
+        <el-button @click="restart">重新开始</el-button>
+      </el-button-group>
+    </div>
   </div>
 </template>
 
@@ -240,24 +259,29 @@ Element-UI-X 的组件支持通过 ref 引用来调用组件方法：
       };
     },
     methods: {
-      startTyping() {
-        this.$refs.typewriter.startTyping();
+      finishTyping() {
+        this.$refs.typewriter.finishTyping();
       },
-      typeAll() {
-        this.$refs.typewriter.typeAll();
-      },
-      eraseAll() {
-        this.$refs.typewriter.eraseAll();
+      restart() {
+        this.$refs.typewriter.restart();
       },
     },
   };
 </script>
+
+<style>
+  .demo-controls {
+    margin-top: 15px;
+  }
+</style>
 ```
+
+:::
 
 ## 下一步
 
 现在你已经了解了 Element-UI-X 的基本用法，可以：
 
 - 查看 [组件](../components/) 文档了解每个组件的详细用法
-- 查看 [示例](../examples/) 了解更多实际应用场景
-- 参考 [主题](./theme.md) 文档学习如何定制组件样式
+<!-- - 查看 [示例](../examples/) 了解更多实际应用场景
+- 参考 [主题](./theme.md) 文档学习如何定制组件样式 -->

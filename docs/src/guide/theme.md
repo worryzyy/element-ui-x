@@ -73,7 +73,7 @@ $--color-ai-conversation-active: lighten($--color-primary, 35%);
 
 /* 引入组件样式 */
 @import '~element-ui/packages/theme-chalk/src/index';
-@import '~@element-x/core/src/theme/index';
+@import '~vue-element-ui-x/src/theme/index';
 ```
 
 然后在入口文件中引入这个样式文件：
@@ -81,7 +81,7 @@ $--color-ai-conversation-active: lighten($--color-primary, 35%);
 ```js
 import Vue from 'vue';
 import ElementUI from 'element-ui';
-import ElementX from '@element-x/core';
+import ElementX from 'vue-element-ui-x';
 import './element-variables.scss';
 
 Vue.use(ElementUI);
@@ -152,7 +152,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/dark/css-vars.css';
 
 // 引入 Element-UI-X 暗黑模式适配
-import '@element-x/core/lib/theme/dark/css-vars.css';
+import 'vue-element-ui-x/lib/theme/dark/css-vars.css';
 ```
 
 你可以通过添加 `dark` 类名到 HTML 或者 body 元素来切换暗黑模式：
