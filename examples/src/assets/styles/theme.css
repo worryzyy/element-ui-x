@@ -3,8 +3,8 @@
   --color-primary: #ff6b9e; /* 粉色 */
   --color-success: #6bd9a7; /* 薄荷绿 */
   --color-warning: #ffcc5e; /* 亮黄色 */
-  --color-danger: #ff7d7d;  /* 浅红色 */
-  --color-info: #7dcfff;    /* 天蓝色 */
+  --color-danger: #ff7d7d; /* 浅红色 */
+  --color-info: #7dcfff; /* 天蓝色 */
 }
 
 /* 覆盖Element UI主题色 */

@@ -1,115 +1,122 @@
 <template>
-    <div id="app">
-        <el-container>
-            <el-header>
-                <h1>Element X UI 示例</h1>
-            </el-header>
-            <el-container>
-                <el-aside width="200px">
-                    <el-menu router :default-active="$route.path" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-                        <el-menu-item index="/typewriter">
-                            <i class="el-icon-edit"></i>
-                            <span>Typewriter</span>
-                        </el-menu-item>
-                        <el-menu-item index="/bubble">
-                            <i class="el-icon-edit"></i>
-                            <span>Bubble</span>
-                        </el-menu-item>
-                        <el-menu-item index="/bubblelist">
-                            <i class="el-icon-edit"></i>
-                            <span>BubbleList</span>
-                        </el-menu-item>
-                        <el-menu-item index="/welcome">
-                            <i class="el-icon-edit"></i>
-                            <span>Welcome</span>
-                        </el-menu-item>
-                        <el-menu-item index="/prompts">
-                            <i class="el-icon-edit"></i>
-                            <span>Prompts</span>
-                        </el-menu-item>
-                        <el-menu-item index="/conversations">
-                            <i class="el-icon-edit"></i>
-                            <span>Conversations</span>
-                        </el-menu-item>
-                        <el-menu-item index="/thinking">
-                            <i class="el-icon-edit"></i>
-                            <span>Thinking</span>
-                        </el-menu-item>
-                        <el-menu-item index="/think">
-                            <i class="el-icon-edit"></i>
-                            <span>Think</span>
-                        </el-menu-item>
-                        <el-menu-item index="/thoughtchain">
-                            <i class="el-icon-edit"></i>
-                            <span>ThoughtChain</span>
-                        </el-menu-item>
-                        <el-menu-item index="/sender">
-                            <i class="el-icon-message"></i>
-                            <span>Sender</span>
-                        </el-menu-item>
-                        <el-menu-item index="/filescard">
-                            <i class="el-icon-edit"></i>
-                            <span>FilesCard</span>
-                        </el-menu-item>
-                        <el-menu-item index="/attachments">
-                            <i class="el-icon-edit"></i>
-                            <span>Attachments</span>
-                        </el-menu-item>
-                    </el-menu>
-                </el-aside>
-                <el-main>
-                    <router-view></router-view>
-                </el-main>
-            </el-container>
-        </el-container>
-    </div>
+  <div id="app">
+    <el-container>
+      <el-header>
+        <h1>Element X UI 示例</h1>
+      </el-header>
+      <el-container>
+        <el-aside width="200px">
+          <el-menu
+            router
+            :default-active="$route.path"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b"
+          >
+            <el-menu-item index="/typewriter">
+              <i class="el-icon-edit"></i>
+              <span>Typewriter</span>
+            </el-menu-item>
+            <el-menu-item index="/bubble">
+              <i class="el-icon-edit"></i>
+              <span>Bubble</span>
+            </el-menu-item>
+            <el-menu-item index="/bubblelist">
+              <i class="el-icon-edit"></i>
+              <span>BubbleList</span>
+            </el-menu-item>
+            <el-menu-item index="/welcome">
+              <i class="el-icon-edit"></i>
+              <span>Welcome</span>
+            </el-menu-item>
+            <el-menu-item index="/prompts">
+              <i class="el-icon-edit"></i>
+              <span>Prompts</span>
+            </el-menu-item>
+            <el-menu-item index="/conversations">
+              <i class="el-icon-edit"></i>
+              <span>Conversations</span>
+            </el-menu-item>
+            <el-menu-item index="/thinking">
+              <i class="el-icon-edit"></i>
+              <span>Thinking</span>
+            </el-menu-item>
+            <el-menu-item index="/think">
+              <i class="el-icon-edit"></i>
+              <span>Think</span>
+            </el-menu-item>
+            <el-menu-item index="/thoughtchain">
+              <i class="el-icon-edit"></i>
+              <span>ThoughtChain</span>
+            </el-menu-item>
+            <el-menu-item index="/sender">
+              <i class="el-icon-message"></i>
+              <span>Sender</span>
+            </el-menu-item>
+            <el-menu-item index="/filescard">
+              <i class="el-icon-edit"></i>
+              <span>FilesCard</span>
+            </el-menu-item>
+            <el-menu-item index="/attachments">
+              <i class="el-icon-edit"></i>
+              <span>Attachments</span>
+            </el-menu-item>
+          </el-menu>
+        </el-aside>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
 </template>
 
 <script>
-export default {
+  export default {
     name: 'App',
-}
+  };
 </script>
 
 <style lang="scss">
-#app {
-    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
+  #app {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      SimSun, sans-serif;
     height: 100vh;
     display: flex;
     flex-direction: column;
-}
+  }
 
-body {
+  body {
     margin: 0;
     padding: 0;
     background-color: #f5f7fa;
     color: #333;
     overflow: hidden;
-}
+  }
 
-.el-header {
+  .el-header {
     color: #fff;
     line-height: 60px;
     text-align: center;
     flex: 0 0 auto;
-}
+  }
 
-.el-container {
+  .el-container {
     flex: 1;
     overflow: hidden;
     display: flex;
-}
+  }
 
-.el-aside {
+  .el-aside {
     background-color: #545c64;
     color: #fff;
     width: 200px;
     flex-shrink: 0;
-}
+  }
 
-.el-main {
+  .el-main {
     padding: 20px;
     overflow-y: auto;
     flex: 1;
-}
+  }
 </style>
