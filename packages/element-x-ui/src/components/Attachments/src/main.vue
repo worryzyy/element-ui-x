@@ -278,29 +278,7 @@ export default {
                 }, wait)
             }
         },
-        // 上传相关方法
-        toggleDragStyle(isDrag) {
-            this.isTargetDrag = isDrag
-            if (this.targetElement) {
-                const isBodyTarget = this.targetElement === document.body // 判断是否为body
 
-                if (isDrag) {
-                    // 针对body特殊处理
-                    if (isBodyTarget && this.$refs.dropAreaRef) {
-                        this.$refs.dropAreaRef.style.position = 'fixed'
-                        this.$refs.dropAreaRef.style.width = '100vw'
-                        this.$refs.dropAreaRef.style.height = '100vh'
-                        this.$refs.dropAreaRef.style.left = '0'
-                        this.$refs.dropAreaRef.style.top = '0'
-                    } else {
-                        // 其他元素保持原逻辑
-                        this.targetElement.style.position = 'relative'
-                    }
-                } else {
-                    this.targetElement.style.position = ''
-                }
-            }
-        },
         customUpload(options) {
             // 自定义上传方法，如果父组件提供了http-request，则使用父组件的
             if (this.$attrs['http-request']) {
@@ -328,6 +306,7 @@ export default {
         handleUploadError(error, file, fileList) {
             this.$emit('uploadError', error, file, fileList)
         },
+
         getTargetElement() {
             if (!this.dragTarget) return this.$refs.wrapperRef
 
@@ -348,22 +327,75 @@ export default {
             // 兜底返回 wrapperRef
             return this.$refs.wrapperRef
         },
+        // 修改拖拽样式切换方法
+        toggleDragStyle(isDrag) {
+            console.log('toggleDragStyle called:', isDrag) // 调试用，可以删除
+
+            this.isTargetDrag = isDrag
+
+            if (this.targetElement) {
+                const isBodyTarget = this.targetElement === document.body
+
+                if (isDrag) {
+                    // 立即显示拖拽区域
+                    this.$nextTick(() => {
+                        this.appendDragArea()
+                    })
+
+                    if (isBodyTarget && this.$refs.dropAreaRef) {
+                        this.$refs.dropAreaRef.style.position = 'fixed'
+                        this.$refs.dropAreaRef.style.width = '100vw'
+                        this.$refs.dropAreaRef.style.height = '100vh'
+                        this.$refs.dropAreaRef.style.left = '0'
+                        this.$refs.dropAreaRef.style.top = '0'
+                        this.$refs.dropAreaRef.style.zIndex = '9999'
+                    } else {
+                        this.targetElement.style.position = 'relative'
+                    }
+                } else {
+                    // 延迟移除拖拽区域，避免闪烁
+                    setTimeout(() => {
+                        this.removeDragArea()
+                    }, 100)
+
+                    if (!isBodyTarget) {
+                        this.targetElement.style.position = ''
+                    }
+                }
+            }
+        },
+        // 修改事件处理方法
         targetDragEnter(event) {
             event.preventDefault()
-            this.debouncedToggleStyle(true)
+            event.stopPropagation()
+
+            // 移除防抖，直接执行
+            this.toggleDragStyle(true)
         },
         targetDropLeave(event) {
             event.preventDefault()
-            // 新增逻辑：若离开后进入的元素仍在目标元素内部，不执行样式移除
+            event.stopPropagation()
+
             const relatedTarget = event.relatedTarget
-            if (this.targetElement && this.targetElement.contains(relatedTarget)) {
+
+            // 如果离开后进入的元素仍在目标元素内部，或者进入了拖拽区域本身，不执行样式移除
+            if (
+                this.targetElement &&
+                (this.targetElement.contains(relatedTarget) || (this.$refs.dropAreaRef && this.$refs.dropAreaRef.contains(relatedTarget)))
+            ) {
                 return
             }
-            this.debouncedToggleStyle(false)
+
+            // 移除防抖，直接执行
+            this.toggleDragStyle(false)
         },
         targetDrop(event) {
             event.preventDefault()
-            this.debouncedToggleStyle(false)
+            event.stopPropagation()
+
+            // 立即移除拖拽样式
+            this.toggleDragStyle(false)
+
             if (event.dataTransfer) {
                 const files = event.dataTransfer.files
                 if (files.length) {
@@ -377,33 +409,58 @@ export default {
         },
         targetDragOver(event) {
             event.preventDefault()
+            event.stopPropagation()
         },
         // 卡片相关方法
         handleDelete(item, index) {
             this.$emit('delete-card', item, index)
             this.$nextTick(() => this.debouncedCheckPing())
         },
-        // Vue2 中实现类似 teleport 的功能
+        // 修改 DOM 操作方法
         appendDragArea() {
-            if (this.$refs.dropAreaRef && this.targetElement) {
-                // 确保 dropAreaContainer 已渲染
-                this.$nextTick(() => {
-                    if (this.$refs.dropAreaContainer) {
-                        const dragAreaNode = this.$refs.dropAreaRef
-                        this.targetElement.appendChild(dragAreaNode)
-                    }
-                })
+            if (!this.$refs.dropAreaRef || !this.targetElement) {
+                return
             }
+
+            // 确保元素已经渲染
+            this.$nextTick(() => {
+                const dragAreaNode = this.$refs.dropAreaRef
+
+                // 检查是否已经添加过了
+                if (dragAreaNode.parentNode !== this.targetElement) {
+                    // 显示容器
+                    if (this.$refs.dropAreaContainer) {
+                        this.$refs.dropAreaContainer.style.display = 'block'
+                    }
+
+                    // 添加到目标元素
+                    this.targetElement.appendChild(dragAreaNode)
+
+                    // 强制重绘
+                    dragAreaNode.offsetHeight
+                }
+            })
         },
         removeDragArea() {
-            if (this.$refs.dropAreaRef && this.targetElement && this.$refs.dropAreaRef.parentNode === this.targetElement) {
-                this.targetElement.removeChild(this.$refs.dropAreaRef)
+            if (!this.$refs.dropAreaRef || !this.targetElement) {
+                return
+            }
+
+            const dragAreaNode = this.$refs.dropAreaRef
+
+            if (dragAreaNode.parentNode === this.targetElement) {
+                this.targetElement.removeChild(dragAreaNode)
+            }
+
+            // 隐藏容器
+            if (this.$refs.dropAreaContainer) {
+                this.$refs.dropAreaContainer.style.display = 'none'
             }
         },
     },
     created() {
         this.debouncedCheckPing = this.debounce(this.checkPing, 100)
-        this.debouncedToggleStyle = this.debounce(this.toggleDragStyle, 100)
+        // this.debouncedToggleStyle = this.debounce(this.toggleDragStyle, 100)
     },
 }
 </script>
@@ -588,33 +645,58 @@ export default {
 
     /* 设置拖放区域的样式 */
     &-drop-area {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: calc(100% - 4px);
-        height: calc(100% - 4px);
-        border-radius: 15px;
-        border: 2px dashed $--color-primary;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        background: rgba(225, 225, 225, 0.3);
-        backdrop-filter: blur(2px);
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: calc(100% - 4px) !important;
+        height: calc(100% - 4px) !important;
+        border-radius: 15px !important;
+        border: 2px dashed $--color-primary !important;
+        z-index: 9999 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column !important;
+        background: rgba(225, 225, 225, 0.8) !important; // 增加透明度
+        backdrop-filter: blur(4px) !important; // 增加模糊效果
+        animation: dragAreaShow 0.3s ease-in-out !important; // 添加显示动画
+        pointer-events: none !important; // 防止拖拽区域本身阻止事件
 
         &-icon {
-            font-size: 50px;
-            color: $--color-primary;
+            font-size: 50px !important;
+            color: $--color-primary !important;
+            animation: bounce 1s infinite alternate !important; // 添加跳动动画
         }
 
         &-text {
-            font-size: 16px;
-            color: $--color-primary;
-            margin-top: 10px;
-            text-align: center;
-            width: 100%;
-            max-width: 300px;
+            font-size: 16px !important;
+            color: $--color-primary !important;
+            margin-top: 10px !important;
+            text-align: center !important;
+            width: 100% !important;
+            max-width: 300px !important;
+            font-weight: bold !important;
+        }
+    }
+
+    // 添加动画关键帧
+    @keyframes dragAreaShow {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes bounce {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(-10px);
         }
     }
 }
