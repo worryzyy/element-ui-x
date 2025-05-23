@@ -12,6 +12,7 @@ import ThoughtChain from '../views/ThoughtChain.vue';
 import Sender from '../views/Sender.vue';
 import FilesCard from '../views/FilesCard.vue';
 import Attachments from '../views/Attachments.vue';
+import Record from '../views/record.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -75,6 +76,11 @@ export default new Router({
       path: '/attachments',
       name: 'Attachments',
       component: Attachments,
+    },
+    {
+      path: '/record',
+      name: 'Record',
+      component: Record,
     },
     {
       path: '*',
