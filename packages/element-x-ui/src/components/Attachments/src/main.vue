@@ -37,8 +37,8 @@
             ref="containerRef"
             class="el-x-attachments"
             :class="{
-        [`el-x-attachments-overflow-${overflow}`]: overflow,
-      }"
+            [`el-x-attachments-overflow-${overflow}`]: overflow,
+            }"
             :style="{
         ...(overflow === 'scrollX' ? { whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden' } : {}),
         ...(overflow === 'scrollY' ? { overflowX: 'hidden', overflowY: 'auto' } : {}),
