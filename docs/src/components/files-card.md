@@ -398,12 +398,17 @@
 | percent        | 上传进度（0-100）                      | Number        | -           |
 | errorTip       | 错误提示信息                           | String        | -           |
 
-## 方法
+## 插槽
 
-| 方法名              | 说明             | 参数                 | 返回值 |
-| ------------------- | ---------------- | -------------------- | ------ |
-| handleDelete        | 处理删除操作     | -                    | -      |
-| handlePreviewAction | 处理图片预览操作 | type: 'self'或'mask' | -      |
+| 插槽名                | 说明               | 作用域参数           |
+| --------------------- | ------------------ | -------------------- |
+| icon                  | 自定义图标         | item                 |
+| content               | 自定义内容         | item                 |
+| name-prefix           | 自定义文件名前缀   | item, prefix, suffix |
+| name-suffix           | 自定义文件名后缀   | item, prefix, suffix |
+| description           | 自定义描述         | item, prefix, suffix |
+| del-icon              | 自定义删除图标     | item                 |
+| image-preview-actions | 自定义图片预览操作 | item, prefix, suffix |
 
 ## 事件
 
