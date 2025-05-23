@@ -117,7 +117,10 @@
                         @delete-card="handleDragDeleteCard"
                     />
 
-                    <div id="drag-area" style="border: 2px dashed #ccc; padding: 20px; height: 250px; text-align: center; display: flex; align-items: center; justify-content: center;">在此处拖拽文件上传</div>
+                    <div
+                        id="drag-area"
+                        style="border: 2px dashed #ccc;border-radius: 15px; padding: 20px; height: 250px; text-align: center; display: flex; align-items: center; justify-content: center;"
+                    >在此处拖拽文件上传</div>
                 </div>
                 <div style="margin-top: 10px;">
                     <el-button type="danger" @click="resetDragFiles">清空文件</el-button>
