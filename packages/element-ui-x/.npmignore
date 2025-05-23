@@ -19,3 +19,4 @@ __tests__/
 # 其他
 .gitignore
 .npmrc
+package-lock

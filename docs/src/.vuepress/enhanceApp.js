@@ -1,11 +1,11 @@
 import ElementUI, { Message } from 'element-ui';
-import ElementXUI from 'element-x-ui';
+import ElementUIX from 'vue-element-ui-x';
 import 'element-ui/lib/theme-chalk/index.css';
 // 导入 Element UI 文档风格的代码高亮样式
 import BackToTop from './components/BackToTop.vue';
 export default ({ Vue, router, isServer }) => {
   Vue.use(ElementUI);
-  Vue.use(ElementXUI);
+  Vue.use(ElementUIX);
   Vue.component('BackToTop', BackToTop);
   Vue.prototype.$message = Message;
   // 添加全局的路由切换后回到顶部的功能
