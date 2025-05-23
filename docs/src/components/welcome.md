@@ -22,7 +22,7 @@
 <template>
   <el-x-welcome
     icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-    title="欢迎使用 Element X UI"
+    title="欢迎使用 Element UI X"
     description="基于 Element UI 的企业级中后台组件库扩展"
   />
 </template>
@@ -109,7 +109,12 @@
       description="通过 extra 插槽可以添加按钮等交互元素"
     >
       <template #extra>
-        <el-button type="primary" size="small">开始使用</el-button>
+        <el-button
+          type="primary"
+          size="small"
+        >
+          开始使用
+        </el-button>
       </template>
     </el-x-welcome>
   </div>
@@ -134,7 +139,10 @@
       <div
         style="width: 64px; height: 64px; background: #409EFF; border-radius: 8px; display: flex; align-items: center; justify-content: center;"
       >
-        <i class="el-icon-star-on" style="font-size: 32px; color: white;"></i>
+        <i
+          class="el-icon-star-on"
+          style="font-size: 32px; color: white;"
+        ></i>
       </div>
     </template>
   </el-x-welcome>

@@ -1,7 +1,7 @@
 {
-  "name": "element-x-ui-example",
+  "name": "element-ui-x-example",
   "version": "1.0.0",
-  "description": "Element X UI示例项目",
+  "description": "Element UI X示例项目",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build"

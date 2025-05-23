@@ -1,23 +1,23 @@
-# Element X UI
+# Element UI X
 
 基于 Element UI 2.15.14 和 Vue2 的企业级 AI 聊天组件库
 
 ## 安装
 
 ```bash
-npm install element-x-ui --save
+npm install vue-element-ui-x --save
 ```
 
 ## 快速开始
 
 ```javascript
-import Vue from "vue";
-import ElementUI from "element-ui";
-import ElementXUI from "element-x-ui";
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import ElementUIX from 'vue-element-ui-x';
 
 // 确保已安装Element UI 2.15.x
 Vue.use(ElementUI);
-Vue.use(ElementXUI);
+Vue.use(ElementUIX);
 ```
 
 ## 依赖说明

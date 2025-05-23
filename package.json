@@ -7,14 +7,14 @@
     "format": "node format-project.js",
     "lint": "eslint --ext .js,.vue .",
     "lint:fix": "eslint --ext .js,.vue . --fix",
-    "install:all": "npm install && cd packages/element-x-ui && npm install && cd ../../examples && npm install && cd ../docs && npm install",
+    "install:all": "npm install && cd packages/element-ui-x && npm install && cd ../../examples && npm install && cd ../docs && npm install",
     "dev:docs": "cd docs && npm run dev",
     "build:docs": "cd docs && npm run build",
     "dev:examples": "cd examples && npm run dev",
     "build:examples": "cd examples && npm run build",
     "dev": "npm run dev:examples",
-    "build:lib": "cd packages/element-x-ui && npm run build",
-    "publish:lib": "cd packages/element-x-ui && npm publish",
+    "build:lib": "cd packages/element-ui-x && npm run build",
+    "publish:lib": "cd packages/element-ui-x && npm publish",
     "release": "npm run lint && npm run build:lib && npm run publish:lib"
   },
   "devDependencies": {

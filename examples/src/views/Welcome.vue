@@ -90,8 +90,9 @@
               v-if="extraType === 'button'"
               type="primary"
               size="small"
-              >开始使用</el-button
             >
+              开始使用
+            </el-button>
             <div v-if="extraType === 'custom'">
               <el-rate
                 v-model="rateValue"
@@ -215,8 +216,9 @@
             <el-button
               type="primary"
               @click="startChat"
-              >立即开始</el-button
             >
+              立即开始
+            </el-button>
           </template>
         </el-x-welcome>
       </div>
@@ -275,7 +277,7 @@
     data() {
       return {
         // 基础属性
-        title: '欢迎使用 Element X UI',
+        title: '欢迎使用 Element UI X',
         description: '基于 Element UI 的企业级中后台组件库扩展',
         iconUrl:
           'https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp',

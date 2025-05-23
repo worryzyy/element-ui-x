@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 // 要格式化的目录
-const directories = ['packages/element-x-ui/src', 'examples/src', 'docs/src'];
+const directories = ['packages/element-ui-x/src', 'examples/src', 'docs/src'];
 
 // 要排除的目录
 const excludePatterns = ['dist', 'lib', 'node_modules', '.vuepress/dist', 'build/dist'];
