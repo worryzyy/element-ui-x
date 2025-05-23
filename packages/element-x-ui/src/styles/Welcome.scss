@@ -8,7 +8,7 @@ $--color-el-x-welcome-description: $--color-text-regular !default;
 $--el-x-welcome-border-radius: $--el-x-border-radius-base !default;
 
 // Component variables
-.el-x-welcome{
+.el-x-welcome {
   --border-radius: #{$--el-x-welcome-border-radius};
   --icon-size: 64px;
   --icon-size-small: 48px;
@@ -93,7 +93,9 @@ $--el-x-welcome-border-radius: $--el-x-border-radius-base !default;
   gap: var(--gap-small);
 
   /* 如果内容需要换行 */
-  .el-dropdown, .el-button, .el-link {
+  .el-dropdown,
+  .el-button,
+  .el-link {
     flex-shrink: 0;
   }
 }

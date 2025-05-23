@@ -1,4 +1,4 @@
-@import "~element-ui/packages/theme-chalk/src/common/var";
+@import '~element-ui/packages/theme-chalk/src/common/var';
 
 :root {
   --color-primary: #{$--color-primary};
@@ -20,16 +20,12 @@ $--el-x-font-size-medium: $--font-size-medium !default;
 $--el-x-font-size-large: $--font-size-large !default;
 $--el-x-font-size-extra-large: $--font-size-extra-large !default;
 
-
 // 字体颜色
 $--el-x-text-color-primary: $--color-text-primary !default;
 $--el-x-text-color-regular: $--color-text-regular !default;
-$--el-x-text-color-secondary:$--color-text-secondary !default;
+$--el-x-text-color-secondary: $--color-text-secondary !default;
 $--el-x-text-color-placeholder: $--color-text-placeholder !default;
 $--el-x-text-color-disabled: $--color-text-placeholder !default;
-
-
-
 
 // 行高
 $--el-x-font-line-height-primary: $--font-line-height-primary;
@@ -40,10 +36,10 @@ $--el-x-fill-color: $--message-background-color;
 // 边框
 
 $--el-x-border-radius-base: $--border-radius-base;
-$--el-x-border-radius-md:8px;
+$--el-x-border-radius-md: 8px;
 $--el-x-border-radius-round: 20px;
 $--el-x-border-radius-small: $--border-radius-small;
-$--el-x-border-radius-circle:$--border-radius-circle;
+$--el-x-border-radius-circle: $--border-radius-circle;
 
 //间距
 
@@ -67,12 +63,8 @@ $--el-x-border-color: $--border-color-base;
 // 边框宽度
 $--el-x-border-width: $--border-width-base;
 
-
-
-
 // 阴影
 $--el-x-box-shadow-base: $--box-shadow-base;
-
 
 // 边框半径
 $--el-x-border-radius-sm: 2px !default;

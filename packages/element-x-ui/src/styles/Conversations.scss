@@ -145,7 +145,7 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 
-  &+& {
+  & + & {
     margin-top: 4px;
   }
 

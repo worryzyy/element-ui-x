@@ -1,10 +1,9 @@
-.typer-container{
+.typer-container {
   overflow-x: auto;
 }
 .markdown-content ::v-deep ul {
   list-style-type: disc;
 }
-
 
 .typing-markdown-cursor-foggy,
 .typing-cursor-foggy {
@@ -44,7 +43,6 @@
   //     margin-left: calc(-1 * var(--cursor-fog-width) );
   //   }
   // }
-  
 }
 
 .typer-content.typing-cursor::after {

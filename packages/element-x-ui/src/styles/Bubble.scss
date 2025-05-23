@@ -96,7 +96,6 @@
   // 气泡样式
   .el-x-bubble-content-filled {
     background-color: $--el-x-fill-color;
-
   }
 
   .el-x-bubble-content-borderless {
@@ -140,7 +139,6 @@
 
     /* 波浪动画 */
     @keyframes wave {
-
       0%,
       100% {
         transform: translateY(-2px);

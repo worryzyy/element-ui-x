@@ -1,4 +1,4 @@
-@import "../theme/var.scss";
+@import '../theme/var.scss';
 
 .el-x-think {
   font-family: system-ui, sans-serif;
@@ -106,8 +106,8 @@
       font-size: $--el-x-font-size-base;
       color: var(--el-x-think-content-wrapper-color);
       white-space: pre-wrap;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-        Helvetica Neue, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue,
+        sans-serif;
       margin: 0;
       line-height: $--el-x-font-line-height-primary;
     }

@@ -6,17 +6,18 @@ $--mobile-breakpoint: 768px;
 // Prompts 组件样式
 .el-x-prompts {
   // 基础样式
-  &, & * {
+  &,
+  & * {
     box-sizing: border-box;
   }
-  
+
   max-width: 100%;
-  
+
   // RTL 支持
   &.el-x-prompts-rtl {
     direction: rtl;
   }
-  
+
   // 标题样式
   .el-x-prompts-title {
     font-weight: normal;
@@ -25,11 +26,11 @@ $--mobile-breakpoint: 768px;
     margin-top: 0;
     margin-bottom: 0.5em;
   }
-  
+
   // 列表样式
   .el-x-prompts-list {
     display: flex;
-    gap:  $--el-x-padding-sm;
+    gap: $--el-x-padding-sm;
     overflow-x: auto;
     // 隐藏滚动条
     scrollbar-width: none;
@@ -41,29 +42,29 @@ $--mobile-breakpoint: 768px;
     padding-left: 0;
     margin: 0;
     align-items: stretch;
-    
+
     // 换行
     &-wrap {
       flex-wrap: wrap;
     }
-    
+
     // 垂直排列
     &-vertical {
       flex-direction: column;
       align-items: flex-start;
     }
-    
+
     // 移动设备响应式
     @media screen and (max-width: $--mobile-breakpoint) {
       flex-wrap: wrap;
       gap: 8px;
-      
+
       &-wrap {
         justify-content: space-between;
       }
     }
   }
-  
+
   // 项目样式
   .el-x-prompts-item {
     flex: none;
@@ -77,34 +78,34 @@ $--mobile-breakpoint: 768px;
     border-radius: $--el-x-border-radius-md;
     transition: border $--all-transition, background $--all-transition;
     border: $--border-width-base $--border-style-base $--border-color-lighter;
-    
+
     // 移动设备响应式
     @media screen and (max-width: $--mobile-breakpoint) {
       width: calc(50% - 4px); // 小屏幕上默认两列布局
       min-width: 150px;
       padding: $--el-x-padding-sm $--el-x-padding-md;
-      
+
       .el-x-prompts-list-wrap & {
         width: calc(50% - 4px);
         margin-bottom: 8px;
       }
-      
+
       .el-x-prompts-list-vertical & {
         width: 100%;
       }
     }
-    
+
     &:not(.el-x-prompts-item-has-nest) {
       &:hover {
         cursor: pointer;
         background: $--background-color-base;
       }
-      
+
       &:active {
         background: $--color-primary-light-9;
       }
     }
-    
+
     // 内容样式
     .el-x-prompts-content {
       flex: auto;
@@ -113,14 +114,14 @@ $--mobile-breakpoint: 768px;
       gap: 4px;
       flex-direction: column;
       align-items: flex-start;
-      
+
       // 移动设备响应式
       @media screen and (max-width: $--mobile-breakpoint) {
         width: 100%;
         gap: 2px;
       }
     }
-    
+
     // 图标、标签和描述共同样式
     .el-x-prompts-icon,
     .el-x-prompts-label,
@@ -131,7 +132,7 @@ $--mobile-breakpoint: 768px;
       line-height: $--el-x-font-line-height-primary;
       text-align: start;
       white-space: normal;
-      
+
       // 移动设备响应式
       @media screen and (max-width: $--mobile-breakpoint) {
         font-size: 14px;
@@ -143,30 +144,30 @@ $--mobile-breakpoint: 768px;
         -webkit-box-orient: vertical;
       }
     }
-    
+
     // 标签样式
     .el-x-prompts-label {
       color: $--color-text-primary;
       font-weight: 500;
     }
-    
+
     // 描述样式
     .el-x-prompts-label + .el-x-prompts-desc {
       color: $--color-text-secondary;
     }
-    
+
     // 禁用状态
     &.el-x-prompts-item-disabled {
       pointer-events: none;
       background: $--background-color-base;
-      
+
       .el-x-prompts-label,
       .el-x-prompts-desc {
         color: $--color-text-secondary;
       }
     }
   }
-  
+
   // 嵌套样式
   .el-x-prompts-item-has-nest {
     > .el-x-prompts-content {
@@ -176,16 +177,16 @@ $--mobile-breakpoint: 768px;
       }
     }
   }
-  
+
   // 嵌套组件样式
   &.el-x-prompts-nested {
     margin-top: 5px;
     align-self: stretch;
-    
+
     .el-x-prompts-list {
       align-items: stretch;
     }
-    
+
     .el-x-prompts-item {
       border: 0;
       background: $--background-color-base;

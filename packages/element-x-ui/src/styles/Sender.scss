@@ -7,8 +7,7 @@
 }
 
 $--el-x-sender-box-shadow-tertiary: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
-0 1px 6px -1px rgba(0, 0, 0, 0.02),
-0 2px 4px 0 rgba(0, 0, 0, 0.02);
+  0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
 $--el-x-sender-input-font-size: 14px;
 $--el-x-sender-header-animation-duration: 300ms;
 $--el-x-border-width: $--border-width-base;
@@ -40,7 +39,7 @@ $--el-x-fill-color: $--background-color-base;
   transition: width $--el-x-sender-header-animation-duration;
 
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     pointer-events: none;
@@ -72,8 +71,7 @@ $--el-x-fill-color: $--background-color-base;
   // 展开收起动画
   .slide-enter-active,
   .slide-leave-active {
-    transition:
-      height $--el-x-sender-header-animation-duration,
+    transition: height $--el-x-sender-header-animation-duration,
       opacity $--el-x-sender-header-animation-duration,
       border $--el-x-sender-header-animation-duration;
     overflow: hidden;
@@ -141,9 +139,7 @@ $--el-x-fill-color: $--background-color-base;
         vertical-align: bottom;
         resize: none;
         background-color: transparent;
-        transition:
-          all $--el-x-transition-duration,
-          height 0s;
+        transition: all $--el-x-transition-duration, height 0s;
         box-shadow: none !important;
       }
     }
