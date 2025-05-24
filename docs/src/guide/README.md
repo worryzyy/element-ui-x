@@ -1,6 +1,6 @@
 # 介绍
 
-Element-UI-X 是基于 Element UI 和 Vue 2.x 构建的企业级 AI 组件库，专为打造现代化 AI 对话界面设计。通过 Element-UI-X，你可以轻松构建类似 ChatGPT 这样的交互式 AI 应用。
+Element-UI-X 是基于 Element UI 和 Vue 2.x 构建的企业级 AI 组件库，专为打造现代化 AI 对话界面设计。
 
 ## 设计理念
 
@@ -45,19 +45,11 @@ Element-UI-X 适用于以下场景：
 - Element UI 2.15.0+
 - Node.js 14+
 
-## 浏览器兼容性
-
-Element-UI-X 支持以下浏览器：
-
-- Chrome
-- Firefox
-- Safari
-- Edge
-
 ## 相关链接
 
 - [Element UI 官网](https://element.eleme.cn/)
 - [Vue.js 官网](https://v2.vuejs.org/)
-- [Element-UI-X GitHub 仓库](https://github.com/yourusername/element-x)
+- [Element Plus X](https://element-plus-x.com/)
+- [Element-UI-X GitHub 仓库](https://github.com/worryzyy/element-ui-x)
 
 接下来，请查看 [安装](./installation.md) 章节了解如何在项目中使用 Element-UI-X。

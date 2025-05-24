@@ -14,18 +14,6 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 
 ### 基础用法
 
-```html
-<script>
-  export default {
-    mounted() {
-      import("./lib-that-access-window-on-import").then((module) => {
-        // use code
-      });
-    },
-  };
-</script>
-```
-
 :::demo 基础用法展示了 Prompts 组件的基本功能，包括图标、标题和描述文本。
 
 ```html
@@ -37,7 +25,10 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       @on-item-click="handleInspirationalItemClick"
     >
       <template v-slot:icon="{ item }">
-        <i :class="item.icon" :style="item.iconStyle"></i>
+        <i
+          :class="item.icon"
+          :style="item.iconStyle"
+        ></i>
       </template>
     </el-x-prompts>
     <div class="demo-controls">
@@ -47,8 +38,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
         type="success"
         :closable="false"
         show-icon
-      >
-      </el-alert>
+      ></el-alert>
     </div>
   </div>
 </template>
@@ -60,39 +50,39 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
         selectedItem: null,
         inspirationalItems: [
           {
-            key: "1",
-            icon: "el-icon-sunrise",
-            iconStyle: { color: "#FFD700" },
-            label: "点燃你的创造力",
-            description: "有什么新项目的灵感吗？",
+            key: '1',
+            icon: 'el-icon-sunrise',
+            iconStyle: { color: '#FFD700' },
+            label: '点燃你的创造力',
+            description: '有什么新项目的灵感吗？',
           },
           {
-            key: "2",
-            icon: "el-icon-info",
-            iconStyle: { color: "#1890FF" },
-            label: "揭示背景信息",
-            description: "帮我了解这个主题的背景。",
+            key: '2',
+            icon: 'el-icon-info',
+            iconStyle: { color: '#1890FF' },
+            label: '揭示背景信息',
+            description: '帮我了解这个主题的背景。',
           },
           {
-            key: "3",
-            icon: "el-icon-position",
-            iconStyle: { color: "#722ED1" },
-            label: "效率提升战",
-            description: "我如何能工作得更快更好？",
+            key: '3',
+            icon: 'el-icon-position',
+            iconStyle: { color: '#722ED1' },
+            label: '效率提升战',
+            description: '我如何能工作得更快更好？',
           },
           {
-            key: "4",
-            icon: "el-icon-lollipop",
-            iconStyle: { color: "#52C41A" },
-            label: "讲个笑话",
-            description: "为什么蚂蚁不生病？因为它们有小小的抗体！",
+            key: '4',
+            icon: 'el-icon-lollipop',
+            iconStyle: { color: '#52C41A' },
+            label: '讲个笑话',
+            description: '为什么蚂蚁不生病？因为它们有小小的抗体！',
           },
           {
-            key: "5",
-            icon: "el-icon-warning",
-            iconStyle: { color: "#FF4D4F" },
-            label: "常见问题解决方案",
-            description: "如何解决常见问题？分享一些技巧！",
+            key: '5',
+            icon: 'el-icon-warning',
+            iconStyle: { color: '#FF4D4F' },
+            label: '常见问题解决方案',
+            description: '如何解决常见问题？分享一些技巧！',
           },
         ],
       };
@@ -102,7 +92,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
         this.selectedItem = info.data;
         this.$message({
           message: `点击了: ${info.data.label}`,
-          type: "success",
+          type: 'success',
         });
       },
     },
@@ -131,7 +121,10 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       :title="'🤔 您可能还想问这些：'"
     >
       <template v-slot:icon="{ item }">
-        <i :class="item.icon" :style="item.iconStyle"></i>
+        <i
+          :class="item.icon"
+          :style="item.iconStyle"
+        ></i>
       </template>
     </el-x-prompts>
   </div>
@@ -143,27 +136,27 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       return {
         verticalItems: [
           {
-            key: "6",
-            icon: "el-icon-coffee-cup",
-            iconStyle: { color: "#964B00" },
-            label: "有效休息",
-            description: "长时间工作后如何有效休息？",
+            key: '6',
+            icon: 'el-icon-coffee-cup',
+            iconStyle: { color: '#964B00' },
+            label: '有效休息',
+            description: '长时间工作后如何有效休息？',
             disabled: false,
           },
           {
-            key: "7",
-            icon: "el-icon-lollipop",
-            iconStyle: { color: "#FAAD14" },
-            label: "保持积极心态",
-            description: "保持积极心态的秘诀是什么？",
+            key: '7',
+            icon: 'el-icon-lollipop',
+            iconStyle: { color: '#FAAD14' },
+            label: '保持积极心态',
+            description: '保持积极心态的秘诀是什么？',
             disabled: false,
           },
           {
-            key: "8",
-            icon: "el-icon-star-off",
-            iconStyle: { color: "#FF4D4F" },
-            label: "压力管理",
-            description: "如何在巨大压力下保持冷静？",
+            key: '8',
+            icon: 'el-icon-star-off',
+            iconStyle: { color: '#FF4D4F' },
+            label: '压力管理',
+            description: '如何在巨大压力下保持冷静？',
             disabled: false,
           },
         ],
@@ -188,7 +181,10 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       :title="'✨ 创意灵感与精彩提示'"
     >
       <template v-slot:icon="{ item }">
-        <i :class="item.icon" :style="item.iconStyle"></i>
+        <i
+          :class="item.icon"
+          :style="item.iconStyle"
+        ></i>
       </template>
     </el-x-prompts>
   </div>
@@ -200,60 +196,60 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       return {
         wrapItems: [
           {
-            key: "1",
-            icon: "el-icon-sunrise-1",
-            iconStyle: { color: "#FFD700" },
-            label: "新项目灵感",
-            description: "有什么新项目的灵感吗？",
+            key: '1',
+            icon: 'el-icon-sunrise-1',
+            iconStyle: { color: '#FFD700' },
+            label: '新项目灵感',
+            description: '有什么新项目的灵感吗？',
           },
           {
-            key: "2",
-            icon: "el-icon-info",
-            iconStyle: { color: "#1890FF" },
-            label: "背景信息",
-            description: "帮我了解这个主题的背景。",
+            key: '2',
+            icon: 'el-icon-info',
+            iconStyle: { color: '#1890FF' },
+            label: '背景信息',
+            description: '帮我了解这个主题的背景。',
           },
           {
-            key: "3",
-            icon: "el-icon-warning",
-            iconStyle: { color: "#FF4D4F" },
-            label: "解决常见问题",
-            description: "如何解决常见问题？分享一些技巧！",
+            key: '3',
+            icon: 'el-icon-warning',
+            iconStyle: { color: '#FF4D4F' },
+            label: '解决常见问题',
+            description: '如何解决常见问题？分享一些技巧！',
           },
           {
-            key: "4",
-            icon: "el-icon-position",
-            iconStyle: { color: "#722ED1" },
-            label: "提高效率",
-            description: "我如何能工作得更快更好？",
+            key: '4',
+            icon: 'el-icon-position',
+            iconStyle: { color: '#722ED1' },
+            label: '提高效率',
+            description: '我如何能工作得更快更好？',
           },
           {
-            key: "5",
-            icon: "el-icon-check",
-            iconStyle: { color: "#52C41A" },
-            label: "完成任务技巧",
-            description: "有哪些完成任务的诀窍？",
+            key: '5',
+            icon: 'el-icon-check',
+            iconStyle: { color: '#52C41A' },
+            label: '完成任务技巧',
+            description: '有哪些完成任务的诀窍？',
           },
           {
-            key: "6",
-            icon: "el-icon-coffee-cup",
-            iconStyle: { color: "#964B00" },
-            label: "有效休息",
-            description: "长时间工作后如何有效休息？",
+            key: '6',
+            icon: 'el-icon-coffee-cup',
+            iconStyle: { color: '#964B00' },
+            label: '有效休息',
+            description: '长时间工作后如何有效休息？',
           },
           {
-            key: "7",
-            icon: "el-icon-lollipop",
-            iconStyle: { color: "#FAAD14" },
-            label: "保持积极心态",
-            description: "保持积极心态的秘诀是什么？",
+            key: '7',
+            icon: 'el-icon-lollipop',
+            iconStyle: { color: '#FAAD14' },
+            label: '保持积极心态',
+            description: '保持积极心态的秘诀是什么？',
           },
           {
-            key: "8",
-            icon: "el-icon-star-off",
-            iconStyle: { color: "#FF4D4F" },
-            label: "压力管理",
-            description: "如何在巨大压力下保持冷静？",
+            key: '8',
+            icon: 'el-icon-star-off',
+            iconStyle: { color: '#FF4D4F' },
+            label: '压力管理',
+            description: '如何在巨大压力下保持冷静？',
           },
         ],
       };
@@ -271,9 +267,15 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 ```html
 <template>
   <div>
-    <el-x-prompts :items="relaxItems" :title="'☕️ 是时候放松一下了！'">
+    <el-x-prompts
+      :items="relaxItems"
+      :title="'☕️ 是时候放松一下了！'"
+    >
       <template v-slot:icon="{ item }">
-        <i :class="item.icon" :style="item.iconStyle"></i>
+        <i
+          :class="item.icon"
+          :style="item.iconStyle"
+        ></i>
       </template>
     </el-x-prompts>
   </div>
@@ -285,19 +287,19 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       return {
         relaxItems: [
           {
-            key: "5",
-            icon: "el-icon-check",
-            iconStyle: { color: "#52C41A" },
-            label: "任务完成秘诀",
-            description: "有哪些完成任务的技巧？",
+            key: '5',
+            icon: 'el-icon-check',
+            iconStyle: { color: '#52C41A' },
+            label: '任务完成秘诀',
+            description: '有哪些完成任务的技巧？',
             disabled: true,
           },
           {
-            key: "6",
-            icon: "el-icon-coffee-cup",
-            iconStyle: { color: "#964B00" },
-            label: "是时候喝杯咖啡了",
-            description: "长时间工作后如何有效休息？",
+            key: '6',
+            icon: 'el-icon-coffee-cup',
+            iconStyle: { color: '#964B00' },
+            label: '是时候喝杯咖啡了',
+            description: '长时间工作后如何有效休息？',
           },
         ],
       };
@@ -324,7 +326,10 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       :styles="halfWidthStyles"
     >
       <template v-slot:icon="{ item }">
-        <i :class="item.icon" :style="item.iconStyle"></i>
+        <i
+          :class="item.icon"
+          :style="item.iconStyle"
+        ></i>
       </template>
     </el-x-prompts>
   </div>
@@ -336,45 +341,45 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       return {
         halfWidthItems: [
           {
-            key: "1",
-            icon: "el-icon-sunrise-1",
-            iconStyle: { color: "#FFD700" },
-            label: "点燃你的创造力",
-            description: "有新项目的灵感吗？",
+            key: '1',
+            icon: 'el-icon-sunrise-1',
+            iconStyle: { color: '#FFD700' },
+            label: '点燃你的创造力',
+            description: '有新项目的灵感吗？',
           },
           {
-            key: "2",
-            icon: "el-icon-info",
-            iconStyle: { color: "#1890FF" },
-            label: "揭示背景信息",
-            description: "帮我了解这个主题的背景。",
+            key: '2',
+            icon: 'el-icon-info',
+            iconStyle: { color: '#1890FF' },
+            label: '揭示背景信息',
+            description: '帮我了解这个主题的背景。',
           },
           {
-            key: "3",
-            icon: "el-icon-position",
-            iconStyle: { color: "#722ED1" },
-            label: "效率提升战",
-            description: "我怎样才能工作得更快更好？",
+            key: '3',
+            icon: 'el-icon-position',
+            iconStyle: { color: '#722ED1' },
+            label: '效率提升战',
+            description: '我怎样才能工作得更快更好？',
           },
           {
-            key: "4",
-            icon: "el-icon-ice-cream-round",
-            iconStyle: { color: "#52C41A" },
-            label: "讲个笑话",
-            description: "为什么蚂蚁不生病？因为它们有小小的蚂蚁抗体！",
+            key: '4',
+            icon: 'el-icon-ice-cream-round',
+            iconStyle: { color: '#52C41A' },
+            label: '讲个笑话',
+            description: '为什么蚂蚁不生病？因为它们有小小的蚂蚁抗体！',
           },
           {
-            key: "5",
-            icon: "el-icon-warning",
-            iconStyle: { color: "#FF4D4F" },
-            label: "常见问题解决方案",
-            description: "如何解决常见问题？分享一些技巧！",
+            key: '5',
+            icon: 'el-icon-warning',
+            iconStyle: { color: '#FF4D4F' },
+            label: '常见问题解决方案',
+            description: '如何解决常见问题？分享一些技巧！',
           },
         ],
         halfWidthStyles: {
           item: {
-            flex: "none",
-            width: "calc(50% - 6px)",
+            flex: 'none',
+            width: 'calc(50% - 6px)',
           },
         },
       };
@@ -407,35 +412,35 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       return {
         basicItems: [
           {
-            key: "prompt1",
-            label: "编写邮件",
-            description: "帮助您撰写专业的电子邮件",
+            key: 'prompt1',
+            label: '编写邮件',
+            description: '帮助您撰写专业的电子邮件',
           },
           {
-            key: "prompt2",
-            label: "生成代码",
-            description: "根据描述生成代码片段",
+            key: 'prompt2',
+            label: '生成代码',
+            description: '根据描述生成代码片段',
           },
           {
-            key: "prompt3",
-            label: "内容总结",
-            description: "对长文本进行摘要总结",
+            key: 'prompt3',
+            label: '内容总结',
+            description: '对长文本进行摘要总结',
           },
         ],
         customStyles: {
           item: {
-            borderColor: "#67C23A",
-            borderRadius: "8px",
+            borderColor: '#67C23A',
+            borderRadius: '8px',
             backgroundImage: `linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)`,
           },
           title: {
-            color: "#409EFF",
-            fontWeight: "bold",
+            color: '#409EFF',
+            fontWeight: 'bold',
           },
         },
         customClassNames: {
-          list: "custom-list",
-          item: "custom-item",
+          list: 'custom-list',
+          item: 'custom-item',
         },
       };
     },
@@ -444,7 +449,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
         this.selectedItem = info.data;
         this.$message({
           message: `您选择了: ${info.data.label}`,
-          type: "success",
+          type: 'success',
         });
       },
     },
@@ -486,7 +491,10 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       @on-item-click="handleAntdItemClick"
     >
       <template v-slot:icon="{ item }">
-        <i :class="item.icon" :style="item.iconStyle"></i>
+        <i
+          :class="item.icon"
+          :style="item.iconStyle"
+        ></i>
       </template>
     </el-x-prompts>
   </div>
@@ -498,81 +506,80 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       return {
         antdItems: [
           {
-            key: "1",
-            label: "热门话题",
-            icon: "el-icon-star-off",
-            iconStyle: { color: "#FF4D4F" },
-            description: "你对什么感兴趣？",
+            key: '1',
+            label: '热门话题',
+            icon: 'el-icon-star-off',
+            iconStyle: { color: '#FF4D4F' },
+            description: '你对什么感兴趣？',
             children: [
               {
-                key: "1-1",
-                description: "X的最新动态是什么？",
+                key: '1-1',
+                description: 'X的最新动态是什么？',
               },
               {
-                key: "1-2",
-                description: "什么是AGI？",
+                key: '1-2',
+                description: '什么是AGI？',
               },
               {
-                key: "1-3",
-                description: "文档在哪里？",
+                key: '1-3',
+                description: '文档在哪里？',
               },
             ],
           },
           {
-            key: "2",
-            label: "设计指南",
-            icon: "el-icon-reading",
-            iconStyle: { color: "#1890FF" },
-            description: "如何设计一个好产品？",
+            key: '2',
+            label: '设计指南',
+            icon: 'el-icon-reading',
+            iconStyle: { color: '#1890FF' },
+            description: '如何设计一个好产品？',
             children: [
               {
-                key: "2-1",
-                icon: "el-icon-star-on",
-                description: "了解用户需求",
+                key: '2-1',
+                icon: 'el-icon-star-on',
+                description: '了解用户需求',
               },
               {
-                key: "2-2",
-                icon: "el-icon-ice-cream-round",
-                description: "设定AI角色",
+                key: '2-2',
+                icon: 'el-icon-ice-cream-round',
+                description: '设定AI角色',
               },
               {
-                key: "2-3",
-                icon: "el-icon-chat-dot-round",
-                description: "表达情感",
+                key: '2-3',
+                icon: 'el-icon-chat-dot-round',
+                description: '表达情感',
               },
             ],
           },
           {
-            key: "3",
-            label: "开始创作",
-            icon: "el-icon-position",
-            iconStyle: { color: "#722ED1" },
-            description: "如何开始一个新项目？",
+            key: '3',
+            label: '开始创作',
+            icon: 'el-icon-position',
+            iconStyle: { color: '#722ED1' },
+            description: '如何开始一个新项目？',
             children: [
               {
-                key: "3-1",
-                label: "快速开始",
-                description: "安装Ant Design X",
+                key: '3-1',
+                label: '快速开始',
+                description: '安装Ant Design X',
               },
               {
-                key: "3-2",
-                label: "在线演练场",
-                description: "无需安装，直接在网页上体验",
+                key: '3-2',
+                label: '在线演练场',
+                description: '无需安装，直接在网页上体验',
               },
             ],
           },
         ],
         antdStyles: {
           item: {
-            flex: "none",
-            width: "calc(30% - 6px)",
-            backgroundImage:
-              "linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)",
-            border: "0",
+            flex: 'none',
+            width: 'calc(30% - 6px)',
+            backgroundImage: 'linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)',
+            border: '0',
           },
           subItem: {
-            background: "rgba(255,255,255,0.45)",
-            border: "1px solid #FFF",
+            background: 'rgba(255,255,255,0.45)',
+            border: '1px solid #FFF',
           },
         },
       };
@@ -581,7 +588,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       handleAntdItemClick(info) {
         this.$message({
           message: `点击了: ${info.data.key}`,
-          type: "success",
+          type: 'success',
         });
       },
     },
@@ -610,11 +617,11 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 ```js
 [
   {
-    key: "unique_key", // 唯一标识
-    icon: "el-icon-star-off", // 图标类名
-    iconStyle: { color: "#FFD700" }, // 图标样式
-    label: "选项标题", // 选项标题
-    description: "选项描述文本", // 选项描述
+    key: 'unique_key', // 唯一标识
+    icon: 'el-icon-star-off', // 图标类名
+    iconStyle: { color: '#FFD700' }, // 图标样式
+    label: '选项标题', // 选项标题
+    description: '选项描述文本', // 选项描述
     disabled: false, // 是否禁用
     children: [], // 嵌套子选项
   },

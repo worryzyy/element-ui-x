@@ -13,24 +13,6 @@ features:
     details: 打字器雾化动画、自动滚动、加载效果、等细节满满，为用户带来生动的可视化体验，增强应用交互性和吸引力。
 ---
 
-## 快速上手
-
-```bash
-# 安装
-npm install vue-element-ui-x
-
-# 引入
-import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import ElementUIX from 'vue-element-ui-x'
-
-Vue.use(ElementUI)
-Vue.use(ElementUIX)
-```
-
-查看 [快速上手](/guide/quickstart) 了解更多信息。
-
-::: slot footer
-MIT Licensed | Copyright © 2025 [Worry](https://github.com/worryzyy/element-ui-x)
-:::
+<!-- ::: slot footer
+MIT Licensed | Copyright © 2025 [worryzyy](https://github.com/worryzyy/element-ui-x)
+::: -->

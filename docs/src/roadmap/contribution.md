@@ -17,32 +17,32 @@
 
 ```bash
 # 克隆仓库
-git clone https://github.com/yourusername/element-x.git
-cd element-x
+git clone https://github.com/worryzyy/element-ui-x
+cd element-ui-x
 
 # 安装依赖
-npm install
+npm run install:all
 
-# 初始化项目
-npm run bootstrap
-
-# 链接子项目
-npm run link:all
-
-# 启动开发服务器
+# 启动文档服务器
 npm run dev:docs
+
+# 启动示例站
+npm run dev:examples
+
+# 构建组件库
+npm run build:lib
 ```
 
 ### 分支管理
 
-- `main` 分支是稳定版本
+- `master` 分支是稳定版本
 - `dev` 分支是开发版本
 - 建议从 `dev` 分支创建功能分支，命名为 `feature/your-feature-name`
 - Bug 修复分支命名为 `fix/bug-name`
 
 ### 提交规范
 
-我们使用约定式提交规范（Conventional Commits）格式：
+使用约定式提交规范（Conventional Commits）格式：
 
 ```
 <类型>[可选 范围]: <描述>
@@ -80,28 +80,17 @@ npm run dev:docs
 新组件应遵循以下目录结构：
 
 ```
-packages/core/src/components/YourComponent/
+packages/element-ui-x/src/components/YourComponent/
 ├── index.js                 # 组件入口
 ├── src/
 │   └── main.vue             # 组件实现
-└── __tests__/
-    └── your-component.spec.js  # 测试文件
+
 ```
 
 ### 样式指南
 
 - 确保组件样式与 Element UI 的主题系统兼容
-- 使用 BEM 命名规范
 - 从 Element UI 主题变量继承颜色和动画效果
-- 自定义变量通过 `$--namespace-*` 格式扩展
-
-### 测试
-
-为每个组件编写测试：
-
-- 使用 Jest 编写单元测试和快照测试
-- 测试组件的核心功能和边缘情况
-- 覆盖常见的用户交互场景
 
 ## 文档贡献
 
@@ -109,7 +98,6 @@ packages/core/src/components/YourComponent/
 
 - `/guide/` - 使用指南
 - `/components/` - 组件文档
-- `/examples/` - 示例代码
 
 ### 编写文档指南
 

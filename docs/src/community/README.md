@@ -1,6 +1,6 @@
 # 社区与交流
 
-Element-UI-X 是一个开源组件库，我们欢迎所有开发者加入我们的社区，一起构建更好的 AI 交互组件。
+Element-UI-X 是一个开源组件库，欢迎所有开发者加入社区，一起构建更好的 AI 交互组件。
 
 ## 社区资源
 
@@ -14,7 +14,7 @@ Element-UI-X 是一个开源组件库，我们欢迎所有开发者加入我们�
 
 ### NPM 包
 
-我们的组件库通过 NPM 发布：
+组件库通过 NPM 发布：
 
 - [vue-element-ui-x](https://www.npmjs.com/package/vue-element-ui-x)
 
@@ -25,8 +25,7 @@ Element-UI-X 是一个开源组件库，我们欢迎所有开发者加入我们�
 我们创建了多个交流群，欢迎加入讨论：
 
 - 微信群：添加微信 `worry3stone` 并备注"加入交流群"
-- QQ 群：123456789
-- Discord：[加入 Discord](https://discord.gg/element-x)
+- QQ 群：477734352
 
 ### 参与贡献
 
@@ -39,7 +38,7 @@ Element-UI-X 是一个开源组件库，我们欢迎所有开发者加入我们�
 
 详细的贡献指南请查看 [贡献指南](/roadmap/contribution)。
 
-## 支持我们
+## 支持
 
 如果你觉得 Element-UI-X 还不错，可以通过以下方式支持以下：
 

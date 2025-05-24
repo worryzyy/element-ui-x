@@ -11,11 +11,11 @@ module.exports = {
     lastUpdated: 'Last Updated',
     nav: [
       { text: '首页', link: '/' },
-      { text: '交流邀请', link: '/community/' },
-      { text: '开发计划', link: '/roadmap/' },
-      { text: '更新日志', link: '/changelog/' },
       { text: '指南', link: '/guide/' },
       { text: '组件', link: '/components/' },
+      { text: '开发计划', link: '/roadmap/' },
+      { text: '更新日志', link: '/changelog/' },
+      { text: '交流邀请', link: '/community/' },
     ],
     sidebar: {
       '/guide/': [
@@ -94,7 +94,8 @@ module.exports = {
     '/': {
       lang: 'zh-CN',
       title: 'Element-UI-X',
-      description: '基于 Element UI 和 Vue 2.x 的企业级 AI 组件库',
+      description:
+        '开箱即用的企业级 AI 交互组件库，让构建智能界面像搭积木一样简单。 RICH 设计范式，打造卓越 AI 界面解决方案，引领智能新体验基于 Element UI 和 Vue 2.x 的企业级 AI 组件库',
     },
   },
   markdown: {},

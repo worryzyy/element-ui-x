@@ -94,7 +94,7 @@ npm install babel-plugin-component -D
         "libraryName": "vue-element-ui-x",
         "style": false
       },
-      "element-x"
+      "element-ui-x"
     ]
   ]
 }
@@ -116,13 +116,62 @@ Vue.component(ElXTypewriter.name, ElXTypewriter);
 
 安装完成后，你可以在组件中使用 Element-UI-X 的组件：
 
+:::demo
+
 ```html
 <template>
   <div>
-    <el-button>Element UI 按钮</el-button>
-    <el-x-typewriter content="这是一个打字机效果组件"></el-x-typewriter>
+    <el-x-typewriter
+      :content="basicContent"
+      :typing="true"
+      ref="basicDemo"
+    />
+
+    <div class="demo-controls">
+      <el-button-group>
+        <el-button
+          size="small"
+          type="primary"
+          @click="startBasic"
+        >
+          预览
+        </el-button>
+        <el-button
+          size="small"
+          @click="resetBasic"
+        >
+          重置
+        </el-button>
+      </el-button-group>
+    </div>
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        basicContent: '这是一个基础打字效果演示，展示Typewriter组件的基本功能。',
+      };
+    },
+    methods: {
+      startBasic() {
+        this.$refs.basicDemo.restart();
+      },
+      resetBasic() {
+        this.$refs.basicDemo.restart();
+      },
+    },
+  };
+</script>
+
+<style>
+  .demo-controls {
+    margin-top: 15px;
+  }
+</style>
 ```
+
+:::
 
 接下来，请查看 [快速上手](./quickstart.md) 章节了解如何使用 Element-UI-X 的组件。
