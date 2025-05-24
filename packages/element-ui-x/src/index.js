@@ -12,6 +12,7 @@ import ElXTypewriter from './components/Typewriter/index.js';
 import ElXWelcome from './components/Welcome/index.js';
 // 导入所有 mixins
 import * as customMixins from './mixins';
+import { streamMixin, sendMixin, recordMixin } from './mixins';
 
 const components = [
   ElXTypewriter,
@@ -34,11 +35,34 @@ const install = function (Vue) {
   });
 };
 
+// 默认导出（完整引入）
 export default {
   version: '1.0.0',
   install,
   customMixins,
   ...components,
 };
-// 单独导出 mixins 以便按需引入
-export { customMixins };
+
+// 具名导出（按需引入）- 组件
+export {
+  ElXAttachments,
+  ElXBubble,
+  ElXBubbleList,
+  ElXConversations,
+  ElXFilesCard,
+  ElXPrompts,
+  ElXSender,
+  ElXThink,
+  ElXThinking,
+  ElXThoughtChain,
+  ElXTypewriter,
+  ElXWelcome,
+};
+
+// 具名导出（按需引入）- Mixins
+export {
+  customMixins,
+  streamMixin,
+  sendMixin,
+  recordMixin,
+};
