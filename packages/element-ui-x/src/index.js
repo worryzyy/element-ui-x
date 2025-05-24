@@ -60,9 +60,4 @@ export {
 };
 
 // 具名导出（按需引入）- Mixins
-export {
-  customMixins,
-  streamMixin,
-  sendMixin,
-  recordMixin,
-};
+export { customMixins, streamMixin, sendMixin, recordMixin };

@@ -12,9 +12,17 @@ $--el-x-welcome-border-radius: $--el-x-border-radius-base !default;
   --border-radius: #{$--el-x-welcome-border-radius};
   --icon-size: 64px;
   --icon-size-small: 48px;
+  --icon-size-mobile: 40px;
   --gap: 16px;
   --gap-small: 8px;
+  --gap-mobile: 12px;
+  --gap-small-mobile: 6px;
   --padding: 24px;
+  --padding-mobile: 16px;
+  --title-font-size: 16px;
+  --title-font-size-mobile: 14px;
+  --description-font-size: 14px;
+  --description-font-size-mobile: 13px;
   --color-filled-bg: #{$--color-el-x-welcome-filled-bg};
   --color-filled-border: #{$--color-el-x-welcome-filled-border};
   --color-title: #{$--color-el-x-welcome-title};
@@ -37,6 +45,46 @@ $--el-x-welcome-border-radius: $--el-x-border-radius-base !default;
   &.el-x-welcome-rtl {
     direction: rtl;
   }
+
+  // 平板端适配 (768px以下)
+  @media (max-width: 768px) {
+    --gap: var(--gap-mobile);
+    --gap-small: var(--gap-small-mobile);
+    --padding: var(--padding-mobile);
+    --title-font-size: var(--title-font-size-mobile);
+    --description-font-size: var(--description-font-size-mobile);
+    
+    gap: var(--gap-mobile);
+    padding: var(--padding-mobile);
+  }
+
+  // 手机端适配 (480px以下)
+  @media (max-width: 480px) {
+    --icon-size: var(--icon-size-mobile);
+    --padding: 12px;
+    --gap: 8px;
+    --gap-small: 4px;
+    
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 12px;
+    gap: 8px;
+
+    &.el-x-welcome-rtl {
+      direction: ltr; // 移动端统一使用ltr布局
+    }
+  }
+
+  // 超小屏幕适配 (320px以下)
+  @media (max-width: 320px) {
+    --padding: 8px;
+    --gap: 6px;
+    --icon-size: 32px;
+    
+    padding: 8px;
+    gap: 6px;
+  }
 }
 
 .el-x-welcome-icon {
@@ -58,10 +106,30 @@ $--el-x-welcome-border-radius: $--el-x-border-radius-base !default;
     padding: 4px;
   }
 
-  // 小尺寸适配
-  @media (max-width: 480px) {
+  // 平板端图标调整
+  @media (max-width: 768px) {
     width: var(--icon-size-small);
     height: var(--icon-size-small);
+    font-size: 20px;
+  }
+
+  // 手机端图标调整
+  @media (max-width: 480px) {
+    width: var(--icon-size-mobile);
+    height: var(--icon-size-mobile);
+    font-size: 16px;
+    margin-bottom: 4px;
+
+    .icon-image {
+      padding: 2px;
+    }
+  }
+
+  // 超小屏幕图标调整
+  @media (max-width: 320px) {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
   }
 }
 
@@ -70,6 +138,14 @@ $--el-x-welcome-border-radius: $--el-x-border-radius-base !default;
   display: flex;
   flex-direction: column;
   gap: var(--gap-small);
+
+  // 手机端内容区域调整
+  @media (max-width: 480px) {
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    gap: var(--gap-small-mobile);
+  }
 }
 
 .title-wrapper {
@@ -77,13 +153,49 @@ $--el-x-welcome-border-radius: $--el-x-border-radius-base !default;
   justify-content: space-between;
   align-items: center;
   gap: var(--gap-small);
+
+  // 平板端标题区域调整
+  @media (max-width: 768px) {
+    gap: var(--gap-small-mobile);
+  }
+
+  // 手机端标题区域调整
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+  }
+
+  // 超小屏幕标题区域调整
+  @media (max-width: 320px) {
+    gap: 2px;
+  }
 }
 
 .el-x-welcome-title {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--title-font-size);
   font-weight: 600;
   color: var(--color-title);
+  word-break: break-word;
+
+  // 平板端标题调整
+  @media (max-width: 768px) {
+    font-size: var(--title-font-size-mobile);
+  }
+
+  // 手机端标题调整
+  @media (max-width: 480px) {
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  // 超小屏幕标题调整
+  @media (max-width: 320px) {
+    font-size: 13px;
+  }
 }
 
 .el-x-welcome-extra {
@@ -98,11 +210,74 @@ $--el-x-welcome-border-radius: $--el-x-border-radius-base !default;
   .el-link {
     flex-shrink: 0;
   }
+
+  // 平板端额外内容调整
+  @media (max-width: 768px) {
+    gap: var(--gap-small-mobile);
+
+    .el-button {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+  }
+
+  // 手机端额外内容调整
+  @media (max-width: 480px) {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    .el-button {
+      font-size: 12px;
+      padding: 4px 8px;
+      min-height: 28px;
+    }
+
+    .el-dropdown {
+      .el-button {
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+    }
+
+    .el-link {
+      font-size: 12px;
+    }
+  }
+
+  // 超小屏幕额外内容调整
+  @media (max-width: 320px) {
+    .el-button {
+      font-size: 11px;
+      padding: 3px 6px;
+      min-height: 24px;
+    }
+  }
 }
 
 .el-x-welcome-description {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--description-font-size);
   color: var(--color-description);
   line-height: 1.5;
+  word-break: break-word;
+
+  // 平板端描述调整
+  @media (max-width: 768px) {
+    font-size: var(--description-font-size-mobile);
+    line-height: 1.4;
+  }
+
+  // 手机端描述调整
+  @media (max-width: 480px) {
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  // 超小屏幕描述调整
+  @media (max-width: 320px) {
+    font-size: 12px;
+    line-height: 1.3;
+  }
 }
