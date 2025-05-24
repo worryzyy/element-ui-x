@@ -6,8 +6,13 @@
       </el-header>
       <el-container>
         <el-aside width="200px">
-          <el-menu router :default-active="$route.path" background-color="#545c64" text-color="#fff"
-            active-text-color="#ffd04b">
+          <el-menu
+            router
+            :default-active="$route.path"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b"
+          >
             <el-menu-item index="/typewriter">
               <i class="el-icon-edit"></i>
               <span>Typewriter</span>
@@ -60,6 +65,10 @@
               <i class="el-icon-edit"></i>
               <span>Record</span>
             </el-menu-item>
+            <el-menu-item index="/sendmixins">
+              <i class="el-icon-s-promotion"></i>
+              <span>SendMixins</span>
+            </el-menu-item>
           </el-menu>
         </el-aside>
         <el-main>
@@ -71,51 +80,51 @@
 </template>
 
 <script>
-export default {
-  name: 'App',
-};
+  export default {
+    name: 'App',
+  };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-    SimSun, sans-serif;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+  #app {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      SimSun, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #f5f7fa;
-  color: #333;
-  overflow: hidden;
-}
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    color: #333;
+    overflow: hidden;
+  }
 
-.el-header {
-  color: #fff;
-  line-height: 60px;
-  text-align: center;
-  flex: 0 0 auto;
-}
+  .el-header {
+    color: #fff;
+    line-height: 60px;
+    text-align: center;
+    flex: 0 0 auto;
+  }
 
-.el-container {
-  flex: 1;
-  overflow: hidden;
-  display: flex;
-}
+  .el-container {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+  }
 
-.el-aside {
-  background-color: #545c64;
-  color: #fff;
-  width: 200px;
-  flex-shrink: 0;
-}
+  .el-aside {
+    background-color: #545c64;
+    color: #fff;
+    width: 200px;
+    flex-shrink: 0;
+  }
 
-.el-main {
-  padding: 20px;
-  overflow-y: auto;
-  flex: 1;
-}
+  .el-main {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+  }
 </style>
