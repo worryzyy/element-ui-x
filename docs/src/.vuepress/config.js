@@ -79,13 +79,6 @@ module.exports = {
           children: [''],
         },
       ],
-      '/community/': [
-        {
-          title: '交流邀请',
-          collapsable: false,
-          children: ['', 'team', 'support'],
-        },
-      ],
     },
     lastUpdated: '上次更新',
     repo: 'yourusername/element-x',
