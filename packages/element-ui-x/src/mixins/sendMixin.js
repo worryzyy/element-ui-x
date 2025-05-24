@@ -27,6 +27,9 @@ export class XRequest {
     this._controller = null;
     this._onFinish = onFinish;
     this._messages = [];
+    // 添加结束标志和超时控制
+    this._isFinished = false;
+    this._finishTimeout = null;
 
     // 绑定方法上下文
     this.abort = this.abort.bind(this);
@@ -96,8 +99,31 @@ export class XRequest {
     });
 
     es.onmessage = e => {
+      // 检查是否是结束消息
+      if (e.data === '[DONE]' || e.data === 'data: [DONE]') {
+        this._isFinished = true;
+        this._onFinish && this._onFinish(this._messages);
+        this.abort();
+        return;
+      }
+
       const res = this._transformer ? this._transformer(e.data) : e;
+      this._messages.push(res);
       this._onMessage && this._onMessage(res);
+
+      // 重置超时定时器
+      if (this._finishTimeout) {
+        clearTimeout(this._finishTimeout);
+      }
+
+      // 设置超时检测：如果 10 秒内没有新消息，认为连接可能已结束
+      this._finishTimeout = setTimeout(() => {
+        if (!this._isFinished && es.readyState !== EventSource.CONNECTING) {
+          this._isFinished = true;
+          this._onFinish && this._onFinish(this._messages);
+          this.abort();
+        }
+      }, 10000);
     };
 
     es.onopen = () => {
@@ -105,9 +131,27 @@ export class XRequest {
     };
 
     es.onerror = ev => {
-      if (es.readyState === EventSource.CLOSED) {
+      // 清除超时定时器
+      if (this._finishTimeout) {
+        clearTimeout(this._finishTimeout);
+        this._finishTimeout = null;
+      }
+
+      // 如果已经标记为结束，直接返回
+      if (this._isFinished) {
+        return;
+      }
+
+      // 更可靠的结束检测逻辑
+      if (
+        es.readyState === EventSource.CLOSED ||
+        (this._messages.length > 0 && es.readyState !== EventSource.CONNECTING)
+      ) {
+        // 有消息且连接状态不是正在连接，很可能是正常结束
+        this._isFinished = true;
         this._onFinish && this._onFinish(this._messages);
       } else {
+        // 真正的错误情况
         this._onError && this._onError(es, ev);
       }
       this.abort();
@@ -129,6 +173,12 @@ export class XRequest {
   }
 
   abort() {
+    // 清除超时定时器
+    if (this._finishTimeout) {
+      clearTimeout(this._finishTimeout);
+      this._finishTimeout = null;
+    }
+
     if (this._instance && this._instance.close) {
       this._instance.close();
     }
@@ -139,8 +189,13 @@ export class XRequest {
     }
     this._controller = null;
 
-    this._onAbort && this._onAbort(this._messages);
+    // 只有在未正常结束时才调用 onAbort
+    if (!this._isFinished) {
+      this._onAbort && this._onAbort(this._messages);
+    }
+
     this._messages = [];
+    this._isFinished = false;
   }
 }
 
