@@ -1,8 +1,8 @@
-# Stream 流式数据处理混入
+# streamMixin
 
 ## 功能说明
 
-流式数据处理混入，提供 SSE (Server-Sent Events) 数据解析和中断功能，支持以下特性：
+提供 SSE (Server-Sent Events) 数据解析和中断功能，支持以下特性：
 
 - 支持 SSE 数据流解析和处理
 - 提供完整的生命周期事件
