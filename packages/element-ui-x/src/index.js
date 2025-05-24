@@ -9,6 +9,7 @@ import ElXThink from './components/Think/index.js';
 import ElXThinking from './components/Thinking/index.js';
 import ElXThoughtChain from './components/ThoughtChain/index.js';
 import ElXTypewriter from './components/Typewriter/index.js';
+import ElXWelcome from './components/Welcome/index.js';
 // 导入所有 mixins
 import * as customMixins from './mixins';
 
@@ -24,6 +25,7 @@ const components = [
   ElXSender,
   ElXFilesCard,
   ElXAttachments,
+  ElXWelcome,
 ];
 
 const install = function (Vue) {
