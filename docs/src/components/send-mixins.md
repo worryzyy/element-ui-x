@@ -17,7 +17,7 @@
 
 有以下几种方式可以导入和使用 sendMixin：
 
-### 方式一：通过 ES 模块导入
+### 方式一：通过 ES 模块导入(推荐)
 
 ```js
 // 单独导入 sendMixin
@@ -54,7 +54,7 @@ export default {
 
 ## 使用示例
 
-### 基本使用
+### sendMixin 基本用法
 
 ::: tip 基本流程
 用户操作 → handleSend/handleAbort/handleFinish → 更新 loading 状态 → 调用用户回调
@@ -766,7 +766,7 @@ export default {
 
 :::
 
-### XRequest 基础用法（fetch）
+### XRequest 基础用法(fetch)
 
 :::demo
 
