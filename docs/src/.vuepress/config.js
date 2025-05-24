@@ -59,7 +59,7 @@ module.exports = {
             {
               title: '工具函数',
               collapsable: false,
-              children: ['record', 'Send', 'Stream'],
+              children: ['record-mixins', 'send-mixins', 'stream-mixins'],
             },
           ],
         },
