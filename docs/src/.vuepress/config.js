@@ -81,7 +81,7 @@ module.exports = {
       ],
     },
     lastUpdated: '上次更新',
-    repo: 'yourusername/element-x',
+    repo: 'worryzyy/element-ui-x',
     docsDir: 'packages/docs/src',
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',

@@ -21,7 +21,7 @@
 
 ## 示例源码
 
-所有示例的源码都可以在 [GitHub 仓库](https://github.com/yourusername/element-x) 找到。
+所有示例的源码都可以在 [GitHub 仓库](https://github.com/worryzyy/element-ui-x) 找到。
 
 ## 贡献示例
 

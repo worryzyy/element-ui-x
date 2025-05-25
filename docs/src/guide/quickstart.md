@@ -106,7 +106,9 @@
     border-radius: 4px;
     max-width: 80%;
   }
-
+  .message.user {
+    flex-direction: row-reverse;
+  }
   .message.user .avatar {
     background-color: #67c23a;
   }
