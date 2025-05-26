@@ -45,8 +45,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
-          cache-dependency-path: docs/package-lock.json
       
       - name: Install dependencies
         run: npm ci
@@ -79,8 +77,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
-          cache-dependency-path: examples/package-lock.json
       
       - name: Install dependencies
         run: npm ci
