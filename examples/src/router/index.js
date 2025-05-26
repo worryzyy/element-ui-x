@@ -5,11 +5,11 @@ import Bubble from '../views/Bubble.vue';
 import BubbleList from '../views/BubbleList.vue';
 import Conversations from '../views/Conversations.vue';
 import FilesCard from '../views/FilesCard.vue';
+import Overview from '../views/Overview.vue';
 import Prompts from '../views/Prompts.vue';
 import Record from '../views/record.vue';
 import Sender from '../views/Sender.vue';
 import SendMixins from '../views/SendMixins.vue';
-import Think from '../views/Think.vue';
 import Thinking from '../views/Thinking.vue';
 import ThoughtChain from '../views/ThoughtChain.vue';
 import Typewriter from '../views/Typewriter.vue';
@@ -18,6 +18,11 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'Overview',
+      component: Overview,
+    },
     {
       path: '/typewriter',
       name: 'Typewriter',
@@ -29,7 +34,7 @@ export default new Router({
       component: Bubble,
     },
     {
-      path: '/bubbleList',
+      path: '/bubblelist',
       name: 'BubbleList',
       component: BubbleList,
     },
@@ -52,11 +57,6 @@ export default new Router({
       path: '/thinking',
       name: 'Thinking',
       component: Thinking,
-    },
-    {
-      path: '/think',
-      name: 'Think',
-      component: Think,
     },
     {
       path: '/thoughtchain',
@@ -90,7 +90,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/typewriter',
+      redirect: '/',
     },
   ],
 });

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <el-container class="app-container">
-      <!-- 顶部导航栏 -->
-      <el-header class="app-header">
-        <div class="header-content">
+      <!-- 侧边栏 -->
+      <el-aside class="app-aside">
+        <div class="aside-content">
           <!-- Logo 区域 -->
           <div class="logo-section">
             <img src="../public/logo.png" alt="Logo" class="header-logo" />
@@ -12,118 +12,106 @@
             </h1>
           </div>
 
-          <!-- 主导航菜单 -->
-          <div class="main-nav">
-            <el-menu mode="horizontal" :default-active="$route.path" router class="nav-menu">
-              <!-- 基础组件 -->
-              <el-submenu index="basic" class="nav-submenu">
-                <template slot="title">
-                  <i class="el-icon-magic-stick"></i>
-                  <span>基础组件</span>
-                </template>
+          <!-- 侧边栏菜单 -->
+          <div class="sidebar-nav">
+            <el-menu :default-active="$route.path" router class="nav-menu">
+              <!-- 总览 -->
+              <el-menu-item index="/" data-index="/">
+                <i class="el-icon-s-home"></i>
+                <span>总览</span>
+              </el-menu-item>
+
+              <!-- 基础组件分组 -->
+              <el-menu-item-group title="基础组件">
                 <el-menu-item index="/typewriter">
                   <i class="el-icon-edit-outline"></i>
-                  打字机效果
+                  <span>打字机效果</span>
                 </el-menu-item>
                 <el-menu-item index="/bubble">
                   <i class="el-icon-chat-dot-round"></i>
-                  对话气泡
+                  <span>对话气泡</span>
                 </el-menu-item>
                 <el-menu-item index="/bubblelist">
                   <i class="el-icon-chat-line-round"></i>
-                  气泡列表
+                  <span>气泡列表</span>
                 </el-menu-item>
                 <el-menu-item index="/thinking">
                   <i class="el-icon-loading"></i>
-                  思考动画
+                  <span>思考动画</span>
                 </el-menu-item>
-              </el-submenu>
+              </el-menu-item-group>
 
-              <!-- 交互组件 -->
-              <el-submenu index="interaction" class="nav-submenu">
-                <template slot="title">
-                  <i class="el-icon-connection"></i>
-                  <span>交互组件</span>
-                </template>
+              <!-- 交互组件分组 -->
+              <el-menu-item-group title="交互组件">
                 <el-menu-item index="/welcome">
                   <i class="el-icon-star-on"></i>
-                  欢迎界面
+                  <span>欢迎界面</span>
                 </el-menu-item>
                 <el-menu-item index="/prompts">
                   <i class="el-icon-magic-stick"></i>
-                  提示词
+                  <span>提示词</span>
                 </el-menu-item>
                 <el-menu-item index="/conversations">
                   <i class="el-icon-message"></i>
-                  对话管理
+                  <span>对话管理</span>
                 </el-menu-item>
                 <el-menu-item index="/sender">
                   <i class="el-icon-s-promotion"></i>
-                  消息发送
+                  <span>消息发送</span>
                 </el-menu-item>
-              </el-submenu>
+              </el-menu-item-group>
 
-              <!-- 高级组件 -->
-              <el-submenu index="advanced" class="nav-submenu">
-                <template slot="title">
-                  <i class="el-icon-cpu"></i>
-                  <span>高级组件</span>
-                </template>
-                <el-menu-item index="/think">
-                  <i class="el-icon-cpu"></i>
-                  思维处理
-                </el-menu-item>
+              <!-- 高级组件分组 -->
+              <el-menu-item-group title="高级组件">
                 <el-menu-item index="/thoughtchain">
                   <i class="el-icon-connection"></i>
-                  思维链
+                  <span>思维链</span>
                 </el-menu-item>
                 <el-menu-item index="/filescard">
                   <i class="el-icon-folder-opened"></i>
-                  文件卡片
+                  <span>文件卡片</span>
                 </el-menu-item>
                 <el-menu-item index="/attachments">
                   <i class="el-icon-paperclip"></i>
-                  附件管理
+                  <span>附件管理</span>
                 </el-menu-item>
-              </el-submenu>
+              </el-menu-item-group>
 
-              <!-- 功能组件 -->
-              <el-submenu index="features" class="nav-submenu">
-                <template slot="title">
-                  <i class="el-icon-setting"></i>
-                  <span>功能组件</span>
-                </template>
+              <!-- 功能组件分组 -->
+              <el-menu-item-group title="功能组件">
                 <el-menu-item index="/record">
                   <i class="el-icon-microphone"></i>
-                  语音录制
+                  <span>语音录制</span>
                 </el-menu-item>
                 <el-menu-item index="/sendmixins">
                   <i class="el-icon-setting"></i>
-                  发送配置
+                  <span>发送配置</span>
                 </el-menu-item>
-              </el-submenu>
+              </el-menu-item-group>
             </el-menu>
           </div>
         </div>
-      </el-header>
+      </el-aside>
 
       <!-- 主内容区 -->
-      <el-main class="app-main">
-        <div class="main-content">
-          <!-- 面包屑导航 -->
-          <div class="breadcrumb-wrapper">
-            <el-breadcrumb separator="/">
-              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item>{{ getCurrentPageTitle() }}</el-breadcrumb-item>
-            </el-breadcrumb>
+      <el-container class="main-container">
+        <!-- 顶部标题栏 -->
+        <el-header class="app-header">
+          <div class="header-content">
+            <h2 class="page-title">{{ getCurrentPageTitle() }}</h2>
           </div>
+        </el-header>
 
-          <!-- 页面内容 -->
-          <div class="page-content">
-            <router-view></router-view>
+        <!-- 主内容 -->
+        <el-main class="app-main">
+          <div class="main-content">
+            <!-- 页面内容 -->
+            <div class="page-content">
+              <router-view></router-view>
+            </div>
           </div>
-        </div>
-      </el-main>
+        </el-main>
+      </el-container>
     </el-container>
   </div>
 </template>
@@ -144,6 +132,7 @@ export default {
     },
     getCurrentPageTitle() {
       const routeMap = {
+        '/': '总览',
         '/typewriter': '打字机效果',
         '/bubble': '对话气泡',
         '/bubblelist': '气泡列表',
@@ -151,7 +140,6 @@ export default {
         '/prompts': '提示词',
         '/conversations': '对话管理',
         '/thinking': '思考动画',
-        '/think': '思维处理',
         '/thoughtchain': '思维链',
         '/sender': '消息发送',
         '/filescard': '文件卡片',
@@ -172,13 +160,13 @@ export default {
 @import '~element-ui/packages/theme-chalk/src/common/var';
 
 // 自定义变量
-$header-bg: #ffffff;
+$aside-width: 260px;
+$header-height: 60px;
+$aside-bg: #ffffff;
 $main-bg: #f8fafc;
 $border-color: #e5e7eb;
 $shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
 $shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07);
-$nav-bg: #ffffff;
-$nav-hover-bg: #f8fafc;
 
 * {
   box-sizing: border-box;
@@ -206,31 +194,26 @@ body {
   min-width: 375px;
 }
 
-// 顶部导航栏样式
-.app-header {
-  background: $header-bg;
-  border-bottom: 1px solid $border-color;
+// 侧边栏样式
+.app-aside {
+  width: $aside-width !important;
+  background: $aside-bg;
+  border-right: 1px solid $border-color;
   box-shadow: $shadow-light;
-  padding: 0 24px;
-  height: 64px !important;
-  line-height: 64px;
-  z-index: 1000;
-  min-width: 375px;
+  overflow: hidden;
 
-  .header-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .aside-content {
     height: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
   }
 
   .logo-section {
+    padding: 20px;
+    border-bottom: 1px solid $border-color;
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    margin-right: 40px;
 
     .header-logo {
       width: 32px;
@@ -241,7 +224,7 @@ body {
 
     .header-title {
       margin: 0;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
       color: #1f2937;
       background: linear-gradient(135deg, $--color-primary, #667eea);
@@ -249,54 +232,61 @@ body {
       -webkit-text-fill-color: transparent;
       background-clip: text;
       white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        transform: scale(1.02);
+      }
     }
   }
 
-  .main-nav {
+  .sidebar-nav {
     flex: 1;
-    display: flex;
-    justify-content: center;
+    overflow-y: auto;
+    padding: 10px 0;
+
+    // 自定义滚动条
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 2px;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.2);
+      }
+    }
 
     .nav-menu {
       border: none;
       background: transparent;
-      width: 100%;
 
-      .nav-submenu {
-        margin: 0 8px;
-
-        .el-submenu__title {
-          padding: 0 20px;
-          height: 60px;
-          line-height: 60px;
-          border: none;
-          border-radius: 8px;
-          transition: all 0.2s;
-          color: #606266;
-          font-weight: 500;
-
-          &:hover {
-            background-color: $nav-hover-bg;
-            color: $--color-primary;
-          }
-
-          i {
-            margin-right: 8px;
-            font-size: 16px;
-          }
-        }
-
-        &.is-active .el-submenu__title {
-          color: $--color-primary;
-          background-color: $--color-primary-light-9;
+      .el-menu-item-group {
+        .el-menu-item-group__title {
+          padding: 12px 20px 8px 20px;
+          color: #909399;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
       }
 
       .el-menu-item {
-        padding: 0 16px;
-        margin: 4px 0;
-        border-radius: 6px;
+        height: 44px;
+        line-height: 44px;
+        padding: 0 20px 0 40px;
+        margin: 2px 10px;
+        border-radius: 8px;
         transition: all 0.2s;
+        color: #606266;
 
         &:hover {
           background-color: $--color-primary-light-9;
@@ -306,60 +296,73 @@ body {
         &.is-active {
           background-color: $--color-primary;
           color: white;
+
+          i {
+            color: white;
+          }
         }
 
         i {
-          margin-right: 8px;
+          margin-right: 12px;
+          font-size: 16px;
+          width: 16px;
+          text-align: center;
+          color: #909399;
+          transition: color 0.2s;
+        }
+
+        span {
           font-size: 14px;
+          font-weight: 500;
+        }
+
+        // 首页特殊样式
+        &[data-index='/'] {
+          margin: 10px;
+          background: linear-gradient(135deg, $--color-primary-light-9, $--color-primary-light-8);
+          border: 1px solid $--color-primary-light-7;
+
+          &:hover {
+            background: linear-gradient(135deg,
+                $--color-primary-light-8,
+                $--color-primary-light-7 );
+          }
+
+          &.is-active {
+            background: linear-gradient(135deg, $--color-primary, #667eea);
+          }
         }
       }
     }
   }
+}
 
-  .header-actions {
+// 主容器样式
+.main-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+// 顶部标题栏样式
+.app-header {
+  background: white;
+  border-bottom: 1px solid $border-color;
+  box-shadow: $shadow-light;
+  height: $header-height !important;
+  line-height: $header-height;
+  padding: 0 24px;
+
+  .header-content {
     display: flex;
     align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-    min-width: 120px;
-    justify-content: flex-end;
+    justify-content: space-between;
+    height: 100%;
 
-    .action-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-
-      &:hover {
-        background-color: $--color-primary-light-9;
-        color: $--color-primary;
-      }
-
-      i {
-        font-size: 16px;
-      }
-    }
-
-    .badge-item {
-      .action-btn {
-        position: relative;
-      }
-    }
-
-    .user-dropdown {
-      cursor: pointer;
-
-      .user-avatar {
-        background: linear-gradient(135deg, $--color-primary, #667eea);
-        transition: transform 0.2s;
-
-        &:hover {
-          transform: scale(1.05);
-        }
-      }
+    .page-title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: #1f2937;
     }
   }
 }
@@ -369,44 +372,13 @@ body {
   background-color: $main-bg;
   padding: 0;
   overflow: hidden;
-  height: calc(100vh - 64px);
-  min-width: 375px;
+  height: calc(100vh - #{$header-height});
 
   .main-content {
     height: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
     padding: 24px;
     display: flex;
     flex-direction: column;
-
-    .breadcrumb-wrapper {
-      margin-bottom: 20px;
-      padding: 12px 16px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: $shadow-light;
-
-      .el-breadcrumb {
-        line-height: 1;
-
-        .el-breadcrumb__item {
-          .el-breadcrumb__inner {
-            color: #606266;
-            font-weight: 400;
-
-            &:hover {
-              color: $--color-primary;
-            }
-          }
-
-          &:last-child .el-breadcrumb__inner {
-            color: $--color-primary;
-            font-weight: 500;
-          }
-        }
-      }
-    }
 
     .page-content {
       flex: 1;
@@ -437,71 +409,16 @@ body {
   }
 }
 
-// 下拉菜单样式覆盖
-.el-dropdown-menu {
-  border: 1px solid $border-color;
-  box-shadow: $shadow-medium;
-  border-radius: 8px;
-  padding: 8px 0;
-
-  .el-dropdown-menu__item {
-    padding: 8px 16px;
-
-    i {
-      margin-right: 8px;
-      color: #909399;
-    }
-
-    &:hover {
-      background-color: $--color-primary-light-9;
-      color: $--color-primary;
-
-      i {
-        color: $--color-primary;
-      }
-    }
-  }
-}
-
 // 响应式设计
-@media (max-width: 1200px) {
-  .app-header {
-    .logo-section {
-      margin-right: 24px;
-    }
-
-    .main-nav {
-      .nav-submenu {
-        margin: 0 4px;
-
-        .el-submenu__title {
-          padding: 0 16px;
-        }
-      }
-    }
-  }
-}
-
 @media (max-width: 992px) {
-  .app-header {
-    padding: 0 16px;
-    height: auto !important;
-    min-height: 64px;
-    line-height: normal;
-
-    .header-content {
-      flex-direction: column;
-      align-items: stretch;
-      padding: 12px 0;
-    }
+  .app-aside {
+    width: 220px !important;
 
     .logo-section {
-      justify-content: center;
-      margin-bottom: 12px;
-      margin-right: 0;
+      padding: 16px;
 
       .header-title {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       .header-logo {
@@ -510,62 +427,28 @@ body {
       }
     }
 
-    .main-nav {
-      justify-content: center;
-
+    .sidebar-nav {
       .nav-menu {
-        justify-content: center;
-        overflow-x: auto;
-        overflow-y: hidden;
-        white-space: nowrap;
-        padding: 0 8px;
+        .el-menu-item {
+          padding: 0 16px 0 32px;
+          margin: 2px 8px;
 
-        &::-webkit-scrollbar {
-          height: 2px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background: $--color-primary;
-          border-radius: 2px;
-        }
-
-        .nav-submenu {
-          .el-submenu__title {
-            height: 48px;
-            line-height: 48px;
-            padding: 0 12px;
+          span {
+            font-size: 13px;
           }
         }
-      }
-    }
 
-    .header-actions {
-      order: 1;
-      position: absolute;
-      top: 8px;
-      right: 16px;
-      min-width: auto;
-      gap: 4px;
-
-      .action-btn {
-        width: 32px;
-        height: 32px;
-
-        i {
-          font-size: 14px;
+        .el-menu-item-group {
+          .el-menu-item-group__title {
+            padding: 10px 16px 6px 16px;
+            font-size: 11px;
+          }
         }
-      }
-
-      .user-avatar {
-        width: 28px !important;
-        height: 28px !important;
       }
     }
   }
 
   .app-main {
-    height: calc(100vh - 100px);
-
     .main-content {
       padding: 16px;
     }
@@ -573,23 +456,12 @@ body {
 }
 
 @media (max-width: 768px) {
-  .app-header {
-    .main-nav {
-      .nav-menu {
-        .nav-submenu {
-          margin: 0 2px;
-
-          .el-submenu__title {
-            padding: 0 10px;
-            font-size: 14px;
-          }
-        }
-      }
-    }
+  .app-aside {
+    width: 200px !important;
 
     .logo-section {
       .header-title {
-        font-size: 16px;
+        font-size: 14px;
       }
 
       .header-logo {
@@ -598,30 +470,12 @@ body {
       }
     }
   }
-}
 
-@media (max-width: 480px) {
   .app-header {
-    .main-nav {
-      .nav-menu {
-        .nav-submenu {
-          margin: 0 1px;
+    padding: 0 16px;
 
-          .el-submenu__title {
-            padding: 0 8px;
-            font-size: 13px;
-
-            i {
-              margin-right: 4px;
-              font-size: 14px;
-            }
-
-            span {
-              display: none;
-            }
-          }
-        }
-      }
+    .page-title {
+      font-size: 18px;
     }
   }
 }
@@ -644,8 +498,8 @@ body {
 }
 
 // Element UI 组件样式覆盖
-.el-submenu .el-menu-item {
-  min-width: 180px;
+.el-menu-item-group .el-menu-item {
+  min-width: auto;
 }
 
 .el-badge__content {
