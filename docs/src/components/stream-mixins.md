@@ -60,10 +60,62 @@ export default {
 :::demo
 
 ```html
+<template>
+  <div class="container">
+    <div class="btn-list">
+      <el-button
+        :disabled="streamLoading"
+        @click="startSSE"
+      >
+        {{ streamLoading ? '加载中...' : '获取 SSE流数据' }}
+      </el-button>
+
+      <el-button
+        type="danger"
+        :disabled="!streamLoading"
+        @click="cancelStream"
+      >
+        中断请求
+      </el-button>
+    </div>
+    <div
+      v-if="streamError"
+      class="error"
+    >
+      {{ streamError.message }}
+    </div>
+
+    <el-x-bubble
+      v-if="content"
+      :content="content"
+      is-markdown
+    ></el-x-bubble>
+  </div>
+</template>
 <script>
+  let streamMixin = {};
+  try {
+    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
+      streamMixin = window['vue-element-ui-x'].customMixins.streamMixin;
+    } else if (typeof require !== 'undefined') {
+      streamMixin = require('vue-element-ui-x').customMixins.streamMixin;
+    }
+  } catch (e) {
+    streamMixin = {
+      data() {
+        return { streamData: [], streamError: null, streamLoading: false };
+      },
+      methods: {
+        startStream() {},
+        cancelStream() {},
+        resetStream() {},
+        createStreamProcessor() {},
+      },
+    };
+  }
   export default {
     name: 'SSEStreamDemo',
-    mixins: [require('vue-element-ui-x').customMixins.streamMixin],
+    mixins: [streamMixin],
     data() {
       return {
         content: '',
@@ -117,39 +169,6 @@ export default {
   };
 </script>
 
-<template>
-  <div class="container">
-    <div class="btn-list">
-      <el-button
-        :disabled="streamLoading"
-        @click="startSSE"
-      >
-        {{ streamLoading ? '加载中...' : '获取 SSE流数据' }}
-      </el-button>
-
-      <el-button
-        type="danger"
-        :disabled="!streamLoading"
-        @click="cancelStream"
-      >
-        中断请求
-      </el-button>
-    </div>
-    <div
-      v-if="streamError"
-      class="error"
-    >
-      {{ streamError.message }}
-    </div>
-
-    <el-x-bubble
-      v-if="content"
-      :content="content"
-      is-markdown
-    ></el-x-bubble>
-  </div>
-</template>
-
 <style>
   .container {
     display: flex;
@@ -179,10 +198,63 @@ export default {
 :::demo
 
 ```html
+<template>
+  <div class="sip-container">
+    <div class="btn-list">
+      <el-button
+        :disabled="streamLoading"
+        @click="startSIPStream"
+        type="primary"
+      >
+        {{ streamLoading ? '加载中...' : '获取 SIP 协议数据' }}
+      </el-button>
+
+      <el-button
+        :disabled="!streamLoading"
+        @click="cancelStream"
+        type="danger"
+      >
+        中断请求
+      </el-button>
+    </div>
+    <div
+      v-if="streamError"
+      class="error"
+    >
+      {{ streamError.message }}
+    </div>
+
+    <el-x-bubble
+      v-if="content"
+      :content="content"
+      is-markdown
+    ></el-x-bubble>
+  </div>
+</template>
 <script>
+  let streamMixin = {};
+  try {
+    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
+      streamMixin = window['vue-element-ui-x'].customMixins.streamMixin;
+    } else if (typeof require !== 'undefined') {
+      streamMixin = require('vue-element-ui-x').customMixins.streamMixin;
+    }
+  } catch (e) {
+    streamMixin = {
+      data() {
+        return { streamData: [], streamError: null, streamLoading: false };
+      },
+      methods: {
+        startStream() {},
+        cancelStream() {},
+        resetStream() {},
+        createStreamProcessor() {},
+      },
+    };
+  }
   export default {
     name: 'SIPStreamDemo',
-    mixins: [require('vue-element-ui-x').customMixins.streamMixin],
+    mixins: [streamMixin],
     data() {
       return {
         content: '',
@@ -240,40 +312,6 @@ export default {
     },
   };
 </script>
-
-<template>
-  <div class="sip-container">
-    <div class="btn-list">
-      <el-button
-        :disabled="streamLoading"
-        @click="startSIPStream"
-        type="primary"
-      >
-        {{ streamLoading ? '加载中...' : '获取 SIP 协议数据' }}
-      </el-button>
-
-      <el-button
-        :disabled="!streamLoading"
-        @click="cancelStream"
-        type="danger"
-      >
-        中断请求
-      </el-button>
-    </div>
-    <div
-      v-if="streamError"
-      class="error"
-    >
-      {{ streamError.message }}
-    </div>
-
-    <el-x-bubble
-      v-if="content"
-      :content="content"
-      is-markdown
-    ></el-x-bubble>
-  </div>
-</template>
 
 <style>
   .sip-container {

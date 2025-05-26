@@ -59,29 +59,6 @@ export default {
 :::demo
 
 ```html
-<script>
-  export default {
-    name: 'BasicRecordDemo',
-    mixins: [require('vue-element-ui-x').customMixins.recordMixin],
-    mounted() {
-      this.initRecord({
-        onStart: () => {
-          console.log('开始录音');
-        },
-        onEnd: value => {
-          console.log('录音结束', value);
-        },
-        onError: error => {
-          this.$message.error('录音失败：' + error.message);
-        },
-        onResult: result => {
-          console.log('实时识别结果：', result);
-        },
-      });
-    },
-  };
-</script>
-
 <template>
   <div>
     <el-row :gutter="20">
@@ -113,6 +90,54 @@ export default {
     </div>
   </div>
 </template>
+<script>
+  // 此处是为避免构建时的报错
+  let recordMixin = {};
+  try {
+    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
+      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
+    } else if (typeof require !== 'undefined') {
+      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
+    }
+  } catch (e) {
+    recordMixin = {
+      data() {
+        return {
+          recordLoading: false,
+          recordValue: '',
+          recordRecognition: null,
+          recordOptions: {},
+        };
+      },
+      methods: {
+        initRecord() {},
+        startRecord() {},
+        stopRecord() {},
+        cleanupRecord() {},
+      },
+    };
+  }
+  export default {
+    name: 'BasicRecordDemo',
+    mixins: [recordMixin],
+    mounted() {
+      this.initRecord({
+        onStart: () => {
+          console.log('开始录音');
+        },
+        onEnd: value => {
+          console.log('录音结束', value);
+        },
+        onError: error => {
+          this.$message.error('录音失败：' + error.message);
+        },
+        onResult: result => {
+          console.log('实时识别结果：', result);
+        },
+      });
+    },
+  };
+</script>
 
 <style>
   .result {
@@ -133,32 +158,6 @@ export default {
 :::demo
 
 ```html
-<script>
-  export default {
-    name: 'CustomControlDemo',
-    mixins: [require('vue-element-ui-x').customMixins.recordMixin],
-    mounted() {
-      this.initRecord({
-        onStart: () => {
-          this.$message({
-            type: 'success',
-            message: '开始录音',
-          });
-        },
-        onEnd: value => {
-          this.$message({
-            type: 'info',
-            message: '录音结束',
-          });
-        },
-        onError: error => {
-          this.$message.error(error.message);
-        },
-      });
-    },
-  };
-</script>
-
 <template>
   <div>
     <el-row :gutter="20">
@@ -209,6 +208,56 @@ export default {
     </el-card>
   </div>
 </template>
+<script>
+  let recordMixin = {};
+  try {
+    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
+      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
+    } else if (typeof require !== 'undefined') {
+      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
+    }
+  } catch (e) {
+    recordMixin = {
+      data() {
+        return {
+          recordLoading: false,
+          recordValue: '',
+          recordRecognition: null,
+          recordOptions: {},
+        };
+      },
+      methods: {
+        initRecord() {},
+        startRecord() {},
+        stopRecord() {},
+        cleanupRecord() {},
+      },
+    };
+  }
+  export default {
+    name: 'CustomControlDemo',
+    mixins: [recordMixin],
+    mounted() {
+      this.initRecord({
+        onStart: () => {
+          this.$message({
+            type: 'success',
+            message: '开始录音',
+          });
+        },
+        onEnd: value => {
+          this.$message({
+            type: 'info',
+            message: '录音结束',
+          });
+        },
+        onError: error => {
+          this.$message.error(error.message);
+        },
+      });
+    },
+  };
+</script>
 
 <style>
   .recording {
@@ -241,10 +290,55 @@ export default {
 :::demo
 
 ```html
+<template>
+  <div>
+    <el-alert
+      v-if="error"
+      :title="error.message"
+      type="error"
+      show-icon
+      :closable="false"
+      style="margin-bottom: 20px;"
+    />
+
+    <el-button
+      type="primary"
+      :loading="recordLoading"
+      @click="handleRecord"
+    >
+      {{ recordLoading ? '停止录音' : '开始录音' }}
+    </el-button>
+  </div>
+</template>
 <script>
+  let recordMixin = {};
+  try {
+    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
+      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
+    } else if (typeof require !== 'undefined') {
+      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
+    }
+  } catch (e) {
+    recordMixin = {
+      data() {
+        return {
+          recordLoading: false,
+          recordValue: '',
+          recordRecognition: null,
+          recordOptions: {},
+        };
+      },
+      methods: {
+        initRecord() {},
+        startRecord() {},
+        stopRecord() {},
+        cleanupRecord() {},
+      },
+    };
+  }
   export default {
     name: 'ErrorHandlingDemo',
-    mixins: [require('vue-element-ui-x').customMixins.recordMixin],
+    mixins: [recordMixin],
     data() {
       return {
         error: null,
@@ -270,27 +364,6 @@ export default {
     },
   };
 </script>
-
-<template>
-  <div>
-    <el-alert
-      v-if="error"
-      :title="error.message"
-      type="error"
-      show-icon
-      :closable="false"
-      style="margin-bottom: 20px;"
-    />
-
-    <el-button
-      type="primary"
-      :loading="recordLoading"
-      @click="handleRecord"
-    >
-      {{ recordLoading ? '停止录音' : '开始录音' }}
-    </el-button>
-  </div>
-</template>
 ```
 
 :::
