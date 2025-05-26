@@ -1,11 +1,16 @@
 {
-  "name": "@element-x/docs",
+  "name": "element-ui-x-docs",
   "version": "0.1.0",
   "private": true,
   "description": "Element-UI-X组件库的文档站点",
   "scripts": {
     "dev": "vuepress dev src",
-    "build": "vuepress build src"
+    "build": "vuepress build src",
+    "deploy": "bash deploy.sh",
+    "deploy:prod": "bash deploy.sh prod",
+    "vercel:link": "vercel link",
+    "vercel:env": "vercel env ls",
+    "clean": "rm -rf src/.vuepress/dist"
   },
   "dependencies": {
     "@vuepress/plugin-active-header-links": "^1.9.10",
