@@ -1,11 +1,9 @@
 import ElementUI, { Message } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import ElementUIX from 'vue-element-ui-x';
 // 导入 Element UI 文档风格的代码高亮样式
 import BackToTop from './components/BackToTop.vue';
 export default ({ Vue, router, isServer }) => {
   Vue.use(ElementUI);
-  Vue.use(ElementUIX);
   Vue.component('BackToTop', BackToTop);
   Vue.prototype.$message = Message;
 
@@ -20,6 +18,11 @@ export default ({ Vue, router, isServer }) => {
 
   // 防止路由错误
   if (!isServer) {
+    if (!isServer) {
+      import('vue-element-ui-x').then(ElementUIX => {
+        Vue.use(ElementUIX.default || ElementUIX);
+      });
+    }
     // 添加全局错误处理
     window.addEventListener('error', event => {
       // 忽略路由相关错误

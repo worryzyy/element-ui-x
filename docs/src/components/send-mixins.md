@@ -1101,9 +1101,29 @@ export default {
   </div>
 </template>
 <script>
+  let sendMixin = {};
+  try {
+    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
+      sendMixin = window['vue-element-ui-x'].customMixins.sendMixin;
+    } else if (typeof require !== 'undefined') {
+      sendMixin = require('vue-element-ui-x').customMixins.sendMixin;
+    }
+  } catch (e) {
+    sendMixin = {
+      data() {
+        return { loading: false };
+      },
+      methods: {
+        initSend() {},
+        handleSend() {},
+        handleFinish() {},
+        handleAbort() {},
+      },
+    };
+  }
   export default {
     name: 'XRequestDemo',
-    mixins: [require('vue-element-ui-x').customMixins.sendMixin],
+    mixins: [sendMixin],
     data() {
       return {
         str: '',
