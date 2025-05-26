@@ -1,0 +1,98 @@
+name: Deploy Element UI X
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'docs/**'
+      - 'examples/**'
+  pull_request:
+    branches: [master]
+    paths:
+      - 'docs/**'
+      - 'examples/**'
+  workflow_dispatch:
+    inputs:
+      deploy_target:
+        description: '部署目标'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - docs
+          - examples
+
+jobs:
+  deploy-docs:
+    name: 部署文档站
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_target == 'all' || github.event.inputs.deploy_target == 'docs' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions@github.com"
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: docs/package-lock.json
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build documentation
+        run: npm run build
+      
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
+          working-directory: docs
+          vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
+
+  deploy-examples:
+    name: 部署示例项目
+    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_target == 'all' || github.event.inputs.deploy_target == 'examples' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: examples/package-lock.json
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_EXAMPLES }}
+          working-directory: examples
+          vercel-args: '--prod'
