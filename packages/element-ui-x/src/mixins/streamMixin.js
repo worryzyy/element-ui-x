@@ -189,7 +189,7 @@ function XStream(options, signal) {
 }
 
 /**
- * streamMixin - Vue2 版本
+ * streamMixin -
  * 用于处理流式数据的 mixin，支持 SSE 数据解析和中断功能
  * @namespace streamMixin
  * @type {Object}

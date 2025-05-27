@@ -200,7 +200,7 @@ export class XRequest {
 }
 
 /**
- * sendMixin - Vue2 版本
+ * sendMixin -
  * 用于处理发送操作管理请求状态的 mixin，支持可选的中止功能，同时支持 Promise 和 SSE（服务端事件）
  */
 export const sendMixin = {
