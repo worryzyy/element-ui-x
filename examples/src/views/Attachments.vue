@@ -66,13 +66,15 @@
           <el-button
             type="primary"
             @click="generateDemoFiles"
-            >生成演示文件</el-button
           >
+            生成演示文件
+          </el-button>
           <el-button
             type="danger"
             @click="resetDemoFiles"
-            >清空演示文件</el-button
           >
+            清空演示文件
+          </el-button>
         </div>
       </div>
 
@@ -111,8 +113,9 @@
                     size="mini"
                     icon="el-icon-delete"
                     @click="handleCustomDeleteCard(item, index)"
-                    >删除</el-button
                   >
+                    删除
+                  </el-button>
                 </div>
               </div>
             </template>
@@ -122,13 +125,15 @@
           <el-button
             type="primary"
             @click="generateCustomFiles"
-            >生成自定义文件</el-button
           >
+            生成自定义文件
+          </el-button>
           <el-button
             type="danger"
             @click="resetCustomFiles"
-            >清空自定义文件</el-button
           >
+            清空自定义文件
+          </el-button>
         </div>
       </div>
 
@@ -171,8 +176,9 @@
           <el-button
             type="danger"
             @click="resetDragFiles"
-            >清空文件</el-button
           >
+            清空文件
+          </el-button>
         </div>
       </div>
 
@@ -222,13 +228,15 @@
           <el-button
             type="primary"
             @click="generateNavFiles"
-            >生成演示文件</el-button
           >
+            生成演示文件
+          </el-button>
           <el-button
             type="danger"
             @click="resetNavFiles"
-            >清空文件</el-button
           >
+            清空文件
+          </el-button>
         </div>
       </div>
     </el-card>
@@ -413,8 +421,6 @@
             showDelIcon: true,
           });
         }
-
-        this.$message.success('已生成30个演示文件');
       },
       async handleCustomUploadDrop(files, props) {
         if (files && files.length > 0) {
@@ -600,8 +606,6 @@
             showDelIcon: true,
           });
         }
-
-        this.$message.success('已生成15个导航演示文件');
       },
     },
   };

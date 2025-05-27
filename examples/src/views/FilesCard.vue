@@ -214,9 +214,9 @@
       </div>
 
       <div class="demo-block">
-        <h3>自定义颜色</h3>
+        <h3>自定义</h3>
         <div class="files-card-container-wrapper">
-          <p>自定义颜色1</p>
+          <p>自定义颜色</p>
           <div class="files-card-container">
             <el-x-files-card
               v-for="items in colorKeys"
@@ -226,9 +226,20 @@
               :file-type="items"
             />
           </div>
-          <p>自定义颜色2</p>
+          <p>自定义样式/hover样式</p>
           <div class="files-card-container">
             <el-x-files-card
+              :style-config="{
+                backgroundColor: '#f0f9eb',
+                border: '1px solid #67c23a',
+                borderRadius: '20px',
+              }"
+              :hover-style="{
+                'box-shadow': '0 2px 12px 0 rgba(0, 0, 0, 0.1)',
+                'border-color': 'red',
+                'background-color': 'rgba(255, 0, 0, 0.1)',
+                cursor: 'pointer',
+              }"
               v-for="items in colorKeys"
               :key="items"
               v-bind="filesCardProps"
