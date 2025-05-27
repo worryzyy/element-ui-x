@@ -7,10 +7,7 @@
     "dev": "vuepress dev src",
     "build": "vuepress build src",
     "deploy": "bash deploy.sh",
-    "deploy:prod": "bash deploy.sh prod",
-    "vercel:link": "vercel link",
-    "vercel:env": "vercel env ls",
-    "clean": "rm -rf src/.vuepress/dist"
+    "deploy:prod": "vercel --prod"
   },
   "dependencies": {
     "@vuepress/plugin-active-header-links": "^1.9.10",
