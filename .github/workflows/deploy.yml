@@ -42,22 +42,38 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: 'docs/package-lock.json'
 
       - name: Install dependencies
         working-directory: docs
-        run: npm install
+        run: npm ci
 
       - name: Build documentation
         working-directory: docs
         run: npm run build
 
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+        id: deploy-docs
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
-          vercel-args: ${{ github.event_name == 'push' && '--prod --cwd ./docs' || '--cwd ./docs' }}
+          working-directory: ./docs
+          vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
+
+      - name: Comment deployment URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '📖 文档预览: ${{ steps.deploy-docs.outputs.preview-url }}'
+            })
 
   deploy-examples:
     name: 部署示例项目
@@ -72,19 +88,35 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: 'examples/package-lock.json'
 
       - name: Install dependencies
         working-directory: examples
-        run: npm install
+        run: npm ci
 
       - name: Build
         working-directory: examples
         run: npm run build
 
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+        id: deploy-examples
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_EXAMPLES }}
-          vercel-args: '--prod --cwd ./examples'
+          working-directory: ./examples
+          vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
+
+      - name: Comment deployment URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚀 示例预览: ${{ steps.deploy-examples.outputs.preview-url }}'
+            })
