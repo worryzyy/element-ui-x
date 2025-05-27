@@ -8,26 +8,22 @@
       <div class="demo-block">
         <h3>基础用法</h3>
         <p>基本的语音识别功能使用示例。</p>
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-button
-              type="primary"
-              :disabled="recordLoading"
-              @click="beginRecord"
-            >
-              开始录音
-            </el-button>
-          </el-col>
-          <el-col :span="12">
-            <el-button
-              type="danger"
-              :disabled="!recordLoading"
-              @click="endRecord"
-            >
-              停止录音
-            </el-button>
-          </el-col>
-        </el-row>
+        <div class="btn-list">
+          <el-button
+            type="primary"
+            :disabled="recordLoading"
+            @click="beginRecord"
+          >
+            开始录音
+          </el-button>
+          <el-button
+            type="danger"
+            :disabled="!recordLoading"
+            @click="endRecord"
+          >
+            停止录音
+          </el-button>
+        </div>
 
         <div
           class="result"
@@ -40,26 +36,22 @@
       <div class="demo-block">
         <h3>自定义控制</h3>
         <p>展示如何自定义控制语音识别的开始和结束。</p>
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-button
-              type="success"
-              :disabled="recordLoading"
-              @click="beginCustomRecord"
-            >
-              开始录音
-            </el-button>
-          </el-col>
-          <el-col :span="12">
-            <el-button
-              type="danger"
-              :disabled="!recordLoading"
-              @click="endCustomRecord"
-            >
-              停止录音
-            </el-button>
-          </el-col>
-        </el-row>
+        <div class="btn-list">
+          <el-button
+            type="success"
+            :disabled="recordLoading"
+            @click="beginCustomRecord"
+          >
+            开始录音
+          </el-button>
+          <el-button
+            type="danger"
+            :disabled="!recordLoading"
+            @click="endCustomRecord"
+          >
+            停止录音
+          </el-button>
+        </div>
 
         <el-card
           class="record-status"
@@ -129,31 +121,27 @@
           />
         </div>
         <div class="demo-controls">
-          <el-row :gutter="20">
-            <el-col :span="18">
-              <el-input
-                v-model="chatInput"
-                placeholder="输入消息..."
-                @keyup.enter="sendMessage"
-              >
-                <el-button
-                  slot="append"
-                  icon="el-icon-s-promotion"
-                  @click="sendMessage"
-                />
-              </el-input>
-            </el-col>
-            <el-col :span="6">
+          <div class="chat-input-group">
+            <el-input
+              v-model="chatInput"
+              placeholder="输入消息..."
+              @keyup.enter="sendMessage"
+            >
               <el-button
-                type="primary"
-                :loading="chatRecordLoading"
-                @click="handleChatRecord"
-                icon="el-icon-microphone"
-              >
-                {{ chatRecordLoading ? '录音中...' : '语音输入' }}
-              </el-button>
-            </el-col>
-          </el-row>
+                slot="append"
+                icon="el-icon-s-promotion"
+                @click="sendMessage"
+              />
+            </el-input>
+            <el-button
+              type="primary"
+              :loading="chatRecordLoading"
+              @click="handleChatRecord"
+              icon="el-icon-microphone"
+            >
+              {{ chatRecordLoading ? '录音中...' : '语音输入' }}
+            </el-button>
+          </div>
         </div>
       </div>
     </el-card>
@@ -362,5 +350,39 @@
 
   .mt-10 {
     margin-top: 10px;
+  }
+
+  .btn-list {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .chat-input-group {
+    display: flex;
+    gap: 12px;
+
+    .el-input {
+      flex: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .btn-list {
+      flex-direction: column;
+    }
+
+    .btn-list .el-button {
+      width: 100%;
+    }
+
+    .chat-input-group {
+      flex-direction: column;
+
+      .el-button {
+        width: 100%;
+      }
+    }
   }
 </style>
