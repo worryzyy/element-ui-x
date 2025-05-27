@@ -153,18 +153,39 @@
         slot="header"
         class="header-with-settings"
       >
-        <h2>AI对话场景</h2>
-        <el-tooltip
-          content="配置API Key"
-          placement="top"
-        >
-          <el-button
-            type="text"
-            @click="showSettings = true"
+        <div class="header-title">
+          <img
+            src="/images/logo.png"
+            alt="logo"
+            class="logo"
+          />
+          <h2>Thinking 思考动画</h2>
+        </div>
+        <div class="header-actions">
+          <el-tooltip
+            content="清空消息"
+            placement="top"
           >
-            <i class="el-icon-setting"></i>
-          </el-button>
-        </el-tooltip>
+            <el-button
+              type="text"
+              @click="clearMessages"
+              :disabled="!bubbleItems.length"
+            >
+              <i class="el-icon-delete"></i>
+            </el-button>
+          </el-tooltip>
+          <el-tooltip
+            content="配置API Key"
+            placement="top"
+          >
+            <el-button
+              type="text"
+              @click="showSettings = true"
+            >
+              <i class="el-icon-setting"></i>
+            </el-button>
+          </el-tooltip>
+        </div>
       </div>
 
       <el-dialog
@@ -221,6 +242,23 @@
         >
           {{ chatError.message }}
         </div>
+
+        <!-- 添加提示词组件 -->
+        <el-x-prompts
+          v-if="bubbleItems.length <= 1"
+          :items="promptItems"
+          :wrap="true"
+          :title="'✨ 来试试这些有趣的话题吧'"
+          :styles="promptStyles"
+          @on-item-click="handlePromptClick"
+        >
+          <template #icon="{ item }">
+            <i
+              :class="item.icon"
+              :style="item.iconStyle"
+            ></i>
+          </template>
+        </el-x-prompts>
 
         <el-x-bubble-list
           ref="bubbleListRef"
@@ -345,19 +383,70 @@
 
         // 状态数据
         inputValue: '王者荣耀的李信连招是什么',
-        bubbleItems: [
-          {
-            role: 'assistant',
-            content: '您好！我是您的AI助手，有什么需要帮助的吗？',
-            thinkingStatus: 'end',
-            loading: false,
-            typing: false,
-            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
-          },
-        ],
+        bubbleItems: [],
         processedIndex: 0,
         chatError: null,
         submitBtnDisabled: false,
+
+        // 提示词配置
+        promptItems: [
+          {
+            key: '1',
+            icon: 'el-icon-trophy',
+            iconStyle: {
+              color: '#FFD700',
+            },
+            label: '王者荣耀',
+            description: '王者荣耀的李信连招是什么？',
+          },
+          {
+            key: '2',
+            icon: 'el-icon-mobile-phone',
+            iconStyle: {
+              color: '#1890FF',
+            },
+            label: '手机介绍',
+            description: '帮我写一篇小米手机介绍。',
+          },
+          {
+            key: '3',
+            icon: 'el-icon-reading',
+            iconStyle: {
+              color: '#722ED1',
+            },
+            label: '写一首诗',
+            description: '写一首关于春天的诗。',
+          },
+          {
+            key: '4',
+            icon: 'el-icon-coffee-cup',
+            iconStyle: {
+              color: '#52C41A',
+            },
+            label: '咖啡知识',
+            description: '介绍一下不同种类的咖啡。',
+          },
+          {
+            key: '5',
+            icon: 'el-icon-basketball',
+            iconStyle: {
+              color: '#FF4D4F',
+            },
+            label: '篮球技巧',
+            description: '如何提高篮球投篮命中率？',
+          },
+        ],
+        promptStyles: {
+          item: {
+            flex: 'none',
+            width: 'calc(33.33% - 8px)',
+            backgroundImage: 'linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)',
+            border: '1px solid #e8e8e8',
+            marginBottom: '8px',
+            cursor: 'pointer',
+            transition: 'all 0.3s',
+          },
+        },
       };
     },
     computed: {
@@ -541,6 +630,31 @@
         this.showSettings = false;
         this.$message.success('配置已保存');
       },
+
+      // 处理提示词点击
+      handlePromptClick(info) {
+        this.inputValue = info.data.description;
+        this.$nextTick(() => {
+          this.startSSE();
+        });
+      },
+
+      // 清空消息
+      clearMessages() {
+        this.$confirm('确定要清空所有消息吗？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        })
+          .then(() => {
+            this.bubbleItems = [];
+            this.$message({
+              type: 'success',
+              message: '消息已清空',
+            });
+          })
+          .catch(() => {});
+      },
     },
     beforeDestroy() {
       this.cancelStream();
@@ -600,9 +714,20 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     ::v-deep .el-x-bubble-list {
       padding-bottom: 24px;
     }
+
+    ::v-deep .el-x-prompts {
+      margin-bottom: 20px;
+
+      .el-x-prompts-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+    }
+
     .error {
       color: #f56c6c;
       margin-bottom: 10px;
@@ -628,8 +753,34 @@
     align-items: center;
     justify-content: space-between;
 
-    h2 {
-      margin: 0;
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .logo {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+      }
+
+      h2 {
+        margin: 0;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+
+      .el-button {
+        padding: 0 8px;
+
+        &[disabled] {
+          color: #c0c4cc;
+          cursor: not-allowed;
+        }
+      }
     }
   }
 
