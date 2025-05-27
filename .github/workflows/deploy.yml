@@ -28,9 +28,6 @@ jobs:
     name: 部署文档站
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_target == 'all' || github.event.inputs.deploy_target == 'docs' }}
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: docs
 
     steps:
       - name: Checkout repository
@@ -47,9 +44,11 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
+        working-directory: docs
         run: npm install
 
       - name: Build documentation
+        working-directory: docs
         run: npm run build
 
       - name: Deploy to Vercel
@@ -58,16 +57,12 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
-          working-directory: docs
-          vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
+          vercel-args: ${{ github.event_name == 'push' && '--prod --cwd ./docs' || '--cwd ./docs' }}
 
   deploy-examples:
     name: 部署示例项目
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_target == 'all' || github.event.inputs.deploy_target == 'examples' }}
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: examples
 
     steps:
       - name: Checkout code
@@ -79,9 +74,11 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
+        working-directory: examples
         run: npm install
 
       - name: Build
+        working-directory: examples
         run: npm run build
 
       - name: Deploy to Vercel
@@ -90,5 +87,4 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_EXAMPLES }}
-          working-directory: examples
-          vercel-args: '--prod'
+          vercel-args: '--prod --cwd ./examples'
