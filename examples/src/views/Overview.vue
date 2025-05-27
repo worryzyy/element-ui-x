@@ -1,8 +1,8 @@
 <template>
   <div class="component-overview">
-    <h2 class="overview-title">Element X UI 组件</h2>
+    <h2 class="overview-title">Element-UI-X 组件</h2>
     <p class="overview-description">
-      基于 Element UI 和 Vue2 的企业级 AI 组件库，专为构建现代化 AI 交互界面设计
+      基于 Element UI 和 Vue2 的 AI 组件库，专为构建现代化 AI 交互界面设计
     </p>
 
     <!-- 组件分类标签页 -->
