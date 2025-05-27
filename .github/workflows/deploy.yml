@@ -42,12 +42,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
-          cache-dependency-path: 'docs/package-lock.json'
 
       - name: Install dependencies
         working-directory: docs
-        run: npm ci
+        run: |
+          npm install
 
       - name: Build documentation
         working-directory: docs
@@ -88,12 +87,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
-          cache-dependency-path: 'examples/package-lock.json'
 
       - name: Install dependencies
         working-directory: examples
-        run: npm ci
+        run: |
+          npm install
 
       - name: Build
         working-directory: examples
