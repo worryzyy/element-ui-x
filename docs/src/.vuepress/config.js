@@ -44,7 +44,7 @@ module.exports = {
             {
               title: '交互类组件',
               collapsable: false,
-              children: ['sender', 'mention-sender', 'attachments', 'files-card'],
+              children: ['sender', 'attachments', 'files-card'],
             },
             {
               title: '导航类组件',
