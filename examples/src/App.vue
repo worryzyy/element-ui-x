@@ -15,7 +15,7 @@
               @click="goHome"
               class="header-title"
             >
-              Element X UI
+              Element-UI-X
             </h1>
           </div>
 
