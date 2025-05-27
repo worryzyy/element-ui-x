@@ -165,10 +165,12 @@
 
   .custom-home {
     padding-top: 10px;
+
     .custom-hero {
       &.has-image {
         .container {
           display: flex;
+          flex-direction: row;
           align-items: center;
           justify-content: space-between;
         }
@@ -368,9 +370,11 @@
   @media (max-width: $--sm) {
     .custom-home {
       .custom-hero {
-        .container {
-          flex-direction: column;
-          text-align: center;
+        &.has-image {
+          .container {
+            flex-direction: column;
+            text-align: center;
+          }
         }
 
         .heading {
