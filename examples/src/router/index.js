@@ -7,9 +7,10 @@ import Conversations from '../views/Conversations.vue';
 import FilesCard from '../views/FilesCard.vue';
 import Overview from '../views/Overview.vue';
 import Prompts from '../views/Prompts.vue';
-import Record from '../views/record.vue';
+import RecordMixins from '../views/RecordMixins.vue';
 import Sender from '../views/Sender.vue';
 import SendMixins from '../views/SendMixins.vue';
+import StreamMixins from '../views/StreamMixins.vue';
 import Thinking from '../views/Thinking.vue';
 import ThoughtChain from '../views/ThoughtChain.vue';
 import Typewriter from '../views/Typewriter.vue';
@@ -80,13 +81,18 @@ export default new Router({
     },
     {
       path: '/record',
-      name: 'Record',
-      component: Record,
+      name: 'RecordMixins',
+      component: RecordMixins,
     },
     {
       path: '/sendmixins',
       name: 'SendMixins',
       component: SendMixins,
+    },
+    {
+      path: '/streammixins',
+      name: 'StreamMixins',
+      component: StreamMixins,
     },
     {
       path: '*',

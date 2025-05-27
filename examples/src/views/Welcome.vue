@@ -24,18 +24,6 @@
           :description="showDescription ? description : ''"
           :extra="'立即开始'"
         />
-        <div class="demo-controls">
-          <el-input
-            v-model="title"
-            placeholder="输入标题"
-            style="width: 300px; margin-right: 10px"
-          ></el-input>
-          <el-input
-            v-model="description"
-            placeholder="输入描述"
-            style="width: 300px"
-          ></el-input>
-        </div>
       </div>
 
       <div class="demo-block">

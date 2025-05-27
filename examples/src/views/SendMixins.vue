@@ -2,7 +2,7 @@
   <div>
     <el-card class="demo-card">
       <div slot="header">
-        <h2>Send 发送操作混入</h2>
+        <h2>sendMixin 发送操作</h2>
         <p>提供统一的请求状态管理和中断控制，支持 SSE 和 Fetch 两种请求方式</p>
       </div>
 
