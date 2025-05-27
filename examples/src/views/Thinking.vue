@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="demo-card">
+    <!-- <el-card class="demo-card">
       <div slot="header">
         <h2>Thinking 思考状态</h2>
       </div>
@@ -146,76 +146,404 @@
           </template>
         </el-x-thinking>
       </div>
-    </el-card>
+    </el-card> -->
 
     <el-card class="demo-card">
-      <div slot="header">
-        <h2>实际应用场景</h2>
+      <div
+        slot="header"
+        class="header-with-settings"
+      >
+        <h2>AI对话场景</h2>
+        <el-tooltip
+          content="配置API Key"
+          placement="top"
+        >
+          <el-button
+            type="text"
+            @click="showSettings = true"
+          >
+            <i class="el-icon-setting"></i>
+          </el-button>
+        </el-tooltip>
       </div>
 
-      <div class="demo-block">
-        <h3>AI思考过程</h3>
-        <el-x-thinking
-          ref="thinkingDemo"
-          status="start"
-          :auto-collapse="true"
-          content="这是一个模拟AI思考过程的示例"
-        />
-        <div class="demo-controls">
-          <el-button-group>
-            <el-button
-              size="small"
-              type="primary"
-              @click="startThinking"
+      <el-dialog
+        title="API 配置 (请使用硅基流动的API KEY)"
+        :visible.sync="showSettings"
+        width="500px"
+        custom-class="settings-dialog"
+      >
+        <el-form
+          :model="settings"
+          label-width="100px"
+        >
+          <el-form-item label="API Key">
+            <el-input
+              v-model="settings.apiKey"
+              placeholder="请输入您的 API Key"
+              show-password
             >
-              开始思考
-            </el-button>
-            <el-button
-              size="small"
-              type="success"
-              @click="endThinking"
+              <template #append>
+                <el-button @click="resetApiKey">重置</el-button>
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="模型">
+            <el-select
+              v-model="settings.model"
+              placeholder="请选择模型"
             >
-              思考完成
-            </el-button>
-            <el-button
-              size="small"
-              type="danger"
-              @click="errorThinking"
-            >
-              思考错误
-            </el-button>
-          </el-button-group>
+              <el-option
+                label="DeepSeek-R1"
+                value="deepseek-ai/DeepSeek-R1"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-button @click="showSettings = false">取 消</el-button>
+          <el-button
+            type="primary"
+            @click="saveSettings"
+          >
+            确 定
+          </el-button>
         </div>
+      </el-dialog>
+
+      <div class="chat-wrap">
+        <div
+          v-if="chatError"
+          class="error"
+        >
+          {{ chatError.message }}
+        </div>
+
+        <el-x-bubble-list
+          ref="bubbleListRef"
+          :list="bubbleItems"
+          :default-is-markdown="true"
+          :default-avatar-size="40"
+          :max-height="'500px'"
+          :btnLoading="isLoading"
+        >
+          <template #header="{ item }">
+            <el-x-thinking
+              v-if="item.reasoning_content"
+              :content="item.reasoning_content"
+              :status="item.thinkingStatus"
+              class="thinking-chain-wrap"
+              @change="handleThinkingChange"
+            />
+          </template>
+
+          <template #content="{ item }">
+            <el-x-thinking
+              v-if="item.reasoning_content"
+              :content="item.reasoning_content"
+              :status="item.thinkingStatus"
+              duration=".3s"
+              max-width="350px"
+              button-width="100%"
+              background-color="linear-gradient(to right, #ffd3d8e0, #ff6969e7)"
+              color="black"
+              class="thinking-chain-wrap"
+            >
+              <template #status-icon="{ status }">
+                <span v-if="status === 'start'">💡</span>
+                <span v-if="status === 'thinking'">💖</span>
+                <span v-if="status === 'end'">✅</span>
+                <span v-if="status === 'error'">❌</span>
+              </template>
+
+              <template #label="{ status }">
+                <span v-if="status === 'start'">开始思考 😄</span>
+                <span v-if="status === 'thinking'">让我想想 🤔</span>
+                <span v-if="status === 'end'">想出来啦 😆</span>
+                <span v-if="status === 'error'">想不出来 🥵</span>
+              </template>
+
+              <template #arrow>👇</template>
+
+              <template #error>
+                <span class="error-color">思考报错</span>
+              </template>
+
+              <template #content="{ content }">这里是自定义内容 + 返回：{{ content }}</template>
+            </el-x-thinking>
+
+            <el-x-typewriter
+              :content="item.content"
+              :loading="item.loading"
+              :typing="item.typing"
+              :is-markdown="item.isMarkdown"
+              :is-fog="item.isFog"
+            />
+          </template>
+        </el-x-bubble-list>
+
+        <el-x-sender
+          ref="senderRef"
+          v-model="inputValue"
+          :loading="isLoading"
+          :submit-btn-disabled="submitBtnDisabled"
+          clearable
+          @submit="startSSE"
+          @cancel="handleCancel"
+        >
+          <template #action-list>
+            <div class="footer-container">
+              <el-button
+                v-if="!isLoading"
+                type="primary"
+                circle
+                @click="$refs.senderRef.submit()"
+              >
+                <i class="el-icon-position"></i>
+              </el-button>
+              <el-button
+                v-if="isLoading"
+                circle
+                type="danger"
+                @click="$refs.senderRef.cancel()"
+              >
+                <i class="el-icon-loading"></i>
+              </el-button>
+            </div>
+          </template>
+        </el-x-sender>
       </div>
     </el-card>
   </div>
 </template>
 
 <script>
+  import { customMixins } from 'vue-element-ui-x';
+
+  const DEFAULT_API_KEY = 'sk-pgwnpnjiredqnosawllqfihokzmchdtswbrghveeuaryzqsj';
+  const DEFAULT_MODEL = 'deepseek-ai/DeepSeek-R1';
+
   export default {
     name: 'ThinkingDemo',
+    mixins: [customMixins.streamMixin],
     data() {
       return {
-        currentStatus: 'start',
-        autoCollapseValue: false,
-        disabledValue: false,
-        buttonWidthValue: 160,
-        durationValue: 0.2,
-        maxWidthValue: 500,
-        backgroundColorValue: '#fcfcfc',
-        colorValue: 'var(--el-color-info)',
+        // 基础配置
+        BASE_URL: 'https://api.siliconflow.cn/v1/chat/completions',
+        API_KEY: DEFAULT_API_KEY,
+        MODEL: DEFAULT_MODEL,
+
+        // 设置相关
+        showSettings: false,
+        settings: {
+          apiKey: DEFAULT_API_KEY,
+          model: DEFAULT_MODEL,
+        },
+
+        // 状态数据
+        inputValue: '王者荣耀的李信连招是什么',
+        bubbleItems: [
+          {
+            role: 'assistant',
+            content: '您好！我是您的AI助手，有什么需要帮助的吗？',
+            thinkingStatus: 'end',
+            loading: false,
+            typing: false,
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
+          },
+        ],
+        processedIndex: 0,
+        chatError: null,
+        submitBtnDisabled: false,
       };
     },
+    computed: {
+      isLoading() {
+        return this.streamLoading;
+      },
+    },
+    watch: {
+      // 监听流数据变化
+      streamData: {
+        handler(newData) {
+          for (let i = this.processedIndex; i < newData.length; i++) {
+            const chunk = newData[i].data;
+            this.handleDataChunk(chunk);
+            this.processedIndex++;
+          }
+        },
+        deep: true,
+      },
+    },
     methods: {
-      startThinking() {
-        this.$refs.thinkingDemo.$emit('update:status', 'thinking');
+      // 处理数据块
+      handleDataChunk(chunk) {
+        if (chunk === ' [DONE]') {
+          console.log('数据接收完毕');
+          if (this.bubbleItems.length) {
+            this.$set(this.bubbleItems[this.bubbleItems.length - 1], 'typing', false);
+          }
+          return;
+        }
+
+        try {
+          const parsedChunk = JSON.parse(chunk);
+          const reasoningChunk = parsedChunk.choices[0].delta.reasoning_content;
+          const contentChunk = parsedChunk.choices[0].delta.content;
+
+          if (reasoningChunk) {
+            const lastItem = this.bubbleItems[this.bubbleItems.length - 1];
+            if (lastItem) {
+              this.$set(lastItem, 'thinkingStatus', 'thinking');
+              this.$set(lastItem, 'loading', true);
+              this.$set(
+                lastItem,
+                'reasoning_content',
+                (lastItem.reasoning_content || '') + reasoningChunk,
+              );
+            }
+          }
+
+          if (contentChunk) {
+            const lastItem = this.bubbleItems[this.bubbleItems.length - 1];
+            if (lastItem) {
+              this.$set(lastItem, 'thinkingStatus', 'end');
+              this.$set(lastItem, 'loading', false);
+              this.$set(lastItem, 'content', (lastItem.content || '') + contentChunk);
+            }
+          }
+        } catch (err) {
+          console.error('解析数据时出错:', err);
+        }
       },
-      endThinking() {
-        this.$refs.thinkingDemo.$emit('update:status', 'end');
+
+      // 添加消息方法
+      addMessage(message, isUser) {
+        const i = this.bubbleItems.length;
+        const obj = {
+          key: i,
+          role: isUser ? 'user' : 'assistant',
+          content: message || '',
+          thinkingStatus: isUser ? 'end' : 'start',
+          loading: !isUser,
+          typing: !isUser,
+          avatar: isUser
+            ? 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg'
+            : '	https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
+          placement: isUser ? 'end' : 'start',
+          isMarkdown: !isUser,
+          variant: 'shadow',
+          shape: 'corner',
+          reasoning_content: '',
+        };
+        this.bubbleItems.push(obj);
       },
-      errorThinking() {
-        this.$refs.thinkingDemo.$emit('update:status', 'error');
+
+      // 修改 startSSE 方法
+      async startSSE() {
+        if (this.streamLoading || !this.inputValue.trim()) return;
+
+        try {
+          const userMessage = this.inputValue;
+          // 清空输入框
+          this.inputValue = '';
+
+          // 添加消息
+          this.addMessage(userMessage, true);
+          this.addMessage('', false);
+
+          // 手动触发滚动到底部
+          this.$nextTick(() => {
+            if (this.$refs.bubbleListRef) {
+              this.$refs.bubbleListRef.scrollToBottom();
+            }
+          });
+
+          const response = await fetch(this.BASE_URL, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${this.API_KEY}`,
+              'Content-Type': 'application/json',
+              Accept: 'text/event-stream',
+            },
+            body: JSON.stringify({
+              model: this.MODEL,
+              messages: this.bubbleItems
+                .filter(item => item.role === 'user')
+                .map(item => ({
+                  role: item.role,
+                  content: item.content,
+                })),
+              stream: true,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const readableStream = response.body;
+          this.processedIndex = 0;
+
+          // 使用 streamMixin 的方法处理流
+          await this.startStream({
+            readableStream,
+          });
+        } catch (err) {
+          this.handleError(err);
+        }
       },
+
+      // 优化错误处理
+      handleError(err) {
+        console.error('Fetch error:', err);
+        this.chatError = err;
+
+        // 更新最后一条消息的状态
+        const lastMessage = this.bubbleItems[this.bubbleItems.length - 1];
+        if (lastMessage) {
+          this.$set(lastMessage, 'thinkingStatus', 'error');
+          this.$set(lastMessage, 'loading', false);
+          this.$set(lastMessage, 'typing', false);
+          this.$set(lastMessage, 'content', '出错了，请重试');
+        }
+        console.log(lastMessage);
+        this.$message.error(err.message || '请求出现错误');
+      },
+
+      // 优化取消处理
+      handleCancel() {
+        this.cancelStream();
+        const lastMessage = this.bubbleItems[this.bubbleItems.length - 1];
+        if (lastMessage) {
+          this.$set(lastMessage, 'typing', false);
+        }
+      },
+
+      // 处理状态变化
+      handleThinkingChange({ value, status }) {
+        console.log('value', value, 'status', status);
+      },
+
+      // 重置 API Key
+      resetApiKey() {
+        this.settings.apiKey = DEFAULT_API_KEY;
+        this.settings.model = DEFAULT_MODEL;
+      },
+
+      // 保存设置
+      saveSettings() {
+        this.API_KEY = this.settings.apiKey;
+        this.MODEL = this.settings.model;
+        this.showSettings = false;
+        this.$message.success('配置已保存');
+      },
+    },
+    beforeDestroy() {
+      this.cancelStream();
     },
   };
 </script>
@@ -263,5 +591,51 @@
 
   .mt-10 {
     margin-top: 10px;
+  }
+
+  .chat-wrap {
+    height: calc(100vh - 300px);
+    border-radius: 4px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    ::v-deep .el-x-bubble-list {
+      padding-bottom: 24px;
+    }
+    .error {
+      color: #f56c6c;
+      margin-bottom: 10px;
+    }
+
+    .thinking-chain-wrap {
+      margin-bottom: 10px;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+  }
+
+  .error-color {
+    color: #f56c6c;
+  }
+
+  .header-with-settings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .settings-dialog {
+    ::v-deep .el-dialog__body {
+      padding: 20px;
+    }
   }
 </style>
