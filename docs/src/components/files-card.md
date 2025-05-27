@@ -73,9 +73,18 @@
 ```html
 <template>
   <div class="files-card-container">
-    <el-x-files-card name="uploading 测试文件.pdf" status="uploading" />
-    <el-x-files-card name="done 测试文件.pdf" status="done" />
-    <el-x-files-card name="error 测试文件.pdf" status="error" />
+    <el-x-files-card
+      name="uploading 测试文件.pdf"
+      status="uploading"
+    />
+    <el-x-files-card
+      name="done 测试文件.pdf"
+      status="done"
+    />
+    <el-x-files-card
+      name="error 测试文件.pdf"
+      status="error"
+    />
     <el-x-files-card
       name="uploading 测试文件.doc"
       status="uploading"
@@ -121,7 +130,7 @@
   export default {
     methods: {
       handleDelete() {
-        this.$message.success("删除成功");
+        this.$message.success('删除成功');
       },
     },
   };
@@ -139,22 +148,28 @@
 ```html
 <template>
   <div class="files-card-container-wrapper">
-    <span
-      >图片文件 <span style="color: red;">可预览</span> 和
-      <span style="color: red;">不可预览</span></span
-    >
+    <span>
+      图片文件
+      <span style="color: red;">可预览</span>
+      和
+      <span style="color: red;">不可预览</span>
+    </span>
     <div class="files-card-container">
       <el-x-files-card
         name="可预览的图片.jpeg"
         show-del-icon
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
-      <el-x-files-card name="无法预览的图片.jpeg" show-del-icon />
+      <el-x-files-card
+        name="无法预览的图片.jpeg"
+        show-del-icon
+      />
     </div>
-    <span
-      >图片文件
-      <span style="color: red;">正方形变体</span> 其他格式不受变体属性影响</span
-    >
+    <span>
+      图片文件
+      <span style="color: red;">正方形变体</span>
+      其他格式不受变体属性影响
+    </span>
     <div class="files-card-container">
       <el-x-files-card
         name="可预览的图片.jpeg"
@@ -174,12 +189,10 @@
         :file-size="30000"
       />
     </div>
-    <span
-      >图片文件 默认长方形变体
-      <span style="color: red;"
-        >支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span
-      ></span
-    >
+    <span>
+      图片文件 默认长方形变体
+      <span style="color: red;">支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span>
+    </span>
     <div class="files-card-container">
       <el-x-files-card
         name="上传进度.jpeg"
@@ -208,12 +221,10 @@
       />
     </div>
 
-    <span
-      >图片文件 正方形变体
-      <span style="color: red;"
-        >支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span
-      ></span
-    >
+    <span>
+      图片文件 正方形变体
+      <span style="color: red;">支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span>
+    </span>
     <div class="files-card-container">
       <el-x-files-card
         name="上传进度.jpeg"
@@ -270,16 +281,17 @@
 
 :::
 
-### 自定义颜色
+### 自定义
 
-通过 iconColor 属性自定义图标颜色。
+通过 `iconColor` 属性自定义图标颜色。
+通过 `styleConfig` `hoverStyle` 属性自定义样式。
 
 :::demo
 
 ```html
 <template>
   <div class="files-card-container-wrapper">
-    <p>自定义颜色1</p>
+    <p>自定义颜色</p>
     <div class="files-card-container">
       <el-x-files-card
         v-for="items in colorKeys"
@@ -289,9 +301,20 @@
         :file-type="items"
       />
     </div>
-    <p>自定义颜色2</p>
+    <p>自定义样式/hover样式</p>
     <div class="files-card-container">
       <el-x-files-card
+        :style-config="{
+                backgroundColor: '#f0f9eb',
+                border: '1px solid #67c23a',
+                borderRadius: '20px',
+              }"
+        :hover-style="{
+                'box-shadow': '0 2px 12px 0 rgba(0, 0, 0, 0.1)',
+                'border-color': 'red',
+                'background-color': 'rgba(255, 0, 0, 0.1)',
+                cursor: 'pointer',
+              }"
         v-for="items in colorKeys"
         :key="items"
         v-bind="filesCardProps"
@@ -307,45 +330,45 @@
     data() {
       return {
         colorMap1: {
-          word: "#5E74A8",
-          excel: "#4A6B4A",
-          ppt: "#C27C40",
-          pdf: "#5A6976",
-          txt: "#D4C58C",
-          mark: "#FFA500",
-          image: "#8E7CC3",
-          audio: "#A67B5B",
-          video: "#4A5568",
-          three: "#5F9E86",
-          code: "#4B636E",
-          database: "#4A5A6B",
-          link: "#5D7CBA",
-          zip: "#8B5E3C",
-          file: "#AAB2BF",
-          unknown: "#888888",
+          word: '#5E74A8',
+          excel: '#4A6B4A',
+          ppt: '#C27C40',
+          pdf: '#5A6976',
+          txt: '#D4C58C',
+          mark: '#FFA500',
+          image: '#8E7CC3',
+          audio: '#A67B5B',
+          video: '#4A5568',
+          three: '#5F9E86',
+          code: '#4B636E',
+          database: '#4A5A6B',
+          link: '#5D7CBA',
+          zip: '#8B5E3C',
+          file: '#AAB2BF',
+          unknown: '#888888',
         },
         colorMap2: {
-          word: "#0078D4",
-          excel: "#4CB050",
-          ppt: "#FF9933",
-          pdf: "#E81123",
-          txt: "#666666",
-          mark: "#FFA500",
-          image: "#B490F3",
-          audio: "#00B2EE",
-          video: "#2EC4B6",
-          three: "#00C8FF",
-          code: "#00589F",
-          database: "#F5A623",
-          link: "#007BFF",
-          zip: "#888888",
-          file: "#F0D9B5",
-          unknown: "#D8D8D8",
+          word: '#0078D4',
+          excel: '#4CB050',
+          ppt: '#FF9933',
+          pdf: '#E81123',
+          txt: '#666666',
+          mark: '#FFA500',
+          image: '#B490F3',
+          audio: '#00B2EE',
+          video: '#2EC4B6',
+          three: '#00C8FF',
+          code: '#00589F',
+          database: '#F5A623',
+          link: '#007BFF',
+          zip: '#888888',
+          file: '#F0D9B5',
+          unknown: '#D8D8D8',
         },
         filesCardProps: {
-          uid: "1",
-          name: "测试名称",
-          description: "测试description",
+          uid: '1',
+          name: '测试名称',
+          description: '测试description',
         },
       };
     },
