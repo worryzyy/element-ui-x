@@ -5,6 +5,7 @@ import BackToTop from './components/BackToTop.vue';
 import Hero from './components/Hero.vue';
 export default ({ Vue, router, isServer }) => {
   Vue.use(ElementUI);
+  Vue.use(ElementUIX);
   Vue.component('BackToTop', BackToTop);
   Vue.component('Hero', Hero);
   Vue.prototype.$message = Message;
@@ -18,20 +19,20 @@ export default ({ Vue, router, isServer }) => {
     }
   };
 
-  // 防止路由错误
-  if (!isServer) {
-    if (!isServer) {
-      import('vue-element-ui-x').then(ElementUIX => {
-        Vue.use(ElementUIX.default || ElementUIX);
-      });
-    }
-    // 添加全局错误处理
-    window.addEventListener('error', event => {
-      // 忽略路由相关错误
-      if (event.message && event.message.includes('Cannot read properties of undefined')) {
-        event.preventDefault();
-        console.warn('Suppressed router error:', event.message);
-      }
-    });
-  }
+  // // 防止路由错误
+  // if (!isServer) {
+  //   if (!isServer) {
+  //     import('vue-element-ui-x').then(ElementUIX => {
+  //       Vue.use(ElementUIX.default || ElementUIX);
+  //     });
+  //   }
+  //   // 添加全局错误处理
+  //   window.addEventListener('error', event => {
+  //     // 忽略路由相关错误
+  //     if (event.message && event.message.includes('Cannot read properties of undefined')) {
+  //       event.preventDefault();
+  //       console.warn('Suppressed router error:', event.message);
+  //     }
+  //   });
+  // }
 };
