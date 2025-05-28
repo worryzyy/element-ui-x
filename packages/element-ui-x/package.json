@@ -1,15 +1,31 @@
 {
   "name": "vue-element-ui-x",
-  "version": "0.1.2",
-  "description": "基于Element UI的企业级AI聊天组件库",
-  "main": "lib/index.common.js",
-  "module": "lib/index.esm.js",
+  "version": "0.1.5",
+  "description": "基于Vue 2 + Element UI的AI聊天组件库",
+  "main": "lib/index.esm.js",
+  "module": "lib/index.umd.js",
   "files": [
     "lib",
     "src",
     "package.json",
     "README.md"
   ],
+  "author": "worryzyy",
+  "license": "MIT",
+  "homepage": "https://element-ui-x.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/worryzyy/element-ui-x.git"
+  },
+  "keywords": [
+    "element-ui",
+    "vue",
+    "ai"
+  ],
+  "bugs": {
+    "url": "https://github.com/worryzyy/element-ui-x/issues"
+  },
+  
   "scripts": {
     "build": "npm run build:common && npm run build:esm && npm run build:umd && npm run build:components",
     "build:common": "webpack --config build/webpack.common.conf.js",
@@ -27,6 +43,7 @@
     "node-sass": "^6.0.1",
     "sass-loader": "^10.0.0",
     "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^4.2.3",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14",
     "webpack": "^4.46.0",

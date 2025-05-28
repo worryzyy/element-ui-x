@@ -11,18 +11,14 @@ const entry = {};
 components.forEach(component => {
   const componentPath = path.join(componentsDir, component, 'index.js');
   if (fs.existsSync(componentPath)) {
-    // 转换为kebab-case命名
-    const componentName = component
-      .replace(/([A-Z])/g, '-$1')
-      .toLowerCase()
-      .replace(/^-/, '');
-    entry[componentName] = componentPath;
+    // 保持原始组件目录结构
+    entry[`components/${component}/index`] = componentPath;
   }
 });
 
 // 添加主入口和mixins入口
 entry['index'] = path.join(__dirname, '../src/index.js');
-entry['mixins'] = path.join(__dirname, '../src/mixins/index.js');
+entry['mixins/index'] = path.join(__dirname, '../src/mixins/index.js');
 
 module.exports = {
   mode: 'production',

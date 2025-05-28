@@ -35,14 +35,6 @@ const install = function (Vue) {
   });
 };
 
-// 默认导出（完整引入）
-export default {
-  version: '1.0.0',
-  install,
-  customMixins,
-  ...components,
-};
-
 // 具名导出（按需引入）- 组件
 export {
   ElXAttachments,
@@ -61,3 +53,22 @@ export {
 
 // 具名导出（按需引入）- Mixins
 export { customMixins, streamMixin, sendMixin, recordMixin };
+
+// 默认导出（完整引入）
+const ElementUIX = {
+  version: '1.0.0',
+  install,
+};
+
+// 将组件添加到默认导出对象中
+components.forEach(component => {
+  ElementUIX[component.name] = component;
+});
+
+// 添加mixins
+ElementUIX.customMixins = customMixins;
+ElementUIX.streamMixin = streamMixin;
+ElementUIX.sendMixin = sendMixin;
+ElementUIX.recordMixin = recordMixin;
+
+export default ElementUIX;

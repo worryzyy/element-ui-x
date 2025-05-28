@@ -11,6 +11,25 @@ if (!fs.existsSync(libDir)) {
   fs.mkdirSync(libDir);
 }
 
+// 确保 components 和 mixins 目录存在
+const componentsDir = path.join(libDir, 'components');
+if (!fs.existsSync(componentsDir)) {
+  fs.mkdirSync(componentsDir, {
+    recursive: true,
+  });
+}
+
+const mixinsDir = path.join(libDir, 'mixins');
+if (!fs.existsSync(mixinsDir)) {
+  fs.mkdirSync(mixinsDir, {
+    recursive: true,
+  });
+}
+
+// 获取所有组件目录
+const srcComponentsDir = path.join(__dirname, '../src/components');
+const components = fs.readdirSync(srcComponentsDir);
+
 webpack(config, (err, stats) => {
   if (err) {
     console.error('构建过程中发生错误:', err);
@@ -26,15 +45,46 @@ webpack(config, (err, stats) => {
 
   // 显示构建结果
   const info = stats.toJson();
-  console.log('📦 构建的文件:');
+  console.log('💶 构建的文件:');
+
+  // 按目录分组显示文件
+  const componentFiles = [];
+  const otherFiles = [];
+
   info.assets.forEach(asset => {
+    if (asset.name.startsWith('components/')) {
+      componentFiles.push(asset);
+    } else {
+      otherFiles.push(asset);
+    }
     console.log(`   - ${asset.name} (${(asset.size / 1024).toFixed(1)}KB)`);
   });
 
   console.log('\n🎉 现在可以按需引入组件了：');
-  console.log('   import ElXTypewriter from "element-ui-x/lib/typewriter"');
-  console.log('   import ElXBubble from "element-ui-x/lib/bubble"');
+  console.log('   import { ElXTypewriter, ElXBubble } from "vue-element-ui-x"');
+  console.log('   Vue.component(ElXTypewriter.name, ElXTypewriter);');
+  console.log('   Vue.component(ElXBubble.name, ElXBubble);');
   console.log('   // ... 其他组件');
 
-  console.log('\n或者使用babel-plugin-component自动按需引入。');
+  // 生成组件列表
+  let componentList = '';
+  components.forEach(component => {
+    componentList += `ElX${component}, `;
+  });
+  componentList = componentList.replace(/, $/, '');
+
+  console.log('\n📚 完整组件列表：');
+  console.log(`   import { ${componentList} } from "vue-element-ui-x";`);
+
+  console.log('\n或者使用babel-plugin-component自动按需引入，配置如下：');
+  console.log(`
+[
+  "component",
+  {
+    "libraryName": "vue-element-ui-x",
+    "libDir": "lib",
+    "style": false
+  }
+]
+`);
 });
