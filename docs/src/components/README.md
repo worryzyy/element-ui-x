@@ -12,7 +12,7 @@
 - [Thinking 思考动画](./thinking/) - 思考加载动画组件示例
 - [ThoughtChain 思维链](./thought-chain/) - 思维链展示组件的用法
 - [Sender 发送框](./sender/) - 消息发送框组件的使用方法
-- [MentionSender 提及输入框](./mention-sender/) - 带提及功能的输入框示例
+<!-- - [MentionSender 提及输入框](./mention-sender/) - 带提及功能的输入框示例 -->
 - [Attachments 附件上传](./attachments/) - 附件上传组件的实现方式
 - [FilesCard 文件卡片](./files-card/) - 文件卡片组件的展示效果
 - [Conversations 会话列表](./conversations/) - 会话管理列表组件示例

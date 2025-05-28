@@ -5,7 +5,14 @@
 </div>
 
 <div align="center">
-<img src="./src/.vuepress/public/demo/demo.png"  />&emsp;
+<img src="/demo/demo.png"  />&emsp;
+<img src="/demo/demo1.png"  />&emsp;
+<img src="/demo/demo2.png"  />&emsp;
+<img src="/demo/demo3.png"  />&emsp;
+<img src="/demo/demo4.png"  />&emsp;
+<img src="/demo/demo5.png"  />&emsp;
+<img src="/demo/demo6.png"  />&emsp;
+<img src="/demo/demo7.png"  />&emsp;
 
 </div>
 
@@ -27,8 +34,8 @@
 ## 🛠️ 核心特性
 
 - ✨ **企业级 AI 组件**：内置聊天机器人、语音交互等场景化组件
-- 🚀 **零配置集成**：基于 Element-Plus 设计体系，开箱即用
-- 📦 **按需加载**：提供 Tree Shaking 优化
+- 🚀 **零配置集成**：基于 Element-UI 设计体系，开箱即用
+- 📦 **按需加载**
 
 ## 📦 安装
 
@@ -103,7 +110,7 @@ new Vue({
 | `Prompts `             | 提示集组件        | [📄 文档](https://element-ui-x.com/components/prompts.html)       |
 | `FilesCard`            | 文件卡片组件      | [📄 文档](https://element-ui-x.com/components/filesCard.html)     |
 | `Attachments`          | 上传附件组件      | [📄 文档](https://element-ui-x.com/components/attachments.html)   |
-| `Sender`               | 智能输入框（）    | [📄 文档](https://element-ui-x.com/components/sender.html)        |
+| `Sender`               | 智能输入框        | [📄 文档](https://element-ui-x.com/components/sender.html)        |
 | `Thinking`             | 思考中组件        | [📄 文档](https://element-ui-x.com/components/thinking.html)      |
 | `ThoughtChain`         | 思考链组件        | [📄 文档](https://element-ui-x.com/components/thoughtChain.html)  |
 | `recordMixin`          | 语音识别 Mixins   | [📄 文档](https://element-ui-x.com/components/record-mixins.html) |

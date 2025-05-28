@@ -1,47 +1,135 @@
-# Element UI X
+<div align="center">
+  <a href="https://element-ui-x.com/">
+    <img src="./src/.vuepress/public/images/logo.png" alt="Element-UI-X" width="180" class="logo" />
+  </a>
+</div>
 
-基于 Element UI 2.15.14 和 Vue2 的企业级 AI 聊天组件库
+<div align="center">
+<img src="/demo/demo.png"  />&emsp;
+<img src="/demo/demo1.png"  />&emsp;
+<img src="/demo/demo2.png"  />&emsp;
+<img src="/demo/demo3.png"  />&emsp;
+<img src="/demo/demo4.png"  />&emsp;
+<img src="/demo/demo5.png"  />&emsp;
+<img src="/demo/demo6.png"  />&emsp;
+<img src="/demo/demo7.png"  />&emsp;
 
-## 安装
+</div>
+
+# 🚀 Element-UI-X
+
+**开箱即用的企业级 AI 组件库（基于 Vue 2.x + Element-Ui）**
+
+## 📢 快速链接
+
+| 资源类型     | <div style="width: 300px;" >链接</div>                         |
+| ------------ | -------------------------------------------------------------- |
+| **文档**     | [📖 开发文档](https://element-ui-x.com/)                       |
+| **在线演示** | [👁️ 在线预览](https://demo.element-ui-x.com)                   |
+| **代码仓库** | [🐙 GitHub](https://github.com/worryzyy/element-ui-x)          |
+| **NPM 包**   | [📦 npm](https://www.npmjs.com/package/vue-element-ui-x)       |
+| **问题反馈** | [🐛 提交 Bug](https://github.com/worryzyy/element-ui-x/issues) |
+| **交流讨论** | [🐒 交流群]()                                                  |
+
+## 🛠️ 核心特性
+
+- ✨ **企业级 AI 组件**：内置聊天机器人、语音交互等场景化组件
+- 🚀 **零配置集成**：基于 Element-UI 设计体系，开箱即用
+- 📦 **按需加载**
+
+## 📦 安装
 
 ```bash
-npm install vue-element-ui-x --save
+# NPM
+npm install vue-element-ui-x
+
+# PNPM（推荐）
+pnpm install vue-element-ui-x
+
+# Yarn
+yarn install vue-element-ui-x
+
 ```
 
-## 快速开始
+## 📚 使用案例
 
-```javascript
+1. **按需引入**
+
+```vue
+<script>
+  import { ElXTypewriter } from 'vue-element-ui-x';
+</script>
+
+<template>
+  <div
+    style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;"
+  >
+    <el-x-typewriter
+      content="这是一个基础打字效果演示，展示Typewriter组件的基本功能。"
+      :typing="true"
+      ref="basicDemo"
+    />
+  </div>
+</template>
+```
+
+2. **全局引入**
+
+```ts
+// main.ts
 import Vue from 'vue';
 import ElementUI from 'element-ui';
-import ElementUIX from 'vue-element-ui-x';
+import './assets/styles/reset.css';
+import 'element-ui/lib/theme-chalk/index.css';
 
-// 确保已安装Element UI 2.15.x
+import ElementUIX from 'vue-element-ui-x';
+import App from './App.vue';
+import router from './router';
+
 Vue.use(ElementUI);
 Vue.use(ElementUIX);
+
+Vue.config.productionTip = false;
+
+new Vue({
+  router,
+  el: '#app',
+  render: h => h(App),
+});
 ```
 
-## 依赖说明
+## 🌟 已实现 组件 和 Mixins
 
-- 本包不打包 Element UI，依赖用户项目中的 Element UI
-- 要求用户项目已安装 Element UI 2.15.x
-- 如果用户项目没有 Element UI，会自动安装 peerDependencies 中指定的版本
-- 避免重复安装，节省项目体积
+| 组件名                 | 描述              | 文档链接                                                          |
+| ---------------------- | ----------------- | ----------------------------------------------------------------- |
+| `Typewriter`           | 打字动画组件      | [📄 文档](https://element-ui-x.com/components/typewriter.html)    |
+| `Bubble`               | 气泡消息组件      | [📄 文档](https://element-ui-x.com/components/bubble.html)        |
+| `BubbleList`           | 气泡消息列表      | [📄 文档](https://element-ui-x.com/components/bubbleList.html)    |
+| `Conversations`        | 会话管理组件      | [📄 文档](https://element-ui-x.com/components/conversations.html) |
+| `Welcome`              | 欢迎组件          | [📄 文档](https://element-ui-x.com/components/welcome.html)       |
+| `Prompts `             | 提示集组件        | [📄 文档](https://element-ui-x.com/components/prompts.html)       |
+| `FilesCard`            | 文件卡片组件      | [📄 文档](https://element-ui-x.com/components/filesCard.html)     |
+| `Attachments`          | 上传附件组件      | [📄 文档](https://element-ui-x.com/components/attachments.html)   |
+| `Sender`               | 智能输入框        | [📄 文档](https://element-ui-x.com/components/sender.html)        |
+| `Thinking`             | 思考中组件        | [📄 文档](https://element-ui-x.com/components/thinking.html)      |
+| `ThoughtChain`         | 思考链组件        | [📄 文档](https://element-ui-x.com/components/thoughtChain.html)  |
+| `recordMixin`          | 语音识别 Mixins   | [📄 文档](https://element-ui-x.com/components/record-mixins.html) |
+| `streamMixin`          | 流模式接口 Mixins | [📄 文档](https://element-ui-x.com/components/stream-mixins.html) |
+| `sendMixin & XRequest` | 流模式 Mixins     | [📄 文档](https://element-ui-x.com/components/send-mixins.html)   |
 
-## 组件列表
+## 🎯 开发计划 (每周更新)
 
-- Typewriter.vue
-- Bubble.vue
-- BubbleList.vue
-- Conversations.vue
-- Welcome.vue
-- Prompts.vue
-- FilesCard.vue
-- Attachments.vue
-- Sender.vue
-- MentionSender.vue
-- Thinking.vue
-- ThoughtChain.vue
+🎀 我们会在 issue 、交流群 等多方面收集大家的遇到的问题，和需求场景，制定短期和长期的开发计划，查看详情请移步 👉 **[开发计划](https://element-ui-x.com/roadmap.html)**
 
-## 开发指南
+## 🤝 参与贡献
 
-[查看开发文档](./docs/README.md)
+1. **Fork 仓库** → 2. **创建 Feature 分支** → 3. **提交 Pull Request**
+
+详情可以移步 👉 **[开发指南](https://element-ui-x.com/guide/installation.html)**
+
+欢迎：
+
+- 🐛 Bug 修复
+- 💡 新功能提案
+- 📝 文档完善
+- 🎨 样式优化
