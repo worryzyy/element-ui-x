@@ -1,6 +1,6 @@
 {
   "name": "vue-element-ui-x",
-  "version": "1.0.0",
+  "version": "0.1.2",
   "description": "基于Element UI的企业级AI聊天组件库",
   "main": "lib/index.common.js",
   "module": "lib/index.esm.js",
@@ -24,8 +24,8 @@
   "devDependencies": {
     "babel-loader": "^8.2.3",
     "css-loader": "^5.2.7",
-    "sass": "^1.32.13",
-    "sass-loader": "^10.2.0",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^10.0.0",
     "style-loader": "^2.0.0",
     "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.14",
