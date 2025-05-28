@@ -21,14 +21,27 @@
 ```html
 <template>
   <div>
-    <el-x-typewriter :content="basicContent" :typing="true" ref="basicDemo" />
+    <el-x-typewriter
+      :content="basicContent"
+      :typing="true"
+      ref="basicDemo"
+    />
 
     <div class="demo-controls">
       <el-button-group>
-        <el-button size="small" type="primary" @click="startBasic"
-          >预览</el-button
+        <el-button
+          size="small"
+          type="primary"
+          @click="startBasic"
         >
-        <el-button size="small" @click="resetBasic">重置</el-button>
+          预览
+        </el-button>
+        <el-button
+          size="small"
+          @click="resetBasic"
+        >
+          重置
+        </el-button>
       </el-button-group>
     </div>
   </div>
@@ -38,8 +51,7 @@
   export default {
     data() {
       return {
-        basicContent:
-          "这是一个基础打字效果演示，展示Typewriter组件的基本功能。",
+        basicContent: '这是一个基础打字效果演示，展示Typewriter组件的基本功能。',
       };
     },
     methods: {
@@ -102,9 +114,13 @@
     />
 
     <div class="demo-controls">
-      <el-button size="small" type="primary" @click="startSpeedDemo"
-        >预览</el-button
+      <el-button
+        size="small"
+        type="primary"
+        @click="startSpeedDemo"
       >
+        预览
+      </el-button>
     </div>
   </div>
 </template>
@@ -114,11 +130,11 @@
     data() {
       return {
         speedContent:
-          "通过配置可以调整打字速度和每次打字的字符数，实现不同的打字效果。速度越慢，interval值越大；步长越大，每次显示的字符越多。",
+          '通过配置可以调整打字速度和每次打字的字符数，实现不同的打字效果。速度越慢，interval值越大；步长越大，每次显示的字符越多。',
         typingConfig: {
           interval: 40,
           step: 2,
-          suffix: "|",
+          suffix: '|',
         },
       };
     },
@@ -165,12 +181,30 @@
           placeholder="选择光标字符"
           style="width: 120px;"
         >
-          <el-option label="|" value="|"></el-option>
-          <el-option label="_" value="_"></el-option>
-          <el-option label="❚" value="❚"></el-option>
-          <el-option label="▊" value="▊"></el-option>
-          <el-option label="➤" value="➤"></el-option>
-          <el-option label="😊" value="😊"></el-option>
+          <el-option
+            label="|"
+            value="|"
+          ></el-option>
+          <el-option
+            label="_"
+            value="_"
+          ></el-option>
+          <el-option
+            label="❚"
+            value="❚"
+          ></el-option>
+          <el-option
+            label="▊"
+            value="▊"
+          ></el-option>
+          <el-option
+            label="➤"
+            value="➤"
+          ></el-option>
+          <el-option
+            label="😊"
+            value="😊"
+          ></el-option>
         </el-select>
       </div>
     </div>
@@ -182,9 +216,13 @@
     />
 
     <div class="demo-controls">
-      <el-button size="small" type="primary" @click="startCursorDemo"
-        >预览</el-button
+      <el-button
+        size="small"
+        type="primary"
+        @click="startCursorDemo"
       >
+        预览
+      </el-button>
     </div>
   </div>
 </template>
@@ -193,9 +231,8 @@
   export default {
     data() {
       return {
-        cursorContent:
-          "通过自定义光标字符，可以实现不同的视觉效果。尝试切换不同的光标字符来体验。",
-        cursorChar: "|",
+        cursorContent: '通过自定义光标字符，可以实现不同的视觉效果。尝试切换不同的光标字符来体验。',
+        cursorChar: '|',
       };
     },
     methods: {
@@ -248,9 +285,13 @@
     />
 
     <div class="demo-controls">
-      <el-button size="small" type="primary" @click="startFogDemo"
-        >预览</el-button
+      <el-button
+        size="small"
+        type="primary"
+        @click="startFogDemo"
       >
+        预览
+      </el-button>
     </div>
   </div>
 </template>
@@ -260,11 +301,11 @@
     data() {
       return {
         fogContent:
-          "雾化效果可以增强打字过程的视觉体验，通过调整雾化宽度和背景色来匹配不同的设计风格。",
+          '雾化效果可以增强打字过程的视觉体验，通过调整雾化宽度和背景色来匹配不同的设计风格。',
         fogWidth: 80,
         fogConfig: {
-          bgColor: "#FFFFFF",
-          width: "80px",
+          bgColor: '#FFFFFF',
+          width: '80px',
         },
       };
     },
@@ -299,9 +340,13 @@
     />
 
     <div class="demo-controls">
-      <el-button size="small" type="primary" @click="startMarkdownDemo"
-        >预览</el-button
+      <el-button
+        size="small"
+        type="primary"
+        @click="startMarkdownDemo"
       >
+        预览
+      </el-button>
     </div>
   </div>
 </template>
@@ -358,30 +403,44 @@ console.log(greet('World'));
     />
 
     <div class="progress-bar">
-      <el-progress :percentage="progress" :show-text="false"></el-progress>
+      <el-progress
+        :percentage="progress"
+        :show-text="false"
+      ></el-progress>
       <div class="progress-text">{{ Math.floor(progress) }}%</div>
     </div>
 
     <div class="demo-controls">
       <el-button-group>
-        <el-button size="small" type="primary" @click="startControl"
-          >开始</el-button
+        <el-button
+          size="small"
+          type="primary"
+          @click="startControl"
         >
+          开始
+        </el-button>
         <el-button
           size="small"
           type="warning"
           :disabled="!isTyping || progress >= 100"
           @click="pauseControl"
-          >暂停</el-button
         >
+          暂停
+        </el-button>
         <el-button
           size="small"
           type="success"
           :disabled="isTyping || progress >= 100"
           @click="continueControl"
-          >继续</el-button
         >
-        <el-button size="small" @click="resetControl">重置</el-button>
+          继续
+        </el-button>
+        <el-button
+          size="small"
+          @click="resetControl"
+        >
+          重置
+        </el-button>
       </el-button-group>
     </div>
   </div>
@@ -392,7 +451,7 @@ console.log(greet('World'));
     data() {
       return {
         controlContent:
-          "这个示例展示了如何控制打字过程，包括开始、暂停、继续和重置功能。你可以通过下方的按钮来体验这些控制功能。",
+          '这个示例展示了如何控制打字过程，包括开始、暂停、继续和重置功能。你可以通过下方的按钮来体验这些控制功能。',
         isTyping: false,
         progress: 0,
       };
@@ -471,9 +530,12 @@ console.log(greet('World'));
     </div>
 
     <div class="demo-controls">
-      <el-button type="primary" @click="regenerateResponse"
-        >重新生成回答</el-button
+      <el-button
+        type="primary"
+        @click="regenerateResponse"
       >
+        重新生成回答
+      </el-button>
     </div>
   </div>
 </template>
@@ -483,7 +545,7 @@ console.log(greet('World'));
     data() {
       return {
         aiResponse:
-          "Typewriter组件是一个模拟打字效果的UI组件，支持自定义打字速度、步长和光标样式。它可以用于展示AI生成内容、代码示例或任何需要逐步显示的场景。\n\n该组件还支持Markdown渲染和代码高亮，以及光标雾化效果，使得内容展示更加生动有趣。",
+          'Typewriter组件是一个模拟打字效果的UI组件，支持自定义打字速度、步长和光标样式。它可以用于展示AI生成内容、代码示例或任何需要逐步显示的场景。\n\n该组件还支持Markdown渲染和代码高亮，以及光标雾化效果，使得内容展示更加生动有趣。',
       };
     },
     methods: {
@@ -596,9 +658,13 @@ console.log(greet('World'));
     </div>
 
     <div class="demo-controls">
-      <el-button size="small" type="primary" @click="startComplete"
-        >预览</el-button
+      <el-button
+        size="small"
+        type="primary"
+        @click="startComplete"
       >
+        预览
+      </el-button>
     </div>
   </div>
 </template>
@@ -624,13 +690,13 @@ function demo() {
     },
     methods: {
       handleStart() {
-        console.log("打字开始");
+        console.log('打字开始');
       },
       handleTyping({ progress }) {
         this.progress = progress;
       },
       handleFinish(instance) {
-        console.log("打字完成", instance);
+        console.log('打字完成', instance);
       },
       startComplete() {
         this.$refs.completeDemo.restart();
