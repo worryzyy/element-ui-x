@@ -17,7 +17,7 @@
 npm install element-ui
 
 # 安装 Element-UI-X
-npm install Element-UI-X
+npm install vue-element-ui-x
 ```
 
 ### 使用 yarn 安装
@@ -27,7 +27,7 @@ npm install Element-UI-X
 yarn add element-ui
 
 # 安装 Element-UI-X
-yarn add Element-UI-X
+yarn add vue-element-ui-x
 ```
 
 ## 完整引入
