@@ -1,8 +1,6 @@
-<div align="center">
-  <a href="https://element-ui-x.com/">
-    <img src="./src/.vuepress/public/images/logo.png" alt="Element-UI-X" width="180" class="logo" />
-  </a>
-</div>
+# Element-UI-X
+
+**开箱即用的企业级 AI 组件库（基于 Vue 2.x + Element-Ui）**
 
 <div align="center">
 <img src="https://element-ui-x.com/demo/demo.png"  />&emsp;
@@ -15,10 +13,6 @@
 <img src="https://element-ui-x.com/demo/demo7.png"  />&emsp;
 
 </div>
-
-# 🚀 Element-UI-X
-
-**开箱即用的企业级 AI 组件库（基于 Vue 2.x + Element-Ui）**
 
 ## 📢 快速链接
 
