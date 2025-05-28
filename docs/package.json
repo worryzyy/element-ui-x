@@ -6,17 +6,17 @@
   "scripts": {
     "dev": "vuepress dev src",
     "build": "vuepress build src",
-    "deploy": "bash deploy.sh",
     "deploy:prod": "vercel --prod"
   },
   "dependencies": {
     "@vuepress/plugin-active-header-links": "^1.9.10",
     "element-ui": "^2.15.14",
-    "vue-element-ui-x": "0.1.0",
     "highlight.js": "^9.18.5",
-    "vue": "^2.6.14"
+    "vue": "^2.6.14",
+    "vue-element-ui-x": "0.1.0"
   },
   "devDependencies": {
+    "@vuepress/plugin-google-analytics": "^1.9.10",
     "sass": "^1.43.4",
     "sass-loader": "^10.1.1",
     "vuepress": "^1.9.7",

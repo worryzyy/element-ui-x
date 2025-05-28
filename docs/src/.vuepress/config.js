@@ -109,5 +109,8 @@ module.exports = {
       sidebarLinkSelector: '.sidebar-link',
       headerAnchorSelector: '.header-anchor',
     },
+    '@vuepress/google-analytics': {
+      ga: process.env.VUEPRESS_GA_ID || '',
+    },
   },
 };

@@ -50,6 +50,8 @@ jobs:
 
       - name: Build documentation
         working-directory: docs
+        env:
+          VUEPRESS_GA_ID: ${{ secrets.VUEPRESS_GA_ID }}
         run: npm run build
 
       - name: Deploy to Vercel
@@ -95,6 +97,8 @@ jobs:
 
       - name: Build
         working-directory: examples
+        env:
+          VUEPRESS_GA_ID: ${{ secrets.VUEPRESS_GA_ID }}
         run: npm run build
 
       - name: Deploy to Vercel
