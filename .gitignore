@@ -1,6 +1,5 @@
 # 依赖目录
 .idea/
-.vscode/
 node_modules/
 packages/*/node_modules/
 examples/node_modules/
