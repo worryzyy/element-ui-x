@@ -154,11 +154,6 @@
         class="header-with-settings"
       >
         <div class="header-title">
-          <img
-            src="/images/logo.png"
-            alt="logo"
-            class="logo"
-          />
           <h2>Thinking 思考动画</h2>
         </div>
         <div class="header-actions">

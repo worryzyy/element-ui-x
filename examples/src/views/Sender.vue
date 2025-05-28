@@ -243,37 +243,6 @@
         </div>
       </div>
     </el-card>
-
-    <el-card class="demo-card">
-      <div slot="header">
-        <h2>实际应用场景</h2>
-      </div>
-
-      <div class="demo-block">
-        <h3>AI对话模拟</h3>
-        <div class="chat-container">
-          <div
-            v-for="(message, index) in chatMessages"
-            :key="index"
-            :class="['message', message.type]"
-          >
-            <div class="avatar">{{ message.type === 'user' ? '用户' : 'AI' }}</div>
-            <div class="content">{{ message.content }}</div>
-          </div>
-        </div>
-        <div class="chat-input">
-          <el-x-sender
-            v-model="chatInput"
-            placeholder="输入消息发送给AI..."
-            clearable
-            :loading="chatLoading"
-            :submit-btn-disabled="!chatInput.trim()"
-            @submit="sendChatMessage"
-            @cancel="cancelChatMessage"
-          ></el-x-sender>
-        </div>
-      </div>
-    </el-card>
   </div>
 </template>
 

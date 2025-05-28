@@ -45,15 +45,17 @@
                 type="text"
                 icon="el-icon-edit"
                 @click="replyToMessage(item)"
-                >回复</el-button
               >
+                回复
+              </el-button>
               <el-button
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
                 @click="deleteMessage(item)"
-                >删除</el-button
               >
+                删除
+              </el-button>
             </div>
             <div
               class="bubble-footer text-right"
@@ -64,15 +66,17 @@
                 type="text"
                 icon="el-icon-refresh-left"
                 @click="recallMessage(item)"
-                >撤回</el-button
               >
+                撤回
+              </el-button>
               <el-button
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
                 @click="deleteMessage(item)"
-                >删除</el-button
               >
+                删除
+              </el-button>
             </div>
           </template>
         </el-x-bubble-list>
@@ -82,25 +86,29 @@
               size="small"
               type="primary"
               @click="addMessage('start')"
-              >添加左侧消息</el-button
             >
+              添加左侧消息
+            </el-button>
             <el-button
               size="small"
               type="primary"
               @click="addMessage('end')"
-              >添加右侧消息</el-button
             >
+              添加右侧消息
+            </el-button>
             <el-button
               size="small"
               type="success"
               @click="addMarkdownMessage('start')"
-              >添加Markdown消息</el-button
             >
+              添加Markdown消息
+            </el-button>
             <el-button
               size="small"
               @click="clearMessages"
-              >清空列表</el-button
             >
+              清空列表
+            </el-button>
           </el-button-group>
         </div>
       </div>
@@ -232,15 +240,17 @@
                 type="text"
                 icon="el-icon-refresh-left"
                 @click="recallMessage(item)"
-                >撤回</el-button
               >
+                撤回
+              </el-button>
               <el-button
                 size="mini"
                 type="text"
                 icon="el-icon-delete"
                 @click="deleteMessage(item)"
-                >删除</el-button
               >
+                删除
+              </el-button>
             </div>
           </template>
         </el-x-bubble-list>
@@ -250,56 +260,30 @@
               size="small"
               type="primary"
               @click="scrollToTop"
-              >滚动到顶部</el-button
             >
+              滚动到顶部
+            </el-button>
             <el-button
               size="small"
               type="primary"
               @click="scrollToBottom"
-              >滚动到底部</el-button
             >
+              滚动到底部
+            </el-button>
             <el-button
               size="small"
               @click="scrollToMessage(5)"
-              >滚动到第5条</el-button
             >
+              滚动到第5条
+            </el-button>
             <el-button
               size="small"
               type="warning"
               @click="toggleLoading"
-              >切换加载状态</el-button
             >
+              切换加载状态
+            </el-button>
           </el-button-group>
-        </div>
-      </div>
-    </el-card>
-
-    <el-card class="demo-card">
-      <div slot="header">
-        <h2>实际应用场景</h2>
-      </div>
-
-      <div class="demo-block">
-        <h3>AI对话模拟</h3>
-        <el-x-bubble-list
-          :list="chatList"
-          :default-typing="true"
-          max-height="400px"
-          :show-back-button="true"
-          ref="chatDemo"
-        />
-        <div class="demo-controls">
-          <el-input
-            v-model="newMessage"
-            placeholder="输入消息..."
-            @keyup.enter.native="sendMessage"
-          >
-            <el-button
-              slot="append"
-              icon="el-icon-s-promotion"
-              @click="sendMessage"
-            />
-          </el-input>
         </div>
       </div>
     </el-card>
@@ -317,18 +301,18 @@
           {
             content: '这是一个左侧气泡消息',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
           },
           {
             content: '这是一个右侧气泡消息',
             placement: 'end',
-            avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
           },
           {
             content:
               '# Markdown 标题\n这是一个**Markdown**格式的消息，支持*斜体*和`代码`\n```js\nconst hello = "world";\nconsole.log(hello);\n```',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
             isMarkdown: true,
           },
         ],
@@ -341,8 +325,8 @@
             placement: i % 2 === 0 ? 'start' : 'end',
             avatar:
               i % 2 === 0
-                ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-                : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+                ? 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg'
+                : 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
             loading: i >= 18, // 最后两条消息显示加载状态
           }),
         ),
@@ -350,7 +334,7 @@
           {
             content: '你好，我是AI助手，有什么可以帮您？',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
           },
         ],
         maxHeight: 500,
@@ -387,8 +371,8 @@
           placement,
           avatar:
             placement === 'start'
-              ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-              : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+              ? 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg'
+              : 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
         };
         this.basicList.push(message);
         this.$nextTick(() => {
@@ -405,7 +389,7 @@
         const message = {
           content: markdownContent,
           placement,
-          avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+          avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
           isMarkdown: true,
           isFog: this.isFog,
           typing: this.isTyping ? this.typingConfig : false,
@@ -469,7 +453,7 @@
         this.chatList.push({
           content: this.newMessage,
           placement: 'end',
-          avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+          avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
         });
 
         // AI回复
@@ -477,7 +461,7 @@
           this.chatList.push({
             content: `这是对"${this.newMessage}"的回复`,
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
           });
           this.$nextTick(() => {
             this.$refs.chatDemo.scrollToBottom();

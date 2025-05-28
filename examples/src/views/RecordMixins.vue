@@ -109,14 +109,14 @@
             content="你好，请点击下方按钮开始语音输入"
             placement="start"
             :avatarSize="40"
-            avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+            avatar="https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg"
           />
           <el-x-bubble
             v-if="chatRecordValue"
             :content="chatRecordValue"
             placement="end"
             :avatarSize="40"
-            avatar="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+            avatar="https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg"
             class="mt-10"
           />
         </div>

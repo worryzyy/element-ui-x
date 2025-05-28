@@ -7,19 +7,13 @@
 
       <div class="demo-block">
         <h3>基础用法</h3>
-        <el-x-bubble
-          content="右侧气泡示例"
-          placement="end"
-          :avatarSize="avatarSizeValue"
-          avatar="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
-          class="mt-10"
-        />
+
         <el-x-bubble
           ref="basicBubble"
           content="这是一个基本的Bubble组件示例"
           placement="start"
           :avatarSize="avatarSizeValue"
-          avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+          avatar="https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg"
           :typing="true"
           :is-fog="true"
         />
@@ -29,8 +23,9 @@
               size="small"
               type="primary"
               @click="$refs.basicBubble.restart()"
-              >重置</el-button
             >
+              重置
+            </el-button>
           </el-button-group>
         </div>
       </div>
@@ -126,21 +121,24 @@
               type="primary"
               @click="startTyping"
               :disabled="!isPaused"
-              >继续</el-button
             >
+              继续
+            </el-button>
             <el-button
               size="small"
               type="warning"
               @click="interruptTyping"
               :disabled="!isTyping || isPaused"
-              >暂停</el-button
             >
+              暂停
+            </el-button>
             <el-button
               size="small"
               type="info"
               @click="restartTyping"
-              >重置</el-button
             >
+              重置
+            </el-button>
           </el-button-group>
         </div>
       </div>
@@ -229,7 +227,7 @@
           :loading="loadingValue"
           content="头像与加载状态示例"
           placement="start"
-          avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+          avatar="https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg"
           :avatar-size="avatarSizeValue"
           :avatar-gap="avatarGapValue"
           :avatar-shape="avatarShapeValue"
@@ -264,17 +262,18 @@
             size="small"
             type="primary"
             @click="restartmdTyping"
-            >预览</el-button
           >
+            预览
+          </el-button>
         </div>
       </div>
 
       <div class="demo-block">
         <h3>自定义插槽</h3>
         <el-x-bubble placement="start">
-          <template #header>Elementuix</template>
+          <template #header>老亚瑟</template>
           <template #avatar>
-            <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+            <el-avatar src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg" />
           </template>
           <template #content>
             <div style="color: #67c23a">
@@ -313,7 +312,7 @@
           placement="end"
           class="mt-10"
         >
-          <template #header>Elementuix</template>
+          <template #header>老亚瑟</template>
           <template #avatar>
             <el-avatar icon="el-icon-user-solid" />
           </template>
@@ -337,56 +336,88 @@
           </template>
         </el-x-bubble>
       </div>
-    </el-card>
-
-    <el-card class="demo-card">
-      <div slot="header">
-        <h2>实际应用场景</h2>
-      </div>
 
       <div class="demo-block">
-        <h3>模拟聊天</h3>
-        <div class="chat-container">
-          <el-x-bubble
-            content="你好，有什么可以帮您的吗？"
-            placement="start"
-            :avatarSize="avatarSizeValue"
-            avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-          />
-          <el-x-bubble
-            content="我想了解这个组件如何使用"
-            placement="end"
-            :avatarSize="avatarSizeValue"
-            avatar="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
-            class="mt-10"
-          />
-          <el-x-bubble
-            content="这个组件支持打字机效果、Markdown渲染等功能"
-            placement="start"
-            :avatarSize="avatarSizeValue"
-            avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-            class="mt-10"
-          />
-        </div>
-        <div class="demo-controls">
-          <el-input
-            v-model="newMessage"
-            placeholder="输入消息..."
-            @keyup.enter="sendMessage"
-          >
-            <el-button
-              slot="append"
-              icon="el-icon-s-promotion"
-              @click="sendMessage"
+        <h3>应用插件</h3>
+        <el-x-bubble placement="start">
+          <template #avatar>
+            <el-avatar src="https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg" />
+          </template>
+          <template #content>
+            <el-x-typewriter
+              :content="markdownEmojiContent"
+              :md-plugins="mdPlugins"
+              :is-markdown="true"
             />
-          </el-input>
-        </div>
+          </template>
+          <template #footer>
+            <div class="footer-container">
+              <el-button
+                size="mini"
+                type="info"
+                icon="el-icon-refresh"
+                circle
+              ></el-button>
+              <el-button
+                size="mini"
+                type="success"
+                icon="el-icon-search"
+                circle
+              ></el-button>
+              <el-button
+                size="mini"
+                type="warning"
+                icon="el-icon-star-on"
+                circle
+              ></el-button>
+              <el-button
+                size="mini"
+                icon="el-icon-document"
+                circle
+              ></el-button>
+            </div>
+          </template>
+        </el-x-bubble>
+        <el-x-bubble
+          placement="end"
+          class="mt-10"
+        >
+          <template #avatar>
+            <el-avatar icon="el-icon-user-solid" />
+          </template>
+          <template #content>
+            <el-x-typewriter
+              :content="markdownMermaidContent"
+              :md-plugins="mdPlugins"
+              :is-markdown="true"
+            />
+          </template>
+          <template #footer>
+            <div class="footer-container">
+              <el-button
+                size="mini"
+                type="info"
+                icon="el-icon-refresh"
+                circle
+              ></el-button>
+              <el-button
+                size="mini"
+                icon="el-icon-edit"
+                circle
+              ></el-button>
+            </div>
+          </template>
+        </el-x-bubble>
       </div>
     </el-card>
   </div>
 </template>
 
 <script>
+  import 'katex/dist/katex.min.css'; // 确保样式被引入
+  import { full as emoji } from 'markdown-it-emoji';
+  import markdownItKatex from 'markdown-it-katex';
+  import markdownItMermaid from 'markdown-it-mermaid';
   export default {
     name: 'BubbleDemo',
     data() {
@@ -407,42 +438,112 @@
         isMarkdownValue: true,
         isFogValue: true,
         newMessage: '',
+        markdownEmojiContent: `# 你可以使用 \`markdown-it-emoji\` 插件来显示表情
+
+:rocket: :sparkles: :bookmark_tabs: :satellite: :heart_eyes: :heart:`,
+        markdownMermaidContent: `#  你可以使用 \`markdown-it-katex\` 跟 \`markdown-it-mermaid\` 插件来显示公式和图表
+$$
+\\int_{a}^{b} x^2 dx
+$$
+
+$E=mc^2$
+
+\`\`\`mermaid
+graph TD
+A-->B
+B-->C
+B-->D
+\`\`\`
+
+\`\`\`mermaid
+gantt
+    title A Gantt Diagram
+    dateFormat  YYYY-MM-DD
+    section Section
+    A task           :a1, 2014-01-01, 30d
+    Another task     :after a1  , 20d
+    section Another
+    Task in sec      :2014-01-12  , 12d
+    another task      : 24d
+\`\`\`
+
+\`\`\`mermaid
+classDiagram
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+      +String beakColor
+      +swim()
+      +quack()
+    }
+    class Fish{
+      -int sizeInFeet
+      -canEat()
+    }
+    class Zebra{
+      +bool is_wild
+      +run()
+    }
+\`\`\`
+
+\`\`\`mermaid
+sequenceDiagram
+    participant A as Alpha
+    participant B as Beta
+    A->>B: Hello Beta
+    B-->>A: Hello Alpha
+    A->>B: How are you?
+    B-->>A: I am good thanks!
+\`\`\``,
+        mdPlugins: [emoji, markdownItMermaid, markdownItKatex],
         chatMessages: [
           {
             content: '你好，有什么可以帮您的吗？',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
           },
           {
             content: '我想了解这个组件如何使用',
             placement: 'end',
-            avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
           },
           {
             content: '这个组件支持打字机效果、Markdown渲染等功能',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
           },
         ],
         markdownContent: `# Markdown示例
-这是一个支持**Markdown**渲染的打字机效果演示。
+  这是一个支持**Markdown**渲染的打字机效果演示。
 
-## 功能特点
-- 支持标题
-- 支持**粗体**和*斜体*
-- 支持代码块
-- 支持列表
+  ## 功能特点
+  - 支持标题
+  - 支持**粗体**和*斜体*
+  - 支持代码块
+  - 支持列表
 
-\`\`\`javascript
-// 示例代码
-function greet(name) {
-    return 'Hello, ' + name + '!';
-}
-console.log(greet('World'));
-\`\`\`
-[这是饿了么官网](https://element.eleme.cn/)
-`,
+  \`\`\`javascript
+  // 示例代码
+  function greet(name) {
+      return 'Hello, ' + name + '!';
+  }
+  console.log(greet('World'));
+  \`\`\`
+  [这是饿了么官网](https://element.eleme.cn/)
+  `,
       };
+    },
+    mounted() {
+      this.$nextTick(() => {
+        if (window.mermaid) {
+          window.mermaid.init();
+        }
+      });
     },
     methods: {
       startTyping() {
@@ -473,27 +574,6 @@ console.log(greet('World'));
       },
       restartmdTyping() {
         this.$refs.markdownBubble.restart();
-      },
-      sendMessage() {
-        if (!this.newMessage.trim()) return;
-
-        // 用户消息
-        this.chatMessages.push({
-          content: this.newMessage,
-          placement: 'end',
-          avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-        });
-
-        // AI回复
-        setTimeout(() => {
-          this.chatMessages.push({
-            content: `这是对"${this.newMessage}"的回复`,
-            placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-          });
-        }, 1000);
-
-        this.newMessage = '';
       },
     },
   };

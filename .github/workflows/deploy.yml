@@ -28,6 +28,8 @@ jobs:
     name: 部署文档站
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_target == 'all' || github.event.inputs.deploy_target == 'docs' }}
     runs-on: ubuntu-latest
+    env:
+      VUEPRESS_GA_ID: ${{ secrets.VUEPRESS_GA_ID }}
 
     steps:
       - name: Checkout repository
@@ -50,8 +52,6 @@ jobs:
 
       - name: Build documentation
         working-directory: docs
-        env:
-          VUEPRESS_GA_ID: ${{ secrets.VUEPRESS_GA_ID }}
         run: npm run build
 
       - name: Deploy to Vercel
@@ -80,6 +80,8 @@ jobs:
     name: 部署示例项目
     if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_target == 'all' || github.event.inputs.deploy_target == 'examples' }}
     runs-on: ubuntu-latest
+    env:
+      VUEPRESS_GA_ID: ${{ secrets.VUEPRESS_GA_ID }}
 
     steps:
       - name: Checkout code
@@ -97,8 +99,6 @@ jobs:
 
       - name: Build
         working-directory: examples
-        env:
-          VUEPRESS_GA_ID: ${{ secrets.VUEPRESS_GA_ID }}
         run: npm run build
 
       - name: Deploy to Vercel

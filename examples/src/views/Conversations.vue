@@ -158,8 +158,9 @@
                   size="small"
                   type="primary"
                   @click="addCustomCss"
-                  >添加</el-button
                 >
+                  添加
+                </el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -175,8 +176,9 @@
               size="small"
               @close="removeStyle(prop)"
               class="style-tag"
-              >{{ prop }}: {{ value }}</el-tag
             >
+              {{ prop }}: {{ value }}
+            </el-tag>
           </div>
         </div>
       </div>
@@ -278,8 +280,9 @@
                             <span
                               v-if="item.unread > 0"
                               class="unread-badge"
-                              >{{ item.unread }}</span
                             >
+                              {{ item.unread }}
+                            </span>
                           </div>
                           <div class="user-info">
                             <div class="user-name-row">
@@ -309,16 +312,18 @@
                     <span
                       class="user-status"
                       :class="{ 'is-online': activeServiceItemData.online }"
-                      >{{ activeServiceItemData.online ? '在线' : '离线' }}</span
                     >
+                      {{ activeServiceItemData.online ? '在线' : '离线' }}
+                    </span>
                   </div>
                   <div class="header-actions">
                     <el-button
                       size="mini"
                       icon="el-icon-s-tools"
                       type="text"
-                      >设置</el-button
                     >
+                      设置
+                    </el-button>
                   </div>
                 </div>
                 <div
@@ -410,8 +415,9 @@
                       type="primary"
                       icon="el-icon-s-promotion"
                       :disabled="!replyMessage.trim()"
-                      >发送</el-button
                     >
+                      发送
+                    </el-button>
                   </div>
                 </div>
                 <div
@@ -839,7 +845,7 @@
             online: true,
             unread: 3,
             time: '10:30',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
             lastMessage: '我的订单什么时候能到货？已经等了一周了',
             vipLevel: '黄金会员',
             registerTime: '2021-05-15',
@@ -852,7 +858,7 @@
             online: true,
             unread: 0,
             time: '09:45',
-            avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
             lastMessage: '好的，谢谢您的解答',
             vipLevel: '铂金会员',
             registerTime: '2020-11-23',
@@ -930,7 +936,7 @@
             online: false,
             unread: 0,
             time: '08:15',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
             lastMessage: '可以帮我推荐一款性价比高的产品吗？',
             vipLevel: '普通会员',
             registerTime: '2023-04-28',
@@ -1492,8 +1498,8 @@
         // 修复ID前缀问题
         const idPrefix = page === 1 ? 'cust' : `cust${page}_`;
         const avatars = [
-          'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-          'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+          'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
+          'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
           'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
           '',
         ];
