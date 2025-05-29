@@ -12,7 +12,15 @@ import ElXTypewriter from './components/Typewriter/index.js';
 import ElXWelcome from './components/Welcome/index.js';
 // 导入所有 mixins
 import * as customMixins from './mixins';
-import { streamMixin, sendMixin, recordMixin } from './mixins';
+import {
+  createSendUtils,
+  createStreamUtils,
+  recordMixin,
+  sendMixin,
+  streamMixin,
+  XRequest,
+  XStream,
+} from './mixins';
 
 const components = [
   ElXTypewriter,
@@ -52,8 +60,16 @@ export {
 };
 
 // 具名导出（按需引入）- Mixins
-export { customMixins, streamMixin, sendMixin, recordMixin };
-
+export {
+  createSendUtils,
+  createStreamUtils,
+  customMixins,
+  recordMixin,
+  sendMixin,
+  streamMixin,
+  XRequest,
+  XStream,
+};
 // 默认导出（完整引入）
 const ElementUIX = {
   version: '1.0.0',
@@ -70,5 +86,9 @@ ElementUIX.customMixins = customMixins;
 ElementUIX.streamMixin = streamMixin;
 ElementUIX.sendMixin = sendMixin;
 ElementUIX.recordMixin = recordMixin;
+ElementUIX.createStreamUtils = createStreamUtils;
+ElementUIX.createSendUtils = createSendUtils;
+ElementUIX.XRequest = XRequest;
+ElementUIX.XStream = XStream;
 
 export default ElementUIX;
