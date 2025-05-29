@@ -17,7 +17,7 @@
     "markdown-it-katex": "^2.0.3",
     "markdown-it-mermaid": "^0.2.5",
     "vue": "^2.6.14",
-    "vue-element-ui-x": "file:../packages/element-ui-x",
+    "vue-element-ui-x": "latest",
     "vue-router": "^3.6.5"
   },
   "devDependencies": {

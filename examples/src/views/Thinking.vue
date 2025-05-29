@@ -270,6 +270,7 @@
               :status="item.thinkingStatus"
               class="thinking-chain-wrap"
               @change="handleThinkingChange"
+              auto-collapse
             />
           </template>
 
