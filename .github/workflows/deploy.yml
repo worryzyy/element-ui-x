@@ -45,17 +45,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Configure Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "github-actions@github.com"
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
-      - name: Get package version and replace dependencies
+      - name: Get package version and prepare for deployment
         id: version-setup
         run: |
           # 获取主包版本号
@@ -63,46 +58,63 @@ jobs:
           echo "Main package version: $MAIN_VERSION"
           echo "version=$MAIN_VERSION" >> $GITHUB_OUTPUT
 
-          # 备份原始的package.json文件
-          cp docs/package.json docs/package.json.backup
-
-          # 临时替换文档站点的依赖为NPM版本
-          echo "Replacing docs package.json dependency..."
-          node -e "
-            const fs = require('fs');
-            const docsPackage = JSON.parse(fs.readFileSync('docs/package.json', 'utf8'));
+          # 检查NPM包是否存在
+          echo "Checking if NPM package exists..."
+          if npm view vue-element-ui-x@$MAIN_VERSION version 2>/dev/null; then
+            echo "✅ NPM package vue-element-ui-x@$MAIN_VERSION exists"
+            echo "npm-exists=true" >> $GITHUB_OUTPUT
             
-            // 检查是否使用本地依赖
-            if (docsPackage.dependencies['vue-element-ui-x'].startsWith('file:')) {
-              console.log('Found local dependency, replacing with NPM version...');
+            # 创建部署用的docs目录副本
+            echo "Creating deployment copy with NPM dependency..."
+            cp -r docs docs-deploy
+            
+            # 修改部署副本的package.json
+            node -e "
+              const fs = require('fs');
+              const docsPackage = JSON.parse(fs.readFileSync('docs-deploy/package.json', 'utf8'));
               docsPackage.dependencies['vue-element-ui-x'] = '^$MAIN_VERSION';
-              fs.writeFileSync('docs/package.json', JSON.stringify(docsPackage, null, 2) + '\n');
-              console.log('Replaced with version: ^$MAIN_VERSION');
-            } else {
-              console.log('Already using NPM version');
-            }
-          "
+              fs.writeFileSync('docs-deploy/package.json', JSON.stringify(docsPackage, null, 2) + '\n');
+              console.log('Updated deployment package.json to version: ^$MAIN_VERSION');
+            "
+            
+            echo "deploy-dir=docs-deploy" >> $GITHUB_OUTPUT
+          else
+            echo "❌ NPM package vue-element-ui-x@$MAIN_VERSION does not exist"
+            echo "npm-exists=false" >> $GITHUB_OUTPUT
+            
+            # 构建本地包
+            echo "Building local package..."
+            cd packages/element-ui-x
+            npm install
+            npm run build
+            cd ../..
+            
+            # 直接使用原始docs目录
+            echo "deploy-dir=docs" >> $GITHUB_OUTPUT
+          fi
 
-          # 显示修改后的依赖
-          echo "Updated docs dependency:"
-          node -p "require('./docs/package.json').dependencies['vue-element-ui-x']"
-
-      - name: Install docs dependencies
-        working-directory: docs
+      - name: Install and build documentation
         run: |
-          echo "Installing dependencies with NPM version..."
-          npm install
+          DEPLOY_DIR="${{ steps.version-setup.outputs.deploy-dir }}"
+          echo "Using deployment directory: $DEPLOY_DIR"
 
-      - name: Build documentation
-        working-directory: docs
-        run: npm run build
+          cd $DEPLOY_DIR
 
-      - name: Restore original package.json
-        run: |
-          echo "Restoring original docs package.json..."
-          mv docs/package.json.backup docs/package.json
-          echo "Restored to:"
-          node -p "require('./docs/package.json').dependencies['vue-element-ui-x']"
+          # 显示当前使用的依赖
+          echo "Current dependency in $DEPLOY_DIR:"
+          node -p "require('./package.json').dependencies['vue-element-ui-x']"
+
+          # 安装依赖
+          echo "Installing dependencies..."
+          npm install --verbose
+
+          # 验证安装
+          echo "Verifying vue-element-ui-x installation..."
+          npm list vue-element-ui-x || echo "Package not found"
+
+          # 构建
+          echo "Building documentation..."
+          npm run build
 
       - name: Deploy to Vercel
         id: deploy-docs
@@ -111,7 +123,7 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
-          working-directory: ./docs
+          working-directory: ./${{ steps.version-setup.outputs.deploy-dir }}
           vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
 
       - name: Comment deployment URL
@@ -119,11 +131,21 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const npmExists = '${{ steps.version-setup.outputs.npm-exists }}' === 'true';
+            const version = '${{ steps.version-setup.outputs.version }}';
+            let body = '📖 文档预览: ${{ steps.deploy-docs.outputs.preview-url }}';
+
+            if (npmExists) {
+              body += `\n🔄 使用NPM版本: ${version}`;
+            } else {
+              body += `\n🔧 使用本地构建版本: ${version} (NPM版本不存在)`;
+            }
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '📖 文档预览: ${{ steps.deploy-docs.outputs.preview-url }}\n🔄 使用NPM版本: ${{ steps.version-setup.outputs.version }}'
+              body: body
             })
 
   deploy-examples:
@@ -142,7 +164,7 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Get package version and replace dependencies
+      - name: Get package version and prepare for deployment
         id: version-setup
         run: |
           # 获取主包版本号
@@ -150,46 +172,63 @@ jobs:
           echo "Main package version: $MAIN_VERSION"
           echo "version=$MAIN_VERSION" >> $GITHUB_OUTPUT
 
-          # 备份原始的package.json文件
-          cp examples/package.json examples/package.json.backup
-
-          # 临时替换示例项目的依赖为NPM版本
-          echo "Replacing examples package.json dependency..."
-          node -e "
-            const fs = require('fs');
-            const examplesPackage = JSON.parse(fs.readFileSync('examples/package.json', 'utf8'));
+          # 检查NPM包是否存在
+          echo "Checking if NPM package exists..."
+          if npm view vue-element-ui-x@$MAIN_VERSION version 2>/dev/null; then
+            echo "✅ NPM package vue-element-ui-x@$MAIN_VERSION exists"
+            echo "npm-exists=true" >> $GITHUB_OUTPUT
             
-            // 检查是否使用本地依赖
-            if (examplesPackage.dependencies['vue-element-ui-x'].startsWith('file:')) {
-              console.log('Found local dependency, replacing with NPM version...');
+            # 创建部署用的examples目录副本
+            echo "Creating deployment copy with NPM dependency..."
+            cp -r examples examples-deploy
+            
+            # 修改部署副本的package.json
+            node -e "
+              const fs = require('fs');
+              const examplesPackage = JSON.parse(fs.readFileSync('examples-deploy/package.json', 'utf8'));
               examplesPackage.dependencies['vue-element-ui-x'] = '^$MAIN_VERSION';
-              fs.writeFileSync('examples/package.json', JSON.stringify(examplesPackage, null, 2) + '\n');
-              console.log('Replaced with version: ^$MAIN_VERSION');
-            } else {
-              console.log('Already using NPM version');
-            }
-          "
+              fs.writeFileSync('examples-deploy/package.json', JSON.stringify(examplesPackage, null, 2) + '\n');
+              console.log('Updated deployment package.json to version: ^$MAIN_VERSION');
+            "
+            
+            echo "deploy-dir=examples-deploy" >> $GITHUB_OUTPUT
+          else
+            echo "❌ NPM package vue-element-ui-x@$MAIN_VERSION does not exist"
+            echo "npm-exists=false" >> $GITHUB_OUTPUT
+            
+            # 构建本地包
+            echo "Building local package..."
+            cd packages/element-ui-x
+            npm install
+            npm run build
+            cd ../..
+            
+            # 直接使用原始examples目录
+            echo "deploy-dir=examples" >> $GITHUB_OUTPUT
+          fi
 
-          # 显示修改后的依赖
-          echo "Updated examples dependency:"
-          node -p "require('./examples/package.json').dependencies['vue-element-ui-x']"
-
-      - name: Install dependencies
-        working-directory: examples
+      - name: Install and build examples
         run: |
-          echo "Installing dependencies with NPM version..."
-          npm install
+          DEPLOY_DIR="${{ steps.version-setup.outputs.deploy-dir }}"
+          echo "Using deployment directory: $DEPLOY_DIR"
 
-      - name: Build
-        working-directory: examples
-        run: npm run build
+          cd $DEPLOY_DIR
 
-      - name: Restore original package.json
-        run: |
-          echo "Restoring original examples package.json..."
-          mv examples/package.json.backup examples/package.json
-          echo "Restored to:"
-          node -p "require('./examples/package.json').dependencies['vue-element-ui-x']"
+          # 显示当前使用的依赖
+          echo "Current dependency in $DEPLOY_DIR:"
+          node -p "require('./package.json').dependencies['vue-element-ui-x']"
+
+          # 安装依赖
+          echo "Installing dependencies..."
+          npm install --verbose
+
+          # 验证安装
+          echo "Verifying vue-element-ui-x installation..."
+          npm list vue-element-ui-x || echo "Package not found"
+
+          # 构建
+          echo "Building examples..."
+          npm run build
 
       - name: Deploy to Vercel
         id: deploy-examples
@@ -198,7 +237,7 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_EXAMPLES }}
-          working-directory: ./examples
+          working-directory: ./${{ steps.version-setup.outputs.deploy-dir }}
           vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
 
       - name: Comment deployment URL
@@ -206,9 +245,19 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const npmExists = '${{ steps.version-setup.outputs.npm-exists }}' === 'true';
+            const version = '${{ steps.version-setup.outputs.version }}';
+            let body = '🚀 示例预览: ${{ steps.deploy-examples.outputs.preview-url }}';
+
+            if (npmExists) {
+              body += `\n🔄 使用NPM版本: ${version}`;
+            } else {
+              body += `\n🔧 使用本地构建版本: ${version} (NPM版本不存在)`;
+            }
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🚀 示例预览: ${{ steps.deploy-examples.outputs.preview-url }}\n🔄 使用NPM版本: ${{ steps.version-setup.outputs.version }}'
+              body: body
             })
