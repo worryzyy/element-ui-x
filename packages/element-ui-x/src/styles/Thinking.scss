@@ -57,12 +57,12 @@
   font-size: $--el-x-font-size-medium;
 }
 
-.arrow {
+.thinking-arrow {
   margin-left: auto;
   transition: transform var(--el-x-thinking-animation-duration);
 }
 
-.arrow.expanded {
+.thinking-arrow.expanded {
   transform: rotate(180deg);
 }
 

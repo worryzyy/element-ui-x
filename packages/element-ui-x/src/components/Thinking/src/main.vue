@@ -59,7 +59,7 @@
       <transition name="rotate">
         <span
           v-if="!disabled"
-          class="arrow el-icon-center"
+          class="thinking-arrow el-icon-center"
           :class="{ expanded: isExpanded }"
         >
           <slot name="arrow">
