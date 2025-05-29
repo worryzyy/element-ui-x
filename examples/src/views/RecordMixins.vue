@@ -149,11 +149,11 @@
 </template>
 
 <script>
-  import { customMixins } from 'vue-element-ui-x';
+  import { recordMixin } from 'vue-element-ui-x';
 
   export default {
     name: 'RecordMixinsDemo',
-    mixins: [customMixins.recordMixin],
+    mixins: [recordMixin],
     data() {
       return {
         // 基础用法

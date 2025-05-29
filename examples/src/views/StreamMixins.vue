@@ -148,11 +148,11 @@
 </template>
 
 <script>
-  import { customMixins } from 'vue-element-ui-x';
+  import { createStreamUtils, streamMixin } from 'vue-element-ui-x';
 
   export default {
     name: 'SSEStreamDemo',
-    mixins: [customMixins.streamMixin],
+    mixins: [streamMixin],
     data() {
       return {
         content: '',
@@ -160,6 +160,7 @@
         sipStreamLoading: false,
         sipStreamError: null,
         sipStreamData: [],
+        sipStreamProcessor: null,
       };
     },
     watch: {
@@ -170,7 +171,6 @@
             this.content = '';
             return;
           }
-
           let text = '';
           for (let index = 0; index < newData.length; index++) {
             const chunk = newData[index].data;
@@ -188,7 +188,7 @@
               }
             }
           }
-          console.log('Text:', text);
+          // console.log('Textqqq:', text);
           this.content = text;
         },
         deep: true,
@@ -212,7 +212,7 @@
               console.error('解析数据时出错:', error);
             }
           }
-          console.log('Text:', text);
+          console.log('Tex11111111111t:', text);
           this.sipContent = text;
         },
         deep: true,
@@ -221,7 +221,7 @@
     methods: {
       async startSSE() {
         try {
-          const response = await fetch('https://node-test.element-plus-x.com/api/sse', {
+          const response = await fetch('https://testsse.element-ui-x.com/api/sse', {
             headers: {
               'Content-Type': 'text/event-stream',
             },
@@ -245,7 +245,7 @@
         this.sipStreamData = [];
 
         try {
-          const response = await fetch('https://node-test.element-plus-x.com/api/sip', {
+          const response = await fetch('https://testsse.element-ui-x.com/api/sip', {
             headers: {
               'Content-Type': 'application/sip',
             },
@@ -260,48 +260,47 @@
             },
           });
 
-          await this.startSIPStreamMock();
+          // 使用工具函数创建完全独立的流处理器
+
+          this.sipStreamProcessor = createStreamUtils({
+            onData: item => {
+              this.sipStreamData.push(item);
+            },
+            onComplete: allData => {
+              this.sipStreamLoading = false;
+              console.log('SIP 流完成，共收到', allData.length, '条数据');
+            },
+            onError: error => {
+              this.sipStreamError = error;
+              this.sipStreamLoading = false;
+              console.error('SIP 流错误:', error);
+            },
+            onCancel: () => {
+              this.sipStreamLoading = false;
+              console.log('SIP 流已取消');
+            },
+            onFinish: () => {
+              console.log('SIP 流处理结束');
+            },
+          });
+
+          // 启动独立的流处理
+          await this.sipStreamProcessor.startStream({
+            readableStream,
+            transformStream: sipTransformStream,
+          });
         } catch (err) {
           console.error('Fetch error:', err);
-          // 如果真实接口不可用，使用模拟数据
-          await this.startSIPStreamMock();
-        }
-      },
-
-      async startSIPStreamMock() {
-        try {
-          // 模拟 SIP 协议数据
-          const mockSipData = [
-            '# SIP Protocol Data\n\n',
-            'Processing SIP stream...\n\n',
-            '## Connection Info\n\n',
-            '- Protocol: SIP/2.0\n',
-            '- Method: INVITE\n',
-            '- Status: 200 OK\n\n',
-            '```sip\n',
-            'INVITE sip:user@example.com SIP/2.0\n',
-            'Via: SIP/2.0/UDP client.example.com:5060\n',
-            'From: <sip:caller@example.com>\n',
-            'To: <sip:user@example.com>\n',
-            '```\n\n',
-            'SIP stream processing complete!',
-          ];
-
-          for (let i = 0; i < mockSipData.length; i++) {
-            if (!this.sipStreamLoading) break;
-
-            await new Promise(resolve => setTimeout(resolve, 400));
-
-            this.sipStreamData.push(mockSipData[i]);
-          }
-        } catch (error) {
-          this.sipStreamError = error;
-        } finally {
+          this.sipStreamError = err;
           this.sipStreamLoading = false;
         }
       },
 
       cancelSIPStream() {
+        // 使用独立流工具的取消方法
+        if (this.sipStreamProcessor) {
+          this.sipStreamProcessor.cancel();
+        }
         this.sipStreamLoading = false;
       },
 
@@ -311,6 +310,13 @@
         this.sipStreamLoading = false;
         this.sipContent = '';
       },
+    },
+    beforeDestroy() {
+      // 组件销毁时清理 SIP 流处理器
+      if (this.sipStreamProcessor) {
+        this.sipStreamProcessor.cancel();
+        this.sipStreamProcessor = null;
+      }
     },
   };
 </script>

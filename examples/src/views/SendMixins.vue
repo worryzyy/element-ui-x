@@ -304,11 +304,11 @@
 </template>
 
 <script>
-  import { customMixins } from 'vue-element-ui-x';
+  import { sendMixin, XRequest } from 'vue-element-ui-x';
 
   export default {
     name: 'SendMixinsDemo',
-    mixins: [customMixins.sendMixin],
+    mixins: [sendMixin],
     data() {
       return {
         // 基础用法
@@ -451,11 +451,9 @@
 
       // ==================== XRequest SSE 示例 ====================
       initXRequest() {
-        const { XRequest } = customMixins;
-
         // 创建 SSE 实例
         this.sseRequest = new XRequest({
-          baseURL: 'https://node-test.element-plus-x.com',
+          baseURL: 'https://testsse.element-ui-x.com',
           type: 'sse',
           onMessage: msg => {
             console.log('SSE 消息:', msg);
@@ -490,7 +488,7 @@
 
         // 创建 Fetch 实例
         this.fetchRequest = new XRequest({
-          baseURL: 'https://node-test.element-plus-x.com',
+          baseURL: 'https://testsse.element-ui-x.com',
           type: 'fetch',
           transformer: data => {
             const lines = data.trim().split('\n');
