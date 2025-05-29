@@ -1,6 +1,6 @@
 {
   "name": "vue-element-ui-x",
-  "version": "0.1.6-beta",
+  "version": "0.1.7-beta",
   "description": "基于Vue 2 + Element UI的AI聊天组件库",
   "main": "lib/index.esm.js",
   "module": "lib/index.umd.js",
@@ -25,7 +25,6 @@
   "bugs": {
     "url": "https://github.com/worryzyy/element-ui-x/issues"
   },
-  
   "scripts": {
     "build": "npm run build:common && npm run build:esm && npm run build:umd && npm run build:components",
     "build:common": "webpack --config build/webpack.common.conf.js",
