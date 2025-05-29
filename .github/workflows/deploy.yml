@@ -6,18 +6,21 @@ on:
     paths:
       - 'docs/**'
       - 'examples/**'
+      - 'packages/element-ui-x/package.json'
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [master]
     paths:
       - 'docs/**'
       - 'examples/**'
+      - 'packages/element-ui-x/package.json'
   pull_request_target:
     types: [closed]
     branches: [master]
     paths:
       - 'docs/**'
       - 'examples/**'
+      - 'packages/element-ui-x/package.json'
   workflow_dispatch:
     inputs:
       deploy_target:
@@ -31,9 +34,72 @@ on:
           - examples
 
 jobs:
+  sync-version:
+    name: 同步版本号
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' && contains(github.event.head_commit.modified, 'packages/element-ui-x/package.json')) ||
+      github.event_name == 'workflow_dispatch'
+    outputs:
+      version-changed: ${{ steps.check-version.outputs.changed }}
+      new-version: ${{ steps.check-version.outputs.version }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Check and sync version
+        id: check-version
+        run: |
+          MAIN_VERSION=$(node -p "require('./packages/element-ui-x/package.json').version")
+          echo "Main package version: $MAIN_VERSION"
+
+          DOCS_VERSION=$(node -p "require('./docs/package.json').dependencies['vue-element-ui-x']" | sed 's/[\^~]//g')
+          echo "Docs package version: $DOCS_VERSION"
+
+          if [ "$MAIN_VERSION" != "$DOCS_VERSION" ]; then
+            echo "Version mismatch detected, syncing..."
+            
+            node -e "
+              const fs = require('fs');
+              const docsPackage = JSON.parse(fs.readFileSync('docs/package.json', 'utf8'));
+              docsPackage.dependencies['vue-element-ui-x'] = '^$MAIN_VERSION';
+              fs.writeFileSync('docs/package.json', JSON.stringify(docsPackage, null, 2) + '\n');
+              console.log('Updated docs package.json to version ^$MAIN_VERSION');
+            "
+            
+            git add docs/package.json
+            git commit -m "docs: sync vue-element-ui-x version to ^$MAIN_VERSION" || echo "No changes to commit"
+            git push origin ${{ github.ref_name }} || echo "Nothing to push"
+            
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "version=$MAIN_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "Versions are already in sync"
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "version=$MAIN_VERSION" >> $GITHUB_OUTPUT
+          fi
+
   deploy-docs:
     name: 部署文档站
-    if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_target == 'all' || github.event.inputs.deploy_target == 'docs' }}
+    needs: [sync-version]
+    if: |
+      always() && 
+      (needs.sync-version.result == 'success' || needs.sync-version.result == 'skipped') &&
+      (${{ github.event_name != 'workflow_dispatch' || github.event.inputs.deploy_target == 'all' || github.event.inputs.deploy_target == 'docs' }})
     runs-on: ubuntu-latest
     env:
       VUEPRESS_GA_ID: ${{ secrets.VUEPRESS_GA_ID }}
@@ -41,6 +107,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Pull latest changes
+        if: needs.sync-version.outputs.version-changed == 'true'
+        run: git pull origin ${{ github.ref_name }}
 
       - name: Configure Git
         run: |
@@ -76,11 +148,15 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            let body = '📖 文档预览: ${{ steps.deploy-docs.outputs.preview-url }}';
+            if ('${{ needs.sync-version.outputs.version-changed }}' === 'true') {
+              body += '\n🔄 已自动同步版本号到: ${{ needs.sync-version.outputs.new-version }}';
+            }
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '📖 文档预览: ${{ steps.deploy-docs.outputs.preview-url }}'
+              body: body
             })
 
   deploy-examples:
