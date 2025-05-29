@@ -22,7 +22,7 @@ module.exports = {
         {
           title: '指南',
           collapsable: false,
-          children: ['', 'installation', 'quickstart'],
+          children: ['', 'develop'],
         },
       ],
       '/components/': [
@@ -69,7 +69,7 @@ module.exports = {
         {
           title: '开发计划',
           collapsable: false,
-          children: ['', 'contribution'],
+          children: [''],
         },
       ],
       '/changelog/': [

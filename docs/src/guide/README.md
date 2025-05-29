@@ -1,55 +1,148 @@
-# 介绍
+# 安装
 
-Element-UI-X 是基于 Element UI 和 Vue 2.x 构建的企业级 AI 组件库，专为打造现代化 AI 对话界面设计。
+本节将介绍如何在项目中安装和配置 Element-UI-X。
 
-## 设计理念
+## 环境要求
 
-Element-UI-X 秉承以下设计理念：
+| 工具    | 版本要求    | 说明                                     |
+| ------- | ----------- | ---------------------------------------- |
+| Node.js | 14.x - 18.x | Vue2 项目 建议不要用最新版本,16.x 最稳妥 |
+| Vue     | 2.x         | --                                       |
+| Element | --          | --                                       |
+| npm     | --          | --                                       |
 
-1. **与 Element UI 完美集成**：所有组件都遵循 Element UI 的设计规范和主题系统，可以无缝融入现有项目
-2. **专为 AI 交互设计**：针对 AI 对话场景提供专业化组件，包括打字机效果、聊天气泡等
-3. **可定制性强**：所有组件支持高度定制，可以适应不同的设计需求
-4. **简单易用**：提供简洁明了的 API 和丰富的文档，降低使用门槛
+## 安装方式
 
-## 核心特性
+### 使用 npm 安装
 
-### 专业的 AI 交互组件
+```bash
+# 安装 Element UI
+npm install element-ui
 
-- **打字机效果**：模拟 AI 回复内容的逐字显示，提升用户体验
-- **聊天气泡**：展示用户和 AI 的对话内容，支持丰富的内容格式
-- **思考动画**：展示 AI 思考过程的动画效果
-- **消息发送框**：支持富文本输入、附件上传等功能
+# 安装 Element-UI-X
+npm install vue-element-ui-x
+```
 
-### 完善的主题系统
+## 完整引入
 
-- 继承 Element UI 的主题变量，确保视觉一致性
-- 扩展专用于 AI 交互场景的主题变量
+在 main.js 中引入 Element UI 和 Element-UI-X：
 
-### 易于集成
+```js
+import Vue from 'vue';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import ElementUIX from 'vue-element-ui-x';
 
-- 与现有 Element UI 项目无缝集成
-- 支持按需引入，减少打包体积
+// 引入 Element UI
+Vue.use(ElementUI);
 
-## 适用场景
+// 引入 Element-UI-X
+Vue.use(ElementUIX);
 
-Element-UI-X 适用于以下场景：
+new Vue({
+  el: '#app',
+  render: h => h(App),
+});
+```
 
-- **AI 聊天机器人**：构建类似 ChatGPT 的对话界面
-- **智能客服系统**：提供智能客服交互界面
-- **AI 辅助工具**：构建各类 AI 辅助工具的用户界面
-- **企业内部 AI 应用**：定制企业专属的 AI 应用界面
+以上代码便完成了 Element-UI-X 的引入。需要注意的是，Element-UI-X 依赖于 Element UI，所以必须先引入 Element UI。
 
-## 版本要求
+## 按需引入
 
-- Vue 2.X
-- Element UI 2.15.0+
-- Node.js 14+
+如果你只希望引入部分组件，可以使用按需引入的方式：
+
+### 手动引入
+
+```js
+import Vue from 'vue';
+import { ElXTypewriter } from 'vue-element-ui-x';
+
+// 注册组件
+Vue.component(ElXTypewriter.name, ElXTypewriter);
+```
+
+接下来，在 main.js 中按需引入组件：
+
+```js
+import Vue from 'vue';
+import { Button, Select } from 'element-ui';
+import { ElXTypewriter } from 'vue-element-ui-x';
+
+Vue.component(Button.name, Button);
+Vue.component(Select.name, Select);
+Vue.component(ElXTypewriter.name, ElXTypewriter);
+```
+
+## 验证安装
+
+安装完成后，你可以在组件中使用 Element-UI-X 的组件：
+
+:::demo
+
+```html
+<template>
+  <div>
+    <el-x-typewriter
+      :content="basicContent"
+      :typing="true"
+      ref="basicDemo"
+    />
+
+    <div class="demo-controls">
+      <el-button-group>
+        <el-button
+          size="small"
+          type="primary"
+          @click="startBasic"
+        >
+          预览
+        </el-button>
+        <el-button
+          size="small"
+          @click="resetBasic"
+        >
+          重置
+        </el-button>
+      </el-button-group>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        basicContent: '这是一个基础打字效果演示，展示Typewriter组件的基本功能。',
+      };
+    },
+    methods: {
+      startBasic() {
+        this.$refs.basicDemo.restart();
+      },
+      resetBasic() {
+        this.$refs.basicDemo.restart();
+      },
+    },
+  };
+</script>
+
+<style>
+  .demo-controls {
+    margin-top: 15px;
+  }
+</style>
+```
+
+:::
+
+接下来，请查看 [快速上手](./quickstart.md) 章节了解如何使用 Element-UI-X 的组件。
 
 ## 相关链接
 
 - [Element UI 官网](https://element.eleme.cn/)
 - [Vue.js 官网](https://v2.vuejs.org/)
-- [Element Plus X](https://element-plus-x.com/)
+- [Element-UI-X 演示](https://demo.element-ui-x.com/)
 - [Element-UI-X GitHub 仓库](https://github.com/worryzyy/element-ui-x)
+- [如果你在找 Vue3 版本的 Element-Plus-X，传送门](https://element-plus-x.com/)
 
 接下来，请查看 [安装](./installation.md) 章节了解如何在项目中使用 Element-UI-X。

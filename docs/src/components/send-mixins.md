@@ -15,25 +15,8 @@
 
 ## 导入和使用
 
-有以下几种方式可以导入和使用 sendMixin：
-
-### 方式一：通过 ES 模块导入(推荐)
-
 ```js
-// 单独导入 sendMixin
-import { customMixins } from 'vue-element-ui-x';
-
-export default {
-  mixins: [customMixins.sendMixin],
-  // ...
-};
-```
-
-### 方式二：通过 CommonJS 导入
-
-```js
-// 单独导入 sendMixin
-const { sendMixin } = require('vue-element-ui-x').customMixins;
+import { sendMixin } from 'vue-element-ui-x';
 
 export default {
   mixins: [sendMixin],
@@ -41,16 +24,9 @@ export default {
 };
 ```
 
-### 方式三：通过全局变量使用（浏览器环境）
-
-如果您已经通过 CDN 或 script 标签引入了完整的组件库，可以这样使用：
-
-```js
-export default {
-  mixins: [window['vue-element-ui-x'].customMixins.sendMixin],
-  // ...
-};
-```
+:::tip 说明
+以下示例的导入方式是解决文档站打包时的报错，正常情况下请按正常的方式导入即可
+:::
 
 ## 使用示例
 
@@ -612,7 +588,7 @@ export default {
 
         // 创建 XRequest 实例
         this.sse = new XRequest({
-          baseURL: 'https://node-test.element-plus-x.com',
+          baseURL: 'https://testsse.element-ui-x.com',
           type: 'sse', // 使用 SSE 模式
 
           onMessage: msg => {
@@ -878,7 +854,7 @@ export default {
 
         // 创建 XRequest 实例
         this.sse = new XRequest({
-          baseURL: 'https://node-test.element-plus-x.com',
+          baseURL: 'https://testsse.element-ui-x.com',
           type: 'fetch', // 使用 fetch 模式
           transformer: e => {
             console.log('transformer:', e);
@@ -905,7 +881,7 @@ export default {
           },
           onAbort: () => {
             console.log('请求已中止');
-            this.$message.info('请求已中止');
+            // this.$message.info('请求已中止');
             this.loading = false;
           },
           onFinish: messages => {
@@ -1147,7 +1123,7 @@ export default {
 
         // 创建 XRequest 实例
         this.sse = new XRequest({
-          baseURL: 'https://node-test.element-plus-x.com',
+          baseURL: 'https://testsse.element-ui-x.com',
           type: 'fetch', // 使用 fetch 模式
           transformer: e => {
             console.log('transformer:', e);

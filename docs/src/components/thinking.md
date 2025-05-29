@@ -36,7 +36,10 @@
       style="margin-top: 20px;"
     />
 
-    <el-x-thinking status="error" style="margin-top: 20px;" />
+    <el-x-thinking
+      status="error"
+      style="margin-top: 20px;"
+    />
   </div>
 </template>
 ```
@@ -54,12 +57,15 @@
   <div>
     <el-x-thinking status="thinking">
       <template #status-icon="{ status }">
-        <i v-if="status === 'thinking'" class="el-icon-loading"></i>
+        <i
+          v-if="status === 'thinking'"
+          class="el-icon-loading"
+        ></i>
       </template>
 
       <template #label="{ status }">
-        {{ status === 'thinking' ? 'AI思考中...' : status === 'error' ? '出错了'
-        : status === 'end' ? '已完成' : '开始思考' }}
+        {{ status === 'thinking' ? 'AI思考中...' : status === 'error' ? '出错了' : status === 'end'
+        ? '已完成' : '开始思考' }}
       </template>
 
       <template #content="{ content }">
@@ -99,9 +105,24 @@
 
     <div style="margin-top: 20px;">
       <el-button-group>
-        <el-button size="small" @click="status = 'start'">开始</el-button>
-        <el-button size="small" @click="status = 'thinking'">思考中</el-button>
-        <el-button size="small" @click="status = 'end'">完成</el-button>
+        <el-button
+          size="small"
+          @click="status = 'start'"
+        >
+          开始
+        </el-button>
+        <el-button
+          size="small"
+          @click="status = 'thinking'"
+        >
+          思考中
+        </el-button>
+        <el-button
+          size="small"
+          @click="status = 'end'"
+        >
+          完成
+        </el-button>
       </el-button-group>
     </div>
   </div>
@@ -111,7 +132,7 @@
   export default {
     data() {
       return {
-        status: "start",
+        status: 'start',
       };
     },
   };

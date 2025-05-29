@@ -14,25 +14,8 @@
 
 ## 导入和使用
 
-有以下几种方式可以导入和使用 streamMixin：
-
-### 方式一：通过 ES 模块导入(推荐)
-
 ```js
-// 单独导入 streamMixin
-import { customMixins } from 'vue-element-ui-x';
-
-export default {
-  mixins: [customMixins.streamMixin],
-  // ...
-};
-```
-
-### 方式二：通过 CommonJS 导入
-
-```js
-// 单独导入 streamMixin
-const { streamMixin } = require('vue-element-ui-x').customMixins;
+import { streamMixin } from 'vue-element-ui-x';
 
 export default {
   mixins: [streamMixin],
@@ -40,16 +23,10 @@ export default {
 };
 ```
 
-### 方式三：通过全局变量使用（浏览器环境）
-
-如果您已经通过 CDN 或 script 标签引入了完整的组件库，可以这样使用：
-
-```js
-export default {
-  mixins: [window['vue-element-ui-x'].customMixins.streamMixin],
-  // ...
-};
-```
+````
+:::tip 说明
+以下示例的导入方式是解决文档站打包时的报错，正常情况下请按正常的方式导入即可
+:::
 
 ## 使用示例
 
@@ -156,7 +133,7 @@ export default {
     methods: {
       async startSSE() {
         try {
-          const response = await fetch('https://node-test.element-plus-x.com/api/sse', {
+          const response = await fetch('https://testsse.element-ui-x.com/api/sse', {
             headers: { 'Content-Type': 'text/event-stream' },
           });
           const readableStream = response.body;
@@ -187,7 +164,7 @@ export default {
     margin-top: 8px;
   }
 </style>
-```
+````
 
 :::
 
@@ -288,7 +265,7 @@ export default {
     methods: {
       async startSIPStream() {
         try {
-          const response = await fetch('https://node-test.element-plus-x.com/api/sip', {
+          const response = await fetch('https://testsse.element-ui-x.com/api/sip', {
             headers: { 'Content-Type': 'application/sip' },
           });
           const readableStream = response.body;
