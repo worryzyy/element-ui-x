@@ -19,9 +19,9 @@
           :action="uploadAction"
           :http-request="customUpload"
           :show-file-list="false"
-          @change="handleUploadChange"
-          @success="handleUploadSuccess"
-          @error="handleUploadError"
+          :on-change="handleUploadChange"
+          :on-success="handleUploadSuccess"
+          :on-error="handleUploadError"
         >
           <i class="el-icon-plus uploader-icon"></i>
         </el-upload>
@@ -94,9 +94,9 @@
                 height: overflow === 'scrollY' && '',
               }"
               class="el-x-attachments-upload-btn"
-              @change="handleUploadChange"
-              @success="handleUploadSuccess"
-              @error="handleUploadError"
+              :on-change="handleUploadChange"
+              :on-success="handleUploadSuccess"
+              :on-error="handleUploadError"
             >
               <i class="el-icon-plus uploader-icon"></i>
             </el-upload>
@@ -349,7 +349,7 @@
         // 默认实现：发出事件，让父组件处理
         const { file } = options;
         this.$emit(
-          'uploadChange',
+          'upload-change',
           {
             file,
           },
@@ -365,13 +365,13 @@
         return Promise.resolve();
       },
       handleUploadChange(file, fileList) {
-        this.$emit('uploadChange', file, fileList);
+        this.$emit('upload-change', file, fileList);
       },
       handleUploadSuccess(response, file, fileList) {
-        this.$emit('uploadSuccess', response, file, fileList);
+        this.$emit('upload-success', response, file, fileList);
       },
       handleUploadError(error, file, fileList) {
-        this.$emit('uploadError', error, file, fileList);
+        this.$emit('upload-error', error, file, fileList);
       },
 
       getTargetElement() {
