@@ -32,10 +32,11 @@
                   :class="{ 'active-sticky': stickyGroupKeys.has(group.key) }"
                 >
                   <slot
-                    name="groupTitle"
+                    name="group-title"
                     :group="group"
-                    >{{ group.title }}</slot
                   >
+                    {{ group.title }}
+                  </slot>
                 </div>
                 <div class="el-x-conversation-group-items">
                   <conversations-item
@@ -194,8 +195,8 @@
 </template>
 
 <script>
-  import ConversationsItem from './components/item.vue';
   import { get } from 'lodash';
+  import ConversationsItem from './components/item.vue';
 
   export default {
     name: 'ElXConversations',
