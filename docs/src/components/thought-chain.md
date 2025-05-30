@@ -34,24 +34,24 @@
         thinkingItems: [
           {
             id: 1,
-            title: "第一步",
-            thinkTitle: "理解问题",
-            thinkContent: "分析用户需求的核心要点",
-            status: "success",
+            title: '第一步',
+            thinkTitle: '理解问题',
+            thinkContent: '分析用户需求的核心要点',
+            status: 'success',
           },
           {
             id: 2,
-            title: "第二步",
-            thinkTitle: "收集信息",
-            thinkContent: "从知识库中检索相关信息",
-            status: "success",
+            title: '第二步',
+            thinkTitle: '收集信息',
+            thinkContent: '从知识库中检索相关信息',
+            status: 'success',
           },
           {
             id: 3,
-            title: "第三步",
-            thinkTitle: "生成回答",
-            thinkContent: "基于收集的信息构建回答",
-            status: "loading",
+            title: '第三步',
+            thinkTitle: '生成回答',
+            thinkContent: '基于收集的信息构建回答',
+            status: 'loading',
           },
         ],
       };
@@ -75,6 +75,7 @@
       :thinking-items="thinkingItems"
       :line-gradient="true"
       dot-size="small"
+      @handle-expand="expandChange"
     />
   </div>
 </template>
@@ -86,23 +87,31 @@
         thinkingItems: [
           {
             id: 1,
-            title: "分析阶段",
-            thinkTitle: "问题分解",
-            thinkContent: "将复杂问题拆解为多个子问题",
+            title: '分析阶段',
+            thinkTitle: '问题分解',
+            thinkContent: '将复杂问题拆解为多个子问题',
             isCanExpand: true,
             isDefaultExpand: true,
-            status: "success",
+            status: 'success',
           },
           {
             id: 2,
-            title: "推理阶段",
-            thinkTitle: "逻辑推理",
-            thinkContent: "基于子问题逐步推导解决方案",
+            title: '推理阶段',
+            thinkTitle: '逻辑推理',
+            thinkContent: '基于子问题逐步推导解决方案',
             isCanExpand: true,
-            status: "success",
+            status: 'success',
           },
         ],
       };
+    },
+    methods: {
+      testHandleExpand(item) {
+        console.log(item);
+      },
+      change(item) {
+        console.log('change', item);
+      },
     },
   };
 </script>
@@ -133,39 +142,39 @@
       return {
         customStatusEnum: {
           loading: {
-            value: "processing",
-            type: "primary",
+            value: 'processing',
+            type: 'primary',
           },
           error: {
-            value: "failed",
-            type: "danger",
+            value: 'failed',
+            type: 'danger',
           },
           success: {
-            value: "completed",
-            type: "success",
+            value: 'completed',
+            type: 'success',
           },
         },
         thinkingItems: [
           {
             id: 1,
-            title: "数据收集",
-            status: "completed",
-            thinkTitle: "收集用户数据",
-            thinkContent: "从数据库获取用户历史记录",
+            title: '数据收集',
+            status: 'completed',
+            thinkTitle: '收集用户数据',
+            thinkContent: '从数据库获取用户历史记录',
           },
           {
             id: 2,
-            title: "分析处理",
-            status: "processing",
-            thinkTitle: "分析用户行为",
-            thinkContent: "使用机器学习模型分析用户偏好",
+            title: '分析处理',
+            status: 'processing',
+            thinkTitle: '分析用户行为',
+            thinkContent: '使用机器学习模型分析用户偏好',
           },
           {
             id: 3,
-            title: "生成结果",
-            status: "failed",
-            thinkTitle: "生成推荐",
-            thinkContent: "由于数据不足，无法生成准确推荐",
+            title: '生成结果',
+            status: 'failed',
+            thinkTitle: '生成推荐',
+            thinkContent: '由于数据不足，无法生成准确推荐',
           },
         ],
       };
@@ -213,14 +222,8 @@ thinkingItems 数组中每个对象可包含以下字段：
 | iconColor       | 节点图标颜色(dotIsIcon 为 true 时生效) | String         | ''                                         |
 | iconSize        | 节点图标大小(dotIsIcon 为 true 时生效) | String         | 'normal'/'large'                           |
 
-## 方法
-
-| 方法名       | 说明                      | 参数             | 返回值 |
-| ------------ | ------------------------- | ---------------- | ------ |
-| handleExpand | 处理折叠面板展开/收起事件 | item: 当前思考项 | -      |
-
 ## 事件
 
-| 事件名       | 说明                      | 回调参数       |
-| ------------ | ------------------------- | -------------- |
-| handleExpand | 当思考项被展开/收起时触发 | 当前思考项对象 |
+| 事件名        | 说明                      | 回调参数       |
+| ------------- | ------------------------- | -------------- |
+| handle-expand | 当思考项被展开/收起时触发 | 当前思考项对象 |
