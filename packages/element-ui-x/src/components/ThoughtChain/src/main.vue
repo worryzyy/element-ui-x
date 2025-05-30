@@ -30,7 +30,7 @@
           </div>
           <el-collapse
             v-else-if="!item.isDefaultExpand"
-            @change="() => handleExpand(item)"
+            @change="() => onExpand(item)"
           >
             <el-collapse-item :title="getThinkTitle(item)">
               <el-x-typewriter
@@ -43,7 +43,7 @@
           <el-collapse
             v-else
             v-model="defaultActiveNodes"
-            @change="() => handleExpand(item)"
+            @change="() => onExpand(item)"
           >
             <el-collapse-item
               :title="getThinkTitle(item)"
@@ -228,8 +228,8 @@
       });
     },
     methods: {
-      handleExpand(item) {
-        this.$emit('handleExpand', item);
+      onExpand(item) {
+        this.$emit('handle-expand', item);
       },
       setRadialGradient(colors, ele) {
         const length = ele.length;
