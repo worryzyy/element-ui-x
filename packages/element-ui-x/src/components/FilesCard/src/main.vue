@@ -50,11 +50,9 @@
             ref="imgRef"
             class="el-x-filescard-img"
             :src="_previewImgUrl"
-            :preview-src-list="imgPreview ? [_previewImgUrl] : []"
+            :preview-src-list="_previewImgUrl ? [_previewImgUrl] : []"
             fit="cover"
-            :show-progress="false"
-            hide-on-click-modal
-            @show="handlePreviewAction('self')"
+            @click="handlePreviewAction('self')"
           />
 
           <!-- 无预览地址时显示默认图标 -->
@@ -164,9 +162,9 @@
 </template>
 
 <script>
+  import { getFileType, getSize, previewImage } from '../../../utils/index.js';
   import svgIconMap from './fileSvg/index.js';
   import { colorMap } from './options.js';
-  import { previewImage, getFileType, getSize } from '../../../utils/index.js';
 
   export default {
     name: 'ElXFilesCard',
@@ -371,12 +369,10 @@
       },
       handlePreviewAction(type) {
         if (this.imgPreview && this.$refs.imgRef && this._previewImgUrl && type === 'mask') {
-          console.log(this.$refs.imgRef);
           this.$refs.imgRef.clickHandler();
-          // this.$refs.imgRef.showPreview()
         }
         if (type === 'self') {
-          this.$emit('imagePreview', {
+          this.$emit('image-preview', {
             ...this.propsData,
           });
         }
