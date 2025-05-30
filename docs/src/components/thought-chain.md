@@ -106,10 +106,7 @@
       };
     },
     methods: {
-      testHandleExpand(item) {
-        console.log(item);
-      },
-      change(item) {
+      expandChange(item) {
         console.log('change', item);
       },
     },
