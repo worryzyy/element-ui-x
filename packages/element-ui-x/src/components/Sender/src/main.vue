@@ -174,9 +174,10 @@
             name="trigger-popover"
             :trigger-string="triggerString"
             :readonly="readOnly"
-            >当前触发的字符为：{{ `${triggerString}` }} 在这里定义的内容，但注意这里的回车事件将会被
-            输入框 覆盖</slot
           >
+            当前触发的字符为：{{ `${triggerString}` }} 在这里定义的内容，但注意这里的回车事件将会被
+            输入框 覆盖
+          </slot>
         </template>
       </el-popover>
     </div>
@@ -553,7 +554,7 @@
 
         if (this.hasOnRecordingChangeListener) {
           this.speechLoading = true;
-          this.$emit('recordingChange', true);
+          this.$emit('recording-change', true);
           return;
         }
 
