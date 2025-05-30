@@ -195,7 +195,7 @@
           :style="customContainerStyle"
           @change="handleStyledItemChange"
         >
-          <template #groupTitle="{ group }">
+          <template #group-title="{ group }">
             <div class="custom-group-title">
               <i :class="getGroupIcon(group.title)"></i>
               <span>{{ group.title }}</span>

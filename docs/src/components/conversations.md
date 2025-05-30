@@ -33,22 +33,22 @@
     data() {
       return {
         basicItems: [
-          { id: "1", label: "最近对话1", prefixIcon: "el-icon-chat-dot-round" },
-          { id: "2", label: "最近对话2", prefixIcon: "el-icon-chat-round" },
+          { id: '1', label: '最近对话1', prefixIcon: 'el-icon-chat-dot-round' },
+          { id: '2', label: '最近对话2', prefixIcon: 'el-icon-chat-round' },
           {
-            id: "3",
-            label: "最近对话3",
-            prefixIcon: "el-icon-chat-line-round",
+            id: '3',
+            label: '最近对话3',
+            prefixIcon: 'el-icon-chat-line-round',
           },
-          { id: "4", label: "最近对话4", prefixIcon: "el-icon-chat-dot-round" },
+          { id: '4', label: '最近对话4', prefixIcon: 'el-icon-chat-dot-round' },
           {
-            id: "5",
-            label: "最近对话5",
-            prefixIcon: "el-icon-chat-round",
+            id: '5',
+            label: '最近对话5',
+            prefixIcon: 'el-icon-chat-round',
             disabled: true,
           },
         ],
-        activeConversation: "1",
+        activeConversation: '1',
       };
     },
     methods: {
@@ -70,9 +70,7 @@
 
 ```html
 <template>
-  <div
-    style="height: 300px; overflow: hidden; border: 1px solid #ebeef5; border-radius: 4px;"
-  >
+  <div style="height: 300px; overflow: hidden; border: 1px solid #ebeef5; border-radius: 4px;">
     <el-x-conversations
       :items="groupedItems"
       :active="activeGroupedConversation"
@@ -88,83 +86,83 @@
       return {
         groupedItems: [
           {
-            id: "g1",
-            label: "工作群1",
-            group: "工作",
-            prefixIcon: "el-icon-office-building",
+            id: 'g1',
+            label: '工作群1',
+            group: '工作',
+            prefixIcon: 'el-icon-office-building',
           },
           {
-            id: "g2",
-            label: "工作群2",
-            group: "工作",
-            prefixIcon: "el-icon-office-building",
+            id: 'g2',
+            label: '工作群2',
+            group: '工作',
+            prefixIcon: 'el-icon-office-building',
           },
           {
-            id: "g3",
-            label: "工作群3",
-            group: "工作",
-            prefixIcon: "el-icon-office-building",
+            id: 'g3',
+            label: '工作群3',
+            group: '工作',
+            prefixIcon: 'el-icon-office-building',
           },
           {
-            id: "g4",
-            label: "学习小组1",
-            group: "学习",
-            prefixIcon: "el-icon-reading",
+            id: 'g4',
+            label: '学习小组1',
+            group: '学习',
+            prefixIcon: 'el-icon-reading',
           },
           {
-            id: "g5",
-            label: "学习小组2",
-            group: "学习",
-            prefixIcon: "el-icon-reading",
+            id: 'g5',
+            label: '学习小组2',
+            group: '学习',
+            prefixIcon: 'el-icon-reading',
           },
           {
-            id: "g6",
-            label: "同学聊天群",
-            group: "学习",
-            prefixIcon: "el-icon-reading",
+            id: 'g6',
+            label: '同学聊天群',
+            group: '学习',
+            prefixIcon: 'el-icon-reading',
           },
           {
-            id: "g7",
-            label: "家人群聊",
-            group: "家庭",
-            prefixIcon: "el-icon-house",
+            id: 'g7',
+            label: '家人群聊',
+            group: '家庭',
+            prefixIcon: 'el-icon-house',
           },
           {
-            id: "g8",
-            label: "亲戚群",
-            group: "家庭",
-            prefixIcon: "el-icon-house",
+            id: 'g8',
+            label: '亲戚群',
+            group: '家庭',
+            prefixIcon: 'el-icon-house',
           },
           {
-            id: "g9",
-            label: "朋友圈1",
-            group: "朋友",
-            prefixIcon: "el-icon-user",
+            id: 'g9',
+            label: '朋友圈1',
+            group: '朋友',
+            prefixIcon: 'el-icon-user',
           },
           {
-            id: "g10",
-            label: "朋友圈2",
-            group: "朋友",
-            prefixIcon: "el-icon-user",
+            id: 'g10',
+            label: '朋友圈2',
+            group: '朋友',
+            prefixIcon: 'el-icon-user',
           },
           {
-            id: "g11",
-            label: "朋友圈3",
-            group: "朋友",
-            prefixIcon: "el-icon-user",
+            id: 'g11',
+            label: '朋友圈3',
+            group: '朋友',
+            prefixIcon: 'el-icon-user',
           },
           {
-            id: "g12",
-            label: "未分类会话1",
-            prefixIcon: "el-icon-chat-line-round",
+            id: 'g12',
+            label: '未分类会话1',
+            prefixIcon: 'el-icon-chat-line-round',
           },
           {
-            id: "g13",
-            label: "未分类会话2",
-            prefixIcon: "el-icon-chat-line-round",
+            id: 'g13',
+            label: '未分类会话2',
+            prefixIcon: 'el-icon-chat-line-round',
           },
         ],
-        activeGroupedConversation: "g1",
+        activeGroupedConversation: 'g1',
       };
     },
     methods: {
@@ -200,40 +198,40 @@
       return {
         customGroupedItems: [
           {
-            id: "c1",
-            label: "项目A讨论",
-            group: "A级项目",
-            prefixIcon: "el-icon-s-flag",
+            id: 'c1',
+            label: '项目A讨论',
+            group: 'A级项目',
+            prefixIcon: 'el-icon-s-flag',
           },
           {
-            id: "c2",
-            label: "项目B规划",
-            group: "B级项目",
-            prefixIcon: "el-icon-s-flag",
+            id: 'c2',
+            label: '项目B规划',
+            group: 'B级项目',
+            prefixIcon: 'el-icon-s-flag',
           },
           {
-            id: "c3",
-            label: "项目C评审",
-            group: "C级项目",
-            prefixIcon: "el-icon-s-flag",
+            id: 'c3',
+            label: '项目C评审',
+            group: 'C级项目',
+            prefixIcon: 'el-icon-s-flag',
           },
           {
-            id: "c4",
-            label: "项目A需求",
-            group: "A级项目",
-            prefixIcon: "el-icon-s-flag",
+            id: 'c4',
+            label: '项目A需求',
+            group: 'A级项目',
+            prefixIcon: 'el-icon-s-flag',
           },
           {
-            id: "c5",
-            label: "项目B进度",
-            group: "B级项目",
-            prefixIcon: "el-icon-s-flag",
+            id: 'c5',
+            label: '项目B进度',
+            group: 'B级项目',
+            prefixIcon: 'el-icon-s-flag',
           },
           {
-            id: "c6",
-            label: "项目D立项",
-            group: "D级项目",
-            prefixIcon: "el-icon-s-flag",
+            id: 'c6',
+            label: '项目D立项',
+            group: 'D级项目',
+            prefixIcon: 'el-icon-s-flag',
           },
         ],
         groupSortOptions: {
@@ -243,7 +241,7 @@
             return (levels[a] || 999) - (levels[b] || 999);
           },
         },
-        activeCustomGrouped: "c1",
+        activeCustomGrouped: 'c1',
       };
     },
     methods: {
@@ -267,7 +265,10 @@
 <template>
   <div>
     <div style="margin-bottom: 15px;">
-      <el-switch v-model="showBuiltInMenu" active-text="启用内置菜单" />
+      <el-switch
+        v-model="showBuiltInMenu"
+        active-text="启用内置菜单"
+      />
     </div>
     <el-x-conversations
       :items="menuItems"
@@ -280,9 +281,7 @@
       v-if="operationLogs.length > 0"
       style="margin-top: 15px; padding: 10px; background-color: #f9f9f9; border-radius: 4px;"
     >
-      <div style="margin-bottom: 8px; font-weight: 500; font-size: 14px;">
-        操作记录：
-      </div>
+      <div style="margin-bottom: 8px; font-weight: 500; font-size: 14px;">操作记录：</div>
       <div
         v-for="(log, index) in operationLogs"
         :key="index"
@@ -299,12 +298,12 @@
     data() {
       return {
         menuItems: [
-          { id: "m1", label: "产品需求讨论", prefixIcon: "el-icon-document" },
-          { id: "m2", label: "每周例会", prefixIcon: "el-icon-date" },
-          { id: "m3", label: "营销策略", prefixIcon: "el-icon-data-analysis" },
-          { id: "m4", label: "技术架构评审", prefixIcon: "el-icon-cpu" },
+          { id: 'm1', label: '产品需求讨论', prefixIcon: 'el-icon-document' },
+          { id: 'm2', label: '每周例会', prefixIcon: 'el-icon-date' },
+          { id: 'm3', label: '营销策略', prefixIcon: 'el-icon-data-analysis' },
+          { id: 'm4', label: '技术架构评审', prefixIcon: 'el-icon-cpu' },
         ],
-        activeMenuItem: "m1",
+        activeMenuItem: 'm1',
         showBuiltInMenu: true,
         operationLogs: [],
       };
@@ -315,8 +314,8 @@
       },
       handleMenuCommand(command, item) {
         const actionMap = {
-          rename: "重命名",
-          delete: "删除",
+          rename: '重命名',
+          delete: '删除',
         };
         const actionText = actionMap[command] || command;
         this.operationLogs.unshift(`${actionText} - ${item.label}`);
@@ -357,44 +356,44 @@
       return {
         customMenuItems: [
           {
-            id: "cm1",
-            label: "重要客户A",
-            prefixIcon: "el-icon-user",
-            suffixIcon: "el-icon-star-on",
+            id: 'cm1',
+            label: '重要客户A',
+            prefixIcon: 'el-icon-user',
+            suffixIcon: 'el-icon-star-on',
           },
-          { id: "cm2", label: "潜在客户B", prefixIcon: "el-icon-user" },
-          { id: "cm3", label: "合作伙伴C", prefixIcon: "el-icon-user-solid" },
-          { id: "cm4", label: "供应商D", prefixIcon: "el-icon-user" },
+          { id: 'cm2', label: '潜在客户B', prefixIcon: 'el-icon-user' },
+          { id: 'cm3', label: '合作伙伴C', prefixIcon: 'el-icon-user-solid' },
+          { id: 'cm4', label: '供应商D', prefixIcon: 'el-icon-user' },
         ],
         customMenu: [
           {
-            label: "标为重要",
-            key: "star",
-            icon: "el-icon-star-off",
-            command: "star",
+            label: '标为重要',
+            key: 'star',
+            icon: 'el-icon-star-off',
+            command: 'star',
             menuItemHoverStyle: {
-              color: "#E6A23C",
-              backgroundColor: "rgba(230, 162, 60, 0.1)",
+              color: '#E6A23C',
+              backgroundColor: 'rgba(230, 162, 60, 0.1)',
             },
           },
           {
-            label: "归档",
-            key: "archive",
-            icon: "el-icon-folder",
-            command: "archive",
+            label: '归档',
+            key: 'archive',
+            icon: 'el-icon-folder',
+            command: 'archive',
           },
           {
-            label: "删除",
-            key: "delete",
-            icon: "el-icon-delete",
-            command: "delete",
+            label: '删除',
+            key: 'delete',
+            icon: 'el-icon-delete',
+            command: 'delete',
             menuItemHoverStyle: {
-              color: "#F56C6C",
-              backgroundColor: "rgba(245, 108, 108, 0.1)",
+              color: '#F56C6C',
+              backgroundColor: 'rgba(245, 108, 108, 0.1)',
             },
           },
         ],
-        activeCustomMenuItem: "cm1",
+        activeCustomMenuItem: 'cm1',
       };
     },
     methods: {
@@ -404,16 +403,14 @@
       handleCustomMenuCommand(command, item) {
         this.$message({
           message: `执行操作: ${command} - ${item.label}`,
-          type: "success",
+          type: 'success',
         });
 
         // 如果是星标操作，切换星标状态
-        if (command === "star") {
-          const targetItem = this.customMenuItems.find((i) => i.id === item.id);
+        if (command === 'star') {
+          const targetItem = this.customMenuItems.find(i => i.id === item.id);
           if (targetItem) {
-            targetItem.suffixIcon = targetItem.suffixIcon
-              ? null
-              : "el-icon-star-on";
+            targetItem.suffixIcon = targetItem.suffixIcon ? null : 'el-icon-star-on';
           }
         }
       },
@@ -433,9 +430,7 @@
 ```html
 <template>
   <div>
-    <div
-      style="border: 1px solid #ebeef5; border-radius: 4px; height: 300px; overflow: hidden;"
-    >
+    <div style="border: 1px solid #ebeef5; border-radius: 4px; height: 300px; overflow: hidden;">
       <el-x-conversations
         ref="lazyConversations"
         :items="lazyItems"
@@ -449,12 +444,13 @@
     </div>
     <div style="margin-top: 15px;">
       <div style="display: flex; align-items: center; margin-bottom: 15px;">
-        <h4
-          style="margin: 0 10px 0 0; font-size: 14px; font-weight: normal; width: 80px;"
-        >
+        <h4 style="margin: 0 10px 0 0; font-size: 14px; font-weight: normal; width: 80px;">
           按钮样式：
         </h4>
-        <el-radio-group v-model="toTopBtnType" size="small">
+        <el-radio-group
+          v-model="toTopBtnType"
+          size="small"
+        >
           <el-radio-button label="primary">主要</el-radio-button>
           <el-radio-button label="success">成功</el-radio-button>
           <el-radio-button label="warning">警告</el-radio-button>
@@ -470,11 +466,11 @@
     data() {
       return {
         lazyItems: [],
-        activeLazyItem: "",
+        activeLazyItem: '',
         isLoadingMore: false,
         currentLazyPage: 0,
         maxLazyPages: 5,
-        toTopBtnType: "primary",
+        toTopBtnType: 'primary',
       };
     },
     created() {
@@ -500,7 +496,7 @@
               return {
                 id: itemId,
                 label: `懒加载项目 ${newPage}-${index + 1}`,
-                prefixIcon: "el-icon-time",
+                prefixIcon: 'el-icon-time',
               };
             });
 
@@ -542,16 +538,16 @@
     :style-config="customContainerStyle"
     @change="handleStyledItemChange"
   >
-    <template #groupTitle="{ group }">
+    <template #group-title="{ group }">
       <div style="display: flex; align-items: center;">
         <i
           :class="getGroupIcon(group.title)"
           style="margin-right: 8px; color: #67C23A;"
         ></i>
         <span>{{ group.title }}</span>
-        <span style="margin-left: 5px; font-size: 12px; color: #909399;"
-          >({{ group.children.length }})</span
-        >
+        <span style="margin-left: 5px; font-size: 12px; color: #909399;">
+          ({{ group.children.length }})
+        </span>
       </div>
     </template>
 
@@ -574,66 +570,66 @@
       return {
         styledItems: [
           {
-            id: "s1",
-            label: "设计讨论",
-            group: "设计部",
-            time: "10:30",
-            icon: "el-icon-picture-outline",
+            id: 's1',
+            label: '设计讨论',
+            group: '设计部',
+            time: '10:30',
+            icon: 'el-icon-picture-outline',
           },
           {
-            id: "s2",
-            label: "UI评审",
-            group: "设计部",
-            time: "昨天",
-            icon: "el-icon-picture",
+            id: 's2',
+            label: 'UI评审',
+            group: '设计部',
+            time: '昨天',
+            icon: 'el-icon-picture',
           },
           {
-            id: "s3",
-            label: "后端架构",
-            group: "技术部",
-            time: "周一",
-            icon: "el-icon-s-operation",
+            id: 's3',
+            label: '后端架构',
+            group: '技术部',
+            time: '周一',
+            icon: 'el-icon-s-operation',
           },
           {
-            id: "s4",
-            label: "API讨论",
-            group: "技术部",
-            time: "周二",
-            icon: "el-icon-s-platform",
+            id: 's4',
+            label: 'API讨论',
+            group: '技术部',
+            time: '周二',
+            icon: 'el-icon-s-platform',
           },
           {
-            id: "s5",
-            label: "产品规划",
-            group: "产品部",
-            time: "3天前",
-            icon: "el-icon-s-goods",
+            id: 's5',
+            label: '产品规划',
+            group: '产品部',
+            time: '3天前',
+            icon: 'el-icon-s-goods',
           },
           {
-            id: "s6",
-            label: "需求梳理",
-            group: "产品部",
-            time: "上周",
-            icon: "el-icon-document",
+            id: 's6',
+            label: '需求梳理',
+            group: '产品部',
+            time: '上周',
+            icon: 'el-icon-document',
           },
         ],
-        activeStyledItem: "s1",
+        activeStyledItem: 's1',
         customItemsStyle: {
-          borderRadius: "4px",
-          margin: "4px 10px 4px 0",
-          padding: "10px 12px",
+          borderRadius: '4px',
+          margin: '4px 10px 4px 0',
+          padding: '10px 12px',
         },
         customItemsHoverStyle: {
-          backgroundColor: "#f0f9eb",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
+          backgroundColor: '#f0f9eb',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
         },
         customItemsActiveStyle: {
-          backgroundColor: "#f0f9eb",
-          borderLeft: "3px solid #67C23A",
+          backgroundColor: '#f0f9eb',
+          borderLeft: '3px solid #67C23A',
         },
         customContainerStyle: {
-          borderRadius: "8px",
-          boxShadow: "0 2px 12px 0 rgba(0, 0, 0, 0.1)",
-          width: "320px",
+          borderRadius: '8px',
+          boxShadow: '0 2px 12px 0 rgba(0, 0, 0, 0.1)',
+          width: '320px',
         },
       };
     },
@@ -643,11 +639,11 @@
       },
       getGroupIcon(group) {
         const iconMap = {
-          设计部: "el-icon-picture-outline",
-          技术部: "el-icon-s-operation",
-          产品部: "el-icon-s-goods",
+          设计部: 'el-icon-picture-outline',
+          技术部: 'el-icon-s-operation',
+          产品部: 'el-icon-s-goods',
         };
-        return iconMap[group] || "el-icon-folder";
+        return iconMap[group] || 'el-icon-folder';
       },
     },
   };
@@ -710,7 +706,7 @@
 | ----------- | -------------- | ------------------- |
 | header      | 列表顶部内容   | -                   |
 | footer      | 列表底部内容   | -                   |
-| groupTitle  | 分组标题       | { group: 分组对象 } |
+| group-title | 分组标题       | { group: 分组对象 } |
 | label       | 项目标签内容   | { item: 项目对象 }  |
 | menu        | 自定义菜单内容 | { item: 项目对象 }  |
 | more-filled | 更多图标内容   | 菜单相关属性        |
