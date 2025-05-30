@@ -211,6 +211,7 @@
         name="关闭预览悬停遮罩.jpeg"
         :img-preview-mask="false"
         show-del-icon
+        @image-preview="imagePreviewEvent"
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
       <el-x-files-card
@@ -264,7 +265,15 @@
     </div>
   </div>
 </template>
-
+<script>
+  export default {
+    methods: {
+      imagePreviewEvent(e) {
+        console.log(e);
+      },
+    },
+  };
+</script>
 <style>
   .files-card-container {
     display: flex;
@@ -435,7 +444,7 @@
 
 ## 事件
 
-| 事件名       | 说明               | 回调参数     |
-| ------------ | ------------------ | ------------ |
-| delete       | 点击删除按钮时触发 | 文件数据对象 |
-| imagePreview | 图片预览时触发     | 文件数据对象 |
+| 事件名        | 说明               | 回调参数     |
+| ------------- | ------------------ | ------------ |
+| delete        | 点击删除按钮时触发 | 文件数据对象 |
+| image-preview | 图片预览时触发     | 文件数据对象 |
