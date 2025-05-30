@@ -275,7 +275,7 @@
       v-model="message"
       placeholder="输入 @ 或 # 触发弹出框"
       :trigger-strings="['@', '#']"
-      triggerPopoverOffset="0"
+      :triggerPopoverOffset="0"
       :trigger-popover-visible.sync="showTriggerPopover"
       @submit="handleSubmit"
       @trigger="handleTrigger"
@@ -355,7 +355,6 @@
             size="small"
             type="primary"
             :disabled="!message"
-            @click="submit"
             icon="el-icon-position"
           ></el-button>
         </div>
@@ -723,7 +722,7 @@
 | input                        | 输入值变化时触发                   | (value: string)                                                                                         |
 | submit                       | 点击提交按钮或按下提交快捷键时触发 | (value: string)                                                                                         |
 | cancel                       | 点击取消按钮时触发                 | (value: string)                                                                                         |
-| recordingChange              | 语音识别状态变化时触发             | (isRecording: boolean)                                                                                  |
+| recording-change             | 语音识别状态变化时触发             | (isRecording: boolean)                                                                                  |
 | trigger                      | 触发字符状态变化时触发             | { oldValue: string, newValue: string, triggerString: string, isOpen: boolean, cursorPosition?: number } |
 | update:triggerPopoverVisible | 弹出框显示状态变化时触发           | (visible: boolean)                                                                                      |
 
