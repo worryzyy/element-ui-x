@@ -1,6 +1,5 @@
 /**
  * @description 提供语音识别的混入，允许语音输入并处理开始、结束、结果及错误等各种事件。
- *
  * @mixin recordMixin
  */
 

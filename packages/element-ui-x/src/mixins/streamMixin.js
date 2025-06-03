@@ -1,8 +1,6 @@
 /**
- * @fileoverview Vue2 流式数据处理 Mixin
- * 从 Vue3 useXStream hooks 转换而来，支持 SSE 数据解析和中断功能
- * @author Element UI X Team
- * @version 1.0.0
+ * @fileoverview  流式数据处理 Mixin
+ * 支持 SSE 数据解析和中断功能
  */
 
 /**
@@ -189,7 +187,7 @@ function XStream(options, signal) {
 }
 
 /**
- * streamMixin -
+ * streamMixin
  * 用于处理流式数据的 mixin，支持 SSE 数据解析和中断功能
  * @namespace streamMixin
  * @type {Object}
