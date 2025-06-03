@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <el-container class="app-container">
+    <el-container
+      v-if="$route.path != '/difychat'"
+      class="app-container"
+    >
       <!-- 侧边栏 -->
       <el-aside class="app-aside">
         <div class="aside-content">
@@ -158,6 +161,9 @@
         </el-main>
       </el-container>
     </el-container>
+    <div v-else>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -177,6 +183,9 @@
           }
         });
       },
+    },
+    mounted() {
+      console.log(this.$route.path);
     },
     methods: {
       getCurrentPageTitle() {
@@ -213,7 +222,7 @@
   $aside-width: 260px;
   $header-height: 60px;
   $aside-bg: #ffffff;
-  $main-bg: #f8fafc;
+  $main-bg: #ffffff;
   $border-color: #e5e7eb;
   $shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
   $shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07);

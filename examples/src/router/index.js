@@ -4,6 +4,7 @@ import Attachments from '../views/Attachments.vue';
 import Bubble from '../views/Bubble.vue';
 import BubbleList from '../views/BubbleList.vue';
 import Conversations from '../views/Conversations.vue';
+import DifyChat from '../views/DifyChat/index.vue';
 import FilesCard from '../views/FilesCard.vue';
 import Overview from '../views/Overview.vue';
 import Prompts from '../views/Prompts.vue';
@@ -93,6 +94,14 @@ export default new Router({
       path: '/streammixins',
       name: 'StreamMixins',
       component: StreamMixins,
+    },
+    {
+      path: '/difychat',
+      name: 'DifyChat',
+      component: DifyChat,
+      meta: {
+        hideInMenu: true,
+      },
     },
     {
       path: '*',
