@@ -43,16 +43,18 @@
                 class="el-x-conversation-label"
                 :class="{ 'text-gradient': isTextOverflow(item.label) }"
                 :style="labelStyle"
-                >{{ item.label }}</span
               >
+                {{ item.label }}
+              </span>
             </el-tooltip>
             <span
               v-else
               class="el-x-conversation-label"
               :class="{ 'text-gradient': isTextOverflow(item.label) }"
               :style="labelStyle"
-              >{{ item.label }}</span
             >
+              {{ item.label }}
+            </span>
           </div>
         </slot>
       </div>
@@ -76,14 +78,6 @@
           <el-dropdown
             trigger="click"
             :placement="menuPlacement"
-            :offset="menuOffset"
-            :teleported="menuTeleported"
-            :popper-class="
-              menuClassName
-                ? `el-x-conversation-dropdown-menu ${menuClassName}`
-                : 'el-x-conversation-dropdown-menu'
-            "
-            :max-height="menuMaxHeight"
             :disabled="item.disabled"
             @visible-change="updateMenuStatus"
             @command="onMenuCommand"
@@ -113,8 +107,9 @@
                   :divided="menuItem.divided"
                   :command="menuItem.command"
                   :style="menuItem.menuItemStyle"
-                  >{{ menuItem.label }}</el-dropdown-item
                 >
+                  {{ menuItem.label }}
+                </el-dropdown-item>
               </slot>
             </el-dropdown-menu>
           </el-dropdown>
@@ -185,14 +180,7 @@
         type: String,
         default: 'bottom-start',
       },
-      menuOffset: {
-        type: Number,
-        default: 50,
-      },
-      menuMaxHeight: {
-        type: Number,
-        default: undefined,
-      },
+
       menuStyle: {
         type: Object,
         default: () => ({}),
@@ -200,14 +188,6 @@
       menuShowArrow: {
         type: Boolean,
         default: false,
-      },
-      menuClassName: {
-        type: String,
-        default: '',
-      },
-      menuTeleported: {
-        type: Boolean,
-        default: true,
       },
       active: {
         type: Boolean,
@@ -306,17 +286,19 @@
           // 延迟执行，确保菜单已经渲染完成
           // 展开菜单时候 决定隐藏箭头
           this.$nextTick(() => {
-            // 获取页面的所有 conversation-dropdown-menu 组件
-            const dropdownMenu = document.querySelectorAll('.el-x-conversation-dropdown-menu');
+            // 获取页面的所有 el-dropdown-menu el-popper 组件
+            const dropdownMenu = document.querySelectorAll('.el-dropdown-menu.el-popper');
+            console.log(dropdownMenu);
+
             if (dropdownMenu.length === 0) {
               return;
             }
             dropdownMenu.forEach(dropdownMenuItem => {
-              // 将它子元素中所有 el-popper__arrow 元素的 display 设置为 none
+              // 将它子元素中所有 popper__arrow 元素的 display 设置为 none
               // 如果 dropdownMenuItem 存在，且display 不为 none
               if (dropdownMenuItem && dropdownMenuItem.style.display !== 'none') {
                 // 隐藏箭头
-                const arrows = dropdownMenuItem.querySelectorAll('.el-popper__arrow');
+                const arrows = dropdownMenuItem.querySelectorAll('.popper__arrow');
                 if (arrows.length === 0) {
                   return;
                 }
@@ -325,9 +307,8 @@
                 });
 
                 // 设置 .el-dropdown-menu__item 悬停样式
-                const items = dropdownMenuItem.querySelectorAll(
-                  '.el-dropdown-menu__item:not(.is-disabled)',
-                );
+                const items = dropdownMenuItem.querySelectorAll('.el-dropdown-menu__item');
+                console.log('items', items);
                 if (items.length === 0) {
                   return;
                 }
