@@ -137,8 +137,16 @@
             return;
           }
 
-          // 仅在内容完全不同时重置
-          if (!oldVal || newVal !== oldVal) {
+          // 流式更新优化：如果新内容是旧内容的扩展，则不重置
+          if (oldVal && newVal && newVal.startsWith(oldVal)) {
+            // 增量更新，只更新缓存，不重置打字状态
+            this.contentCache = newVal;
+            // 如果当前没在打字，且有新内容，继续打字
+            if (!this.isTyping && this.typingIndex < newVal.length) {
+              this.startTyping();
+            }
+          } else if (!oldVal || newVal !== oldVal) {
+            // 完全不同的内容才重置
             this.contentCache = newVal || '';
             if (!this.isTyping) {
               this.typingIndex = 0;
