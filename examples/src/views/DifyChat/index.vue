@@ -335,6 +335,7 @@
         return conversation ? conversation.label : '对话';
       },
     },
+
     async mounted() {
       await this.loadConversations();
       this.initializeDifyRequest();
@@ -402,6 +403,7 @@
             avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
             created_at: Date.now(),
             isMarkdown: true,
+            loading: true,
             typing: {
               interval: 80,
               step: 5,
@@ -470,9 +472,11 @@
 
           case 'delta':
             // 增量消息
-            // this.messages[messageIndex].typing = false;
+            if (this.messages[messageIndex].loading) {
+              this.messages[messageIndex].loading = false;
+            }
             this.currentStreamContent += data.data.delta;
-            this.messages[messageIndex].content += data.data.delta;
+            this.messages[messageIndex].content = this.currentStreamContent;
             break;
 
           case 'end':
@@ -622,12 +626,8 @@
 
       // 新建对话
       async handleNewChat() {
-        if (this.activeConversation == null) {
-          return;
-        }
         try {
           this.isCreatingChat = true;
-
           // 重置当前状态
           this.activeConversation = null;
           this.messages = [];
