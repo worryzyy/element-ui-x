@@ -44,6 +44,9 @@ export class XRequest {
       signal,
     };
 
+    // 用于存储跨 chunk 的不完整数据
+    let buffer = '';
+
     return fetch(this._baseURL + url, fetchOptions)
       .then(res => res.body)
       .then(async body => {
@@ -60,6 +63,10 @@ export class XRequest {
           done = streamDone;
 
           if (streamDone) {
+            // 处理缓冲区中剩余的数据
+            if (buffer.trim()) {
+              this.processBufferData(buffer);
+            }
             this._onFinish && this._onFinish(this._messages);
             return;
           }
@@ -68,17 +75,23 @@ export class XRequest {
             const chunk = decoder.decode(value, {
               stream: true,
             });
-            const chunkUse = chunk.startsWith('data: ') ? chunk.slice(6) : chunk;
+            // console.log('chunk:', chunk);
+            // 将新数据添加到缓冲区
+            buffer += chunk;
 
-            try {
-              const res = this._transformer ? this._transformer(chunkUse) : chunkUse;
-              this._messages.push(res);
-              this._onMessage && this._onMessage(res);
-            } catch (error) {
-              this._onError && this._onError(error);
-              this._controller && this._controller.abort();
-              return Promise.reject(error);
-            }
+            // 处理缓冲区中的完整行
+            buffer = this.processBuffer(buffer);
+            // const chunkUse = chunk.startsWith('data: ') ? chunk.slice(6) : chunk;
+
+            // try {
+            //   const res = this._transformer ? this._transformer(chunkUse) : chunkUse;
+            //   this._messages.push(res);
+            //   this._onMessage && this._onMessage(res);
+            // } catch (error) {
+            //   this._onError && this._onError(error);
+            //   this._controller && this._controller.abort();
+            //   return Promise.reject(error);
+            // }
           }
         }
       })
@@ -90,6 +103,86 @@ export class XRequest {
         this._onError && this._onError(err);
         this._controller && this._controller.abort();
       });
+  }
+  /**
+   * 处理缓冲区数据，提取完整的行
+   * @param {string} buffer - 缓冲区数据
+   * @returns {string} 剩余的不完整数据
+   */
+  processBuffer(buffer) {
+    const lines = buffer.split('\n');
+    // console.log('lines:', lines);
+    // 保留最后一行（可能不完整）
+    const remainingData = lines.pop();
+
+    // 处理完整的行
+    for (const line of lines) {
+      this.processLine(line);
+    }
+
+    return remainingData || '';
+  }
+
+  /**
+   * 处理单行数据
+   * @param {string} line - 单行数据
+   */
+  processLine(line) {
+    // 跳过空行
+    if (!line.trim()) {
+      return;
+    }
+
+    // 处理 data: 开头的行
+    if (line.startsWith('data: ')) {
+      const dataContent = line.slice(6);
+
+      // 检查是否是结束标识
+      if (dataContent.trim() === '[DONE]') {
+        this._isFinished = true;
+        this._onFinish && this._onFinish(this._messages);
+        this.abort();
+        return;
+      }
+
+      // 跳过空数据
+      if (!dataContent.trim()) {
+        return;
+      }
+
+      try {
+        // 尝试解析和处理数据
+        let processedData;
+        try {
+          // 首先尝试作为 JSON 解析
+          processedData = JSON.parse(dataContent);
+        } catch {
+          // 如果不是 JSON，使用原始数据
+          processedData = dataContent;
+        }
+        // console.log('processedData:', processedData, processedData.answer);
+
+        const res = this._transformer ? this._transformer(processedData) : processedData;
+        this._messages.push(res);
+        this._onMessage && this._onMessage(res);
+      } catch (error) {
+        console.error('Error processing line:', line, error);
+        this._onError && this._onError(error);
+        this._controller && this._controller.abort();
+      }
+    }
+    // 可以在这里处理其他类型的行（如果需要）
+  }
+
+  /**
+   * 处理缓冲区中剩余的数据（在流结束时调用）
+   * @param {string} buffer - 剩余的缓冲区数据
+   */
+  processBufferData(buffer) {
+    const lines = buffer.split('\n');
+    for (const line of lines) {
+      this.processLine(line);
+    }
   }
 
   _sendWithSSE(url, options = {}) {
