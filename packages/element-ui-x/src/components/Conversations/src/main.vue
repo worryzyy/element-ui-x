@@ -58,12 +58,8 @@
                     :menu="menu"
                     :show-built-in-menu="showBuiltInMenu"
                     :menu-placement="menuPlacement"
-                    :menu-offset="menuOffset"
-                    :menu-max-height="menuMaxHeight"
                     :menu-style="menuStyle"
                     :menu-show-arrow="menuShowArrow"
-                    :menu-class-name="menuClassName"
-                    :menu-teleported="menuTeleported"
                     @click="handleClick(item)"
                     @menu-command="handleMenuItemClick"
                   >
@@ -122,12 +118,8 @@
                 :menu="menu"
                 :show-built-in-menu="showBuiltInMenu"
                 :menu-placement="menuPlacement"
-                :menu-offset="menuOffset"
-                :menu-max-height="menuMaxHeight"
                 :menu-style="menuStyle"
                 :menu-show-arrow="menuShowArrow"
-                :menu-class-name="menuClassName"
-                :menu-teleported="menuTeleported"
                 @click="handleClick(item)"
                 @menu-command="handleMenuItemClick"
               >
@@ -287,10 +279,7 @@
         type: String,
         default: 'bottom-start',
       },
-      menuOffset: {
-        type: Number,
-        default: 50,
-      },
+
       menuShowArrow: {
         type: Boolean,
         default: false,
@@ -299,15 +288,12 @@
         type: String,
         default: '',
       },
-      menuTeleported: {
-        type: Boolean,
-        default: true,
-      },
+
       menuStyle: {
         type: Object,
         default: () => ({}),
       },
-      menuMaxHeight: Number,
+
       loadMoreLoading: {
         type: Boolean,
         default: false,
@@ -578,7 +564,7 @@
       },
 
       handleMenuItemClick(command, item) {
-        this.$emit('menuCommand', command, item);
+        this.$emit('menu-command', command, item);
       },
 
       bindGroupRef(el, item) {

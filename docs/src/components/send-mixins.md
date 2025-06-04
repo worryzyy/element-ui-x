@@ -857,13 +857,11 @@ export default {
           baseURL: 'https://testsse.element-ui-x.com',
           type: 'fetch', // 使用 fetch 模式
           transformer: e => {
-            console.log('transformer:', e);
             const a = e.trim().split('\n');
             const r = a.pop();
             return r;
           },
           onMessage: msg => {
-            console.log('收到消息:', msg);
             // 假设消息格式为 { data: string }
             if (msg && msg.data) {
               this.str += `
