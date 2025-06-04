@@ -288,7 +288,6 @@
           this.$nextTick(() => {
             // 获取页面的所有 el-dropdown-menu el-popper 组件
             const dropdownMenu = document.querySelectorAll('.el-dropdown-menu.el-popper');
-            console.log(dropdownMenu);
 
             if (dropdownMenu.length === 0) {
               return;
@@ -308,7 +307,6 @@
 
                 // 设置 .el-dropdown-menu__item 悬停样式
                 const items = dropdownMenuItem.querySelectorAll('.el-dropdown-menu__item');
-                console.log('items', items);
                 if (items.length === 0) {
                   return;
                 }
