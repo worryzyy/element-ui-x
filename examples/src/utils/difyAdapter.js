@@ -37,53 +37,50 @@ export function transformBlockingResponse(response) {
  * @param {string} chunk - SSE 数据块
  * @returns {Object|null} 解析后的数据对象
  */
+/**
+ * 解析 SSE 流式数据块
+ * @param {string} chunk - SSE 数据块
+ * @returns {Object|null} 解析后的数据对象
+ */
 export function parseSSEChunk(chunk) {
   try {
-    // 处理 dify SSE 格式：data: {json}
-    // console.log(chunk,chunk.startsWith('data: '))
+    // console.log('chunk:', chunk);
+    const data = chunk;
 
-    const cleanChunk =  chunk;
-    // 检查是否是结束标志
-    if (cleanChunk === '[DONE]') {
-      return { type: 'done' };
-    }
-    
-    const data = JSON.parse(cleanChunk);
-    
     // 根据 event 类型处理不同的数据
     switch (data.event) {
       case 'message':
-        return {
-          type: 'message',
-          data: {
-            id: data.message_id,
-            content: data.answer || '',
-            conversation_id: data.conversation_id,
-            created_at: data.created_at,
-            metadata: data.metadata || {},
-          },
-        };
-      
-      case 'message_delta':
+        // 检查是否是结束标志（answer 为空字符串）
+        if (data.answer === '') {
+          return {
+            type: 'end',
+            data: {
+              id: data.message_id,
+              conversation_id: data.conversation_id,
+              created_at: data.created_at,
+              task_id: data.task_id,
+              metadata: {
+                from_variable_selector: data.from_variable_selector || [],
+              },
+            },
+          };
+        }
+
+        // 返回增量数据
         return {
           type: 'delta',
           data: {
             id: data.message_id,
-            delta: data.delta || '',
+            delta: data.answer, // answer 字段包含增量内容
             conversation_id: data.conversation_id,
+            created_at: data.created_at,
+            task_id: data.task_id,
+            metadata: {
+              from_variable_selector: data.from_variable_selector || [],
+            },
           },
         };
-      
-      case 'message_end':
-        return {
-          type: 'end',
-          data: {
-            id: data.message_id,
-            conversation_id: data.conversation_id,
-            metadata: data.metadata || {},
-          },
-        };
-      
+
       default:
         return {
           type: 'unknown',
@@ -101,7 +98,7 @@ export function parseSSEChunk(chunk) {
  * @returns {Function} 转换器函数
  */
 export function createDifyTransformer() {
-  return (chunk) => {
+  return chunk => {
     return parseSSEChunk(chunk);
   };
 }
@@ -116,12 +113,12 @@ export function createDifyTransformer() {
  */
 export function createDifyRequestConfig(options = {}) {
   const { baseURL = 'https://api.dify.ai/v1', apiKey, user = 'default-user' } = options;
-  
+
   return {
     baseURL,
     baseOptions: {
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
     },
@@ -154,14 +151,18 @@ export function buildChatMessageRequest(params) {
     inputs = {},
     auto_generate_name = true,
   } = params;
-  
+
   return {
     query,
     inputs,
     response_mode,
     user,
-    ...(conversation_id && { conversation_id }),
-    ...(files.length > 0 && { files }),
+    ...(conversation_id && {
+      conversation_id,
+    }),
+    ...(files.length > 0 && {
+      files,
+    }),
     auto_generate_name,
   };
 }

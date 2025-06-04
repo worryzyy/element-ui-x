@@ -1,29 +1,72 @@
 <template>
   <div class="dify-chat">
     <div class="dify-main">
-      <div class="side-menu">
-        <div class="side-header">
-          <h2>Dify chat</h2>
-          <el-button
-            type="primary"
-            class="new-chat-btn"
-            icon="el-icon-plus"
-            @click="handleNewChat"
-            :loading="isCreatingChat"
+      <transition name="sidebar">
+        <!-- 收起状态的独立侧边栏 -->
+        <div
+          class="side-menu-collapsed"
+          v-if="isSideCollapsed"
+        >
+          <div class="collapsed-header">
+            <div
+              class="toggle-side"
+              @click="toggleSideMenu"
+            >
+              <img src="../../assets/images/dify-logo.svg" />
+            </div>
+          </div>
+          <div
+            class="toggle-side collapsed-new-chat"
+            @click="toggleSideMenu"
           >
-            新对话
-          </el-button>
+            <i class="el-icon-d-arrow-right"></i>
+          </div>
+          <div
+            class="collapsed-new-chat"
+            @click="handleNewChat"
+          >
+            <i class="el-icon-plus"></i>
+          </div>
         </div>
-        <el-x-conversations
-          :items="conversationList"
-          :active="activeConversation"
-          @change="handleConversationChange"
-          @delete="handleDeleteConversation"
-          @rename="handleRenameConversation"
-          class="conversation-list"
-          v-loading="isLoadingConversations"
-        />
-      </div>
+        <div
+          class="side-menu"
+          v-if="!isSideCollapsed"
+        >
+          <div class="side-header">
+            <div class="side-action">
+              <h2>Dify chat</h2>
+              <div
+                class="toggle-side"
+                @click="toggleSideMenu"
+              >
+                <i class="el-icon-d-arrow-left"></i>
+              </div>
+            </div>
+
+            <div
+              class="new-chat"
+              @click="handleNewChat"
+            >
+              <div style="margin-right: 10px"><i class="el-icon-plus"></i></div>
+              新对话
+              <span class="keyboard-shortcut">Ctrl+K</span>
+            </div>
+          </div>
+          <el-x-conversations
+            :styleConfig="{ width: '260px', backgroundColor: '#f9fbff', padding: 0 }"
+            class="conversation-list"
+            :items="conversationList"
+            :active="activeConversation"
+            :show-built-in-menu="true"
+            :label-max-width="190"
+            :menu="customMenu"
+            :groupable="true"
+            v-loading="isLoadingConversations"
+            @menu-command="handleMenuCommand"
+            @change="handleConversationChange"
+          />
+        </div>
+      </transition>
       <div class="chat-container">
         <div class="chat-header">
           <div
@@ -68,10 +111,11 @@
           </div>
 
           <el-x-bubble-list
+            ref="bubbleListRef"
             :list="messages"
             :max-height="`calc(100vh - 160px)`"
-            :defaultIsMarkdown="true"
-            :defaultTyping="{ interval: 30, step: 2 }"
+            :defaultMaxWidth="'100%'"
+            defaultShape="corner"
             v-loading="isLoadingMessages"
           />
         </div>
@@ -82,7 +126,6 @@
               variant="updown"
               @submit="handleSendMessage"
               :loading="loading"
-              :disabled="loading"
             >
               <template #prefix>
                 <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
@@ -154,25 +197,51 @@
 
 <script>
   import { conversationApi, fileApi, messageApi } from '@/api/dify';
-  import { sendMixin,streamMixin } from 'vue-element-ui-x';
+  import ElXConversations from '../../../../packages/element-ui-x/src/components/Conversations/index';
+  // import { sendMixin,streamMixin } from 'vue-element-ui-x';
+  import { sendMixin, streamMixin } from '../../../../packages/element-ui-x/src/mixins';
+
   import {
-    createDifyTransformer,
-    createDifyRequestConfig,
     buildChatMessageRequest,
-    transformBlockingResponse,
+    createDifyRequestConfig,
+    createDifyTransformer,
   } from '@/utils/difyAdapter';
+
+  import { addTimeGroupToItems } from '@/utils/timeUtils';
 
   export default {
     name: 'DifyChat',
     mixins: [sendMixin, streamMixin],
+    components: {
+      ElXConversations,
+    },
     data() {
       return {
+        // 侧边栏状态
+        isSideCollapsed: false,
         // 会话相关
         conversationList: [],
         activeConversation: null,
         isLoadingConversations: false,
         isCreatingChat: false,
-
+        customMenu: [
+          {
+            label: '修改名称',
+            key: 'rename',
+            icon: 'el-icon-edit',
+            command: 'rename',
+          },
+          {
+            label: '删除',
+            key: 'delete',
+            icon: 'el-icon-delete',
+            command: 'delete',
+            menuItemHoverStyle: {
+              color: '#F56C6C',
+              backgroundColor: 'rgba(245, 108, 108, 0.1)',
+            },
+          },
+        ],
         // 消息相关
         messages: [],
         isLoadingMessages: false,
@@ -188,7 +257,7 @@
         // Dify 配置
         difyConfig: {
           baseURL: 'https://api.dify.ai/v1',
-          apiKey: 'app-xNtq4zmi29hQkFgX2vDnkPKW' ,
+          apiKey: 'app-xNtq4zmi29hQkFgX2vDnkPKW',
           user: 'default-user',
         },
 
@@ -269,12 +338,39 @@
     async mounted() {
       await this.loadConversations();
       this.initializeDifyRequest();
+      // 添加全局键盘事件监听
+      document.addEventListener('keydown', this.handleKeyDown);
+      // 从localStorage恢复侧边栏状态
+      const savedState = localStorage.getItem('dify-side-collapsed');
+      if (savedState !== null) {
+        this.isSideCollapsed = savedState === 'true';
+      }
+    },
+    beforeDestroy() {
+      // 移除全局键盘事件监听
+      document.removeEventListener('keydown', this.handleKeyDown);
     },
     methods: {
+      // 切换侧边栏展开/收起状态
+      toggleSideMenu() {
+        this.isSideCollapsed = !this.isSideCollapsed;
+        // 保存状态到localStorage
+        localStorage.setItem('dify-side-collapsed', this.isSideCollapsed);
+      },
+      // 处理键盘快捷键
+      handleKeyDown(event) {
+        // 检测Ctrl+K组合键
+        if (event.ctrlKey && event.key === 'k') {
+          // 阻止默认行为（如浏览器的搜索功能）
+          event.preventDefault();
+          // 触发新建对话
+          this.handleNewChat();
+        }
+      },
       // 初始化 Dify 请求配置
       initializeDifyRequest() {
         const requestConfig = createDifyRequestConfig(this.difyConfig);
-        
+
         this.initSend({
           sendHandler: this.sendDifyMessage,
           abortHandler: this.abortDifyMessage,
@@ -294,7 +390,6 @@
             id: Date.now().toString(),
             content: message,
             placement: 'end',
-            avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
             created_at: Date.now(),
           };
           this.messages.push(userMessage);
@@ -306,7 +401,11 @@
             placement: 'start',
             avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
             created_at: Date.now(),
-            typing: true,
+            isMarkdown: true,
+            typing: {
+              interval: 80,
+              step: 5,
+            },
           };
           this.messages.push(aiMessage);
           this.currentMessageId = aiMessage.id;
@@ -326,7 +425,7 @@
             baseURL: this.difyConfig.baseURL,
             baseOptions: {
               headers: {
-                'Authorization': `Bearer ${this.difyConfig.apiKey}`,
+                Authorization: `Bearer ${this.difyConfig.apiKey}`,
                 'Content-Type': 'application/json',
               },
             },
@@ -341,11 +440,10 @@
             method: 'POST',
             body: JSON.stringify(requestBody),
             headers: {
-                'Authorization': `Bearer ${this.difyConfig.apiKey}`,
-                'Content-Type': 'application/json',
-              },
+              Authorization: `Bearer ${this.difyConfig.apiKey}`,
+              'Content-Type': 'application/json',
+            },
           });
-
         } catch (error) {
           console.error('发送消息失败:', error);
           this.$message.error('发送消息失败: ' + error.message);
@@ -372,8 +470,9 @@
 
           case 'delta':
             // 增量消息
+            // this.messages[messageIndex].typing = false;
             this.currentStreamContent += data.data.delta;
-            this.messages[messageIndex].content = this.currentStreamContent;
+            this.messages[messageIndex].content += data.data.delta;
             break;
 
           case 'end':
@@ -394,14 +493,14 @@
         }
 
         // 强制更新视图
-        this.$forceUpdate();
+        // this.$forceUpdate();
       },
 
       // 处理流式错误
       handleStreamError(error) {
         console.error('流式响应错误:', error);
         this.$message.error('接收消息时发生错误');
-        
+
         if (this.currentMessageId) {
           const messageIndex = this.messages.findIndex(msg => msg.id === this.currentMessageId);
           if (messageIndex !== -1) {
@@ -437,24 +536,30 @@
       },
 
       // 加载会话列表
+      // 加载会话列表
       async loadConversations() {
         try {
           this.isLoadingConversations = true;
           const response = await conversationApi.getConversations();
 
           // 转换数据格式以适配UI组件
-          this.conversationList = response.data.map(item => ({
+          const formattedData = response.data.map(item => ({
             id: item.id,
             label: item.name || '新对话',
             prefixIcon: 'el-icon-chat-dot-round',
             created_at: item.created_at,
           }));
 
+          // 使用工具函数添加时间分组
+          this.conversationList = addTimeGroupToItems(formattedData).sort(
+            (a, b) => new Date(b.created_at) - new Date(a.created_at),
+          ); // 按创建时间倒序排列
+
           // 如果有会话，默认选中第一个
-          if (this.conversationList.length > 0 && !this.activeConversation) {
-            this.activeConversation = this.conversationList[0].id;
-            await this.loadMessages(this.activeConversation);
-          }
+          // if (this.conversationList.length > 0 && !this.activeConversation) {
+          //   this.activeConversation = this.conversationList[0].id;
+          //   await this.loadMessages(this.activeConversation);
+          // }
         } catch (error) {
           this.$message.error('加载会话列表失败: ' + error.message);
         } finally {
@@ -472,17 +577,35 @@
             conversation_id: conversationId,
           });
 
-          // 转换消息格式
-          this.messages = response.data.map(item => ({
-            id: item.id,
-            content: item.query || item.answer,
-            placement: item.from_source === 'user' ? 'end' : 'start',
-            avatar:
-              item.from_source === 'user'
-                ? 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-                : 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-            created_at: item.created_at,
-          }));
+          // 转换消息格式 - 修复消息内容处理逻辑
+          const messages = [];
+          response.data.forEach(item => {
+            // 添加用户消息
+            if (item.query) {
+              messages.push({
+                id: `${item.id}_user`,
+                content: item.query,
+                placement: 'end',
+                created_at: item.created_at,
+                typing: false,
+              });
+            }
+
+            // 添加AI回答消息
+            if (item.answer) {
+              messages.push({
+                id: `${item.id}_assistant`,
+                content: item.answer,
+                placement: 'start',
+                avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+                created_at: item.created_at,
+                typing: false,
+              });
+            }
+          });
+
+          // 按时间排序消息
+          this.messages = messages.sort((a, b) => a.created_at - b.created_at);
         } catch (error) {
           this.$message.error('加载消息历史失败: ' + error.message);
         } finally {
@@ -499,6 +622,9 @@
 
       // 新建对话
       async handleNewChat() {
+        if (this.activeConversation == null) {
+          return;
+        }
         try {
           this.isCreatingChat = true;
 
@@ -507,8 +633,6 @@
           this.messages = [];
           this.senderValue = '';
           this.uploadedFiles = [];
-
-          this.$message.success('已创建新对话');
           this.$emit('new-chat');
         } catch (error) {
           this.$message.error('创建新对话失败: ' + error.message);
@@ -516,7 +640,27 @@
           this.isCreatingChat = false;
         }
       },
-
+      handleMenuCommand(command, item) {
+        console.log(command, item);
+        if (command == 'delete') {
+          this.handleDeleteConversation(item);
+        } else if (command == 'rename') {
+          this.$prompt('请输入新的对话标题', '重命名对话', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            inputValue: item.label,
+          })
+            .then(({ value }) => {
+              if (value && value.trim()) {
+                const conversation = this.conversationList.find(
+                  item => item.id === this.activeConversation,
+                );
+                this.handleRenameConversation(item, value.trim());
+              }
+            })
+            .catch(() => {});
+        }
+      },
       // 删除会话
       async handleDeleteConversation(conversation) {
         try {
@@ -590,9 +734,13 @@
       // 发送消息
       async handleSendMessage() {
         if (!this.senderValue.trim() || this.loading) return;
-        
+
         const message = this.senderValue.trim();
         this.handleSend(message);
+        this.$nextTick(() => {
+          this.$refs.bubbleListRef.scrollToBottom();
+          this.senderValue = '';
+        });
       },
 
       // 停止消息
@@ -601,8 +749,8 @@
       },
 
       // 处理提示项点击
-      handlePromptItemClick({data}) {
-        console.log(data)
+      handlePromptItemClick({ data }) {
+        console.log(data);
         this.senderValue = data.description;
         this.handleSendMessage();
       },
@@ -650,24 +798,144 @@
       flex: 1;
       overflow: hidden;
       height: 100%;
+      .sidebar-enter-active,
+      .sidebar-leave-active {
+        transition: all 0.3s ease;
+      }
+      .sidebar-enter,
+      .sidebar-leave-to {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
 
+      // 为新对话按钮添加专门的动画
+      .sidebar-enter-active .new-chat,
+      .sidebar-leave-active .new-chat {
+        transition: all 0.3s ease 0.1s; /* 延迟0.1s开始动画 */
+      }
+      .sidebar-enter .new-chat,
+      .sidebar-leave-to .new-chat {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      // 为键盘快捷键添加动画
+      .sidebar-enter-active .keyboard-shortcut,
+      .sidebar-leave-active .keyboard-shortcut {
+        transition: all 0.3s ease 0.15s; /* 延迟0.15s开始动画 */
+      }
+      .sidebar-enter .keyboard-shortcut,
+      .sidebar-leave-to .keyboard-shortcut {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      .side-menu-collapsed {
+        width: 68px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: #f9fbff;
+        border-right: 1px solid $--border-color-lighter;
+        transition: all 0.3s ease;
+
+        .collapsed-header {
+          height: 56px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 16px 0;
+          border-bottom: 1px solid $--border-color-lighter;
+        }
+
+        .collapsed-new-chat {
+          width: 40px;
+          height: 40px;
+          margin: 16px auto 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $--color-white;
+          border: 1px solid $--border-color-lighter;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: $--color-primary-light-9;
+            border-color: $--color-primary;
+          }
+
+          i {
+            font-size: 16px;
+            color: $--color-text-regular;
+          }
+        }
+      }
       .side-menu {
         width: 260px;
-        background-color: $--color-primary-light-9;
-        border-right: 1px solid $--border-color-lighter;
+        height: 100%;
+        // background-color: $--color-primary-light-9;
+        // border-right: 1px solid $--border-color-lighter;
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        background: #f9fbff;
+        border-right: 1px solid $--border-color-lighter;
+        transition: all 0.3s ease;
 
         .side-header {
+          flex-shrink: 0;
           padding: 16px;
           text-align: center;
-          h2 {
-            margin: 0 0 16px;
-            font-size: 18px;
-            color: $--color-primary;
-          }
+          .side-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
 
+            h2 {
+              margin: 0;
+              font-size: 18px;
+              font-weight: 600;
+              color: $--color-text-primary;
+            }
+          }
+          .new-chat {
+            --local-button: #dbeafe;
+            --local-button-text: rgb(77 107 254);
+            --local-button-hover: #c6dcf8;
+            color: #4d6bfe;
+            background-color: rgb(219 234 254);
+            cursor: pointer;
+            height: 44px;
+            border-radius: 14px;
+            flex-shrink: 0;
+            align-items: center;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 20px;
+            display: flex;
+            overflow: hidden;
+            padding: 0 10px;
+            white-space: nowrap; /* 防止文字换行 */
+            opacity: 1;
+            transition: opacity 0.3s ease, width 0.3s ease, padding 0.3s ease;
+            .keyboard-shortcut {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              margin-left: 8px;
+              padding: 0 6px;
+              height: 20px;
+              font-size: 12px;
+              color: #909399;
+              background-color: #f5f7fa;
+              border-radius: 4px;
+              border: 1px solid #e4e7ed;
+              transition: opacity 0.3s ease;
+            }
+          }
           .new-chat-btn {
             width: 100%;
           }
@@ -677,9 +945,30 @@
           flex: 1;
           overflow-y: auto;
           padding: 8px;
+          opacity: 1;
+          transition: opacity 0.3s ease;
         }
       }
+      // 通用的切换按钮样式
+      .toggle-side {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
 
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        i {
+          font-size: 14px;
+          color: $--color-text-regular;
+        }
+      }
       .chat-container {
         width: 100%;
         max-width: 800px;
@@ -763,8 +1052,13 @@
   }
 
   @media (max-width: 768px) {
-    .dify-chat .dify-main .side-menu {
-      width: 220px;
+    .dify-chat .dify-main {
+      .side-menu {
+        width: 220px;
+      }
+      .side-menu-collapsed {
+        width: 56px;
+      }
     }
   }
 
@@ -772,7 +1066,8 @@
     .dify-chat .dify-main {
       flex-direction: column;
 
-      .side-menu {
+      .side-menu,
+      .side-menu-collapsed {
         width: 100%;
         height: 200px;
       }
