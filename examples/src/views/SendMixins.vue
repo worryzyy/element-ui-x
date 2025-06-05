@@ -304,7 +304,8 @@
 </template>
 
 <script>
-  import { sendMixin, XRequest } from 'vue-element-ui-x';
+  // import { sendMixin, XRequest } from 'vue-element-ui-x';
+  import { sendMixin, XRequest } from '../../../packages/element-ui-x/src/mixins';
 
   export default {
     name: 'SendMixinsDemo',
@@ -490,15 +491,12 @@
         this.fetchRequest = new XRequest({
           baseURL: 'https://testsse.element-ui-x.com',
           type: 'fetch',
-          transformer: data => {
-            const lines = data.trim().split('\n');
-            return lines[lines.length - 1];
-          },
+         
           onMessage: message => {
             console.log('Fetch 数据片段:', message);
             try {
-              const parsedMessage = JSON.parse(message);
-              this.fetchResult += `[${new Date().toLocaleTimeString()}] ${parsedMessage.content}\n`;
+              const parsedMessage = JSON.stringify(message) ;
+              this.fetchResult += `[${new Date().toLocaleTimeString()}] ${parsedMessage}\n`;
             } catch (error) {
               this.fetchResult += `[${new Date().toLocaleTimeString()}] ${message}\n`;
             }
