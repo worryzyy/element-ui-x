@@ -316,11 +316,6 @@
         this.scrollDetector.destroy();
       }
     },
-    beforeDestroy() {
-      if (this.resizeObserver) {
-        this.resizeObserver.disconnect();
-      }
-    },
     methods: {
       getValidIndices(list, indices) {
         const validIndices = [];
