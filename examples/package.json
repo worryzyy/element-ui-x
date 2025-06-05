@@ -19,7 +19,7 @@
     "markdown-it-mermaid": "^0.2.5",
     "svg-sprite-loader": "^6.0.11",
     "vue": "^2.6.14",
-    "vue-element-ui-x": "file:../packages/element-ui-x",
+    "vue-element-ui-x": "^0.1.10-beta",
     "vue-router": "^3.6.5"
   },
   "devDependencies": {

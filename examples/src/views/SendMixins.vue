@@ -304,8 +304,7 @@
 </template>
 
 <script>
-  // import { sendMixin, XRequest } from 'vue-element-ui-x';
-  import { sendMixin, XRequest } from '../../../packages/element-ui-x/src/mixins';
+  import { sendMixin, XRequest } from 'vue-element-ui-x';
 
   export default {
     name: 'SendMixinsDemo',

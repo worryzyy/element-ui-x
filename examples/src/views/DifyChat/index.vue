@@ -387,9 +387,8 @@
 
 <script>
   import { conversationApi, fileApi, messageApi } from '@/api/dify';
-  import ElXConversations from '../../../../packages/element-ui-x/src/components/Conversations/index';
-  // import { sendMixin,streamMixin } from 'vue-element-ui-x';
-  import { sendMixin, streamMixin } from '../../../../packages/element-ui-x/src/mixins';
+  import { sendMixin,streamMixin } from 'vue-element-ui-x';
+  // import { sendMixin, streamMixin } from '../../../../packages/element-ui-x/src/mixins';
 
   import {
     buildChatMessageRequest,
@@ -398,15 +397,11 @@
   } from '@/utils/difyAdapter';
 
   import { addTimeGroupToItems } from '@/utils/timeUtils';
-  import SvgIcon from '../../../components/SvgIcon.vue';
 
   export default {
     name: 'DifyChat',
     mixins: [sendMixin, streamMixin],
-    components: {
-      ElXConversations,
-      SvgIcon,
-    },
+  
     data() {
       return {
         // 侧边栏状态
