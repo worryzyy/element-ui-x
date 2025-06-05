@@ -149,6 +149,7 @@ export function buildChatMessageRequest(params) {
     user = 'default-user',
     response_mode = 'streaming',
     inputs = {},
+    parent_message_id,
     auto_generate_name = true,
   } = params;
 
@@ -156,6 +157,7 @@ export function buildChatMessageRequest(params) {
     query,
     inputs,
     response_mode,
+    parent_message_id,
     user,
     ...(conversation_id && {
       conversation_id,
