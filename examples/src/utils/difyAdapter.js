@@ -153,6 +153,57 @@ export function buildChatMessageRequest(params) {
     auto_generate_name = true,
   } = params;
 
+  // 格式化文件对象，按照 Dify API 发送消息的文件字段要求
+  const formattedFiles = files.map(file => {
+    // 根据文件扩展名或 MIME 类型确定文件类型
+    let fileType = 'custom';
+    const extension = file.name ? (file.name.split('.').pop() || '').toUpperCase() : '';
+    const mimeType = file.type || '';
+
+    if (
+      ['JPG', 'JPEG', 'PNG', 'GIF', 'WEBP', 'SVG'].includes(extension) ||
+      mimeType.startsWith('image/')
+    ) {
+      fileType = 'image';
+    } else if (
+      [
+        'TXT',
+        'MD',
+        'MARKDOWN',
+        'PDF',
+        'HTML',
+        'XLSX',
+        'XLS',
+        'DOCX',
+        'CSV',
+        'EML',
+        'MSG',
+        'PPTX',
+        'PPT',
+        'XML',
+        'EPUB',
+      ].includes(extension)
+    ) {
+      fileType = 'document';
+    } else if (
+      ['MP3', 'M4A', 'WAV', 'WEBM', 'AMR'].includes(extension) ||
+      mimeType.startsWith('audio/')
+    ) {
+      fileType = 'audio';
+    } else if (
+      ['MP4', 'MOV', 'MPEG', 'MPGA'].includes(extension) ||
+      mimeType.startsWith('video/')
+    ) {
+      fileType = 'video';
+    }
+
+    return {
+      type: fileType,
+      transfer_method: 'local_file',
+      upload_file_id: file.id,
+    };
+  });
+
   return {
     query,
     inputs,
@@ -162,8 +213,8 @@ export function buildChatMessageRequest(params) {
     ...(conversation_id && {
       conversation_id,
     }),
-    ...(files.length > 0 && {
-      files,
+    ...(formattedFiles.length > 0 && {
+      files: formattedFiles,
     }),
     auto_generate_name,
   };

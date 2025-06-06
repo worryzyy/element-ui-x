@@ -14,7 +14,7 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     // 从环境变量获取API Key
-    const apiKey = process.env.VUE_APP_DIFY_API_KEY || 'app-xNtq4zmi29hQkFgX2vDnkPKW';
+    const apiKey = process.env.VUE_APP_DIFY_API_KEY;
     if (apiKey) {
       config.headers.Authorization = `Bearer ${apiKey}`;
     }

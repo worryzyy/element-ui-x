@@ -443,37 +443,7 @@
 
         .chat-content {
           padding: 16px 0;
-          ::v-deep .el-x-bubble-list {
-            .el-x-bubble {
-              .el-x-bubble-content-wrapper {
-                .el-x-bubble-footer {
-                  .end-action,
-                  .start-action {
-                    display: flex;
-                    gap: 10px;
-                    align-items: center;
-                    opacity: 0;
-                    transition: opacity 0.2s ease;
-                    .action-btn {
-                      cursor: pointer;
-                    }
-                  }
-                }
-              }
 
-              // 鼠标悬停时显示footer
-              &:hover {
-                .el-x-bubble-content-wrapper {
-                  .el-x-bubble-footer {
-                    .end-action,
-                    .start-action {
-                      opacity: 1;
-                    }
-                  }
-                }
-              }
-            }
-          }
           .chat-content-welcome {
             padding: 0;
           }

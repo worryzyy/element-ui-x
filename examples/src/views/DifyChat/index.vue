@@ -8,7 +8,11 @@
           @click="toggleMobileDrawer"
           class="mobile-menu-btn"
         >
-          <i class="el-icon-s-unfold"></i>
+          <SvgIcon
+            size="28"
+            name="menu-right"
+            color="rgb(139 139 139)"
+          />
         </el-button>
       </div>
       <div class="mobile-header-center">
@@ -20,7 +24,11 @@
           @click="handleNewChat"
           class="mobile-new-chat-btn"
         >
-          <i class="el-icon-plus"></i>
+          <SvgIcon
+            size="28"
+            name="plus"
+            color="rgb(139 139 139)"
+          />
         </el-button>
       </div>
     </div>
@@ -43,18 +51,29 @@
             @click="toggleMobileDrawer"
             class="drawer-close-btn"
           >
-            <i class="el-icon-close"></i>
+            <SvgIcon
+              size="28"
+              name="menu-left"
+              color="rgb(139 139 139)"
+            />
           </el-button>
         </div>
         <div
           class="drawer-new-chat"
           @click="handleNewChatAndCloseDrawer"
         >
-          <div style="margin-right: 10px"><i class="el-icon-plus"></i></div>
+          <div style="margin-right: 10px">
+            <SvgIcon
+              size="28"
+              name="plus"
+              color="rgb(139 139 139)"
+            />
+          </div>
           新对话
           <span class="keyboard-shortcut">Ctrl+K</span>
         </div>
         <el-x-conversations
+          v-if="conversationList.length"
           :styleConfig="{ width: '100%', backgroundColor: '#f9fbff', padding: 0 }"
           class="drawer-conversation-list"
           :items="conversationList"
@@ -67,6 +86,10 @@
           @menu-command="handleMenuCommand"
           @change="handleConversationChangeAndCloseDrawer"
         />
+        <el-empty
+          v-else
+          description="请开始今天的聊天吧"
+        ></el-empty>
       </div>
     </el-drawer>
 
@@ -135,6 +158,7 @@
             </div>
           </div>
           <el-x-conversations
+            v-if="conversationList.length"
             :styleConfig="{ width: '260px', backgroundColor: '#f9fbff', padding: 0 }"
             class="conversation-list"
             :items="conversationList"
@@ -147,6 +171,10 @@
             @menu-command="handleMenuCommand"
             @change="handleConversationChange"
           />
+          <el-empty
+            v-else
+            description="请开始今天的聊天吧"
+          ></el-empty>
         </div>
       </transition>
       <div class="chat-container">
@@ -163,33 +191,7 @@
             class="chat-content-welcome"
             v-if="messages.length === 0"
           >
-            <el-x-welcome
-              variant="borderless"
-              title="我是 Dify 的智能助手，很高兴见到你！"
-              description="我可以帮你写代码、读文件、写作各种创意内容，请把你的任务交给我吧~"
-            >
-              <template #image>
-                <img
-                  :src="require('@/assets/images/dify-logo.svg')"
-                  alt="Dify"
-                />
-              </template>
-            </el-x-welcome>
-            <br />
-            <el-x-prompts
-              v-if="messages.length === 0"
-              :items="promptItems"
-              :wrap="true"
-              :styles="promptStyles"
-              @on-item-click="handlePromptItemClick"
-            >
-              <template v-slot:icon="{ item }">
-                <i
-                  :class="item.icon"
-                  :style="item.iconStyle"
-                ></i>
-              </template>
-            </el-x-prompts>
+            <welcome @click-prompt="handlePromptItemClick" />
           </div>
 
           <el-x-bubble-list
@@ -200,123 +202,40 @@
             defaultShape="corner"
             v-loading="isLoadingMessages"
           >
+            <template #header="{ item }">
+              <bubble-list-header
+                :item="item"
+                :map-file-type="mapFileType"
+              />
+            </template>
             <template #footer="{ item }">
-              <div v-if="item.content && !item.typing">
-                <div
-                  class="end-action"
-                  v-if="item.placement === 'end'"
-                >
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="复制"
-                    placement="top"
-                  >
-                    <SvgIcon
-                      iconClass="action-btn"
-                      size="20"
-                      name="copy"
-                      color="rgb(139 139 139)"
-                      @click.native="handleCopyMessage(item)"
-                    />
-                  </el-tooltip>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    content="修改"
-                    placement="top"
-                  >
-                    <SvgIcon
-                      iconClass="action-btn"
-                      size="20"
-                      name="edit"
-                      color="rgb(139 139 139)"
-                      @click.native="handleEditMessage(item)"
-                    />
-                  </el-tooltip>
-                </div>
-
-                <!-- 只在AI消息中显示点赞和踩按钮 -->
-                <template v-if="item.placement === 'start'">
-                  <div class="start-action">
-                    <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="复制"
-                      placement="top"
-                    >
-                      <SvgIcon
-                        iconClass="action-btn"
-                        size="20"
-                        name="copy"
-                        color="rgb(139 139 139)"
-                        @click.native="handleCopyMessage(item)"
-                      />
-                    </el-tooltip>
-                    <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="重试"
-                      placement="top"
-                    >
-                      <SvgIcon
-                        iconClass="action-btn"
-                        size="20"
-                        name="refresh"
-                        color="rgb(139 139 139)"
-                        @click.native="handleRetryMessage(item)"
-                      />
-                    </el-tooltip>
-                    <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="喜欢"
-                      placement="top"
-                    >
-                      <SvgIcon
-                        iconClass="action-btn"
-                        size="20"
-                        name="like"
-                        :color="
-                          item.feedback != null && item.feedback.rating === 'like'
-                            ? '#626aef'
-                            : 'rgb(139 139 139)'
-                        "
-                        @click.native="handleLikeMessage(item)"
-                      />
-                    </el-tooltip>
-                    <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="不喜欢"
-                      placement="top"
-                    >
-                      <SvgIcon
-                        iconClass="action-btn"
-                        size="20"
-                        name="dislike"
-                        :color="
-                          item.feedback != null && item.feedback.rating === 'dislike'
-                            ? '#f56c6c'
-                            : 'rgb(139 139 139)'
-                        "
-                        @click.native="handleDislikeMessage(item)"
-                      />
-                    </el-tooltip>
-                  </div>
-                </template>
-              </div>
+              <bubble-list-footer
+                :item="item"
+                :dify-config="difyConfig"
+                :messages="messages"
+                @edit-message="handleEditMessage"
+                @retry-message="handleRetryMessage"
+                @update-feedback="handleUpdateFeedback"
+              />
             </template>
           </el-x-bubble-list>
         </div>
         <div class="chat-input">
           <div class="chat-input-container">
             <el-x-sender
+              ref="senderRef"
               v-model="senderValue"
               variant="updown"
               @submit="handleSendMessage"
               :loading="loading"
             >
+              <template #header>
+                <SenderHeader
+                  :file-list="uploadedFiles"
+                  @delete-file="handleDeleteUploadedFile"
+                />
+              </template>
+
               <template #prefix>
                 <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
                   <el-button
@@ -378,7 +297,6 @@
     <input
       ref="fileInput"
       type="file"
-      accept="image/*"
       style="display: none"
       @change="handleFileChange"
     />
@@ -387,9 +305,8 @@
 
 <script>
   import { conversationApi, fileApi, messageApi } from '@/api/dify';
-  import { sendMixin,streamMixin } from 'vue-element-ui-x';
+  import { sendMixin, streamMixin } from 'vue-element-ui-x';
   // import { sendMixin, streamMixin } from '../../../../packages/element-ui-x/src/mixins';
-
   import {
     buildChatMessageRequest,
     createDifyRequestConfig,
@@ -397,11 +314,21 @@
   } from '@/utils/difyAdapter';
 
   import { addTimeGroupToItems } from '@/utils/timeUtils';
+  import BubbleListFooter from './components/BubbleListFooter.vue';
+  import BubbleListHeader from './components/BubbleListHeader.vue';
+  import SenderHeader from './components/SenderHeader.vue';
+  import Welcome from './components/Welcome.vue';
 
   export default {
     name: 'DifyChat',
+    components: {
+      BubbleListHeader,
+      BubbleListFooter,
+      SenderHeader,
+      Welcome,
+    },
     mixins: [sendMixin, streamMixin],
-  
+
     data() {
       return {
         // 侧边栏状态
@@ -446,73 +373,8 @@
         // Dify 配置
         difyConfig: {
           baseURL: 'https://api.dify.ai/v1',
-          apiKey: 'app-xNtq4zmi29hQkFgX2vDnkPKW',
+          apiKey: 'app-LF6qPHsIQFgAkqoD2Dui1SUo',
           user: 'default-user',
-        },
-
-        // UI相关数据
-        promptItems: [
-          {
-            key: '1',
-            label: '热门话题',
-            icon: 'el-icon-star-off',
-            iconStyle: {
-              color: '#FF4D4F',
-            },
-            description: '你对什么感兴趣？',
-            children: [
-              {
-                key: '1-1',
-                description: 'X的最新动态是什么？',
-              },
-              {
-                key: '1-2',
-                description: '什么是AGI？',
-              },
-              {
-                key: '1-3',
-                description: '文档在哪里？',
-              },
-            ],
-          },
-          {
-            key: '2',
-            label: '设计指南',
-            icon: 'el-icon-reading',
-            iconStyle: {
-              color: '#1890FF',
-            },
-            description: '如何设计一个好产品？',
-            children: [
-              {
-                key: '2-1',
-                icon: 'el-icon-star-on',
-                description: '了解用户需求',
-              },
-              {
-                key: '2-2',
-                icon: 'el-icon-ice-cream-round',
-                description: '设定AI角色',
-              },
-              {
-                key: '2-3',
-                icon: 'el-icon-chat-dot-round',
-                description: '表达情感',
-              },
-            ],
-          },
-        ],
-        promptStyles: {
-          item: {
-            flex: 'none',
-            backgroundImage: 'linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)',
-            border: '0',
-            width: 'calc(50% - 6px)',
-          },
-          subItem: {
-            background: 'rgba(255,255,255,0.45)',
-            border: '1px solid #FFF',
-          },
         },
       };
     },
@@ -530,6 +392,23 @@
           // 监听messages数组变化，动态设置最后一条消息的footer样式
           this.$nextTick(() => {
             this.updateLastMessageFooterStyle();
+          });
+        },
+        deep: true,
+        immediate: true,
+      },
+      uploadedFiles: {
+        handler(newFiles) {
+          // 监听上传文件变化，控制header显示隐藏
+          this.$nextTick(() => {
+            const senderRef = this.$refs.senderRef;
+            if (senderRef) {
+              if (newFiles.length > 0) {
+                senderRef.openHeader();
+              } else {
+                senderRef.closeHeader();
+              }
+            }
           });
         },
         deep: true,
@@ -559,6 +438,78 @@
       window.removeEventListener('resize', this.handleResize);
     },
     methods: {
+      // 将Dify API文件类型或MIME类型映射到el-x-files-card组件类型
+      mapFileType(typeOrMime) {
+        // 如果是Dify API的文件类型
+        if (['document', 'image', 'audio', 'video', 'custom'].includes(typeOrMime)) {
+          switch (typeOrMime) {
+            case 'document':
+              return 'file';
+            case 'image':
+              return 'image';
+            case 'audio':
+              return 'audio';
+            case 'video':
+              return 'video';
+            case 'custom':
+            default:
+              return 'unknown';
+          }
+        }
+
+        // 如果是MIME类型，进行映射
+        const mimeType = typeOrMime.toLowerCase();
+
+        // 图片类型
+        if (mimeType.startsWith('image/')) {
+          return 'image';
+        }
+
+        // 音频类型
+        if (mimeType.startsWith('audio/')) {
+          return 'audio';
+        }
+
+        // 视频类型
+        if (mimeType.startsWith('video/')) {
+          return 'video';
+        }
+
+        // 文档类型
+        const documentMimes = [
+          'application/pdf',
+          'application/msword',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'application/vnd.ms-powerpoint',
+          'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+          'text/plain',
+          'text/csv',
+          'application/json',
+          'text/html',
+          'text/css',
+          'application/javascript',
+        ];
+
+        if (documentMimes.includes(mimeType)) {
+          return 'file';
+        }
+
+        // 压缩文件等其他类型
+        const otherMimes = [
+          'application/zip',
+          'application/x-rar-compressed',
+          'application/octet-stream',
+        ];
+
+        if (otherMimes.includes(mimeType)) {
+          return 'file';
+        }
+
+        // 默认返回unknown
+        return 'unknown';
+      },
       // 动态设置最后一条消息的footer样式
       updateLastMessageFooterStyle() {
         if (this.messages.length === 0) return;
@@ -646,6 +597,31 @@
             content: message,
             placement: 'end',
             created_at: Date.now(),
+            // 添加message_files字段用于显示附件
+            message_files:
+              this.uploadedFiles.length > 0
+                ? this.uploadedFiles.map(file => ({
+                    id: file.id,
+                    filename: file.name,
+                    url: file.url,
+                    type: file.type,
+                    size: file.fileSize,
+                    mime_type: file.type,
+                    transfer_method: 'local_file',
+                    belongs_to: 'user',
+                    upload_file_id: file.id,
+                  }))
+                : [],
+            // 如果有附件，添加附件信息
+            ...(this.uploadedFiles.length > 0 && {
+              attachments: this.uploadedFiles.map(file => ({
+                id: file.id,
+                name: file.name,
+                url: file.url,
+                type: file.type,
+                size: file.fileSize,
+              })),
+            }),
           };
           this.messages.push(userMessage);
 
@@ -863,6 +839,18 @@
                 placement: 'end',
                 created_at: item.created_at,
                 typing: false,
+                message_files: item.message_files || [],
+                // 如果消息包含文件信息，添加附件
+                ...(item.files &&
+                  item.files.length > 0 && {
+                    attachments: item.files.map(file => ({
+                      id: file.id,
+                      name: file.name,
+                      url: file.url,
+                      type: file.type,
+                      size: file.size,
+                    })),
+                  }),
               });
             }
 
@@ -1032,8 +1020,7 @@
       },
 
       // 处理提示项点击
-      handlePromptItemClick({ data }) {
-        console.log(data);
+      handlePromptItemClick(data) {
         this.senderValue = data.description;
         this.handleSendMessage();
       },
@@ -1049,11 +1036,20 @@
 
         try {
           const response = await fileApi.uploadFile(file);
-          this.uploadedFiles.push({
+          // 按照 Dify API 规范格式化文件对象
+          const fileObject = {
             id: response.id,
             name: response.name,
-            url: response.url,
-          });
+            url: response.url || response.download_url,
+            type: response.type || file.type,
+            size: response.size || file.size,
+            // 用于 UI 显示的额外属性
+            uid: response.id,
+            fileSize: response.size || file.size,
+            imgFile: file,
+            showDelIcon: true,
+          };
+          this.uploadedFiles.push(fileObject);
           this.$message.success('文件上传成功');
         } catch (error) {
           this.$message.error('文件上传失败: ' + error.message);
@@ -1063,180 +1059,35 @@
         event.target.value = '';
       },
 
-      // Footer按钮事件处理方法
-      // 复制消息内容
-      async handleCopyMessage(item) {
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(item.content);
-            this.$message.success('内容已复制到剪贴板');
-          } else {
-            // 兼容旧浏览器
-            const textArea = document.createElement('textarea');
-            textArea.value = item.content;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            this.$message.success('内容已复制到剪贴板');
-          }
-        } catch (error) {
-          console.error('复制失败:', error);
-          this.$message.error('复制失败，请手动复制');
-        }
+      // 处理删除上传的文件
+      handleDeleteUploadedFile(item, index) {
+        this.uploadedFiles = this.uploadedFiles.filter(file => file.id !== item.id);
+        this.$message.success('文件已删除');
       },
 
-      // 编辑用户消息
-      handleEditMessage(item) {
-        if (item.placement !== 'end') return;
-
-        this.$prompt('请修改您的消息', '编辑消息', {
-          confirmButtonText: '重新发送',
-          cancelButtonText: '取消',
-          inputValue: item.content,
-          inputType: 'textarea',
-        })
-          .then(({ value }) => {
-            if (value && value.trim()) {
-              // 更新消息内容并重新发送
-              this.senderValue = value.trim();
-              this.handleSendMessage();
-            }
-          })
-          .catch(() => {});
+      // 处理编辑消息事件
+      handleEditMessage(content) {
+        // 更新消息内容并重新发送
+        this.senderValue = content;
+        this.handleSendMessage();
       },
 
-      // 重试AI消息
-      async handleRetryMessage(item) {
-        if (item.placement !== 'start') return;
+      // 处理重试消息事件
+      handleRetryMessage(content) {
+        // 直接重新发送用户消息
+        this.handleSend(content);
 
-        try {
-          // 找到对应的用户消息
-          const messageIndex = this.messages.findIndex(msg => msg.id === item.id);
-          if (messageIndex === -1) return;
-
-          // 找到前一条用户消息
-          let userMessage = null;
-          for (let i = messageIndex - 1; i >= 0; i--) {
-            if (this.messages[i].placement === 'end') {
-              userMessage = this.messages[i];
-              break;
-            }
-          }
-
-          if (!userMessage) {
-            this.$message.error('未找到对应的用户消息');
-            return;
-          }
-
-          // 直接重新发送用户消息，不删除AI消息
-          this.handleSend(userMessage.content);
-
-          this.$nextTick(() => {
-            this.$refs.bubbleListRef.scrollToBottom();
-          });
-        } catch (error) {
-          console.error('重试失败:', error);
-          this.$message.error('重试失败: ' + error.message);
-        }
+        this.$nextTick(() => {
+          this.$refs.bubbleListRef.scrollToBottom();
+        });
       },
 
-      // 点赞消息
-      async handleLikeMessage(item) {
-        if (item.placement !== 'start') return;
-
-        try {
-          // 直接使用message_id
-          const messageId = item.id;
-
-          // 切换点赞状态
-          let newRating;
-          if (item.feedback != null && item.feedback.rating === 'like') {
-            // 如果已经点赞，则取消点赞
-            newRating = null;
-          } else {
-            // 否则点赞
-            newRating = 'like';
-          }
-
-          await messageApi.feedbackMessage(messageId, newRating, '', this.difyConfig.user);
-
-          // 更新本地状态
-          const messageIndex = this.messages.findIndex(msg => msg.id === item.id);
-          if (messageIndex !== -1) {
-            if (newRating) {
-              this.$set(this.messages[messageIndex], 'feedback', {
-                rating: newRating,
-              });
-            } else {
-              this.$set(this.messages[messageIndex], 'feedback', null);
-            }
-          }
-
-          this.$message.success(newRating === 'like' ? '已点赞' : '已取消点赞');
-        } catch (error) {
-          console.error('点赞失败:', error);
-          this.$message.error('操作失败: ' + error.message);
-        }
-      },
-
-      // 踩消息
-      async handleDislikeMessage(item) {
-        if (item.placement !== 'start') return;
-
-        try {
-          // 直接使用message_id
-          const messageId = item.id;
-
-          let newRating;
-          let content = '';
-
-          if (item.feedback != null && item.feedback.rating === 'dislike') {
-            // 如果已经踩过，则取消踩
-            newRating = null;
-          } else {
-            // 否则踩，需要弹出对话框填写content
-            const { value } = await this.$prompt('请填写反馈内容（可选）', '反馈', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              inputType: 'textarea',
-              inputPlaceholder: '请输入您的反馈意见...',
-              inputValidator: null, // 允许空内容
-            }).catch(() => {
-              // 用户取消了对话框
-              return {
-                value: null,
-              };
-            });
-
-            if (value === null) {
-              // 用户取消了操作
-              return;
-            }
-
-            newRating = 'dislike';
-            content = value || '';
-          }
-
-          await messageApi.feedbackMessage(messageId, newRating, content, this.difyConfig.user);
-
-          // 更新本地状态
-          const messageIndex = this.messages.findIndex(msg => msg.id === item.id);
-          if (messageIndex !== -1) {
-            if (newRating) {
-              this.$set(this.messages[messageIndex], 'feedback', {
-                rating: newRating,
-                content,
-              });
-            } else {
-              this.$set(this.messages[messageIndex], 'feedback', null);
-            }
-          }
-
-          this.$message.success(newRating === 'dislike' ? '已标记为不喜欢' : '已取消标记');
-        } catch (error) {
-          console.error('操作失败:', error);
-          this.$message.error('操作失败: ' + error.message);
+      // 处理反馈更新事件
+      handleUpdateFeedback({ messageId, feedback }) {
+        // 更新本地状态
+        const messageIndex = this.messages.findIndex(msg => msg.id === messageId);
+        if (messageIndex !== -1) {
+          this.$set(this.messages[messageIndex], 'feedback', feedback);
         }
       },
     },
