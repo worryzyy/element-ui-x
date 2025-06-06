@@ -10,7 +10,7 @@
   height: 100%;
   width: var(--el-x-thinking-button-width);
   gap: $--el-x-spacing-xs;
-  padding: $--el-x-padding-sm calc(#{$--el-x-padding-sm}+ 4px);
+  padding: $--el-x-padding-sm calc(#{$--el-x-padding-sm} + 4px);
   border: $--el-x-border-width $--border-style-base $--el-x-border-color;
   border-radius: $--el-x-border-radius-md;
   background: $--color-white;
