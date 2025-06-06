@@ -1,0 +1,31 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": ["javascript", "javascriptreact", "vue"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.defaultFormatter.js": "prettier",
+  "html.format.wrapAttributes": "preserve-aligned",
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "singleAttributePerLine": true,
+      "htmlWhitespaceSensitivity": "ignore"
+    },
+    "js-beautify-html": {
+      "wrap_attributes": "preserve-aligned",
+      "wrap_line_length": 100,
+      "end_with_newline": false
+    }
+  }
+}

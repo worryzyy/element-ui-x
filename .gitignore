@@ -20,7 +20,6 @@ lib/
 
 # IDE配置
 .idea/
-.vscode/
 *.swp
 *.swo
 .trae
