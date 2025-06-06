@@ -109,6 +109,25 @@
         </el-tooltip>
       </div>
     </template>
+
+    <!-- 反馈对话框 -->
+    <el-dialog
+      title="反馈"
+      :visible.sync="feedbackDialogVisible"
+      width="30%"
+      :before-close="handleFeedbackDialogClose"
+    >
+      <el-input
+        type="textarea"
+        :rows="4"
+        placeholder="请输入您的反馈意见..."
+        v-model="feedbackContent"
+      ></el-input>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="handleFeedbackDialogCancel">取消</el-button>
+        <el-button type="primary" @click="handleFeedbackDialogConfirm">确定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -130,6 +149,13 @@
         type: Array,
         required: true,
       },
+    },
+    data() {
+      return {
+        feedbackDialogVisible: false,
+        feedbackContent: '',
+        currentMessageId: null,
+      };
     },
     methods: {
       // 复制消息内容
@@ -254,6 +280,7 @@
 
       // 踩消息
       async handleDislikeMessage(item) {
+        console.log('handleDislikeMessage',item);
         if (item.placement !== 'start') return;
         // 强制隐藏tooltip并移除焦点
         if (this.$refs.dislikeTooltip) {
@@ -265,49 +292,62 @@
           const messageId = item.id;
 
           let newRating;
-          let content = '';
 
           if (item.feedback != null && item.feedback.rating === 'dislike') {
             // 如果已经踩过，则取消踩
             newRating = null;
-          } else {
-            // 否则踩，需要弹出对话框填写content
-            const { value } = await this.$prompt('请填写反馈内容（可选）', '反馈', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              inputType: 'textarea',
-              inputPlaceholder: '请输入您的反馈意见...',
-              inputValidator: null, // 允许空内容
-            }).catch(() => {
-              // 用户取消了对话框
-              return {
-                value: null,
-              };
+            await messageApi.feedbackMessage(messageId, newRating, '', this.difyConfig.user);
+
+            // 通过事件向父组件传递反馈更新
+            this.$emit('update-feedback', {
+              messageId: item.id,
+              feedback: null,
             });
 
-            if (value === null) {
-              // 用户取消了操作
-              return;
-            }
-
-            newRating = 'dislike';
-            content = value || '';
+            this.$message.success('已取消标记');
+          } else {
+            // 否则踩，需要弹出对话框填写content
+            this.currentMessageId = messageId;
+            this.feedbackContent = '';
+            this.feedbackDialogVisible = true;
           }
+        } catch (error) {
+          console.error('操作失败:', error);
+          this.$message.error('操作失败: ' + error.message);
+        }
+      },
 
-          await messageApi.feedbackMessage(messageId, newRating, content, this.difyConfig.user);
+      // 处理反馈对话框关闭
+      handleFeedbackDialogClose() {
+        this.feedbackDialogVisible = false;
+      },
+
+      // 处理反馈对话框取消
+      handleFeedbackDialogCancel() {
+        this.feedbackDialogVisible = false;
+      },
+
+      // 处理反馈对话框确认
+      async handleFeedbackDialogConfirm() {
+        if (!this.currentMessageId) return;
+
+        try {
+          const newRating = 'dislike';
+          const content = this.feedbackContent || '';
+
+          await messageApi.feedbackMessage(this.currentMessageId, newRating, content, this.difyConfig.user);
 
           // 通过事件向父组件传递反馈更新
           this.$emit('update-feedback', {
-            messageId: item.id,
-            feedback: newRating
-              ? {
-                  rating: newRating,
-                  content,
-                }
-              : null,
+            messageId: this.currentMessageId,
+            feedback: {
+              rating: newRating,
+              content,
+            },
           });
 
-          this.$message.success(newRating === 'dislike' ? '已标记为不喜欢' : '已取消标记');
+          this.$message.success('已标记为不喜欢');
+          this.feedbackDialogVisible = false;
         } catch (error) {
           console.error('操作失败:', error);
           this.$message.error('操作失败: ' + error.message);

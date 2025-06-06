@@ -2,8 +2,8 @@
   <div>
     <el-x-welcome
       variant="borderless"
-      title="我是 Dify 的智能助手，很高兴见到你！"
-      description="我可以帮你写代码、读文件、写作各种创意内容，请把你的任务交给我吧~"
+      title="欢迎使用 Dify AI 助手"
+      description="我是您的智能助手，可以帮助您完成各种任务，包括内容创作、代码编写、数据分析等。请告诉我您需要什么帮助！"
     >
       <template #image>
         <img
@@ -37,50 +37,71 @@
         promptItems: [
           {
             key: '1',
-            label: '热门话题',
-            icon: 'el-icon-star-off',
+            label: 'AI 应用场景',
+            icon: 'el-icon-magic-stick',
             iconStyle: {
-              color: '#FF4D4F',
+              color: '#4d6bfe',
             },
-            description: '你对什么感兴趣？',
+            description: '探索 Dify 的强大功能',
             children: [
               {
                 key: '1-1',
-                description: 'X的最新动态是什么？',
+                icon: 'el-icon-cpu',
+                iconStyle: {
+                  color: '#4d6bfe',
+                },
+                description: '如何使用 Dify 创建 AI 应用？',
               },
               {
                 key: '1-2',
-                description: '什么是AGI？',
+                icon: 'el-icon-monitor',
+                iconStyle: {
+                  color: '#4d6bfe',
+                },
+                description: 'Dify 支持哪些大语言模型？',
               },
               {
                 key: '1-3',
-                description: '文档在哪里？',
+                icon: 'el-icon-user',
+                iconStyle: {
+                  color: '#4d6bfe',
+                },
+                description: '如何自定义 AI 助手的角色？',
               },
             ],
           },
           {
             key: '2',
-            label: '设计指南',
-            icon: 'el-icon-reading',
+            label: '开发指南',
+            icon: 'el-icon-code',
             iconStyle: {
-              color: '#1890FF',
+              color: '#626aef',
             },
-            description: '如何设计一个好产品？',
+            description: '快速上手 Dify 开发',
             children: [
               {
                 key: '2-1',
-                icon: 'el-icon-star-on',
-                description: '了解用户需求',
+                icon: 'el-icon-document',
+                iconStyle: {
+                  color: '#626aef',
+                },
+                description: 'Dify API 接口使用说明',
               },
               {
                 key: '2-2',
-                icon: 'el-icon-ice-cream-round',
-                description: '设定AI角色',
+                icon: 'el-icon-connection',
+                iconStyle: {
+                  color: '#626aef',
+                },
+                description: '如何集成到现有应用',
               },
               {
                 key: '2-3',
-                icon: 'el-icon-chat-dot-round',
-                description: '表达情感',
+                icon: 'el-icon-data-analysis',
+                iconStyle: {
+                  color: '#626aef',
+                },
+                description: '数据集管理最佳实践',
               },
             ],
           },
@@ -88,13 +109,13 @@
         promptStyles: {
           item: {
             flex: 'none',
-            backgroundImage: 'linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)',
+            backgroundImage: 'linear-gradient(137deg, #f0f7ff 0%, #edf1ff 100%)',
             border: '0',
             width: 'calc(50% - 6px)',
           },
           subItem: {
-            background: 'rgba(255,255,255,0.45)',
-            border: '1px solid #FFF',
+            background: 'rgba(255,255,255,0.6)',
+            border: '1px solid #e6efff',
           },
         },
       };
