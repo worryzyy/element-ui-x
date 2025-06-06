@@ -20,7 +20,7 @@
 .el-x-bubble-start {
   .el-x-bubble-content-wrapper {
     .el-x-bubble-content-corner {
-      border-start-start-radius: calc($--el-x-border-radius-base - 2px);
+      border-start-start-radius: $--el-x-border-radius-base - 2px;
     }
   }
 }
@@ -33,7 +33,7 @@
     align-items: flex-end;
 
     .el-x-bubble-content-corner {
-      border-start-end-radius: calc($--el-x-border-radius-base - 2px);
+      border-start-end-radius: $--el-x-border-radius-base - 2px;
     }
   }
 }
@@ -70,7 +70,7 @@
   .el-x-bubble-content {
     background-color: $--el-x-fill-color;
     padding: $--el-x-padding-md $--el-x-padding-lg;
-    border-radius: calc($--el-x-border-radius-base + 4px);
+    border-radius: $--el-x-border-radius-base + 4px;
     position: relative;
     box-sizing: border-box;
     min-width: 0;
