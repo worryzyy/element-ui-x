@@ -203,12 +203,33 @@
             v-loading="isLoadingMessages"
           >
             <template #header="{ item }">
+              <el-x-thinking
+              v-if="item.placement=='start' && item.reasoning_content"
+              :content="item.reasoning_content"
+              :status="item.thinkingStatus"
+              class="thinking-chain-wrap"
+              auto-collapse
+            >
+            <template #status-icon="{ status }">
+                  <span v-if="status === 'start'">💡</span>
+                  <span v-if="status === 'thinking'">💖</span>
+                  <span v-if="status === 'end'">✅</span>
+                  <span v-if="status === 'error'">❌</span>
+                </template>
+                <template #label="{ status }">
+                <span v-if="status === 'start'">开始思考 😄</span>
+                <span v-if="status === 'thinking'">让我想想 🤔</span>
+                <span v-if="status === 'end'">想出来啦 😆</span>
+                <span v-if="status === 'error'">想不出来 🥵</span>
+              </template>
+          </el-x-thinking>
               <bubble-list-header
                 :item="item"
                 :map-file-type="mapFileType"
               />
             </template>
             <template #footer="{ item }">
+              
               <bubble-list-footer
                 :item="item"
                 :dify-config="difyConfig"
@@ -216,6 +237,49 @@
                 @edit-message="handleEditMessage"
                 @retry-message="handleRetryMessage"
                 @update-feedback="handleUpdateFeedback"
+              />
+            </template>
+            <template #content="{ item }">
+              <!-- <el-x-thinking
+                v-if="item.reasoning_content"
+                :content="item.reasoning_content"
+                :status="item.thinkingStatus"
+                duration=".3s"
+                max-width="350px"
+                button-width="100%"
+                background-color="linear-gradient(to right, #ffd3d8e0, #ff6969e7)"
+                color="black"
+                class="thinking-chain-wrap"
+              >
+                <template #status-icon="{ status }">
+                  <span v-if="status === 'start'">💡</span>
+                  <span v-if="status === 'thinking'">💖</span>
+                  <span v-if="status === 'end'">✅</span>
+                  <span v-if="status === 'error'">❌</span>
+                </template>
+
+                <template #label="{ status }">
+                  <span v-if="status === 'start'">开始思考 😄</span>
+                  <span v-if="status === 'thinking'">让我想想 🤔</span>
+                  <span v-if="status === 'end'">想出来啦 😆</span>
+                  <span v-if="status === 'error'">想不出来 🥵</span>
+                </template>
+
+                <template #arrow>👇</template>
+
+                <template #error>
+                  <span class="error-color">思考报错</span>
+                </template>
+
+                 <template #content="{ content }">{{ content }}</template>
+              </el-x-thinking> -->
+
+              <el-x-typewriter
+              v-if="item.content"
+                :content="item.content"
+                :loading="item.loading"
+                :typing="item.typing"
+                :is-markdown="true"
               />
             </template>
           </el-x-bubble-list>
@@ -638,6 +702,9 @@
               interval: 80,
               step: 5,
             },
+            // 添加思考内容相关字段
+            reasoning_content: '',
+            thinkingStatus: 'start',
           };
           this.messages.push(aiMessage);
           this.currentMessageId = aiMessage.id;
@@ -650,6 +717,7 @@
             files: this.uploadedFiles,
             user: this.difyConfig.user,
             response_mode: 'streaming',
+            enable_thinking: this.isSelect, // 添加深度思考参数
           });
 
           // 创建 XRequest 实例
@@ -686,7 +754,8 @@
       // 处理流式消息
       handleStreamMessage(data) {
         if (!data || !this.currentMessageId) return;
-
+        console.log(data);
+        // 根据message_id找到对应的消息
         const messageIndex = this.messages.findIndex(msg => msg.id === this.currentMessageId);
         if (messageIndex === -1) return;
 
@@ -706,7 +775,6 @@
             break;
 
           case 'delta':
-            // console.log(data);
             // 增量消息
             if (this.messages[messageIndex].loading) {
               this.messages[messageIndex].loading = false;
@@ -720,13 +788,92 @@
                 this.currentMessageId = this.messages[messageIndex].id;
               }
             }
-            this.currentStreamContent += data.data.delta;
-            this.messages[messageIndex].content = this.currentStreamContent;
+            
+            // 处理思考内容
+            if (data.data.delta) {
+              const deltaContent = data.data.delta;
+              
+              // 检查是否包含思考内容开始标签
+              if (deltaContent.includes('<think>')) {
+                // 设置思考状态
+                this.$set(this.messages[messageIndex], 'thinkingStatus', 'thinking');
+                
+                // 提取<think>前的内容（如果有）
+                const beforeThink = deltaContent.split('<think>')[0];
+                if (beforeThink) {
+                  this.currentStreamContent += beforeThink;
+                  this.messages[messageIndex].content = this.currentStreamContent;
+                }
+                
+                // 初始化或累积思考内容
+                const thinkStart = deltaContent.split('<think>')[1];
+                this.$set(this.messages[messageIndex], 'thinkBuffer', thinkStart || '');
+                
+                // 检查是否在同一消息中包含结束标签
+                if (thinkStart && thinkStart.includes('</think>')) {
+                  // 提取思考内容
+                  const thinkContent = thinkStart.split('</think>')[0];
+                  this.$set(this.messages[messageIndex], 'reasoning_content', thinkContent);
+                  
+                  // 提取</think>后的内容（如果有）
+                  const afterThink = thinkStart.split('</think>')[1];
+                  if (afterThink) {
+                    this.currentStreamContent += afterThink;
+                    this.messages[messageIndex].content = this.currentStreamContent;
+                  }
+                  
+                  // 设置思考状态为结束
+                  this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
+                  this.$set(this.messages[messageIndex], 'thinkBuffer', null);
+                } else {
+                  // 立即显示当前的思考内容（动态显示）
+                  this.$set(this.messages[messageIndex], 'reasoning_content', thinkStart || '');
+                }
+              } 
+              // 正在思考中，累积内容
+              else if (this.messages[messageIndex].thinkingStatus === 'thinking') {
+                // 获取当前缓冲区内容
+                const currentBuffer = this.messages[messageIndex].thinkBuffer || '';
+                // 累积内容
+                const newBuffer = currentBuffer + deltaContent;
+                this.$set(this.messages[messageIndex], 'thinkBuffer', newBuffer);
+                
+                // 检查是否包含结束标签
+                if (deltaContent.includes('</think>')) {
+                  // 提取完整的思考内容
+                  const thinkContent = newBuffer.split('</think>')[0];
+                  this.$set(this.messages[messageIndex], 'reasoning_content', thinkContent);
+                  
+                  // 提取</think>后的内容（如果有）
+                  const afterThink = deltaContent.split('</think>')[1];
+                  if (afterThink) {
+                    this.currentStreamContent += afterThink;
+                    this.messages[messageIndex].content = this.currentStreamContent;
+                  }
+                  
+                  // 设置思考状态为结束
+                  this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
+                  this.$set(this.messages[messageIndex], 'thinkBuffer', null);
+                } else {
+                  // 动态更新思考内容显示
+                  this.$set(this.messages[messageIndex], 'reasoning_content', newBuffer);
+                }
+              }
+              else {
+                // 普通内容，直接添加
+                this.currentStreamContent += deltaContent;
+                this.messages[messageIndex].content = this.currentStreamContent;
+              }
+            }
             break;
 
           case 'end':
             // 消息结束
             this.messages[messageIndex].typing = false;
+            // 如果有思考内容，确保思考状态为完成
+            if (this.messages[messageIndex].reasoning_content) {
+              this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
+            }
             if (data.data.conversation_id && !this.activeConversation) {
               this.activeConversation = data.data.conversation_id;
               this.loadConversations(); // 刷新会话列表
@@ -737,6 +884,10 @@
             // 流结束
             if (messageIndex !== -1) {
               this.messages[messageIndex].typing = false;
+              // 如果有思考内容，确保思考状态为完成
+              if (this.messages[messageIndex].reasoning_content) {
+                this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
+              }
             }
             break;
         }
@@ -786,7 +937,6 @@
         this.uploadedFiles = [];
       },
 
-      // 加载会话列表
       // 加载会话列表
       async loadConversations() {
         try {
@@ -856,9 +1006,24 @@
 
             // 添加AI回答消息
             if (item.answer) {
+              // 处理思考内容
+              let content = item.answer;
+              let reasoning_content = '';
+              let thinkingStatus = 'end';
+              
+              // 检查是否包含思考内容
+              const thinkMatch = content.match(/<think>([\s\S]*?)<\/think>/);
+              if (thinkMatch) {
+                reasoning_content = thinkMatch[1];
+                content = content.replace(/<think>[\s\S]*?<\/think>/g, '');
+                thinkingStatus = 'end';
+              }
+              
               messages.push({
                 id: item.id,
-                content: item.answer,
+                content: content,
+                reasoning_content: reasoning_content,
+                thinkingStatus: thinkingStatus,
                 placement: 'start',
                 avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
                 created_at: item.created_at,
@@ -992,14 +1157,37 @@
 
       // 发送消息
       async handleSendMessage() {
-        if (!this.senderValue.trim() || this.loading) return;
+        console.log(this.senderValue);
+        if (this.loading || !this.senderValue.trim()) return;
 
-        const message = this.senderValue.trim();
-        this.handleSend(message);
-        this.$nextTick(() => {
+        try {
+
+          // 构建请求参数
+          const requestParams = {
+            query: this.senderValue,
+            conversation_id: this.activeConversation,
+            user: this.difyConfig.user,
+            response_mode: 'streaming',
+            // 添加深度思考参数
+            enable_thinking: this.isSelect,
+          };
+
+          // 如果有上传的文件，添加到请求中
+          if (this.uploadedFiles.length > 0) {
+            requestParams.files = this.uploadedFiles.map(file => file.id);
+          }
+
+          // 发送消息
+          this.handleSend(this.senderValue);
+          this.$nextTick(() => {
           this.$refs.bubbleListRef.scrollToBottom();
           this.senderValue = '';
         });
+        } catch (error) {
+          console.error('发送消息失败:', error);
+          this.$message.error('发送消息失败: ' + error.message);
+          this.loading = false;
+        }
       },
 
       // 停止消息
@@ -1096,4 +1284,9 @@
 
 <style lang="scss" scoped>
   @import './index.scss';
+  
+  /* 思考组件样式 */
+  .thinking-chain-wrap {
+    margin-bottom: 10px;
+  }
 </style>
