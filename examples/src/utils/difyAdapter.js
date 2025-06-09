@@ -37,11 +37,6 @@ export function transformBlockingResponse(response) {
  * @param {string} chunk - SSE 数据块
  * @returns {Object|null} 解析后的数据对象
  */
-/**
- * 解析 SSE 流式数据块
- * @param {string} chunk - SSE 数据块
- * @returns {Object|null} 解析后的数据对象
- */
 export function parseSSEChunk(chunk) {
   try {
     // console.log('chunk:', chunk);
@@ -49,23 +44,33 @@ export function parseSSEChunk(chunk) {
 
     // 根据 event 类型处理不同的数据
     switch (data.event) {
-      case 'message':
-        // 检查是否是结束标志（answer 为空字符串）
-        if (data.answer === '') {
-          return {
-            type: 'end',
-            data: {
-              id: data.message_id,
-              conversation_id: data.conversation_id,
-              created_at: data.created_at,
-              task_id: data.task_id,
-              metadata: {
-                from_variable_selector: data.from_variable_selector || [],
-              },
+      case 'workflow_started':
+        return {
+          type: 'workflow_started',
+          data: {
+            id: data.message_id,
+            conversation_id: data.conversation_id,
+            created_at: data.created_at,
+            task_id: data.task_id,
+            metadata: {
+              from_variable_selector: data.from_variable_selector || [],
             },
-          };
-        }
-
+          },
+        };
+      case 'workflow_finished':
+        return {
+          type: 'workflow_finished',
+          data: {
+            id: data.message_id,
+            conversation_id: data.conversation_id,
+            created_at: data.created_at,
+            task_id: data.task_id,
+            metadata: {
+              from_variable_selector: data.from_variable_selector || [],
+            },
+          },
+        };
+      case 'message':
         // 返回增量数据
         return {
           type: 'delta',
@@ -80,10 +85,36 @@ export function parseSSEChunk(chunk) {
             },
           },
         };
-
+      case 'message_end':
+        return {
+          type: 'end',
+          data: {
+            id: data.message_id,
+            conversation_id: data.conversation_id,
+            created_at: data.created_at,
+            task_id: data.task_id,
+            metadata: {
+              from_variable_selector: data.from_variable_selector || [],
+            },
+          },
+        };
+      case 'error':
+        return {
+          type: 'error',
+          data: {
+            id: data.message_id,
+            conversation_id: data.conversation_id,
+            created_at: data.created_at,
+            task_id: data.task_id,
+            content: data.message,
+            metadata: {
+              from_variable_selector: data.from_variable_selector || [],
+            },
+          },
+        };
       default:
         return {
-          type: 'unknown',
+          type: data.event,
           data: data,
         };
     }

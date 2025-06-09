@@ -41,9 +41,9 @@
         const type = mimeType.toLowerCase();
 
         // 图片类型
-        // if (type.startsWith('image/')) {
-        //   return 'image';
-        // }
+        if (type.startsWith('image/')) {
+          return 'image';
+        }
 
         // 音频类型
         if (type.startsWith('audio/')) {
