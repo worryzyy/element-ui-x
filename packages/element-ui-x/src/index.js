@@ -28,7 +28,6 @@ const components = [
   ElXPrompts,
   ElXConversations,
   ElXThinking,
-  ElXThink,
   ElXThoughtChain,
   ElXSender,
   ElXFilesCard,
