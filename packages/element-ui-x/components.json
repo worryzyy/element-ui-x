@@ -6,9 +6,8 @@
   "files-card": "./lib/files-card.js",
   "prompts": "./lib/prompts.js",
   "sender": "./lib/sender.js",
-  "think": "./lib/think.js",
   "thinking": "./lib/thinking.js",
   "thought-chain": "./lib/thought-chain.js",
   "welcome": "./lib/welcome.js",
   "attachments": "./lib/attachments.js"
-} 
+}

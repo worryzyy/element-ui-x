@@ -5,7 +5,6 @@ import ElXConversations from './components/Conversations/index.js';
 import ElXFilesCard from './components/FilesCard/index.js';
 import ElXPrompts from './components/Prompts/index.js';
 import ElXSender from './components/Sender/index.js';
-import ElXThink from './components/Think/index.js';
 import ElXThinking from './components/Thinking/index.js';
 import ElXThoughtChain from './components/ThoughtChain/index.js';
 import ElXTypewriter from './components/Typewriter/index.js';
@@ -52,7 +51,6 @@ export {
   ElXFilesCard,
   ElXPrompts,
   ElXSender,
-  ElXThink,
   ElXThinking,
   ElXThoughtChain,
   ElXTypewriter,
