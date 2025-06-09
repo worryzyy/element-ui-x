@@ -1,296 +1,63 @@
 <template>
   <div class="dify-chat">
-    <!-- 移动端顶部导航栏 -->
-    <div class="mobile-header">
-      <div class="mobile-header-left">
-        <el-button
-          type="text"
-          @click="toggleMobileDrawer"
-          class="mobile-menu-btn"
-        >
-          <SvgIcon
-            size="28"
-            name="menu-right"
-            color="rgb(139 139 139)"
-          />
-        </el-button>
-      </div>
-      <div class="mobile-header-center">
-        <span class="mobile-title">{{ currentConversationTitle || 'Dify Chat' }}</span>
-      </div>
-      <div class="mobile-header-right">
-        <el-button
-          type="text"
-          @click="handleNewChat"
-          class="mobile-new-chat-btn"
-        >
-          <SvgIcon
-            size="28"
-            name="plus"
-            color="rgb(139 139 139)"
-          />
-        </el-button>
-      </div>
-    </div>
+    <!-- 移动端头部导航栏 -->
+    <MobileHeader
+      :title="currentConversationTitle"
+      @toggle-drawer="toggleMobileDrawer"
+      @new-chat="handleNewChat"
+    />
 
     <!-- 移动端抽屉 -->
-    <el-drawer
-      :visible.sync="isMobileDrawerVisible"
-      direction="ltr"
-      :with-header="false"
-      :modal="true"
-      :show-close="false"
-      size="280px"
-      class="mobile-drawer"
-    >
-      <div class="drawer-content">
-        <div class="drawer-header">
-          <h2>Dify chat</h2>
-          <el-button
-            type="text"
-            @click="toggleMobileDrawer"
-            class="drawer-close-btn"
-          >
-            <SvgIcon
-              size="28"
-              name="menu-left"
-              color="rgb(139 139 139)"
-            />
-          </el-button>
-        </div>
-        <div
-          class="drawer-new-chat"
-          @click="handleNewChatAndCloseDrawer"
-        >
-          <div style="margin-right: 10px">
-            <SvgIcon
-              size="28"
-              name="plus"
-              color="rgb(139 139 139)"
-            />
-          </div>
-          新对话
-          <span class="keyboard-shortcut">Ctrl+K</span>
-        </div>
-        <el-x-conversations
-          v-if="conversationList.length"
-          :styleConfig="{ width: '100%', backgroundColor: '#f9fbff', padding: 0 }"
-          class="drawer-conversation-list"
-          :items="conversationList"
-          :active="activeConversation"
-          :show-built-in-menu="true"
-          :label-max-width="190"
-          :menu="customMenu"
-          :groupable="true"
-          v-loading="isLoadingConversations"
-          @menu-command="handleMenuCommand"
-          @change="handleConversationChangeAndCloseDrawer"
-        />
-        <el-empty
-          v-else
-          description="请开始今天的聊天吧"
-        ></el-empty>
-      </div>
-    </el-drawer>
+    <MobileDrawer
+      :visible="isMobileDrawerVisible"
+      :conversation-list="conversationList"
+      :active-conversation="activeConversation"
+      :custom-menu="customMenu"
+      :is-loading-conversations="isLoadingConversations"
+      @close="toggleMobileDrawer"
+      @new-chat="handleNewChat"
+      @conversation-change="handleConversationChange"
+      @menu-command="handleMenuCommand"
+    />
 
     <div class="dify-main">
-      <transition name="sidebar">
-        <!-- 收起状态的独立侧边栏 -->
-        <div
-          class="side-menu-collapsed"
-          v-if="isSideCollapsed"
-        >
-          <div class="collapsed-header">
-            <div
-              class="toggle-side"
-              @click="toggleSideMenu"
-            >
-              <img src="../../assets/images/dify-logo.svg" />
-            </div>
-          </div>
-          <div
-            class="toggle-side collapsed-new-chat"
-            @click="toggleSideMenu"
-          >
-            <SvgIcon
-              size="28"
-              name="toggle-right"
-              color="rgb(139 139 139)"
-            />
-          </div>
-          <div
-            class="collapsed-new-chat"
-            @click="handleNewChat"
-          >
-            <SvgIcon
-              size="28"
-              name="plus"
-              color="rgb(139 139 139)"
-            />
-          </div>
-        </div>
-        <div
-          class="side-menu"
-          v-if="!isSideCollapsed"
-        >
-          <div class="side-header">
-            <div class="side-action">
-              <h2>Dify chat</h2>
-              <div
-                class="toggle-side"
-                @click="toggleSideMenu"
-              >
-                <SvgIcon
-                  size="28"
-                  name="toggle-left"
-                  color="rgb(139 139 139)"
-                />
-              </div>
-            </div>
+      <!-- 桌面端侧边栏 -->
+      <Sidebar
+        :is-side-collapsed="isSideCollapsed"
+        :conversation-list="conversationList"
+        :active-conversation="activeConversation"
+        :custom-menu="customMenu"
+        :is-loading-conversations="isLoadingConversations"
+        @toggle="toggleSideMenu"
+        @new-chat="handleNewChat"
+        @conversation-change="handleConversationChange"
+        @menu-command="handleMenuCommand"
+      />
 
-            <div
-              class="new-chat"
-              @click="handleNewChat"
-            >
-              <div style="margin-right: 10px"><i class="el-icon-plus"></i></div>
-              新对话
-              <span class="keyboard-shortcut">Ctrl+K</span>
-            </div>
-          </div>
-          <el-x-conversations
-            v-if="conversationList.length"
-            :styleConfig="{ width: '260px', backgroundColor: '#f9fbff', padding: 0 }"
-            class="conversation-list"
-            :items="conversationList"
-            :active="activeConversation"
-            :show-built-in-menu="true"
-            :label-max-width="190"
-            :menu="customMenu"
-            :groupable="true"
-            v-loading="isLoadingConversations"
-            @menu-command="handleMenuCommand"
-            @change="handleConversationChange"
-          />
-          <el-empty
-            v-else
-            description="请开始今天的聊天吧"
-          ></el-empty>
-        </div>
-      </transition>
-      <div class="chat-container">
-        <div class="chat-header">
-          <div
-            class="chat-title"
-            @click="handleEditTitle"
-          >
-            {{ messages.length === 0 ? '' : currentConversationTitle }}
-          </div>
-        </div>
-        <div class="chat-content">
-          <div
-            class="chat-content-welcome"
-            v-if="messages.length === 0"
-          >
-            <welcome @click-prompt="handlePromptItemClick" />
-          </div>
-
-          <el-x-bubble-list
-            ref="bubbleListRef"
-            :list="messages"
-            :max-height="`calc(100vh - 160px)`"
-            :defaultMaxWidth="'100%'"
-            defaultShape="corner"
-            v-loading="isLoadingMessages"
-          >
-            <template #header="{ item }">
-              <bubble-list-header
-                :item="item"
-                :map-file-type="mapFileType"
-              />
-            </template>
-            <template #footer="{ item }">
-              <bubble-list-footer
-                :item="item"
-                :dify-config="difyConfig"
-                :messages="messages"
-                @edit-message="handleEditMessage"
-                @retry-message="handleRetryMessage"
-                @update-feedback="handleUpdateFeedback"
-              />
-            </template>
-          </el-x-bubble-list>
-        </div>
-        <div class="chat-input">
-          <div class="chat-input-container">
-            <el-x-sender
-              ref="senderRef"
-              v-model="senderValue"
-              variant="updown"
-              @submit="handleSendMessage"
-              :loading="loading"
-            >
-              <template #header>
-                <SenderHeader
-                  :file-list="uploadedFiles"
-                  @delete-file="handleDeleteUploadedFile"
-                />
-              </template>
-
-              <template #prefix>
-                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
-                  <el-button
-                    round
-                    plain
-                    color="#626aef"
-                    size="small"
-                    @click="handleFileUpload"
-                  >
-                    <i class="el-icon-paperclip"></i>
-                  </el-button>
-
-                  <template>
-                    <div
-                      :class="['thinking', { 'thinking--active': isSelect }]"
-                      @click="isSelect = !isSelect"
-                    >
-                      <i class="el-icon-plus"></i>
-                      <span>深度思考</span>
-                    </div>
-                  </template>
-                </div>
-              </template>
-
-              <template #action-list>
-                <div style="display: flex; align-items: center; gap: 8px">
-                  <el-button
-                    v-if="loading"
-                    round
-                    class="stop-btn"
-                    style="background: #f56c6c; color: #fff"
-                    size="small"
-                    @click="handleStopMessage"
-                  >
-                    <i class="el-icon-close"></i>
-                  </el-button>
-                  <el-button
-                    v-else
-                    round
-                    class="send-btn"
-                    style="background: #626aef; color: #fff"
-                    size="small"
-                    @click="handleSendMessage"
-                    :disabled="!senderValue.trim()"
-                  >
-                    <i class="el-icon-position"></i>
-                  </el-button>
-                </div>
-              </template>
-            </el-x-sender>
-          </div>
-
-          <div class="chat-input-footer">内容由 AI 生成，请仔细甄别</div>
-        </div>
-      </div>
+      <!-- 聊天容器 -->
+      <ChatContainer
+        :title="messages.length === 0 ? '' : currentConversationTitle"
+        :messages="messages"
+        :is-loading-messages="isLoadingMessages"
+        :loading="loading"
+        :is-select="isSelect"
+        :sender-value="senderValue"
+        :uploaded-files="uploadedFiles"
+        :map-file-type="mapFileType"
+        :dify-config="difyConfig"
+        :class="{ collapsed: isSideCollapsed }"
+        @edit-title="handleEditTitle"
+        @edit-message="handleEditMessage"
+        @retry-message="handleRetryMessage"
+        @update-feedback="handleUpdateFeedback"
+        @prompt-click="handlePromptItemClick"
+        @send="handleSendMessage"
+        @stop="handleStopMessage"
+        @file-upload="handleFileUpload"
+        @delete-file="handleDeleteUploadedFile"
+        @update:is-select="value => (isSelect = value)"
+        @update:sender-value="value => (senderValue = value)"
+      />
     </div>
 
     <!-- 隐藏的文件上传输入框 -->
@@ -298,997 +65,63 @@
       ref="fileInput"
       type="file"
       style="display: none"
-      @change="handleFileChange"
+      @change="handleFileInputChange"
     />
   </div>
 </template>
 
 <script>
-  import { conversationApi, fileApi, messageApi } from '@/api/dify';
   import { sendMixin, streamMixin } from 'vue-element-ui-x';
-  // import { sendMixin, streamMixin } from '../../../../packages/element-ui-x/src/mixins';
-  import {
-    buildChatMessageRequest,
-    createDifyRequestConfig,
-    createDifyTransformer,
-  } from '@/utils/difyAdapter';
 
-  import { addTimeGroupToItems } from '@/utils/timeUtils';
-  import BubbleListFooter from './components/BubbleListFooter.vue';
-  import BubbleListHeader from './components/BubbleListHeader.vue';
-  import SenderHeader from './components/SenderHeader.vue';
-  import Welcome from './components/Welcome.vue';
+  // 导入新组件
+  import ChatContainer from './components/ChatContainer.vue';
+  import MobileDrawer from './components/MobileDrawer.vue';
+  import MobileHeader from './components/MobileHeader.vue';
+  import Sidebar from './components/Sidebar.vue';
+
+  // 导入mixins
+  import conversationMixin from './mixins/conversationMixin';
+  import fileMixin from './mixins/fileMixin';
+  import messageMixin from './mixins/messageMixin';
+  import responsiveMixin from './mixins/responsiveMixin';
 
   export default {
     name: 'DifyChat',
     components: {
-      BubbleListHeader,
-      BubbleListFooter,
-      SenderHeader,
-      Welcome,
+      MobileHeader,
+      MobileDrawer,
+      Sidebar,
+      ChatContainer,
     },
-    mixins: [sendMixin, streamMixin],
+    mixins: [sendMixin, streamMixin, responsiveMixin, conversationMixin, messageMixin, fileMixin],
 
     data() {
       return {
-        // 侧边栏状态
-        isSideCollapsed: false,
-        // 移动端抽屉状态
-        isMobileDrawerVisible: false,
-        // 会话相关
-        conversationList: [],
-        activeConversation: null,
-        isLoadingConversations: false,
-        isCreatingChat: false,
-        customMenu: [
-          {
-            label: '修改名称',
-            key: 'rename',
-            icon: 'el-icon-edit',
-            command: 'rename',
-          },
-          {
-            label: '删除',
-            key: 'delete',
-            icon: 'el-icon-delete',
-            command: 'delete',
-            menuItemHoverStyle: {
-              color: '#F56C6C',
-              backgroundColor: 'rgba(245, 108, 108, 0.1)',
-            },
-          },
-        ],
-        // 消息相关
-        messages: [],
-        isLoadingMessages: false,
-        currentTaskId: null,
-        currentMessageId: null,
-        currentStreamContent: '',
-
-        // 输入相关
-        senderValue: '',
-        isSelect: false,
-        uploadedFiles: [],
-
-        // Dify 配置
-        difyConfig: {
-          baseURL: 'https://api.dify.ai/v1',
-          apiKey: 'app-LF6qPHsIQFgAkqoD2Dui1SUo',
-          user: 'default-user',
-        },
+        // 主组件特有的数据
+        loading: false,
+        // Dify 配置保留在主组件，但其他数据应该在mixins中
       };
-    },
-    computed: {
-      currentConversationTitle() {
-        const conversation = this.conversationList.find(
-          item => item.id === this.activeConversation,
-        );
-        return conversation ? conversation.label : '对话';
-      },
-    },
-    watch: {
-      messages: {
-        handler(newMessages) {
-          // 监听messages数组变化，动态设置最后一条消息的footer样式
-          this.$nextTick(() => {
-            this.updateLastMessageFooterStyle();
-          });
-        },
-        deep: true,
-        immediate: true,
-      },
-      uploadedFiles: {
-        handler(newFiles) {
-          // 监听上传文件变化，控制header显示隐藏
-          this.$nextTick(() => {
-            const senderRef = this.$refs.senderRef;
-            if (senderRef) {
-              if (newFiles.length > 0) {
-                senderRef.openHeader();
-              } else {
-                senderRef.closeHeader();
-              }
-            }
-          });
-        },
-        deep: true,
-        immediate: true,
-      },
     },
 
     async mounted() {
       await this.loadConversations();
-      this.initializeDifyRequest();
-      // 添加全局键盘事件监听
-      document.addEventListener('keydown', this.handleKeyDown);
-      // 添加窗口大小变化监听
-      window.addEventListener('resize', this.handleResize);
-      // 从localStorage恢复侧边栏状态
-      const savedState = localStorage.getItem('dify-side-collapsed');
-      if (savedState !== null) {
-        this.isSideCollapsed = savedState === 'true';
-      }
-      // 初始化时检查屏幕大小
-      this.handleResize();
     },
-    beforeDestroy() {
-      // 移除全局键盘事件监听
-      document.removeEventListener('keydown', this.handleKeyDown);
-      // 移除窗口大小变化监听
-      window.removeEventListener('resize', this.handleResize);
-    },
+
     methods: {
-      // 将Dify API文件类型或MIME类型映射到el-x-files-card组件类型
-      mapFileType(typeOrMime) {
-        // 如果是Dify API的文件类型
-        if (['document', 'image', 'audio', 'video', 'custom'].includes(typeOrMime)) {
-          switch (typeOrMime) {
-            case 'document':
-              return 'file';
-            case 'image':
-              return 'image';
-            case 'audio':
-              return 'audio';
-            case 'video':
-              return 'video';
-            case 'custom':
-            default:
-              return 'unknown';
-          }
-        }
-
-        // 如果是MIME类型，进行映射
-        const mimeType = typeOrMime.toLowerCase();
-
-        // 图片类型
-        if (mimeType.startsWith('image/')) {
-          return 'image';
-        }
-
-        // 音频类型
-        if (mimeType.startsWith('audio/')) {
-          return 'audio';
-        }
-
-        // 视频类型
-        if (mimeType.startsWith('video/')) {
-          return 'video';
-        }
-
-        // 文档类型
-        const documentMimes = [
-          'application/pdf',
-          'application/msword',
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-          'application/vnd.ms-excel',
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          'application/vnd.ms-powerpoint',
-          'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-          'text/plain',
-          'text/csv',
-          'application/json',
-          'text/html',
-          'text/css',
-          'application/javascript',
-        ];
-
-        if (documentMimes.includes(mimeType)) {
-          return 'file';
-        }
-
-        // 压缩文件等其他类型
-        const otherMimes = [
-          'application/zip',
-          'application/x-rar-compressed',
-          'application/octet-stream',
-        ];
-
-        if (otherMimes.includes(mimeType)) {
-          return 'file';
-        }
-
-        // 默认返回unknown
-        return 'unknown';
-      },
-      // 动态设置最后一条消息的footer样式
-      updateLastMessageFooterStyle() {
-        if (this.messages.length === 0) return;
-
-        // 获取所有bubble元素
-        const bubbleElements = document.querySelectorAll('.el-x-bubble');
-
-        // 重置所有bubble的footer样式
-        bubbleElements.forEach(bubble => {
-          const footerElements = bubble.querySelectorAll('.end-action, .start-action');
-          footerElements.forEach(footer => {
-            footer.style.opacity = '';
-          });
-        });
-
-        // 设置最后一个bubble的footer样式
-        if (bubbleElements.length > 0) {
-          const lastBubble = bubbleElements[bubbleElements.length - 1];
-          const lastFooterElements = lastBubble.querySelectorAll('.end-action, .start-action');
-          lastFooterElements.forEach(footer => {
-            footer.style.opacity = '1';
-          });
-        }
-      },
-      // 切换侧边栏展开/收起状态
-      toggleSideMenu() {
-        this.isSideCollapsed = !this.isSideCollapsed;
-        // 保存状态到localStorage
-        localStorage.setItem('dify-side-collapsed', this.isSideCollapsed);
-      },
-      // 切换移动端抽屉
-      toggleMobileDrawer() {
-        this.isMobileDrawerVisible = !this.isMobileDrawerVisible;
-      },
-      // 新建对话并关闭抽屉
-      handleNewChatAndCloseDrawer() {
-        this.handleNewChat();
-        this.isMobileDrawerVisible = false;
-      },
-      // 切换会话并关闭抽屉
-      handleConversationChangeAndCloseDrawer(conversation) {
-        this.handleConversationChange(conversation);
-        this.isMobileDrawerVisible = false;
-      },
-      // 处理键盘快捷键
-      handleKeyDown(event) {
-        // 检测Ctrl+K组合键
-        if (event.ctrlKey && event.key === 'k') {
-          // 阻止默认行为（如浏览器的搜索功能）
-          event.preventDefault();
-          // 触发新建对话
-          this.handleNewChat();
-        }
-      },
-      // 处理窗口大小变化
-      handleResize() {
-        const windowWidth = window.innerWidth;
-        // 当屏幕宽度小于1024px时，如果侧边栏是展开的，则自动收缩
-        if (windowWidth < 1024 && !this.isSideCollapsed) {
-          this.isSideCollapsed = true;
-          localStorage.setItem('dify-side-collapsed', 'true');
-        }
-      },
-      // 初始化 Dify 请求配置
-      initializeDifyRequest() {
-        const requestConfig = createDifyRequestConfig(this.difyConfig);
-
-        this.initSend({
-          sendHandler: this.sendDifyMessage,
-          abortHandler: this.abortDifyMessage,
-          finishHandler: this.finishDifyMessage,
-          onAbort: () => {
-            this.currentStreamContent = '';
-            this.currentMessageId = null;
-          },
-        });
-      },
-
-      // 发送 Dify 消息
-      async sendDifyMessage(message) {
-        try {
-          // 在新对话时，立即生成临时会话并添加到列表
-          if (!this.activeConversation) {
-            const tempConversationId = 'temp_' + Date.now();
-            const tempConversation = {
-              id: tempConversationId,
-              label: '新对话',
-              group: '今天',
-              prefixIcon: 'el-icon-chat-dot-round',
-              created_at: new Date().getTime() / 1000,
-            };
-
-            // 添加临时会话到列表顶部
-            this.conversationList.unshift(tempConversation);
-            this.activeConversation = tempConversationId;
-            console.log(this.conversationList);
-            // 触发会话切换事件
-            // this.$emit('conversation-change', {
-            //   id: tempConversationId,
-            //   label: '新对话',
-            // });
-          }
-          // 立即清空输入框和文件列表
-          this.senderValue = '';
-          const filesToSend = [...this.uploadedFiles]; // 保存文件列表用于发送
-          this.uploadedFiles = [];
-          // 立即关闭发送框头部
-          this.$nextTick(() => {
-            if (this.$refs.senderRef) {
-              this.$refs.senderRef.closeHeader();
-            }
-          });
-
-          // 添加用户消息到界面
-          const userMessage = {
-            id: Date.now().toString(),
-            content: message,
-            placement: 'end',
-            created_at: Date.now(),
-            // 添加message_files字段用于显示附件
-            message_files:
-              filesToSend.length > 0
-                ? filesToSend.map(file => ({
-                    id: file.id,
-                    filename: file.name,
-                    url: file.url,
-                    type: file.type,
-                    size: file.fileSize,
-                    mime_type: file.type,
-                    transfer_method: 'local_file',
-                    belongs_to: 'user',
-                    upload_file_id: file.id,
-                  }))
-                : [],
-            // 如果有附件，添加附件信息
-            ...(filesToSend.length > 0 && {
-              attachments: filesToSend.map(file => ({
-                id: file.id,
-                name: file.name,
-                url: file.url,
-                type: file.type,
-                size: file.fileSize,
-              })),
-            }),
-          };
-          this.messages.push(userMessage);
-
-          // 创建AI消息占位符
-          const aiMessage = {
-            id: (Date.now() + 1).toString(),
-            content: '',
-            placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-            created_at: Date.now(),
-            isMarkdown: true,
-            loading: true,
-            typing: {
-              interval: 80,
-              step: 5,
-            },
-            // 添加思考内容相关字段
-            reasoning_content: '',
-            thinkingStatus: 'start',
-          };
-          this.messages.push(aiMessage);
-          this.currentMessageId = aiMessage.id;
-          this.currentStreamContent = '';
-
-          // 构建请求参数
-          const requestBody = buildChatMessageRequest({
-            query: message,
-            conversation_id: this.activeConversation.startsWith('temp_')
-              ? null
-              : this.activeConversation,
-            files: filesToSend,
-            user: this.difyConfig.user,
-            response_mode: 'streaming',
-            enable_thinking: this.isSelect, // 添加深度思考参数
-          });
-
-          // 创建 XRequest 实例
-          const xRequest = this.createXRequest({
-            baseURL: this.difyConfig.baseURL,
-            baseOptions: {
-              headers: {
-                Authorization: `Bearer ${this.difyConfig.apiKey}`,
-                'Content-Type': 'application/json',
-              },
-            },
-            transformer: createDifyTransformer(),
-            type: 'fetch',
-            onMessage: this.handleStreamMessage,
-            onError: this.handleStreamError,
-          });
-
-          // 发送请求
-          await xRequest.send('/chat-messages', {
-            method: 'POST',
-            body: JSON.stringify(requestBody),
-            headers: {
-              Authorization: `Bearer ${this.difyConfig.apiKey}`,
-              'Content-Type': 'application/json',
-            },
-          });
-        } catch (error) {
-          console.error('发送消息失败:', error);
-          this.$message.error('发送消息失败: ' + error.message);
-          this.handleFinish();
-        }
-      },
-
-      // 处理流式消息
-      async handleStreamMessage(data) {
-        if (!data || !this.currentMessageId) return;
-        // 根据message_id找到对应的消息
-        const messageIndex = this.messages.findIndex(msg => msg.id === this.currentMessageId);
-        if (messageIndex === -1) return;
-
-        // 捕获task_id用于停止请求
-        if (data.data.task_id && !this.currentTaskId) {
-          this.currentTaskId = data.data.task_id;
-        }
-        switch (data.type) {
-          case 'workflow_started':
-            this.$set(this.messages[messageIndex], 'thoughtChains', []);
-            this.messages[messageIndex].thoughtChains.push({
-              id: 1,
-              title: '工作流开始',
-              status: 'completed',
-            });
-            this.messages[messageIndex].thoughtChains.push({
-              id: 2,
-              title: '工作流运行中',
-              status: 'processing',
-            });
-            if (data.data.conversation_id && !this.activeConversation) {
-              this.activeConversation = data.data.conversation_id;
-            }
-            break;
-          case 'workflow_finished':
-            this.messages[messageIndex].thoughtChains[0].status = 'completed';
-            this.messages[messageIndex].thoughtChains[1].status = 'success';
-            this.messages[messageIndex].thoughtChains.push({
-              id: 3,
-              title: '工作流结束',
-              status: 'success',
-            });
-            if (data.data.conversation_id && !this.activeConversation) {
-              this.activeConversation = data.data.conversation_id;
-            }
-            break;
-          case 'delta':
-            // 增量消息
-            if (this.messages[messageIndex].loading && this.messages[messageIndex].content) {
-              this.messages[messageIndex].loading = false;
-            }
-            // 更新消息ID为服务器返回的真实message_id
-            if (data.data.id) {
-              const oldId = this.messages[messageIndex].id;
-              this.messages[messageIndex].id = data.data.id;
-              // 更新currentMessageId以便后续操作使用正确的ID
-              if (this.currentMessageId === oldId) {
-                this.currentMessageId = this.messages[messageIndex].id;
-              }
-            }
-
-            // 处理思考内容
-            if (data.data.delta) {
-              const deltaContent = data.data.delta;
-
-              // 检查是否包含思考内容开始标签
-              if (deltaContent.includes('<think>')) {
-                // 设置思考状态
-                this.$set(this.messages[messageIndex], 'thinkingStatus', 'thinking');
-
-                // 提取<think>前的内容（如果有）
-                const beforeThink = deltaContent.split('<think>')[0];
-                if (beforeThink) {
-                  this.currentStreamContent += beforeThink;
-                  this.messages[messageIndex].content = this.currentStreamContent;
-                }
-
-                // 初始化或累积思考内容
-                const thinkStart = deltaContent.split('<think>')[1];
-
-                // 检查是否在同一消息中包含结束标签
-                if (thinkStart && thinkStart.includes('</think>')) {
-                  // 提取思考内容
-                  const thinkContent = thinkStart.split('</think>')[0];
-                  this.$set(this.messages[messageIndex], 'reasoning_content', thinkContent);
-
-                  // 提取</think>后的内容（如果有）
-                  const afterThink = thinkStart.split('</think>')[1];
-                  if (afterThink) {
-                    this.currentStreamContent += afterThink;
-                    this.messages[messageIndex].content = this.currentStreamContent;
-                  }
-
-                  // 设置思考状态为结束
-                  this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
-                } else {
-                  // 立即显示当前的思考内容（动态显示）
-                  this.$set(this.messages[messageIndex], 'reasoning_content', thinkStart || '');
-                }
-              }
-              // 正在思考中，累积内容
-              else if (this.messages[messageIndex].thinkingStatus === 'thinking') {
-                // 直接累积到 reasoning_content
-                const currentContent = this.messages[messageIndex].reasoning_content || '';
-                // 累积内容
-                const newContent = currentContent + deltaContent;
-
-                // 检查是否包含结束标签
-                if (deltaContent.includes('</think>')) {
-                  // 提取完整的思考内容
-                  const thinkContent = newContent.split('</think>')[0];
-                  this.$set(this.messages[messageIndex], 'reasoning_content', thinkContent);
-
-                  // 提取</think>后的内容（如果有）
-                  const afterThink = deltaContent.split('</think>')[1];
-                  if (afterThink) {
-                    this.currentStreamContent += afterThink;
-                    this.messages[messageIndex].content = this.currentStreamContent;
-                  }
-
-                  // 设置思考状态为结束
-                  this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
-                } else {
-                  // 动态更新思考内容显示
-                  this.$set(this.messages[messageIndex], 'reasoning_content', newContent);
-                }
-              } else {
-                // 普通内容，直接添加
-                this.currentStreamContent += deltaContent;
-                this.messages[messageIndex].content = this.currentStreamContent;
-              }
-            }
-            break;
-          case 'error':
-            this.messages[messageIndex].thoughtChains[0].status = 'completed';
-            this.messages[messageIndex].thoughtChains[1].status = 'success';
-            this.messages[messageIndex].thoughtChains.push({
-              id: 3,
-              title: '失败',
-              status: 'error',
-            });
-            this.messages[messageIndex].content = data.data.message;
-            this.messages[messageIndex].loading = false;
-
-            break;
-          case 'end':
-            this.messages[messageIndex].typing = false;
-            // 如果有思考内容，确保思考状态为完成
-            if (this.messages[messageIndex].reasoning_content) {
-              this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
-            }
-            await this.loadConversations();
-            // 如果收到新的conversation_id，处理临时会话替换
-            if (data.data.conversation_id) {
-              const oldActiveConversation = this.activeConversation;
-              this.activeConversation = data.data.conversation_id;
-
-              // 如果之前是临时会话，需要替换
-              if (oldActiveConversation && oldActiveConversation.startsWith('temp_')) {
-                // 找到临时会话的索引
-                const tempIndex = this.conversationList.findIndex(
-                  conv => conv.id === oldActiveConversation,
-                );
-                if (tempIndex !== -1) {
-                  // 用真实会话替换临时会话
-                  this.conversationList.splice(tempIndex, 1, {
-                    id: data.data.conversation_id,
-                    label: '新对话',
-                    prefixIcon: 'el-icon-chat-dot-round',
-                    created_at: new Date().toISOString(),
-                  });
-                }
-
-                // 触发会话切换事件，用真实的会话ID替换临时ID
-                // this.$emit('conversation-change', {
-                //   id: data.data.conversation_id,
-                //   label: '新对话',
-                // });
-              }
-            }
-            break;
-        }
-
-        // 强制更新视图
-        // this.$forceUpdate();
-      },
-
-      // 处理流式错误
-      handleStreamError(error) {
-        console.error('流式响应错误:', error);
-        this.$message.error('接收消息时发生错误');
-
-        if (this.currentMessageId) {
-          const messageIndex = this.messages.findIndex(msg => msg.id === this.currentMessageId);
-          if (messageIndex !== -1) {
-            this.messages[messageIndex].typing = false;
-            this.messages[messageIndex].content = this.currentStreamContent || '消息接收失败';
-          }
-        }
-      },
-
-      // 中止 Dify 消息
-      abortDifyMessage() {
-        if (this.currentMessageId) {
-          const messageIndex = this.messages.findIndex(msg => msg.id === this.currentMessageId);
-          if (messageIndex !== -1) {
-            this.messages[messageIndex].typing = false;
-            this.messages[messageIndex].content = this.currentStreamContent || '消息已取消';
-          }
-        }
-        this.currentTaskId = null; // 清理task_id
-      },
-
-      // 完成 Dify 消息
-      finishDifyMessage() {
-        if (this.currentMessageId) {
-          const messageIndex = this.messages.findIndex(msg => msg.id === this.currentMessageId);
-          if (messageIndex !== -1) {
-            this.messages[messageIndex].typing = false;
-          }
-        }
-        this.currentStreamContent = '';
-        this.currentMessageId = null;
-        this.currentTaskId = null; // 清理task_id
-      },
-
-      // 加载会话列表
-      async loadConversations() {
-        try {
-          this.isLoadingConversations = true;
-          const response = await conversationApi.getConversations();
-
-          // 转换数据格式以适配UI组件
-          const formattedData = response.data.map(item => ({
-            id: item.id,
-            label: item.name || '新对话',
-            prefixIcon: 'el-icon-chat-dot-round',
-            created_at: item.created_at,
-          }));
-
-          // 使用工具函数添加时间分组
-          this.conversationList = addTimeGroupToItems(formattedData).sort(
-            (a, b) => new Date(b.created_at) - new Date(a.created_at),
-          ); // 按创建时间倒序排列
-
-          // 如果有会话，默认选中第一个
-          // if (this.conversationList.length > 0 && !this.activeConversation) {
-          //   this.activeConversation = this.conversationList[0].id;
-          //   await this.loadMessages(this.activeConversation);
-          // }
-        } catch (error) {
-          this.$message.error('加载会话列表失败: ' + error.message);
-        } finally {
-          this.isLoadingConversations = false;
-        }
-      },
-
-      // 加载消息历史
-      async loadMessages(conversationId) {
-        if (!conversationId) return;
-
-        try {
-          this.isLoadingMessages = true;
-          const response = await messageApi.getMessages({
-            conversation_id: conversationId,
-          });
-
-          // 转换消息格式 - 修复消息内容处理逻辑
-          const messages = [];
-          response.data.forEach(item => {
-            // 添加用户消息
-            if (item.query) {
-              messages.push({
-                id: `${item.id}_user`,
-                content: item.query,
-                placement: 'end',
-                created_at: item.created_at,
-                typing: false,
-                message_files: item.message_files || [],
-                // 如果消息包含文件信息，添加附件
-                ...(item.files &&
-                  item.files.length > 0 && {
-                    attachments: item.files.map(file => ({
-                      id: file.id,
-                      name: file.name,
-                      url: file.url,
-                      type: file.type,
-                      size: file.size,
-                    })),
-                  }),
-              });
-            }
-
-            // 添加AI回答消息
-            if (item.answer) {
-              // 处理思考内容
-              let content = item.answer;
-              let reasoning_content = '';
-              let thinkingStatus = 'end';
-
-              // 检查是否包含完整的思考内容（有开始和结束标签）
-              const thinkMatch = content.match(/<think>([\s\S]*?)<\/think>/);
-              if (thinkMatch) {
-                reasoning_content = thinkMatch[1];
-                content = content.replace(/<think>[\s\S]*?<\/think>/g, '');
-                thinkingStatus = 'end';
-              } else if (content.includes('<think>')) {
-                // 只有开始标签，没有结束标签的情况
-                const thinkStartIndex = content.indexOf('<think>');
-                const beforeThink = content.substring(0, thinkStartIndex);
-                const thinkContent = content.substring(thinkStartIndex + 7); // 7是'<think>'的长度
-
-                content = beforeThink;
-                reasoning_content = thinkContent;
-                thinkingStatus = 'thinking'; // 标记为思考中状态
-              }
-
-              messages.push({
-                id: item.id,
-                content: content,
-                reasoning_content: reasoning_content,
-                thinkingStatus: thinkingStatus,
-                loading: thinkingStatus == 'thinking' ? true : false,
-                placement: 'start',
-                avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-                created_at: item.created_at,
-                typing: false,
-                feedback: item.feedback,
-              });
-            }
-          });
-
-          // 按时间排序消息
-          this.messages = messages.sort((a, b) => a.created_at - b.created_at);
-        } catch (error) {
-          this.$message.error('加载消息历史失败: ' + error.message);
-        } finally {
-          this.isLoadingMessages = false;
-        }
-      },
-
-      // 处理会话切换
-      async handleConversationChange(conversation) {
-        this.activeConversation = conversation.id;
-        await this.loadMessages(conversation.id);
-        // this.$emit('conversation-change', conversation);
-      },
-
-      // 新建对话
-      async handleNewChat() {
-        try {
-          this.isCreatingChat = true;
-          // 重置当前状态
-          this.activeConversation = null;
-          this.messages = [];
-          this.senderValue = '';
-          this.uploadedFiles = [];
-          this.$emit('new-chat');
-        } catch (error) {
-          this.$message.error('创建新对话失败: ' + error.message);
-        } finally {
-          this.isCreatingChat = false;
-        }
-      },
-      handleMenuCommand(command, item) {
-        if (command == 'delete') {
-          this.handleDeleteConversation(item);
-        } else if (command == 'rename') {
-          this.$prompt('请输入新的对话标题', '重命名对话', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            inputValue: item.label,
-          })
-            .then(({ value }) => {
-              if (value && value.trim()) {
-                const conversation = this.conversationList.find(
-                  item => item.id === this.activeConversation,
-                );
-                this.handleRenameConversation(item, value.trim());
-              }
-            })
-            .catch(() => {});
-        }
-      },
-      // 删除会话
-      async handleDeleteConversation(conversation) {
-        try {
-          await this.$confirm('确定要删除这个对话吗？', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning',
-          });
-
-          await conversationApi.deleteConversation(conversation.id);
-
-          // 从列表中移除
-          this.conversationList = this.conversationList.filter(item => item.id !== conversation.id);
-
-          // 如果删除的是当前激活的会话
-          if (this.activeConversation === conversation.id) {
-            if (this.conversationList.length > 0) {
-              this.activeConversation = this.conversationList[0].id;
-              await this.loadMessages(this.activeConversation);
-            } else {
-              this.activeConversation = null;
-              this.messages = [];
-            }
-          }
-
-          this.$message.success('对话已删除');
-        } catch (error) {
-          if (error !== 'cancel') {
-            this.$message.error('删除对话失败: ' + error.message);
-          }
-        }
-      },
-
-      // 重命名会话
-      async handleRenameConversation(conversation, newName) {
-        try {
-          await conversationApi.renameConversation(conversation.id, newName);
-
-          // 更新本地数据
-          const index = this.conversationList.findIndex(item => item.id === conversation.id);
-          if (index !== -1) {
-            this.conversationList[index].label = newName;
-          }
-
-          this.$message.success('重命名成功');
-        } catch (error) {
-          this.$message.error('重命名失败: ' + error.message);
-        }
-      },
-
-      // 编辑标题
-      handleEditTitle() {
-        if (!this.activeConversation) return;
-
-        this.$prompt('请输入新的对话标题', '重命名对话', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          inputValue: this.currentConversationTitle,
-        })
-          .then(({ value }) => {
-            if (value && value.trim()) {
-              const conversation = this.conversationList.find(
-                item => item.id === this.activeConversation,
-              );
-              this.handleRenameConversation(conversation, value.trim());
-            }
-          })
-          .catch(() => {});
-      },
-
-      // 发送消息
-      async handleSendMessage() {
-        if (this.loading || !this.senderValue.trim()) return;
-
-        try {
-          // 构建请求参数
-          const requestParams = {
-            query: this.senderValue,
-            conversation_id: this.activeConversation,
-            user: this.difyConfig.user,
-            response_mode: 'streaming',
-            // 添加深度思考参数
-            enable_thinking: this.isSelect,
-          };
-
-          // 如果有上传的文件，添加到请求中
-          if (this.uploadedFiles.length > 0) {
-            requestParams.files = this.uploadedFiles.map(file => file.id);
-          }
-
-          // 发送消息
-          this.handleSend(this.senderValue);
-          this.$nextTick(() => {
-            this.$refs.bubbleListRef.scrollToBottom();
-            this.senderValue = '';
-          });
-        } catch (error) {
-          console.error('发送消息失败:', error);
-          this.$message.error('发送消息失败: ' + error.message);
-          this.loading = false;
-        }
-      },
-
-      // 停止消息
-      async handleStopMessage() {
-        try {
-          // 如果有task_id，调用后端停止接口
-          if (this.currentTaskId) {
-            await messageApi.stopMessage(this.currentTaskId, this.difyConfig.user);
-          }
-          this.handleAbort();
-        } catch (error) {
-          console.error('停止消息失败:', error);
-          this.$message.error('停止消息失败: ' + error.message);
-        } finally {
-          // 清理task_id
-          this.currentTaskId = null;
-        }
-      },
-
-      // 处理提示项点击
-      handlePromptItemClick(data) {
-        this.senderValue = data.description;
-        this.handleSendMessage();
-      },
-
-      // 文件上传相关方法
+      // 触发文件上传选择
       handleFileUpload() {
         this.$refs.fileInput.click();
       },
 
-      async handleFileChange(event) {
+      // 处理文件输入框变化
+      handleFileInputChange(event) {
         const file = event.target.files[0];
-        if (!file) return;
-
-        try {
-          const response = await fileApi.uploadFile(file);
-          // 按照 Dify API 规范格式化文件对象
-          const fileObject = {
-            id: response.id,
-            name: response.name,
-            url: response.url || response.download_url,
-            type: response.type || file.type,
-            size: response.size || file.size,
-            // 用于 UI 显示的额外属性
-            uid: response.id,
-            fileSize: response.size || file.size,
-            imgFile: file,
-            showDelIcon: true,
-          };
-          this.uploadedFiles.push(fileObject);
-          this.$message.success('文件上传成功');
-        } catch (error) {
-          this.$message.error('文件上传失败: ' + error.message);
+        if (file) {
+          // 调用fileMixin的handleFileChange方法
+          this.handleFileChange(file);
         }
-
         // 清空文件输入
         event.target.value = '';
-      },
-
-      // 处理删除上传的文件
-      handleDeleteUploadedFile(item, index) {
-        this.uploadedFiles = this.uploadedFiles.filter(file => file.id !== item.id);
-        this.$message.success('文件已删除');
-      },
-
-      // 处理编辑消息事件
-      handleEditMessage(content) {
-        // 更新消息内容并重新发送
-        this.senderValue = content;
-        this.handleSendMessage();
-      },
-
-      // 处理重试消息事件
-      handleRetryMessage(content) {
-        // 直接重新发送用户消息
-        this.handleSend(content);
-
-        this.$nextTick(() => {
-          this.$refs.bubbleListRef.scrollToBottom();
-        });
-      },
-
-      // 处理反馈更新事件
-      handleUpdateFeedback({ messageId, feedback }) {
-        // 更新本地状态
-        const messageIndex = this.messages.findIndex(msg => msg.id === messageId);
-        if (messageIndex !== -1) {
-          this.$set(this.messages[messageIndex], 'feedback', feedback);
-        }
       },
     },
   };
@@ -1296,4 +129,14 @@
 
 <style lang="scss" scoped>
   @import './index.scss';
+
+  .dify-chat {
+    height: 100vh;
+    overflow: hidden;
+
+    .dify-main {
+      display: flex;
+      height: 100vh;
+    }
+  }
 </style>

@@ -23,6 +23,8 @@ export function getTimeGroup(dateTime) {
 
   if (diffDays === 0) {
     return '今天';
+  } else if (diffDays <= 1) {
+    return '昨天';
   } else if (diffDays <= 7) {
     return '7天内';
   } else if (diffDays <= 30) {

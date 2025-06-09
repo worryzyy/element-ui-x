@@ -24,4 +24,13 @@ module.exports = {
       })
       .end();
   },
+
+  // 配置全局 SCSS 变量
+  css: {
+    loaderOptions: {
+      sass: {
+        additionalData: `@import "~element-ui/packages/theme-chalk/src/common/var.scss";`,
+      },
+    },
+  },
 };

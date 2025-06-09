@@ -9,7 +9,6 @@ export const conversationApi = {
   getConversations(params = {}) {
     return request.get('/conversations', {
       params: {
-        user: 'default-user',
         limit: 20,
         sort_by: 'created_at',
         ...params,
@@ -18,7 +17,7 @@ export const conversationApi = {
   },
 
   // 删除会话
-  deleteConversation(conversationId, user = 'default-user') {
+  deleteConversation(conversationId, user) {
     return request.delete(`/conversations/${conversationId}`, {
       data: {
         user,
@@ -27,7 +26,7 @@ export const conversationApi = {
   },
 
   // 会话重命名
-  renameConversation(conversationId, name, user = 'default-user') {
+  renameConversation(conversationId, name, user) {
     return request.post(`/conversations/${conversationId}/name`, {
       name,
       user,
@@ -35,7 +34,7 @@ export const conversationApi = {
   },
 
   // 自动生成会话标题
-  autoGenerateTitle(conversationId, user = 'default-user') {
+  autoGenerateTitle(conversationId, user) {
     return request.post(`/conversations/${conversationId}/name`, {
       auto_generate: true,
       user,
@@ -51,7 +50,6 @@ export const messageApi = {
   getMessages(params = {}) {
     return request.get('/messages', {
       params: {
-        user: 'default-user',
         limit: 20,
         ...params,
       },
@@ -61,7 +59,6 @@ export const messageApi = {
   // 发送消息
   sendMessage(data) {
     return request.post('/chat-messages', {
-      user: 'default-user',
       response_mode: 'streaming',
       inputs: {},
       auto_generate_name: true,
@@ -70,14 +67,14 @@ export const messageApi = {
   },
 
   // 停止响应
-  stopMessage(taskId, user = 'default-user') {
+  stopMessage(taskId, user) {
     return request.post(`/chat-messages/${taskId}/stop`, {
       user,
     });
   },
 
   // 消息反馈
-  feedbackMessage(messageId, rating, content = '', user = 'default-user') {
+  feedbackMessage(messageId, rating, content = '', user) {
     return request.post(`/messages/${messageId}/feedbacks`, {
       rating, // 'like' | 'dislike' | null
       content,
@@ -86,7 +83,7 @@ export const messageApi = {
   },
 
   // 获取建议问题
-  getSuggestedQuestions(messageId, user = 'default-user') {
+  getSuggestedQuestions(messageId, user) {
     return request.get(`/messages/${messageId}/suggested`, {
       params: {
         user,
@@ -120,7 +117,7 @@ export const appApi = {
  */
 export const fileApi = {
   // 上传文件
-  uploadFile(file, user = 'default-user') {
+  uploadFile(file, user) {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('user', user);

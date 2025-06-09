@@ -143,7 +143,7 @@ export function createDifyTransformer() {
  * @returns {Object} 请求配置
  */
 export function createDifyRequestConfig(options = {}) {
-  const { baseURL = 'https://api.dify.ai/v1', apiKey, user = 'default-user' } = options;
+  const { baseURL = 'https://api.dify.ai/v1', apiKey, user } = options;
 
   return {
     baseURL,
@@ -177,7 +177,7 @@ export function buildChatMessageRequest(params) {
     query,
     conversation_id,
     files = [],
-    user = 'default-user',
+    user,
     response_mode = 'streaming',
     inputs = {},
     parent_message_id,
