@@ -79,6 +79,26 @@
           />
         </div>
       </el-tab-pane>
+
+      <el-tab-pane
+        label="实战项目"
+        name="projects"
+      >
+        <div class="project-intro">
+          <div class="intro-content">
+            <h3>🚀 实战项目</h3>
+            <p>完整的企业级AI聊天应用实战案例，展示如何将Element-UI-X组件集成到真实项目中</p>
+          </div>
+        </div>
+        <div class="components-grid">
+          <component-card
+            v-for="component in getComponentsByCategory('projects')"
+            :key="component.path"
+            :component="component"
+            @click.native="navigateTo(component.path)"
+          />
+        </div>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -95,43 +115,13 @@
     render(h) {
       return h(
         'div',
-        {
-          class: 'component-card',
-        },
+        { class: ['component-card', this.component.category === 'projects' ? 'project-card' : ''] },
         [
-          h(
-            'div',
-            {
-              class: 'component-icon',
-            },
-            [
-              h('i', {
-                class: this.component.icon,
-              }),
-            ],
-          ),
-          h(
-            'div',
-            {
-              class: 'component-info',
-            },
-            [
-              h(
-                'h3',
-                {
-                  class: 'component-name',
-                },
-                this.component.name,
-              ),
-              h(
-                'p',
-                {
-                  class: 'component-desc',
-                },
-                this.component.description,
-              ),
-            ],
-          ),
+          h('div', { class: 'component-icon' }, [h('i', { class: this.component.icon })]),
+          h('div', { class: 'component-info' }, [
+            h('h3', { class: 'component-name' }, this.component.name),
+            h('p', { class: 'component-desc' }, this.component.description),
+          ]),
         ],
       );
     },
@@ -139,9 +129,7 @@
 
   export default {
     name: 'Overview',
-    components: {
-      ComponentCard,
-    },
+    components: { ComponentCard },
     data() {
       return {
         activeTab: 'all',
@@ -258,6 +246,15 @@
             description: '流式处理组件',
             category: 'features',
           },
+
+          // 实战项目
+          {
+            name: 'DifyChat 对接',
+            path: '/difychat',
+            icon: 'el-icon-postcard',
+            description: '完整的 Dify 后台接口对接实战项目，展示真实 AI 聊天应用',
+            category: 'projects',
+          },
         ],
       };
     },
@@ -271,7 +268,17 @@
         return this.components.filter(component => component.category === category);
       },
       navigateTo(path) {
-        this.$router.push(path);
+        // 查找当前路径对应的组件
+        const component = this.components.find(comp => comp.path === path);
+
+        // 如果是实战项目，在新窗口打开
+        if (component && component.category === 'projects') {
+          const newUrl = window.location.origin + window.location.pathname + '#' + path;
+          window.open(newUrl, '_blank');
+        } else {
+          // 其他组件在当前窗口导航
+          this.$router.push(path);
+        }
       },
     },
   };
@@ -318,6 +325,32 @@
       animation: fadeIn 0.3s ease-in-out;
     }
 
+    .project-intro {
+      margin-bottom: 32px;
+      text-align: center;
+
+      .intro-content {
+        padding: 24px;
+        background: linear-gradient(135deg, $--color-primary-light-9, #f0f9ff);
+        border-radius: 12px;
+        border: 1px solid $--color-primary-light-7;
+
+        h3 {
+          margin: 0 0 12px 0;
+          font-size: 20px;
+          font-weight: 600;
+          color: $--color-text-primary;
+        }
+
+        p {
+          margin: 0;
+          font-size: 14px;
+          color: $--color-text-secondary;
+          line-height: 1.6;
+        }
+      }
+    }
+
     .component-card {
       height: 100px;
       border-radius: 8px;
@@ -334,6 +367,35 @@
         transform: translateY(-5px);
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         border-color: $--color-primary-light-7;
+      }
+
+      // 实战项目特殊样式
+      &.project-card {
+        height: 120px;
+        background: linear-gradient(135deg, $--color-primary-light-9, #f0f9ff);
+        border: 2px solid $--color-primary-light-7;
+
+        &:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 8px 20px rgba(64, 158, 255, 0.2);
+          border-color: $--color-primary;
+        }
+
+        .component-icon {
+          background: linear-gradient(135deg, $--color-primary, #67c23a);
+
+          i {
+            color: white;
+          }
+        }
+
+        .component-info .component-name {
+          background: linear-gradient(135deg, $--color-primary, #67c23a);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          font-weight: 600;
+        }
       }
 
       .component-icon {

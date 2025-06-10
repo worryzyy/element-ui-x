@@ -16,6 +16,7 @@ import Thinking from '../views/Thinking.vue';
 import ThoughtChain from '../views/ThoughtChain.vue';
 import Typewriter from '../views/Typewriter.vue';
 import Welcome from '../views/Welcome.vue';
+
 Vue.use(Router);
 
 export default new Router({
@@ -99,9 +100,7 @@ export default new Router({
       path: '/difychat',
       name: 'DifyChat',
       component: DifyChat,
-      meta: {
-        hideInMenu: true,
-      },
+      meta: { hideInMenu: true },
     },
     {
       path: '*',
