@@ -9,10 +9,14 @@
       :is-loading-messages="isLoadingMessages"
       :map-file-type="mapFileType"
       :dify-config="difyConfig"
+      :suggested-questions="suggestedQuestions"
+      :show-suggested-questions="showSuggestedQuestions"
+      :is-loading-suggestions="isLoadingSuggestions"
       @edit-message="$emit('edit-message', $event)"
       @retry-message="$emit('retry-message', $event)"
       @update-feedback="$emit('update-feedback', $event)"
       @prompt-click="$emit('prompt-click', $event)"
+      @suggested-question-click="$emit('suggested-question-click', $event)"
     />
     <ChatInput
       :value="senderValue"
@@ -78,6 +82,18 @@
         type: String,
         default: '',
       },
+      suggestedQuestions: {
+        type: Array,
+        default: () => [],
+      },
+      showSuggestedQuestions: {
+        type: Boolean,
+        default: false,
+      },
+      isLoadingSuggestions: {
+        type: Boolean,
+        default: false,
+      },
     },
     data() {
       return {
@@ -96,6 +112,7 @@
       'delete-file',
       'update:is-select',
       'update:sender-value',
+      'suggested-question-click',
     ],
   };
 </script>

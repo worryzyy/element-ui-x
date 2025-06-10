@@ -52,6 +52,11 @@ export default {
       senderValue: '',
       isSelect: false,
 
+      // 建议问题相关
+      suggestedQuestions: [],
+      isLoadingSuggestions: false,
+      showSuggestedQuestions: false,
+
       // Dify 配置
       difyConfig: {
         baseURL: 'https://api.dify.ai/v1',
@@ -552,6 +557,12 @@ export default {
             this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
           }
           await this.loadConversations();
+
+          // 获取建议问题 - 仅对AI消息获取建议
+          if (this.messages[messageIndex].placement === 'start' && this.messages[messageIndex].id) {
+            await this.getSuggestedQuestions(this.messages[messageIndex].id);
+          }
+
           // 如果收到新的conversation_id，处理临时会话替换
           if (data.data.conversation_id) {
             const oldActiveConversation = this.activeConversation;
@@ -687,8 +698,55 @@ export default {
 
     // 处理提示项点击
     handlePromptItemClick(data) {
-      this.senderValue = data.description;
-      this.handleSend(this.senderValue);
+      this.senderValue = data.description || data.label;
+      this.$nextTick(() => {
+        this.handleSendMessage();
+      });
+    },
+
+    // 获取建议问题
+    async getSuggestedQuestions(messageId) {
+      if (!messageId) return;
+
+      try {
+        this.isLoadingSuggestions = true;
+        const response = await messageApi.getSuggestedQuestions(messageId, this.difyConfig.user);
+
+        if (response.result === 'success' && response.data && response.data.length > 0) {
+          this.suggestedQuestions = response.data.map((question, index) => ({
+            key: `suggestion_${index}`,
+            icon: 'el-icon-chat-dot-round',
+            iconStyle: {
+              color: '#626aef',
+            },
+            label: question,
+            description: question,
+          }));
+          this.showSuggestedQuestions = true;
+        } else {
+          this.suggestedQuestions = [];
+          this.showSuggestedQuestions = false;
+        }
+      } catch (error) {
+        console.error('获取建议问题失败:', error);
+        this.suggestedQuestions = [];
+        this.showSuggestedQuestions = false;
+      } finally {
+        this.isLoadingSuggestions = false;
+      }
+    },
+
+    // 处理建议问题点击
+    handleSuggestedQuestionClick(question) {
+      // 隐藏建议问题
+      this.showSuggestedQuestions = false;
+      this.suggestedQuestions = [];
+
+      // 发送消息
+      this.senderValue = question.description;
+      this.$nextTick(() => {
+        this.handleSendMessage();
+      });
     },
   },
 };

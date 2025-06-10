@@ -40,6 +40,37 @@
         />
       </template>
     </el-x-bubble-list>
+
+    <!-- 建议问题区域 -->
+    <div
+      v-if="showSuggestedQuestions && suggestedQuestions.length > 0"
+      class="suggested-questions"
+    >
+      <div class="suggested-title">建议问题：</div>
+      <el-x-prompts
+        :styles="{
+          justifyContent: 'center',
+          item: {
+            flex: 'none',
+            backgroundImage: 'linear-gradient(137deg, #f0f7ff 0%, #edf1ff 100%)',
+            border: '1px solid #e6efff',
+            width: 'auto',
+            minWidth: '200px',
+            margin: '4px',
+          },
+        }"
+        :items="suggestedQuestions"
+        :loading="isLoadingSuggestions"
+        @on-item-click="handleSuggestedQuestionClick"
+      >
+        <template v-slot:icon="{ item }">
+          <i
+            :class="item.icon"
+            :style="item.iconStyle"
+          ></i>
+        </template>
+      </el-x-prompts>
+    </div>
   </div>
 </template>
 
@@ -73,13 +104,36 @@
         type: Object,
         required: true,
       },
+      suggestedQuestions: {
+        type: Array,
+        default: () => [],
+      },
+      showSuggestedQuestions: {
+        type: Boolean,
+        default: false,
+      },
+      isLoadingSuggestions: {
+        type: Boolean,
+        default: false,
+      },
     },
     data() {
       return {
         mdPlugins: [markdownItMermaid, markdownItKatex],
       };
     },
-    emits: ['edit-message', 'retry-message', 'update-feedback', 'prompt-click'],
+    emits: [
+      'edit-message',
+      'retry-message',
+      'update-feedback',
+      'prompt-click',
+      'suggested-question-click',
+    ],
+    methods: {
+      handleSuggestedQuestionClick(question) {
+        this.$emit('suggested-question-click', question);
+      },
+    },
   };
 </script>
 
@@ -99,6 +153,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .suggested-questions {
+      margin-top: 16px;
+      padding: 0 16px;
+
+      .suggested-title {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 8px;
+        text-align: center;
+      }
     }
 
     ::v-deep .el-x-bubble-list {
