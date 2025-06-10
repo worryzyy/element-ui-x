@@ -20,7 +20,7 @@
           <SvgIcon
             size="28"
             name="menu-left"
-            color="rgb(139 139 139)"
+            color="rgb(139, 139, 139)"
           />
         </el-button>
       </div>
@@ -32,7 +32,7 @@
           <SvgIcon
             size="28"
             name="plus"
-            color="rgb(139 139 139)"
+            color="rgb(139, 139, 139)"
           />
         </div>
         新对话
@@ -131,7 +131,7 @@
       .drawer-new-chat {
         margin: 16px;
         color: #4d6bfe;
-        background-color: rgb(219 234 254);
+        background-color: rgb(219, 234, 254);
         cursor: pointer;
         height: 44px;
         border-radius: 14px;

@@ -221,7 +221,7 @@
         --local-button-text: rgb(77 107 254);
         --local-button-hover: #c6dcf8;
         color: #4d6bfe;
-        background-color: rgb(219 234 254);
+        background-color: rgb(219, 234, 254);
         cursor: pointer;
         height: 44px;
         border-radius: 14px;

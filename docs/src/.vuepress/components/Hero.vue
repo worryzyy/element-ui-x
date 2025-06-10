@@ -324,12 +324,12 @@
           font-size: 14px;
           color: $--color-text-regular;
           line-height: 1.8;
-          padding-left: calc($--size-base + 4px);
+          padding-left: $--size-base + 4px;
 
           @media (max-width: $--sm) {
             font-size: 13px;
             line-height: 1.6;
-            padding-left: calc($--size-base + 2px);
+            padding-left: $--size-base + 2px;
           }
         }
       }

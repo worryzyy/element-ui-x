@@ -81,7 +81,7 @@
       .drawer-new-chat {
         margin: 16px;
         color: #4d6bfe;
-        background-color: rgb(219 234 254);
+        background-color: rgb(219, 234, 254);
         cursor: pointer;
         height: 44px;
         border-radius: 14px;
@@ -126,10 +126,12 @@
     flex: 1;
     overflow: hidden;
     height: 100%;
+
     .sidebar-enter-active,
     .sidebar-leave-active {
       transition: all 0.3s ease;
     }
+
     .sidebar-enter,
     .sidebar-leave-to {
       opacity: 0;
@@ -139,8 +141,10 @@
     // 为新对话按钮添加专门的动画
     .sidebar-enter-active .new-chat,
     .sidebar-leave-active .new-chat {
-      transition: all 0.3s ease 0.1s; /* 延迟0.1s开始动画 */
+      transition: all 0.3s ease 0.1s;
+      /* 延迟0.1s开始动画 */
     }
+
     .sidebar-enter .new-chat,
     .sidebar-leave-to .new-chat {
       opacity: 0;
@@ -150,13 +154,16 @@
     // 为键盘快捷键添加动画
     .sidebar-enter-active .keyboard-shortcut,
     .sidebar-leave-active .keyboard-shortcut {
-      transition: all 0.3s ease 0.15s; /* 延迟0.15s开始动画 */
+      transition: all 0.3s ease 0.15s;
+      /* 延迟0.15s开始动画 */
     }
+
     .sidebar-enter .keyboard-shortcut,
     .sidebar-leave-to .keyboard-shortcut {
       opacity: 0;
       transform: scale(0.8);
     }
+
     .side-menu-collapsed {
       width: 68px;
       height: 100%;
@@ -196,6 +203,7 @@
         }
       }
     }
+
     .side-menu {
       width: 260px;
       height: 100%;
@@ -212,6 +220,7 @@
         flex-shrink: 0;
         padding: 16px;
         text-align: center;
+
         .side-action {
           display: flex;
           align-items: center;
@@ -225,12 +234,13 @@
             color: $--color-text-primary;
           }
         }
+
         .new-chat {
           --local-button: #dbeafe;
-          --local-button-text: rgb(77 107 254);
+          --local-button-text: rgb(77, 107, 254);
           --local-button-hover: #c6dcf8;
           color: #4d6bfe;
-          background-color: rgb(219 234 254);
+          background-color: rgb(219, 234, 254);
           cursor: pointer;
           height: 44px;
           border-radius: 14px;
@@ -243,9 +253,11 @@
           display: flex;
           overflow: hidden;
           padding: 0 10px;
-          white-space: nowrap; /* 防止文字换行 */
+          white-space: nowrap;
+          /* 防止文字换行 */
           opacity: 1;
           transition: opacity 0.3s ease, width 0.3s ease, padding 0.3s ease;
+
           .keyboard-shortcut {
             display: inline-flex;
             align-items: center;
@@ -261,6 +273,7 @@
             transition: opacity 0.3s ease;
           }
         }
+
         .new-chat-btn {
           width: 100%;
         }
@@ -274,6 +287,7 @@
         transition: opacity 0.3s ease;
       }
     }
+
     // 通用的切换按钮样式
     .toggle-side {
       width: fit-content;
@@ -293,6 +307,7 @@
         color: $--color-text-regular;
       }
     }
+
     .chat-container {
       width: 100%;
       max-width: 800px;
@@ -310,9 +325,11 @@
         align-items: center;
         place-content: center;
         flex-shrink: 0;
+
         .chat-title:hover {
           box-shadow: inset 0 0 0 1px #0000001f;
         }
+
         .chat-title {
           cursor: pointer;
           white-space: nowrap;
@@ -329,6 +346,7 @@
           line-height: 24px;
           overflow: hidden;
         }
+
         h3 {
           margin: 0;
           font-size: 16px;
@@ -343,6 +361,7 @@
         flex-direction: column;
         flex-shrink: 0;
         padding: 0 0 15px 0;
+
         .chat-content-welcome {
           width: 100%;
           margin: auto;
@@ -352,6 +371,7 @@
           .el-x-bubble {
             .el-x-bubble-content-wrapper {
               .el-x-bubble-footer {
+
                 .end-action,
                 .start-action {
                   display: flex;
@@ -359,6 +379,7 @@
                   align-items: center;
                   opacity: 0;
                   transition: opacity 0.2s ease;
+
                   .action-btn {
                     cursor: pointer;
                   }
@@ -370,6 +391,7 @@
             &:hover {
               .el-x-bubble-content-wrapper {
                 .el-x-bubble-footer {
+
                   .end-action,
                   .start-action {
                     opacity: 1;
@@ -390,12 +412,14 @@
         position: -webkit-sticky;
         position: sticky;
         bottom: 0;
+
         .chat-input-container {
           max-width: 800px;
           flex-grow: 1;
           width: 100%;
           position: relative;
         }
+
         .chat-input-footer {
           font-size: 12px;
           color: #a3a3a3;
@@ -476,10 +500,12 @@
   font-size: 12px;
   color: black;
   transition: background-color 0.3s ease;
+
   // 未激活时的hover效果
   &:hover {
     background-color: #e0e4ed;
   }
+
   // 激活状态
   &--active {
     background-color: #dbeafe;
@@ -487,6 +513,7 @@
     border-color: #007aff26;
     padding: 3px 12px;
     font-weight: 700;
+
     // 激活时的hover效果
     &:hover {
       background-color: #c3daf8;
