@@ -118,9 +118,7 @@
       },
     },
     data() {
-      return {
-        mdPlugins: [markdownItMermaid, markdownItKatex],
-      };
+      return { mdPlugins: [markdownItMermaid, markdownItKatex] };
     },
     emits: [
       'edit-message',

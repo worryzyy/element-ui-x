@@ -389,45 +389,35 @@
           {
             key: '1',
             icon: 'el-icon-trophy',
-            iconStyle: {
-              color: '#FFD700',
-            },
+            iconStyle: { color: '#FFD700' },
             label: '王者荣耀',
             description: '王者荣耀的李信连招是什么？',
           },
           {
             key: '2',
             icon: 'el-icon-mobile-phone',
-            iconStyle: {
-              color: '#1890FF',
-            },
+            iconStyle: { color: '#1890FF' },
             label: '手机介绍',
             description: '帮我写一篇小米手机介绍。',
           },
           {
             key: '3',
             icon: 'el-icon-reading',
-            iconStyle: {
-              color: '#722ED1',
-            },
+            iconStyle: { color: '#722ED1' },
             label: '写一首诗',
             description: '写一首关于春天的诗。',
           },
           {
             key: '4',
             icon: 'el-icon-coffee-cup',
-            iconStyle: {
-              color: '#52C41A',
-            },
+            iconStyle: { color: '#52C41A' },
             label: '咖啡知识',
             description: '介绍一下不同种类的咖啡。',
           },
           {
             key: '5',
             icon: 'el-icon-basketball',
-            iconStyle: {
-              color: '#FF4D4F',
-            },
+            iconStyle: { color: '#FF4D4F' },
             label: '篮球技巧',
             description: '如何提高篮球投篮命中率？',
           },
@@ -574,9 +564,7 @@
           this.processedIndex = 0;
 
           // 使用 streamMixin 的方法处理流
-          await this.startStream({
-            readableStream,
-          });
+          await this.startStream({ readableStream });
         } catch (err) {
           this.handleError(err);
         }

@@ -191,8 +191,10 @@ export default {
       if (event.ctrlKey && event.key === 'k') {
         // 阻止默认行为（如浏览器的搜索功能）
         event.preventDefault();
-        // 触发新建对话
-        this.$emit('new-chat');
+        // 调用新建对话方法
+        if (this.handleNewChat && typeof this.handleNewChat === 'function') {
+          this.handleNewChat();
+        }
       }
     },
 
@@ -716,9 +718,7 @@ export default {
           this.suggestedQuestions = response.data.map((question, index) => ({
             key: `suggestion_${index}`,
             icon: 'el-icon-chat-dot-round',
-            iconStyle: {
-              color: '#626aef',
-            },
+            iconStyle: { color: '#626aef' },
             label: question,
             description: question,
           }));

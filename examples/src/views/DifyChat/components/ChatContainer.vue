@@ -95,11 +95,7 @@
         default: false,
       },
     },
-    data() {
-      return {
-        // 移除inputValue，使用props中的senderValue
-      };
-    },
+
     emits: [
       'edit-title',
       'edit-message',
