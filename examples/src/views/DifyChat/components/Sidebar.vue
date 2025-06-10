@@ -209,6 +209,7 @@
         margin-bottom: 16px;
 
         h2 {
+          min-width: 180px;
           margin: 0;
           font-size: 18px;
           font-weight: 600;

@@ -1,28 +1,29 @@
 <template>
   <el-drawer
-    :visible.sync="visible"
+    :visible="visible"
     direction="ltr"
     :with-header="false"
     :modal="true"
     :show-close="false"
     size="280px"
     class="mobile-drawer"
-    @close="$emit('close')"
+    @close="handleDrawerClose"
   >
     <div class="drawer-content">
       <div class="drawer-header">
         <h2>Dify chat</h2>
-        <el-button
-          type="text"
-          @click="$emit('close')"
+        <div
+          @click="handleClose"
           class="drawer-close-btn"
+          role="button"
+          tabindex="0"
         >
           <SvgIcon
             size="28"
             name="menu-left"
             color="rgb(139, 139, 139)"
           />
-        </el-button>
+        </div>
       </div>
       <div
         class="drawer-new-chat"
@@ -63,6 +64,9 @@
 <script>
   export default {
     name: 'MobileDrawer',
+    data() {
+      return { isClosing: false };
+    },
     props: {
       visible: {
         type: Boolean,
@@ -87,6 +91,20 @@
     },
     emits: ['close', 'new-chat', 'conversation-change', 'menu-command'],
     methods: {
+      debouncedClose() {
+        if (this.isClosing) return;
+        this.isClosing = true;
+        this.$emit('close');
+        setTimeout(() => {
+          this.isClosing = false;
+        }, 100);
+      },
+      handleClose() {
+        this.debouncedClose();
+      },
+      handleDrawerClose() {
+        this.debouncedClose();
+      },
       handleNewChat() {
         this.$emit('new-chat');
         this.$emit('close');
@@ -125,6 +143,33 @@
           padding: 8px;
           font-size: 16px;
           color: $--color-text-regular;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 4px;
+          transition: background-color 0.2s ease;
+
+          // 移动端触摸优化
+          touch-action: manipulation;
+          user-select: none;
+          -webkit-tap-highlight-color: transparent;
+
+          // 悬停效果
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+          }
+
+          // 激活效果
+          &:active {
+            background-color: rgba(0, 0, 0, 0.1);
+          }
+
+          // 焦点样式（键盘导航）
+          &:focus {
+            outline: 2px solid $--color-primary;
+            outline-offset: 2px;
+          }
         }
       }
 
