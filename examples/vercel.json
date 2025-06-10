@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "element-ui-x-examples",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install",
