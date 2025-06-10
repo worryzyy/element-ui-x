@@ -171,9 +171,7 @@
   export default {
     name: 'App',
     data() {
-      return {
-        isDark: false,
-      };
+      return { isDark: false };
     },
     watch: {
       $route() {

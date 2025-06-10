@@ -19,14 +19,14 @@
     "markdown-it-mermaid": "^0.2.5",
     "svg-sprite-loader": "^6.0.11",
     "vue": "^2.6.14",
-    "vue-element-ui-x": "^0.1.10-beta",
+    "vue-element-ui-x": "^0.2.1",
     "vue-router": "^3.6.5"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.5.19",
     "rimraf": "^3.0.2",
-    "sass": "^1.43.4",
-    "sass-loader": "^10.1.1",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^10.0.0",
     "vue-template-compiler": "^2.6.14"
   }
 }
