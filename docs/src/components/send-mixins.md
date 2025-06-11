@@ -1118,7 +1118,7 @@ export default {
         this.sse = new XRequest({
           baseURL: 'https://testsse.element-ui-x.com',
           type: 'fetch', // 使用 fetch 模式
-       
+
           onMessage: msg => {
             console.log('收到消息:', msg);
             if (msg && msg.data) {
@@ -1300,14 +1300,6 @@ XRequest 类在 SSE 模式下采用了多重检测机制来准确判断连接是
 4. **防重复触发**：使用内部标志位避免同一连接多次触发结束事件
 
 这样的设计可以有效避免正常结束的连接被误判为错误，确保 `onFinish` 和 `onError` 回调的正确触发。
-
-### 服务器端配置建议
-
-为了确保客户端能够正确检测到连接结束，建议服务器端：
-
-1. **发送结束标记**：在数据流结束时发送 `data: [DONE]` 消息
-2. **正确关闭连接**：使用适当的 HTTP 状态码关闭连接
-3. **避免突然断开**：不要在没有通知的情况下突然关闭连接
 
 ### 自定义超时时间
 
