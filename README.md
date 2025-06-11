@@ -16,14 +16,14 @@
 
 ## 📢 快速链接
 
-| 资源类型     | <div style="width: 300px;" >链接</div>                         |
-| ------------ | -------------------------------------------------------------- |
-| **文档**     | [📖 开发文档](https://element-ui-x.com/)                       |
-| **在线演示** | [👁️ 在线预览](https://demo.element-ui-x.com)                   |
-| **代码仓库** | [🐙 GitHub](https://github.com/worryzyy/element-ui-x)          |
-| **NPM 包**   | [📦 npm](https://www.npmjs.com/package/vue-element-ui-x)       |
-| **问题反馈** | [🐛 提交 Bug](https://github.com/worryzyy/element-ui-x/issues) |
-| **交流讨论** | [🐒 交流群]()                                                  |
+| 资源类型     | <div style="width: 300px;" >链接</div>                                                                                                                                                                              |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **文档**     | [📖 开发文档](https://element-ui-x.com/)                                                                                                                                                                            |
+| **在线演示** | [👁️ 在线预览](https://demo.element-ui-x.com)                                                                                                                                                                        |
+| **代码仓库** |[📝 GitCode](https://gitcode.com/worryzyy/element-ui-x.git)                               |
+| **NPM 包**   | [📦 npm](https://www.npmjs.com/package/vue-element-ui-x)                                                                                                                                                            |
+| **问题反馈** | [🐛 GitCode Issues](https://gitcode.com/worryzyy/element-ui-x/issues) |
+| **交流讨论** | [🐒 交流群]()                                                                                                                                                                                                       |
 
 ## 🛠️ 核心特性
 
