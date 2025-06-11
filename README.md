@@ -2,6 +2,10 @@
 
 **开箱即用的企业级 AI 组件库（基于 Vue 2.x + Element-Ui）**
 
+- 🔌 **开箱集成 Dify API**：内置对接 Dify 平台的能力,轻松构建 AI 应用
+- 🎯 **场景化组件**：提供聊天机器人、语音交互等丰富的 AI 交互组件
+- 🛠️ **灵活可配置**：支持自定义 Dify 应用配置,快速接入已有应用
+
 <div align="center">
 <img src="https://element-ui-x.com/demo/demo.png"  />&emsp;
 <img src="https://element-ui-x.com/demo/demo1.png"  />&emsp;
@@ -34,14 +38,8 @@
 ## 📦 安装
 
 ```bash
-# NPM
+# NPM （推荐）
 npm install vue-element-ui-x
-
-# PNPM（推荐）
-pnpm install vue-element-ui-x
-
-# Yarn
-yarn install vue-element-ui-x
 
 ```
 
