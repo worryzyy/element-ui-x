@@ -20,10 +20,11 @@
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **文档**     | [📖 开发文档](https://element-ui-x.com/)                                                                                                                                                                            |
 | **在线演示** | [👁️ 在线预览](https://demo.element-ui-x.com)                                                                                                                                                                        |
-| **代码仓库** |[📝 GitCode](https://gitcode.com/worryzyy/element-ui-x.git)                               |
+| **代码仓库** | [🐙 GitHub](https://github.com/worryzyy/element-ui-x)<br/>[📝 GitCode](https://gitcode.com/worryzyy/element-ui-x.git)<br/>[📝 Gitee](https://gitee.com/worryzyy/element-ui-x.git)                                   |
 | **NPM 包**   | [📦 npm](https://www.npmjs.com/package/vue-element-ui-x)                                                                                                                                                            |
-| **问题反馈** | [🐛 GitCode Issues](https://gitcode.com/worryzyy/element-ui-x/issues) |
+| **问题反馈** | [🐛 GitHub Issues](https://github.com/worryzyy/element-ui-x/issues)<br/>[🐛 GitCode Issues](https://gitcode.com/worryzyy/element-ui-x/issues)<br/>[🐛 Gitee Issues](https://gitee.com/worryzyy/element-ui-x/issues) |
 | **交流讨论** | [🐒 交流群]()                                                                                                                                                                                                       |
+
 ## 🛠️ 核心特性
 
 - ✨ **企业级 AI 组件**：内置聊天机器人、语音交互等场景化组件
