@@ -15,6 +15,7 @@
 - [Conversations 会话列表](./conversations/) - 会话管理列表组件示例
 - [Welcome 欢迎页](./welcome/) - 欢迎页面组件的使用方法
 - [Prompts 提示词库](./prompts/) - 提示词管理组件的完整示例
+- [DifyChat 智能聊天](./dify-chat/) - 集成 Dify AI 的完整聊天应用组件
 
 ## 示例源码
 
