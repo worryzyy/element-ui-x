@@ -134,20 +134,18 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '~element-ui/packages/theme-chalk/src/common/var';
-
   #share-banner {
     width: 100vw;
     min-height: 30px;
-    background-color: $--color-primary;
-    color: $--color-text-regular;
+    background-color: #409eff;
+    color: #606266;
     text-align: center;
     font-size: 14px;
     position: fixed;
     top: 58px;
     left: 50%;
     transform: translateX(-50%);
-    border-bottom: 1px solid $--border-color-light;
+    border-bottom: 1px solid #e4e7ed;
     z-index: 9;
     line-height: 30px;
     color: #eee;
@@ -178,8 +176,8 @@
 
       .container {
         margin: 0 auto;
-        padding: 0 $--size-base * 2;
-        margin-bottom: $--size-base;
+        padding: 0 16px;
+        margin-bottom: 8px;
       }
 
       .main {
@@ -188,12 +186,12 @@
       }
 
       .heading {
-        margin-bottom: $--size-base;
+        margin-bottom: 8px;
 
         .name {
           font-size: 32px;
           font-weight: 700;
-          background: linear-gradient(120deg, $--color-primary, #ff2485, #ff951a, #5614f0);
+          background: linear-gradient(120deg, #409eff, #ff2485, #ff951a, #5614f0);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           line-height: 1.2;
@@ -203,24 +201,24 @@
           display: block;
           font-size: 24px;
           font-weight: 400;
-          color: $--color-text-primary;
+          color: #303133;
           line-height: 1.2;
         }
       }
 
       .tagline {
         font-size: 18px;
-        color: $--color-text-regular;
-        margin: $--size-base 0;
+        color: #606266;
+        margin: 8px 0;
         line-height: 1.6;
       }
 
       .actions {
         display: flex;
-        gap: $--size-base;
+        gap: 8px;
 
         .action {
-          margin-right: $--size-base;
+          margin-right: 8px;
         }
       }
 
@@ -240,8 +238,8 @@
             height: 310px;
             background: radial-gradient(
               circle,
-              rgba($--color-primary, 0.1) 0%,
-              rgba($--color-primary, 0) 60%
+              rgba(64, 158, 255, 0.1) 0%,
+              rgba(64, 158, 255, 0) 60%
             );
             border-radius: 50%;
           }
@@ -263,24 +261,24 @@
       .items {
         display: flex;
         flex-direction: column;
-        gap: $--size-base * 2;
-        padding: 0 $--size-base;
+        gap: 16px;
+        padding: 0 8px;
       }
 
       .feature-box {
-        background-color: $--background-color-base;
-        border-radius: $--border-radius-base;
-        padding: $--size-base $--size-base * 2;
+        background-color: #f5f7fa;
+        border-radius: 4px;
+        padding: 8px 16px;
         transition: all 0.3s ease;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
         width: 100%;
         max-width: 600px;
         margin: 0 auto;
 
-        @media (max-width: $--sm) {
+        @media (max-width: 768px) {
           max-width: 100%;
           margin: 0;
-          padding: $--size-base;
+          padding: 8px;
 
           &:hover {
             transform: none;
@@ -296,25 +294,25 @@
         .title {
           font-size: 20px;
           font-weight: 600;
-          color: $--color-text-primary;
-          margin-bottom: $--size-base * 1.5;
+          color: #303133;
+          margin-bottom: 12px;
           display: flex;
           align-items: center;
-          gap: $--size-base;
+          gap: 8px;
 
-          @media (max-width: $--sm) {
+          @media (max-width: 768px) {
             font-size: 16px;
-            margin-bottom: $--size-base;
+            margin-bottom: 8px;
           }
 
           &::before {
             content: '';
             width: 4px;
             height: 20px;
-            background: $--color-primary;
+            background: #409eff;
             border-radius: 2px;
 
-            @media (max-width: $--sm) {
+            @media (max-width: 768px) {
               height: 16px;
             }
           }
@@ -322,21 +320,21 @@
 
         .details {
           font-size: 14px;
-          color: $--color-text-regular;
+          color: #606266;
           line-height: 1.8;
-          padding-left: $--size-base + 4px;
+          padding-left: 12px;
 
-          @media (max-width: $--sm) {
+          @media (max-width: 768px) {
             font-size: 13px;
             line-height: 1.6;
-            padding-left: $--size-base + 2px;
+            padding-left: 10px;
           }
         }
       }
     }
 
     .acknowledgment {
-      padding-top: $--size-base * 2;
+      padding-top: 16px;
       text-align: center;
 
       .container {
@@ -345,29 +343,29 @@
 
       .thanks-text {
         font-size: 14px;
-        color: $--color-text-regular;
+        color: #606266;
         line-height: 1.6;
 
         .repo-link {
-          color: $--color-primary;
+          color: #409eff;
           text-decoration: none;
           font-weight: 600;
           transition: color 0.3s ease;
 
           &:hover {
-            color: $--color-primary-light-3;
+            color: #79bbff;
           }
         }
       }
 
-      @media (max-width: $--sm) {
-        padding: $--size-base * 2 0;
+      @media (max-width: 768px) {
+        padding: 16px 0;
       }
     }
   }
 
   // 响应式设计
-  @media (max-width: $--sm) {
+  @media (max-width: 768px) {
     .custom-home {
       .custom-hero {
         &.has-image {
@@ -392,7 +390,7 @@
         }
 
         .image {
-          margin-top: $--size-base * 4;
+          margin-top: 32px;
         }
       }
 
@@ -404,7 +402,7 @@
     }
   }
 
-  @media (min-width: $--sm) and (max-width: $--lg) {
+  @media (min-width: 768px) and (max-width: 992px) {
     .custom-features {
       .items {
         grid-template-columns: repeat(2, 1fr);
