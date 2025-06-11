@@ -57,6 +57,11 @@ module.exports = {
               children: ['thinking', 'thought-chain'],
             },
             {
+              title: '完整应用组件',
+              collapsable: false,
+              children: ['dify-chat'],
+            },
+            {
               title: '工具函数',
               collapsable: false,
               children: ['record-mixins', 'send-mixins', 'stream-mixins'],
