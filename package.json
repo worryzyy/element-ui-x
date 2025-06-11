@@ -15,14 +15,29 @@
     "dev": "npm run dev:examples",
     "build:lib": "cd packages/element-ui-x && npm run build",
     "publish:lib": "cd packages/element-ui-x && npm publish",
-    "release": "npm run lint && npm run build:lib && npm run publish:lib"
+    "release": "npm run lint && npm run build:lib && npm run publish:lib",
+    "commit": "git-cz",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "lint:commit": "commitlint --from HEAD~1 --to HEAD --verbose",
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "babel-eslint": "^10.1.0",
+    "commitizen": "^4.3.0",
+    "conventional-changelog-cli": "^4.1.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.20.0",
+    "husky": "^8.0.3",
     "prettier": "^2.5.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
