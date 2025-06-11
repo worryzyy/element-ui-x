@@ -19,7 +19,9 @@
     "commit": "git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "lint:commit": "commitlint --from HEAD~1 --to HEAD --verbose",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "version": "node -e \"const fs=require('fs');const pkg=JSON.parse(fs.readFileSync('./package.json','utf8'));['./packages/element-ui-x/package.json','./examples/package.json','./docs/package.json'].forEach(p=>{const subPkg=JSON.parse(fs.readFileSync(p,'utf8'));subPkg.version=pkg.version;fs.writeFileSync(p,JSON.stringify(subPkg,null,2)+'\\n');console.log('Updated '+p+' to version '+pkg.version);});\" && git add .",
+    "postversion": "npm run changelog && git add CHANGELOG.md && git commit --amend --no-edit"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",

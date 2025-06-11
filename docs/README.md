@@ -4,6 +4,10 @@
   </a>
 </div>
 
+- 🔌 **开箱集成 Dify API**：内置对接 Dify 平台的能力,轻松构建 AI 应用
+- 🎯 **场景化组件**：提供聊天机器人、语音交互等丰富的 AI 交互组件
+- 🛠️ **灵活可配置**：支持自定义 Dify 应用配置,快速接入已有应用
+
 <div align="center">
 <img src="https://element-ui-x.com/demo/demo.png"  />&emsp;
 <img src="https://element-ui-x.com/demo/demo1.png"  />&emsp;
