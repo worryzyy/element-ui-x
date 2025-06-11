@@ -1,0 +1,51 @@
+name: Sync to Mirror Repositories
+
+on:
+  push:
+    branches: [develop, master]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: 同步到镜像仓库
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Add GitCode remote
+        run: |
+          git remote add gitcode https://oauth2:${{ secrets.GITCODE_TOKEN }}@gitcode.com/worryzyy/element-ui-x.git || true
+          git remote set-url gitcode https://oauth2:${{ secrets.GITCODE_TOKEN }}@gitcode.com/worryzyy/element-ui-x.git
+
+      - name: Add Gitee remote
+        run: |
+          git remote add gitee https://oauth2:${{ secrets.GITEE_TOKEN }}@gitee.com/worryzyy/element-ui-x.git || true
+          git remote set-url gitee https://oauth2:${{ secrets.GITEE_TOKEN }}@gitee.com/worryzyy/element-ui-x.git
+
+      - name: Push to GitCode
+        run: |
+          echo "Pushing to GitCode..."
+          git push gitcode ${{ github.ref_name }} --force-with-lease
+        continue-on-error: true
+
+      - name: Push to Gitee
+        run: |
+          echo "Pushing to Gitee..."
+          git push gitee ${{ github.ref_name }} --force-with-lease
+        continue-on-error: true
+
+      - name: Sync status
+        run: |
+          echo "✅ 同步完成"
+          echo "分支: ${{ github.ref_name }}"
+          echo "提交: ${{ github.sha }}"
