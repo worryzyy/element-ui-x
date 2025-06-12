@@ -115,7 +115,7 @@ module.exports = {
       headerAnchorSelector: '.header-anchor',
     },
     '@vuepress/google-analytics': {
-      ga: process.env.VUEPRESS_GA_ID,
+      ga: 'G-MG3JDD76KY',
     },
   },
 };
