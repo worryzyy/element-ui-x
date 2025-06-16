@@ -193,9 +193,7 @@
   export default {
     name: 'ElXConversations',
 
-    components: {
-      ConversationsItem,
-    },
+    components: { ConversationsItem },
 
     props: {
       items: {
@@ -549,6 +547,14 @@
       loadMoreData() {
         if (!this.loadMore) return;
         this.loadMore();
+        // 确保loading元素可见
+        this.$nextTick(() => {
+          const scrollContainer = this.$refs.scrollContainer;
+          if (scrollContainer) {
+            // 滚动到底部，确保loading元素可见
+            scrollContainer.scrollTop = scrollContainer.scrollHeight;
+          }
+        });
       },
 
       scrollToTop() {
