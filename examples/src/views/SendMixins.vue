@@ -490,11 +490,10 @@
         this.fetchRequest = new XRequest({
           baseURL: 'https://testsse.element-ui-x.com',
           type: 'fetch',
-         
           onMessage: message => {
             console.log('Fetch 数据片段:', message);
             try {
-              const parsedMessage = JSON.stringify(message) ;
+              const parsedMessage = JSON.stringify(message);
               this.fetchResult += `[${new Date().toLocaleTimeString()}] ${parsedMessage}\n`;
             } catch (error) {
               this.fetchResult += `[${new Date().toLocaleTimeString()}] ${message}\n`;

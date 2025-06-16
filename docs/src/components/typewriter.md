@@ -1,4 +1,4 @@
-# Typewriter 打字机组件
+# Typewriter 打字器组件
 
 ## 功能说明
 
@@ -356,7 +356,7 @@
     data() {
       return {
         markdownContent: `# Markdown示例
-这是一个支持**Markdown**渲染的打字机效果演示。
+这是一个支持**Markdown**渲染的打字器效果演示。
 
 ## 功能特点
 - 支持标题

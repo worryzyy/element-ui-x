@@ -41,8 +41,9 @@ const install = function (Vue) {
   });
 };
 
-// 具名导出（按需引入）- 组件
+// 具名导出（按需引入）- 组件和Mixins
 export {
+  // 组件
   ElXAttachments,
   ElXBubble,
   ElXBubbleList,
@@ -54,10 +55,7 @@ export {
   ElXThoughtChain,
   ElXTypewriter,
   ElXWelcome,
-};
-
-// 具名导出（按需引入）- Mixins
-export {
+  // Mixins
   createSendUtils,
   createStreamUtils,
   customMixins,

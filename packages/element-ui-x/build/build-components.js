@@ -14,16 +14,12 @@ if (!fs.existsSync(libDir)) {
 // 确保 components 和 mixins 目录存在
 const componentsDir = path.join(libDir, 'components');
 if (!fs.existsSync(componentsDir)) {
-  fs.mkdirSync(componentsDir, {
-    recursive: true,
-  });
+  fs.mkdirSync(componentsDir, { recursive: true });
 }
 
 const mixinsDir = path.join(libDir, 'mixins');
 if (!fs.existsSync(mixinsDir)) {
-  fs.mkdirSync(mixinsDir, {
-    recursive: true,
-  });
+  fs.mkdirSync(mixinsDir, { recursive: true });
 }
 
 // 获取所有组件目录
@@ -75,16 +71,4 @@ webpack(config, (err, stats) => {
 
   console.log('\n📚 完整组件列表：');
   console.log(`   import { ${componentList} } from "vue-element-ui-x";`);
-
-  console.log('\n或者使用babel-plugin-component自动按需引入，配置如下：');
-  console.log(`
-[
-  "component",
-  {
-    "libraryName": "vue-element-ui-x",
-    "libDir": "lib",
-    "style": false
-  }
-]
-`);
 });

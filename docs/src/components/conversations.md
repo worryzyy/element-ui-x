@@ -8,7 +8,7 @@
 - 分组显示和吸顶效果
 - 内置下拉菜单和自定义菜单
 - 自定义项目样式和容器样式
-- 懒加载和回到顶部功能
+- 加载更多和回到顶部功能
 - 自定义分组和项目内容
 
 ## 使用示例
@@ -421,7 +421,7 @@
 
 :::
 
-### 懒加载功能
+### 加载更多功能
 
 滚动到底部时自动加载更多项目，并支持回到顶部按钮。
 
@@ -477,25 +477,26 @@
       this.loadMoreItems();
     },
     methods: {
+      // 防抖处理的加载更多方法
       loadMoreItems() {
-        if (this.currentLazyPage >= this.maxLazyPages) {
-          return;
-        }
+        // 如果已经在加载中，直接返回
+        if (this.isLoadingMore) return;
 
+        console.log(`触底加载第${this.currentLazyPage + 1}页数据`);
         this.isLoadingMore = true;
 
         // 模拟异步加载
         setTimeout(() => {
           const newPage = this.currentLazyPage + 1;
-          // 第一页加载10条，其他页加载5条
-          const itemsCount = newPage === 1 ? 10 : 5;
+          // 每次都加载10条
+          const itemsCount = 10;
           const newItems = Array(itemsCount)
             .fill(0)
             .map((_, index) => {
               const itemId = `lazy${newPage}-${index + 1}`;
               return {
                 id: itemId,
-                label: `懒加载项目 ${newPage}-${index + 1}`,
+                label: `加载项目 ${newPage}-${index + 1}`,
                 prefixIcon: 'el-icon-time',
               };
             });
@@ -504,11 +505,15 @@
           this.currentLazyPage = newPage;
           this.isLoadingMore = false;
 
+          console.log(
+            `第${newPage}页加载完成，本次加载${newItems.length}条，总计${this.lazyItems.length}条`,
+          );
+
           // 如果是第一页，默认选中第一项
           if (newPage === 1 && newItems.length > 0) {
             this.activeLazyItem = newItems[0].id;
           }
-        }, 1000);
+        }, 2000);
       },
       handleLazyItemChange(item) {
         this.activeLazyItem = item.uniqueKey;

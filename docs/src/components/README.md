@@ -4,7 +4,7 @@
 
 ## 示例列表
 
-- [Typewriter 打字机](./typewriter/) - 打字机效果组件的完整示例和用法
+- [Typewriter 打字器](./typewriter/) - 打字器效果组件的完整示例和用法
 - [Bubble 聊天气泡](./bubble/) - 聊天气泡组件的使用示例
 - [BubbleList 消息列表](./bubble-list/) - 消息列表组件的实现展示
 - [Thinking 思考动画](./thinking/) - 思考加载动画组件示例

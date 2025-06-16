@@ -15,7 +15,7 @@ export const menuGroups = [
       {
         index: '/typewriter',
         icon: 'el-icon-edit-outline',
-        title: 'Typewriter - 打字机效果',
+        title: 'Typewriter - 打字器效果',
       },
       {
         index: '/bubble',

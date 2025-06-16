@@ -2,7 +2,7 @@
   <div>
     <el-card class="demo-card">
       <div slot="header">
-        <h2>Typewriter 打字机效果</h2>
+        <h2>Typewriter 打字器效果</h2>
       </div>
 
       <div class="demo-block">
@@ -195,7 +195,7 @@
         },
         fogWidth: 80,
         markdownContent: `# Markdown示例
-这是一个支持**Markdown**渲染的打字机效果演示。
+这是一个支持**Markdown**渲染的打字器效果演示。
 
 ## 功能特点
 - 支持标题

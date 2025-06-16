@@ -60,7 +60,7 @@ export default {
       // Dify 配置
       difyConfig: {
         baseURL: 'https://api.dify.ai/v1',
-        apiKey: 'app-LF6qPHsIQFgAkqoD2Dui1SUo',
+        apiKey: process.env.VUE_APP_DIFY_API_KEY,
         user: generateBrowserUserId(),
       },
     };

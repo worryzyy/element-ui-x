@@ -214,7 +214,7 @@ thinkingItems 数组中每个对象可包含以下字段：
 | hideTitle       | 是否隐藏标题                           | Boolean        | false                                      |
 | placement       | 时间轴项的位置                         | String         | 'top'/'bottom'                             |
 | isMarkdown      | 内容是否为 Markdown 格式               | Boolean        | false                                      |
-| typing          | 是否启用打字机效果                     | Boolean/Object | false 或 {interval: 50, step: 1, suffix: " | "}  |
+| typing          | 是否启用打字器效果                     | Boolean/Object | false 或 {interval: 50, step: 1, suffix: " | "}  |
 | icon            | 节点图标类名(dotIsIcon 为 true 时生效) | String         | 'el-icon-more'                             |
 | iconColor       | 节点图标颜色(dotIsIcon 为 true 时生效) | String         | ''                                         |
 | iconSize        | 节点图标大小(dotIsIcon 为 true 时生效) | String         | 'normal'/'large'                           |

@@ -62,7 +62,7 @@
       </div>
 
       <div class="demo-block">
-        <h3>打字机效果</h3>
+        <h3>打字器效果</h3>
         <div class="control-row">
           <el-switch
             v-model="typingEnabled"
@@ -205,7 +205,7 @@
             id: 1,
             title: '打字效果',
             status: 'success',
-            thinkTitle: '这是一个打字机效果演示',
+            thinkTitle: '这是一个打字器效果演示',
             thinkContent: '这段文字会逐个显示出来，模拟打字效果',
             typing: true,
           },
