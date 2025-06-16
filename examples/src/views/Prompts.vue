@@ -178,45 +178,35 @@
           {
             key: '1',
             icon: 'el-icon-sunrise',
-            iconStyle: {
-              color: '#FFD700',
-            },
+            iconStyle: { color: '#FFD700' },
             label: '点燃你的创造力',
             description: '有什么新项目的灵感吗？',
           },
           {
             key: '2',
             icon: 'el-icon-info',
-            iconStyle: {
-              color: '#1890FF',
-            },
+            iconStyle: { color: '#1890FF' },
             label: '揭示背景信息',
             description: '帮我了解这个主题的背景。',
           },
           {
             key: '3',
             icon: 'el-icon-position',
-            iconStyle: {
-              color: '#722ED1',
-            },
+            iconStyle: { color: '#722ED1' },
             label: '效率提升战',
             description: '我如何能工作得更快更好？',
           },
           {
             key: '4',
             icon: 'el-icon-lollipop',
-            iconStyle: {
-              color: '#52C41A',
-            },
+            iconStyle: { color: '#52C41A' },
             label: '讲个笑话',
             description: '为什么蚂蚁不生病？因为它们有小小的抗体！',
           },
           {
             key: '5',
             icon: 'el-icon-warning',
-            iconStyle: {
-              color: '#FF4D4F',
-            },
+            iconStyle: { color: '#FF4D4F' },
             label: '常见问题解决方案',
             description: '如何解决常见问题？分享一些技巧！',
           },
@@ -243,72 +233,56 @@
           {
             key: '1',
             icon: 'el-icon-sunrise-1',
-            iconStyle: {
-              color: '#FFD700',
-            },
+            iconStyle: { color: '#FFD700' },
             label: '新项目灵感',
             description: '有什么新项目的灵感吗？',
           },
           {
             key: '2',
             icon: 'el-icon-info',
-            iconStyle: {
-              color: '#1890FF',
-            },
+            iconStyle: { color: '#1890FF' },
             label: '背景信息',
             description: '帮我了解这个主题的背景。',
           },
           {
             key: '3',
             icon: 'el-icon-warning',
-            iconStyle: {
-              color: '#FF4D4F',
-            },
+            iconStyle: { color: '#FF4D4F' },
             label: '解决常见问题',
             description: '如何解决常见问题？分享一些技巧！',
           },
           {
             key: '4',
             icon: 'el-icon-position',
-            iconStyle: {
-              color: '#722ED1',
-            },
+            iconStyle: { color: '#722ED1' },
             label: '提高效率',
             description: '我如何能工作得更快更好？',
           },
           {
             key: '5',
             icon: 'el-icon-check',
-            iconStyle: {
-              color: '#52C41A',
-            },
+            iconStyle: { color: '#52C41A' },
             label: '完成任务技巧',
             description: '有哪些完成任务的诀窍？',
           },
           {
             key: '6',
             icon: 'el-icon-coffee-cup',
-            iconStyle: {
-              color: '#964B00',
-            },
+            iconStyle: { color: '#964B00' },
             label: '有效休息',
             description: '长时间工作后如何有效休息？',
           },
           {
             key: '7',
             icon: 'el-icon-lollipop',
-            iconStyle: {
-              color: '#FAAD14',
-            },
+            iconStyle: { color: '#FAAD14' },
             label: '保持积极心态',
             description: '保持积极心态的秘诀是什么？',
           },
           {
             key: '8',
             icon: 'el-icon-star-off',
-            iconStyle: {
-              color: '#FF4D4F',
-            },
+            iconStyle: { color: '#FF4D4F' },
             label: '压力管理',
             description: '如何在巨大压力下保持冷静？',
           },
@@ -317,9 +291,7 @@
           {
             key: '6',
             icon: 'el-icon-coffee-cup',
-            iconStyle: {
-              color: '#964B00',
-            },
+            iconStyle: { color: '#964B00' },
             label: '有效休息',
             description: '长时间工作后如何有效休息？',
             disabled: false,
@@ -327,9 +299,7 @@
           {
             key: '7',
             icon: 'el-icon-lollipop',
-            iconStyle: {
-              color: '#FAAD14',
-            },
+            iconStyle: { color: '#FAAD14' },
             label: '保持积极心态',
             description: '保持积极心态的秘诀是什么？',
             disabled: false,
@@ -337,9 +307,7 @@
           {
             key: '8',
             icon: 'el-icon-star-off',
-            iconStyle: {
-              color: '#FF4D4F',
-            },
+            iconStyle: { color: '#FF4D4F' },
             label: '压力管理',
             description: '如何在巨大压力下保持冷静？',
             disabled: false,
@@ -349,9 +317,7 @@
           {
             key: '5',
             icon: 'el-icon-check',
-            iconStyle: {
-              color: '#52C41A',
-            },
+            iconStyle: { color: '#52C41A' },
             label: '任务完成秘诀',
             description: '有哪些完成任务的技巧？',
             disabled: true,
@@ -359,9 +325,7 @@
           {
             key: '6',
             icon: 'el-icon-coffee-cup',
-            iconStyle: {
-              color: '#964B00',
-            },
+            iconStyle: { color: '#964B00' },
             label: '是时候喝杯咖啡了',
             description: '长时间工作后如何有效休息？',
           },
@@ -389,45 +353,35 @@
           {
             key: '1',
             icon: 'el-icon-sunrise-1',
-            iconStyle: {
-              color: '#FFD700',
-            },
+            iconStyle: { color: '#FFD700' },
             label: '点燃你的创造力',
             description: '有新项目的灵感吗？',
           },
           {
             key: '2',
             icon: 'el-icon-info',
-            iconStyle: {
-              color: '#1890FF',
-            },
+            iconStyle: { color: '#1890FF' },
             label: '揭示背景信息',
             description: '帮我了解这个主题的背景。',
           },
           {
             key: '3',
             icon: 'el-icon-position',
-            iconStyle: {
-              color: '#722ED1',
-            },
+            iconStyle: { color: '#722ED1' },
             label: '效率提升战',
             description: '我怎样才能工作得更快更好？',
           },
           {
             key: '4',
             icon: 'el-icon-ice-cream-round',
-            iconStyle: {
-              color: '#52C41A',
-            },
+            iconStyle: { color: '#52C41A' },
             label: '讲个笑话',
             description: '为什么蚂蚁不生病？因为它们有小小的蚂蚁抗体！',
           },
           {
             key: '5',
             icon: 'el-icon-warning',
-            iconStyle: {
-              color: '#FF4D4F',
-            },
+            iconStyle: { color: '#FF4D4F' },
             label: '常见问题解决方案',
             description: '如何解决常见问题？分享一些技巧！',
           },
@@ -478,9 +432,7 @@
             key: '1',
             label: '热门话题',
             icon: 'el-icon-star-off',
-            iconStyle: {
-              color: '#FF4D4F',
-            },
+            iconStyle: { color: '#FF4D4F' },
             description: '你对什么感兴趣？',
             children: [
               {
@@ -501,9 +453,7 @@
             key: '2',
             label: '设计指南',
             icon: 'el-icon-reading',
-            iconStyle: {
-              color: '#1890FF',
-            },
+            iconStyle: { color: '#1890FF' },
             description: '如何设计一个好产品？',
             children: [
               {
@@ -527,9 +477,7 @@
             key: '3',
             label: '开始创作',
             icon: 'el-icon-position',
-            iconStyle: {
-              color: '#722ED1',
-            },
+            iconStyle: { color: '#722ED1' },
             description: '如何开始一个新项目？',
             children: [
               {

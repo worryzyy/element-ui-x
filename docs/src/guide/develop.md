@@ -97,7 +97,7 @@ npm install:all
 
 3. **提交 PR**：
 
-   - 标题格式：`feat(component): 新增打字机组件`
+   - 标题格式：`feat(component): 新增打字器组件`
    - 描述包含：功能说明、使用示例、变更影响
 
 4. **审核**：

@@ -136,10 +136,10 @@
         components: [
           // 基础组件
           {
-            name: '打字机效果',
+            name: '打字器效果',
             path: '/typewriter',
             icon: 'el-icon-edit-outline',
-            description: '模拟打字机输入效果的文本动画组件',
+            description: '模拟打字器输入效果的文本动画组件',
             category: 'basic',
           },
           {

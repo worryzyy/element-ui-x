@@ -317,9 +317,7 @@
 
           for (let index = 0; index < files.length; index++) {
             const file = files[index];
-            await this.handleHttpRequest({
-              file,
-            });
+            await this.handleHttpRequest({ file });
           }
         }
       },
@@ -332,9 +330,7 @@
 
           for (let index = 0; index < files.length; index++) {
             const file = files[index];
-            await this.handleDemoHttpRequest({
-              file,
-            });
+            await this.handleDemoHttpRequest({ file });
           }
         }
       },
@@ -431,9 +427,7 @@
 
           for (let index = 0; index < files.length; index++) {
             const file = files[index];
-            await this.handleCustomHttpRequest({
-              file,
-            });
+            await this.handleCustomHttpRequest({ file });
           }
         }
       },
@@ -500,9 +494,7 @@
 
           for (let index = 0; index < files.length; index++) {
             const file = files[index];
-            await this.handleDragHttpRequest({
-              file,
-            });
+            await this.handleDragHttpRequest({ file });
           }
         }
       },
@@ -549,9 +541,7 @@
 
           for (let index = 0; index < files.length; index++) {
             const file = files[index];
-            await this.handleNavHttpRequest({
-              file,
-            });
+            await this.handleNavHttpRequest({ file });
           }
         }
       },

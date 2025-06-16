@@ -222,20 +222,14 @@
       async startSSE() {
         try {
           const response = await fetch('https://testsse.element-ui-x.com/api/sse', {
-            headers: {
-              'Content-Type': 'text/event-stream',
-            },
+            headers: { 'Content-Type': 'text/event-stream' },
           });
           const readableStream = response.body;
-          await this.startStream({
-            readableStream,
-          });
+          await this.startStream({ readableStream });
         } catch (err) {
           console.error('Fetch error:', err);
           // 如果真实接口不可用，使用模拟数据
-          await this.startStream({
-            readableStream: 'mock',
-          });
+          await this.startStream({ readableStream: 'mock' });
         }
       },
 
@@ -246,9 +240,7 @@
 
         try {
           const response = await fetch('https://testsse.element-ui-x.com/api/sip', {
-            headers: {
-              'Content-Type': 'application/sip',
-            },
+            headers: { 'Content-Type': 'application/sip' },
           });
           const readableStream = response.body;
 

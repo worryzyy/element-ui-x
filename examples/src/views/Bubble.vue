@@ -31,7 +31,7 @@
       </div>
 
       <div class="demo-block">
-        <h3>打字机效果与控制</h3>
+        <h3>打字器效果与控制</h3>
         <div class="control-row">
           <h4>打字速度：</h4>
           <el-slider
@@ -108,7 +108,7 @@
             step: typingStep,
             suffix: typingSuffix,
           }"
-          content="这是一个展示打字机效果的Bubble组件，文字会逐个显示出来"
+          content="这是一个展示打字器效果的Bubble组件，文字会逐个显示出来"
           placement="start"
           @start="onTypingStart"
           @finish="onTypingFinish"
@@ -513,13 +513,13 @@ sequenceDiagram
             avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
           },
           {
-            content: '这个组件支持打字机效果、Markdown渲染等功能',
+            content: '这个组件支持打字器效果、Markdown渲染等功能',
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
           },
         ],
         markdownContent: `# Markdown示例
-  这是一个支持**Markdown**渲染的打字机效果演示。
+  这是一个支持**Markdown**渲染的打字器效果演示。
 
   ## 功能特点
   - 支持标题

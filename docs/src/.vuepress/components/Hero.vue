@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="share-banner">
-      您正在浏览基于 Vue 2.x + Element UI 的文档;
+      您正在浏览基于 Vue 2.x + Element-UI-X 的文档;
       <a href="https://element-plus-x.com/">点我查看Element Plus X（Vue3）👏🏻</a>
     </div>
 

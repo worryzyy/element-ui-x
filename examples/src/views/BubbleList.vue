@@ -316,20 +316,15 @@
             isMarkdown: true,
           },
         ],
-        scrollList: Array.from(
-          {
-            length: 20,
-          },
-          (_, i) => ({
-            content: `滚动列表消息${i + 1}`,
-            placement: i % 2 === 0 ? 'start' : 'end',
-            avatar:
-              i % 2 === 0
-                ? 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg'
-                : 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
-            loading: i >= 18, // 最后两条消息显示加载状态
-          }),
-        ),
+        scrollList: Array.from({ length: 20 }, (_, i) => ({
+          content: `滚动列表消息${i + 1}`,
+          placement: i % 2 === 0 ? 'start' : 'end',
+          avatar:
+            i % 2 === 0
+              ? 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg'
+              : 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
+          loading: i >= 18, // 最后两条消息显示加载状态
+        })),
         chatList: [
           {
             content: '你好，我是AI助手，有什么可以帮您？',

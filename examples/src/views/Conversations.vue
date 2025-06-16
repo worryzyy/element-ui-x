@@ -101,7 +101,7 @@
       </div>
 
       <div class="demo-block">
-        <h3>懒加载功能</h3>
+        <h3>加载更多功能</h3>
         <div class="lazy-container">
           <el-x-conversations
             ref="lazyConversations"
@@ -432,7 +432,7 @@
           </div>
         </div>
         <div class="demo-description">
-          这个案例模拟了客服系统中的会话列表实际应用场景，展示了组件如何与其他元素集成，以及如何处理未读消息、在线状态等实际功能，并使用了组件自带的懒加载功能自动加载更多会话内容
+          这个案例模拟了客服系统中的会话列表实际应用场景，展示了组件如何与其他元素集成，以及如何处理未读消息、在线状态等实际功能，并使用了组件自带的加载更多功能自动加载更多会话内容
         </div>
       </div>
     </el-card>
@@ -691,7 +691,7 @@
         ],
         activeCustomMenuItem: 'cm1',
 
-        // 懒加载数据
+        // 加载更多数据
         lazyItems: [],
         activeLazyItem: '',
         isLoadingMore: false,
@@ -1002,7 +1002,7 @@
       };
     },
     created() {
-      // 初始化懒加载数据
+      // 初始化加载更多数据
       this.initLazyItems();
       // 初始化按钮样式
       this.updateBtnStyle();
@@ -1079,7 +1079,7 @@
         }
       },
 
-      // 懒加载相关方法
+      // 加载更多相关方法
       initLazyItems() {
         this.lazyItems = [];
         this.currentLazyPage = 0;
@@ -1103,7 +1103,7 @@
               const itemId = `lazy${newPage}-${index + 1}`;
               return {
                 id: itemId,
-                label: `懒加载项目 ${newPage}-${index + 1}`,
+                label: `加载更多项目 ${newPage}-${index + 1}`,
                 prefixIcon: 'el-icon-time',
               };
             });

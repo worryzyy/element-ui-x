@@ -17,7 +17,7 @@ Element-UI-X 使用 SCSS 变量系统来定义和扩展主题：
 - `$--color-ai-bubble-user`：用户消息气泡背景色，默认为 `$--color-primary-light-9`
 - `$--color-ai-bubble-bot`：AI 消息气泡背景色，默认为 `$--background-color-base`
 
-### 打字机效果
+### 打字器效果
 
 - `$--color-ai-cursor`：光标颜色，默认为 `$--color-text-placeholder`
 - `$--transition-ai-typewriter`：打字速度过渡时间，默认为 `0.05s`
@@ -106,7 +106,7 @@ document.documentElement.style.setProperty('--color-ai-bubble-bot', '#f5f5f5');
 ### 覆盖组件样式
 
 ```css
-/* 覆盖打字机组件的光标样式 */
+/* 覆盖打字器组件的光标样式 */
 .el-x-typewriter__cursor {
   width: 3px;
   height: 1.2em;
