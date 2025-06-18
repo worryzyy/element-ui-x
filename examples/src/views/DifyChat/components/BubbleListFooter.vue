@@ -11,7 +11,7 @@
       >
         <SvgIcon
           iconClass="action-btn"
-          size="20"
+          :size="20"
           name="copy"
           color="rgb(139 139 139)"
           @click.native="handleCopyMessage(item)"
@@ -25,7 +25,7 @@
       >
         <SvgIcon
           iconClass="action-btn"
-          size="20"
+          :size="20"
           name="edit"
           color="rgb(139 139 139)"
           @click.native="handleEditMessage(item)"
@@ -44,7 +44,7 @@
         >
           <SvgIcon
             iconClass="action-btn"
-            size="20"
+            :size="20"
             name="copy"
             color="rgb(139 139 139)"
             @click.native="handleCopyMessage(item)"
@@ -59,7 +59,7 @@
         >
           <SvgIcon
             iconClass="action-btn"
-            size="20"
+            :size="20"
             name="refresh"
             color="rgb(139 139 139)"
             @click.native="handleRetryMessage(item)"
@@ -73,7 +73,7 @@
         >
           <SvgIcon
             iconClass="action-btn"
-            size="20"
+            :size="20"
             name="like"
             :color="
               item.feedback != null && item.feedback.rating === 'like'
@@ -97,7 +97,7 @@
         >
           <SvgIcon
             iconClass="action-btn"
-            size="20"
+            :size="20"
             name="dislike"
             :color="
               item.feedback != null && item.feedback.rating === 'dislike'
@@ -123,9 +123,17 @@
         placeholder="请输入您的反馈意见..."
         v-model="feedbackContent"
       ></el-input>
-      <span slot="footer" class="dialog-footer">
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="handleFeedbackDialogCancel">取消</el-button>
-        <el-button type="primary" @click="handleFeedbackDialogConfirm">确定</el-button>
+        <el-button
+          type="primary"
+          @click="handleFeedbackDialogConfirm"
+        >
+          确定
+        </el-button>
       </span>
     </el-dialog>
   </div>
@@ -264,11 +272,7 @@
           // 通过事件向父组件传递反馈更新
           this.$emit('update-feedback', {
             messageId: item.id,
-            feedback: newRating
-              ? {
-                  rating: newRating,
-                }
-              : null,
+            feedback: newRating ? { rating: newRating } : null,
           });
 
           this.$message.success(newRating === 'like' ? '已点赞' : '已取消点赞');
@@ -280,7 +284,7 @@
 
       // 踩消息
       async handleDislikeMessage(item) {
-        console.log('handleDislikeMessage',item);
+        console.log('handleDislikeMessage', item);
         if (item.placement !== 'start') return;
         // 强制隐藏tooltip并移除焦点
         if (this.$refs.dislikeTooltip) {
@@ -335,7 +339,12 @@
           const newRating = 'dislike';
           const content = this.feedbackContent || '';
 
-          await messageApi.feedbackMessage(this.currentMessageId, newRating, content, this.difyConfig.user);
+          await messageApi.feedbackMessage(
+            this.currentMessageId,
+            newRating,
+            content,
+            this.difyConfig.user,
+          );
 
           // 通过事件向父组件传递反馈更新
           this.$emit('update-feedback', {

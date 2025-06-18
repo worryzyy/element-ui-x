@@ -140,6 +140,8 @@
         }
 
         .drawer-close-btn {
+          width: 28px;
+          height: 28px;
           padding: 8px;
           font-size: 16px;
           color: $--color-text-regular;
@@ -174,6 +176,8 @@
       }
 
       .drawer-new-chat {
+        width: 28px;
+        height: 28px;
         margin: 16px;
         color: #4d6bfe;
         background-color: rgb(219, 234, 254);

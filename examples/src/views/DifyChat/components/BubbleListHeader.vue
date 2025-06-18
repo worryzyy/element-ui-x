@@ -9,6 +9,7 @@
       v-if="item.placement == 'start' && item.reasoning_content"
       :content="item.reasoning_content"
       :status="item.thinkingStatus"
+      maxWidth="100%"
       class="thinking-chain-wrap"
       auto-collapse
     >

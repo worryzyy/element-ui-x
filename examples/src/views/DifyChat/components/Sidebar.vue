@@ -18,7 +18,7 @@
         @click="$emit('toggle')"
       >
         <SvgIcon
-          size="28"
+          :size="28"
           name="toggle-right"
           color="rgb(139 139 139)"
         />
@@ -28,7 +28,7 @@
         @click="$emit('new-chat')"
       >
         <SvgIcon
-          size="28"
+          :size="28"
           name="plus"
           color="rgb(139 139 139)"
         />
@@ -47,7 +47,7 @@
             @click="$emit('toggle')"
           >
             <SvgIcon
-              size="28"
+              :size="28"
               name="toggle-left"
               color="rgb(139 139 139)"
             />
