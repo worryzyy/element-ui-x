@@ -20,17 +20,19 @@
   "keywords": [
     "element-ui",
     "vue",
-    "ai"
+    "ai",
+    "i18n"
   ],
   "bugs": {
     "url": "https://github.com/worryzyy/element-ui-x/issues"
   },
   "scripts": {
-    "build": "npm run build:common && npm run build:esm && npm run build:umd && npm run build:components",
+    "build": "npm run build:common && npm run build:esm && npm run build:umd && npm run build:components && npm run build:locale",
     "build:common": "webpack --config build/webpack.common.conf.js",
     "build:esm": "webpack --config build/webpack.esm.conf.js",
     "build:umd": "webpack --config build/webpack.umd.conf.js",
-    "build:components": "node build/build-components.js"
+    "build:components": "node build/build-components.js",
+    "build:locale": "node build/build-locale.js"
   },
   "peerDependencies": {
     "element-ui": "2.15.14",

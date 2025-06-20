@@ -56,7 +56,7 @@
           :autosize="computedAutoSize"
           type="textarea"
           :validate-event="false"
-          :placeholder="placeholder"
+          :placeholder="computedPlaceholder"
           :readonly="readOnly || disabled"
           :disabled="disabled"
           @keydown.native="handleKeyDown"
@@ -185,6 +185,7 @@
 </template>
 
 <script>
+  import Locale from '../../../locale/mixin';
   import ClearButton from './components/ClearButton.vue';
   import LoadingButton from './components/LoadingButton.vue';
   import SendButton from './components/SendButton.vue';
@@ -193,6 +194,7 @@
 
   export default {
     name: 'ElXSender',
+    mixins: [Locale],
 
     components: {
       ClearButton,
@@ -209,7 +211,7 @@
       },
       placeholder: {
         type: String,
-        default: '请输入内容',
+        default: '',
       },
       autoSize: {
         type: Object,
@@ -343,6 +345,11 @@
           minRows: 1,
           maxRows: 6,
         };
+      },
+
+      // 计算 placeholder
+      computedPlaceholder() {
+        return this.placeholder || this.elXt('el_x.sender.placeholder');
       },
     },
 

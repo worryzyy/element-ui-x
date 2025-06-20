@@ -46,12 +46,12 @@
         >
           {{
             localStatus === 'thinking'
-              ? '思考中...'
+              ? elXt('el_x.thinking.processing')
               : localStatus === 'error'
-              ? '思考遇到问题'
+              ? elXt('el_x.thinking.error')
               : localStatus === 'end'
-              ? '思考完成'
-              : '开始思考'
+              ? elXt('el_x.thinking.completed')
+              : elXt('el_x.thinking.start')
           }}
         </slot>
       </span>
@@ -99,8 +99,11 @@
 </template>
 
 <script>
+  import Locale from '../../../locale/mixin';
+
   export default {
     name: 'ElXThinking',
+    mixins: [Locale],
     props: {
       content: {
         type: String,
@@ -154,7 +157,9 @@
     },
     computed: {
       displayedContent() {
-        return this.localStatus === 'error' ? '思考过程中出现错误' : this.content;
+        return this.localStatus === 'error'
+          ? this.elXt('el_x.thinking.errorContent')
+          : this.content;
       },
     },
     watch: {

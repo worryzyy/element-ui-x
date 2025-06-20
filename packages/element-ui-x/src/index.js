@@ -20,6 +20,9 @@ import {
   XRequest,
   XStream,
 } from './mixins';
+// 导入国际化功能
+import locale from './locale';
+import lang from './locale/lang';
 
 const components = [
   ElXTypewriter,
@@ -35,7 +38,15 @@ const components = [
   ElXWelcome,
 ];
 
-const install = function (Vue) {
+const install = function (Vue, opts = {}) {
+  // 处理国际化配置
+  if (opts.locale) {
+    locale.use(opts.locale);
+  }
+  if (opts.i18n) {
+    locale.i18n(opts.i18n);
+  }
+
   components.forEach(component => {
     Vue.component(component.name, component);
   });
@@ -43,6 +54,10 @@ const install = function (Vue) {
 
 // 具名导出（按需引入）- 组件和Mixins
 export {
+  // Mixins
+  createSendUtils,
+  createStreamUtils,
+  customMixins,
   // 组件
   ElXAttachments,
   ElXBubble,
@@ -55,20 +70,22 @@ export {
   ElXThoughtChain,
   ElXTypewriter,
   ElXWelcome,
-  // Mixins
-  createSendUtils,
-  createStreamUtils,
-  customMixins,
+  lang,
+  // 国际化
+  locale,
   recordMixin,
   sendMixin,
   streamMixin,
   XRequest,
   XStream,
 };
+
 // 默认导出（完整引入）
 const ElementUIX = {
-  version: '1.0.0',
+  version: '0.2.2',
   install,
+  locale,
+  lang,
 };
 
 // 将组件添加到默认导出对象中
