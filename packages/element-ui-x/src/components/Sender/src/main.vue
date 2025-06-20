@@ -163,6 +163,7 @@
         v-model="popoverVisible"
         :disabled="disabled"
         :visible-arrow="false"
+        :appendToBody="false"
         :placement="triggerPopoverPlacement"
         :offset="triggerPopoverOffset"
         popper-class="el-x-sender-trigger-popover"
@@ -486,8 +487,9 @@
 
         // 设置默认基础样式
         const defaultStyles = {
+          width: this.inputWidth || '100%',
+          height: '24px',
           maxHeight: '176px',
-          maxWidth: this.inputWidth || '100%',
           boxSizing: 'border-box',
         };
 

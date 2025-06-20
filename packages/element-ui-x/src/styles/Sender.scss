@@ -187,10 +187,7 @@ $--el-x-fill-color: $--background-color-base;
   pointer-events: none;
 }
 
-.el-x-sender-trigger-popover {
-  // 设置默认值
-  width: fit-content !important;
-  margin-left: 0px !important;
+::v-deep .el-x-sender-trigger-popover {
   max-width: calc(100% - 54px) !important;
 
   // 应用自定义变量（如果存在）
