@@ -77,11 +77,6 @@ export const menuGroups = [
         icon: 'el-icon-paperclip',
         title: 'Attachments - 附件管理',
       },
-      {
-        index: '/difychat-demo',
-        icon: 'el-icon-postcard',
-        title: 'DifyChat - 聊天卡片',
-      },
     ],
   },
   {

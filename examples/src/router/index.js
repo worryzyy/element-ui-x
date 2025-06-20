@@ -19,6 +19,32 @@ import Welcome from '../views/Welcome.vue';
 
 Vue.use(Router);
 
+// 解决 NavigationDuplicated 错误
+const originalPush = Router.prototype.push;
+const originalReplace = Router.prototype.replace;
+
+Router.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) {
+    return originalPush.call(this, location, onResolve, onReject);
+  }
+  return originalPush.call(this, location).catch(err => {
+    if (err.name !== 'NavigationDuplicated') {
+      throw err;
+    }
+  });
+};
+
+Router.prototype.replace = function replace(location, onResolve, onReject) {
+  if (onResolve || onReject) {
+    return originalReplace.call(this, location, onResolve, onReject);
+  }
+  return originalReplace.call(this, location).catch(err => {
+    if (err.name !== 'NavigationDuplicated') {
+      throw err;
+    }
+  });
+};
+
 export default new Router({
   routes: [
     {

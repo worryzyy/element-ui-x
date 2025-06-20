@@ -9,7 +9,6 @@
         <h3>基础用法</h3>
         <el-x-sender
           v-model="basicContent"
-          placeholder="请输入内容..."
           clearable
           @submit="handleBasicSubmit"
         ></el-x-sender>
