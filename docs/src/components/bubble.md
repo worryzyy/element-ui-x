@@ -27,6 +27,7 @@
       content="这是一个基础的左侧气泡示例，通常用于展示机器人或对方的消息。"
       avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       placement="start"
+      :avatarSize="40"
     />
 
     <div style="margin-top: 20px;">
@@ -34,6 +35,7 @@
         content="这是一个基础的右侧气泡示例，通常用于展示用户自己的消息。"
         avatar="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
         placement="end"
+        :avatarSize="40"
       />
     </div>
   </div>
@@ -394,94 +396,6 @@ console.log(greet('World'));
 
 :::
 
-### 聊天对话场景
-
-结合多个气泡组件，模拟完整的聊天对话场景。
-
-:::demo
-
-```html
-<template>
-  <div class="chat-container">
-    <el-x-bubble
-      content="你好，我是AI助手，有什么可以帮助你的？"
-      avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-      placement="start"
-    />
-
-    <el-x-bubble
-      content="你能介绍一下Element UI吗？"
-      avatar="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
-      placement="end"
-      style="margin-top: 15px;"
-    />
-
-    <el-x-bubble
-      :content="aiResponse"
-      :typing="{ interval: 30, step: 2 }"
-      :is-markdown="true"
-      avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-      placement="start"
-      style="margin-top: 15px;"
-      ref="responseDemo"
-    />
-
-    <div class="demo-controls">
-      <el-button
-        size="small"
-        type="primary"
-        @click="regenerateResponse"
-      >
-        重新生成回答
-      </el-button>
-    </div>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        aiResponse: `**Element UI** 是一套基于 Vue 2.0 的桌面端组件库，提供了丰富的组件和功能：
-
-- 丰富的组件：包括表单、表格、导航、通知等
-- 一致的设计：遵循统一的设计规范
-- 响应式布局：适应不同尺寸的屏幕
-- 主题定制：支持自定义主题色和样式
-
-你可以通过 npm 安装：
-\`\`\`bash
-npm i element-ui -S
-\`\`\``,
-      };
-    },
-    methods: {
-      regenerateResponse() {
-        this.$refs.responseDemo.restart();
-      },
-    },
-    mounted() {
-      this.$nextTick(() => {
-        this.$refs.responseDemo.restart();
-      });
-    },
-  };
-</script>
-
-<style>
-  .chat-container {
-    border: 1px solid #ebeef5;
-    border-radius: 4px;
-    padding: 15px;
-    background-color: #f8f8f8;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-</style>
-```
-
-:::
-
 ## 属性
 
 | 参数              | 说明                                                                                                                           | 类型           | 默认值    |
@@ -492,7 +406,7 @@ npm i element-ui -S
 | placement         | 气泡位置，可选值：'start'(左侧)/'end'(右侧)                                                                                    | String         | 'start'   |
 | variant           | 气泡样式，可选值：'filled'/'borderless'/'outlined'/'shadow'                                                                    | String         | 'filled'  |
 | maxWidth          | 气泡最大宽度                                                                                                                   | String         | '500px'   |
-| avatarSize        | 头像尺寸                                                                                                                       | String         | ''        |
+| avatarSize        | 头像尺寸                                                                                                                       | Number         | 0         |
 | avatarGap         | 头像与气泡间距                                                                                                                 | String         | '12px'    |
 | avatarShape       | 头像形状，可选值：'circle'/'square'                                                                                            | String         | 'circle'  |
 | avatarIcon        | 头像图标（当没有头像图片时）                                                                                                   | String         | ''        |

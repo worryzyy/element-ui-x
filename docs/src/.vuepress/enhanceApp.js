@@ -2,11 +2,14 @@ import { Message } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // 导入 Element UI 文档风格的代码高亮样式
 import BackToTop from './components/BackToTop.vue';
+import EnHero from './components/EnHero.vue';
 import Hero from './components/Hero.vue';
 export default async ({ Vue, router, isServer }) => {
   // Vue.use(ElementUI);
   Vue.component('BackToTop', BackToTop);
   Vue.component('Hero', Hero);
+  Vue.component('EnHero', EnHero);
+
   Vue.prototype.$message = Message;
 
   // 添加全局的路由切换后回到顶部的功能
