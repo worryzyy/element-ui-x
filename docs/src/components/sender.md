@@ -32,7 +32,7 @@
     <br />
     <el-x-sender
       style="width: fit-content;"
-      inputWidth="500px"
+      inputWidth="480px"
       placeholder="💌 欢迎使用 Element-UI-X"
     />
   </div>
@@ -264,7 +264,7 @@
 
 ### 触发字符弹出框
 
-通过 `triggerStrings` 配置触发字符，当输入这些字符时显示弹出框。
+通过 `triggerStrings` 配置触发字符，当输入这些字符时显示弹出框。可以通过 `triggerPopoverWidth` 和 `triggerPopoverLeft` 属性自定义弹出框的宽度和左偏移量。
 
 :::demo
 
@@ -275,7 +275,9 @@
       v-model="message"
       placeholder="输入 @ 或 # 触发弹出框"
       :trigger-strings="['@', '#']"
-      :triggerPopoverOffset="0"
+      :triggerPopoverOffset="100"
+      :triggerPopoverLeft="'100px'"
+      :triggerPopoverWidth="'200px'"
       :trigger-popover-visible.sync="showTriggerPopover"
       @submit="handleSubmit"
       @trigger="handleTrigger"
