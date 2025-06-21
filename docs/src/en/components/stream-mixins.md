@@ -1,18 +1,18 @@
 # streamMixin
 
-## 功能说明
+## Feature Description
 
-提供 SSE (Server-Sent Events) 数据解析和中断功能，支持以下特性：
+Provides SSE (Server-Sent Events) data parsing and interruption capabilities, supporting the following features:
 
-- 支持 SSE 数据流解析和处理
-- 提供完整的生命周期事件
-- 支持流式请求的中断控制
-- 自动处理流数据状态
-- 错误处理机制
-- 支持自定义转换流
-- 支持非组件场景的工具函数版本
+- Supports parsing and processing of SSE data streams
+- Provides a complete set of lifecycle events
+- Supports interruption control for streaming requests
+- Automatically handles stream data status
+- Error handling mechanism
+- Supports custom transform streams
+- Supports a utility function version for non-component scenarios
 
-## 导入和使用
+## Import and Usage
 
 ```js
 import { streamMixin } from 'vue-element-ui-x';
@@ -23,17 +23,17 @@ export default {
 };
 ```
 
-:::tip 说明
+:::tip Note
 
-以下示例的导入方式是解决文档站打包时的报错，正常情况下请按正常的方式导入即可
+The import method in the following example is to resolve an error during the documentation site's packaging. Under normal circumstances, please import it in the standard way.
 
 :::
 
-## 使用示例
+## Usage Examples
 
-### SSE 流式数据示例
+### SSE Stream Data Example
 
-展示如何处理 SSE 流式数据，并在 Bubble 组件中展示 Markdown 内容。
+Demonstrates how to handle SSE stream data and display Markdown content in the Bubble component.
 
 :::demo
 
@@ -45,7 +45,7 @@ export default {
         :disabled="streamLoading"
         @click="startSSE"
       >
-        {{ streamLoading ? '加载中...' : '获取 SSE流数据' }}
+        {{ streamLoading ? 'Loading...' : 'Get SSE Stream Data' }}
       </el-button>
 
       <el-button
@@ -53,7 +53,7 @@ export default {
         :disabled="!streamLoading"
         @click="cancelStream"
       >
-        中断请求
+        Cancel Request
       </el-button>
     </div>
     <div
@@ -100,7 +100,7 @@ export default {
       };
     },
     watch: {
-      // 监听流数据变化，更新内容
+      // Watch for changes in stream data and update content
       streamData: {
         handler(newData) {
           if (!newData || newData.length === 0) {
@@ -115,13 +115,13 @@ export default {
               const parsedChunk = JSON.parse(chunk).content;
               text += parsedChunk;
             } catch (error) {
-              // 这个结束标识是后端给的，所以这里这样判断
-              // 实际项目中，以项目需要为准
+              // This end identifier is provided by the backend, hence the check here
+              // In actual projects, this should be based on project requirements
               if (chunk === ' [DONE]') {
-                // 处理数据结束的情况
-                // console.log('数据接收完毕');
+                // Handle the case where data reception is complete
+                // console.log('Data reception complete');
               } else {
-                console.error('解析数据时出错:', error);
+                console.error('Error parsing data:', error);
               }
             }
           }
@@ -166,11 +166,12 @@ export default {
   }
 </style>
 ```
+
 :::
 
-### SIP 协议数据处理示例
+### SIP Protocol Data Handling Example
 
-展示如何处理 SIP 协议的流式数据，并使用自定义转换流。
+Demonstrates how to handle SIP protocol stream data and use a custom transform stream.
 
 :::demo
 
@@ -183,7 +184,7 @@ export default {
         @click="startSIPStream"
         type="primary"
       >
-        {{ streamLoading ? '加载中...' : '获取 SIP 协议数据' }}
+        {{ streamLoading ? 'Loading...' : 'Get SIP Protocol Data' }}
       </el-button>
 
       <el-button
@@ -191,7 +192,7 @@ export default {
         @click="cancelStream"
         type="danger"
       >
-        中断请求
+        Cancel Request
       </el-button>
     </div>
     <div
@@ -238,7 +239,7 @@ export default {
       };
     },
     watch: {
-      // 监听流数据变化，更新内容
+      // Watch for changes in stream data and update content
       streamData: {
         handler(newData) {
           if (!newData || newData.length === 0) {
@@ -253,7 +254,7 @@ export default {
               console.log('chunk', chunk);
               text += chunk;
             } catch (error) {
-              console.error('解析数据时出错:', error);
+              console.error('Error parsing data:', error);
             }
           }
           console.log('Text:', text);
@@ -270,10 +271,10 @@ export default {
           });
           const readableStream = response.body;
 
-          // 自定义 transformStream 处理 SIP 数据
+          // Custom transformStream to handle SIP data
           const sipTransformStream = new TransformStream({
             transform(chunk, controller) {
-              // 这里可以添加 SIP 数据的解析逻辑
+              // SIP data parsing logic can be added here
               controller.enqueue(chunk);
             },
           });
@@ -308,61 +309,61 @@ export default {
 
 :::
 
-## 混入属性
+## Mixin Properties
 
-| 参数          | 说明       | 类型    | 默认值 |
-| ------------- | ---------- | ------- | ------ |
-| streamData    | 流数据数组 | Array   | []     |
-| streamError   | 流错误信息 | Error   | null   |
-| streamLoading | 流处理状态 | Boolean | false  |
+| Parameter     | Description              | Type    | Default |
+| ------------- | ------------------------ | ------- | ------- |
+| streamData    | Stream data array        | Array   | []      |
+| streamError   | Stream error info        | Error   | null    |
+| streamLoading | Stream processing status | Boolean | false   |
 
-## 混入方法
+## Mixin Methods
 
-| 方法名                | 说明                   | 参数                                         | 返回值  |
-| --------------------- | ---------------------- | -------------------------------------------- | ------- |
-| startStream           | 启动流式请求           | options: { readableStream, transformStream } | Promise |
-| cancelStream          | 中断流式请求           | -                                            | -       |
-| resetStream           | 重置流状态             | -                                            | -       |
-| createStreamProcessor | 创建流处理器的便捷方法 | readableStream, transformStream              | Object  |
+| Method Name           | Description                                   | Parameters                                   | Return Value |
+| --------------------- | --------------------------------------------- | -------------------------------------------- | ------------ |
+| startStream           | Starts a streaming request                    | options: { readableStream, transformStream } | Promise      |
+| cancelStream          | Cancels the streaming request                 | -                                            | -            |
+| resetStream           | Resets the stream state                       | -                                            | -            |
+| createStreamProcessor | A utility method to create a stream processor | readableStream, transformStream              | Object       |
 
-## 事件
+## Events
 
-| 事件名          | 说明             | 回调参数         |
-| --------------- | ---------------- | ---------------- |
-| stream-data     | 收到新数据时触发 | item: 流数据项   |
-| stream-complete | 流完成时触发     | data: 所有流数据 |
-| stream-error    | 流错误时触发     | error: 错误对象  |
-| stream-finish   | 流处理结束时触发 | -                |
-| stream-cancel   | 流被中断时触发   | -                |
+| Event Name      | Description                       | Callback Parameter         |
+| --------------- | --------------------------------- | -------------------------- |
+| stream-data     | Fired when new data is received   | item: The stream data item |
+| stream-complete | Fired when the stream is complete | data: All stream data      |
+| stream-error    | Fired when a stream error occurs  | error: The error object    |
+| stream-finish   | Fired when stream processing ends | -                          |
+| stream-cancel   | Fired when the stream is canceled | -                          |
 
-## 工具函数版本
+## Utility Function Version
 
-对于非组件场景，提供了工具函数版本：
+For non-component scenarios, a utility function version is provided:
 
 ```js
 import { createStreamUtils } from 'vue-element-ui-x';
 
-// 创建流处理工具
+// Create stream processing utilities
 const streamUtils = createStreamUtils({
-  onData: item => console.log('数据:', item),
-  onComplete: allData => console.log('完成:', allData.length, '条数据'),
-  onError: error => console.error('错误:', error),
-  onCancel: () => console.log('已取消'),
-  onFinish: () => console.log('处理结束'),
+  onData: item => console.log('Data:', item),
+  onComplete: allData => console.log('Complete:', allData.length, 'items'),
+  onError: error => console.error('Error:', error),
+  onCancel: () => console.log('Canceled'),
+  onFinish: () => console.log('Processing finished'),
 });
 
-// 使用工具处理流数据
+// Use utilities to process stream data
 async function processStreamData() {
   const response = await fetch('/api/stream');
   await streamUtils.startStream({ readableStream: response.body });
 }
 
-// 取消处理
+// Cancel processing
 function cancelProcessing() {
   streamUtils.cancel();
 }
 
-// 获取当前状态
+// Get current status
 function getStatus() {
   return {
     isLoading: streamUtils.state.loading,
@@ -372,10 +373,10 @@ function getStatus() {
 }
 ```
 
-## 注意事项
+## Precautions
 
-1. 该混入依赖现代浏览器的 Streams API，使用前请确保浏览器支持。
-2. 流处理过程中产生的错误会通过 `streamError` 属性和 `stream-error` 事件提供。
-3. 在组件销毁时会自动清理相关资源。
-4. 自定义转换流需要实现 `transform` 和可选的 `flush` 方法。
-5. 对于大量数据的流处理，建议实现节流或批处理以提高性能。
+1. This mixin depends on the modern browser's Streams API. Please ensure your browser supports it before use.
+2. Errors that occur during stream processing are provided through the `streamError` property and the `stream-error` event.
+3. Relevant resources are automatically cleaned up when the component is destroyed.
+4. Custom transform streams need to implement `transform` and optional `flush` methods.
+5. For processing large amounts of data streams, it is recommended to implement throttling or batching to improve performance.

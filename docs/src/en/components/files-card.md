@@ -1,55 +1,55 @@
-# FilesCard 文件卡片组件
+# FilesCard
 
-## 功能说明
+## Features
 
-文件卡片组件，用于展示文件信息和提供文件操作，支持以下特性：
+A file card component for displaying file information and providing file operations, with the following features:
 
-- 文件类型图标自动识别（支持 40+种文件类型）
-- 文件预览和下载功能
-- 支持自定义操作按钮
-- 可配置的文件信息展示
-- 多种状态显示（上传中、完成、错误）
-- 图片文件特殊处理（支持预览和变体布局）
-- 自定义图标颜色和大小
+- Automatic file type icon recognition (supports 40+ file types)
+- File preview and download functions
+- Support for custom action buttons
+- Configurable file information display
+- Multiple status displays (uploading, done, error)
+- Special handling for image files (supports preview and layout variants)
+- Custom icon color and size
 
-## 使用示例
+## Usage Examples
 
-### 基本用法
+### Basic Usage
 
-展示不同文件类型的卡片组件。
+Displays card components for different file types.
 
 :::demo
 
 ```html
 <template>
   <div class="files-card-container">
-    <el-x-files-card name="测试文件" />
-    <el-x-files-card name="测试文件.pdf" />
-    <el-x-files-card name="测试doc后缀.doc" />
-    <el-x-files-card name="测试xls后缀.xls" />
-    <el-x-files-card name="测试ppt后缀.ppt" />
-    <el-x-files-card name="测试txt后缀.txt" />
-    <el-x-files-card name="测试pdf后缀.pdf" />
-    <el-x-files-card name="测试png后缀.png" />
-    <el-x-files-card name="测试jpg后缀.jpg" />
-    <el-x-files-card name="测试gif后缀.gif" />
-    <el-x-files-card name="测试mp4后缀.mp4" />
-    <el-x-files-card name="测试mp3后缀.mp3" />
-    <el-x-files-card name="测试zip后缀.zip" />
-    <el-x-files-card name="测试rar后缀.rar" />
-    <el-x-files-card name="测试7z后缀.7z" />
-    <el-x-files-card name="测试lnk后缀.lnk" />
-    <el-x-files-card name="测试obj后缀.obj" />
-    <el-x-files-card name="测试fbx后缀.fbx" />
-    <el-x-files-card name="测试glb后缀.glb" />
-    <el-x-files-card name="测试sql后缀.sql" />
-    <el-x-files-card name="测试db后缀.db" />
-    <el-x-files-card name="测试md后缀.md" />
-    <el-x-files-card name="测试js后缀.js" />
-    <el-x-files-card name="测试py后缀.py" />
-    <el-x-files-card name="测试java后缀.java" />
-    <el-x-files-card name="测试php后缀.php" />
-    <el-x-files-card name="测试json后缀.json" />
+    <el-x-files-card name="Test File" />
+    <el-x-files-card name="Test File.pdf" />
+    <el-x-files-card name="Test doc suffix.doc" />
+    <el-x-files-card name="Test xls suffix.xls" />
+    <el-x-files-card name="Test ppt suffix.ppt" />
+    <el-x-files-card name="Test txt suffix.txt" />
+    <el-x-files-card name="Test pdf suffix.pdf" />
+    <el-x-files-card name="Test png suffix.png" />
+    <el-x-files-card name="Test jpg suffix.jpg" />
+    <el-x-files-card name="Test gif suffix.gif" />
+    <el-x-files-card name="Test mp4 suffix.mp4" />
+    <el-x-files-card name="Test mp3 suffix.mp3" />
+    <el-x-files-card name="Test zip suffix.zip" />
+    <el-x-files-card name="Test rar suffix.rar" />
+    <el-x-files-card name="Test 7z suffix.7z" />
+    <el-x-files-card name="Test lnk suffix.lnk" />
+    <el-x-files-card name="Test obj suffix.obj" />
+    <el-x-files-card name="Test fbx suffix.fbx" />
+    <el-x-files-card name="Test glb suffix.glb" />
+    <el-x-files-card name="Test sql suffix.sql" />
+    <el-x-files-card name="Test db suffix.db" />
+    <el-x-files-card name="Test md suffix.md" />
+    <el-x-files-card name="Test js suffix.js" />
+    <el-x-files-card name="Test py suffix.py" />
+    <el-x-files-card name="Test java suffix.java" />
+    <el-x-files-card name="Test php suffix.php" />
+    <el-x-files-card name="Test json suffix.json" />
   </div>
 </template>
 
@@ -64,9 +64,9 @@
 
 :::
 
-### 状态设置
+### Status Settings
 
-展示不同状态的文件卡片。
+Displays file cards in different states.
 
 :::demo
 
@@ -74,26 +74,26 @@
 <template>
   <div class="files-card-container">
     <el-x-files-card
-      name="uploading 测试文件.pdf"
+      name="uploading test file.pdf"
       status="uploading"
     />
     <el-x-files-card
-      name="done 测试文件.pdf"
+      name="done test file.pdf"
       status="done"
     />
     <el-x-files-card
-      name="error 测试文件.pdf"
+      name="error test file.pdf"
       status="error"
     />
     <el-x-files-card
-      name="uploading 测试文件.doc"
+      name="uploading test file.doc"
       status="uploading"
       :percent="50"
     />
     <el-x-files-card
-      name="error 测试文件.doc"
+      name="error test file.doc"
       status="error"
-      error-tip="自定义失败提示"
+      error-tip="Custom failure tip"
     />
   </div>
 </template>
@@ -109,9 +109,9 @@
 
 :::
 
-### 删除功能
+### Delete Functionality
 
-展示带删除按钮的文件卡片。
+Displays a file card with a delete button.
 
 :::demo
 
@@ -119,7 +119,7 @@
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px;">
     <el-x-files-card
-      name="删除测试文件.md"
+      name="delete test file.md"
       show-del-icon
       @delete="handleDelete"
     />
@@ -130,7 +130,7 @@
   export default {
     methods: {
       handleDelete() {
-        this.$message.success('删除成功');
+        this.$message.success('Delete successful');
       },
     },
   };
@@ -139,9 +139,9 @@
 
 :::
 
-### 图片文件展示
+### Image File Display
 
-展示图片文件的不同变体和状态。
+Displays different variants and states of image files.
 
 :::demo
 
@@ -149,73 +149,75 @@
 <template>
   <div class="files-card-container-wrapper">
     <span>
-      图片文件
-      <span style="color: red;">可预览</span>
-      和
-      <span style="color: red;">不可预览</span>
+      Image files with
+      <span style="color: red;">preview</span>
+      and
+      <span style="color: red;">no preview</span>
     </span>
     <div class="files-card-container">
       <el-x-files-card
-        name="可预览的图片.jpeg"
+        name="Image with preview.jpeg"
         show-del-icon
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
       <el-x-files-card
-        name="无法预览的图片.jpeg"
+        name="Image without preview.jpeg"
         show-del-icon
       />
     </div>
     <span>
-      图片文件
-      <span style="color: red;">正方形变体</span>
-      其他格式不受变体属性影响
+      Image file
+      <span style="color: red;">square variant</span>
+      . Other formats are not affected by the variant property.
     </span>
     <div class="files-card-container">
       <el-x-files-card
-        name="可预览的图片.jpeg"
+        name="Image with preview.jpeg"
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
         img-variant="square"
         show-del-icon
       />
       <el-x-files-card
-        name="无法预览的图片.jpeg"
+        name="Image without preview.jpeg"
         img-variant="square"
         show-del-icon
       />
       <el-x-files-card
-        name="其他文件不受变体影响.txt"
+        name="Other files are not affected by variant.txt"
         img-variant="square"
         show-del-icon
         :file-size="30000"
       />
     </div>
     <span>
-      图片文件 默认长方形变体
-      <span style="color: red;">支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span>
+      Image file default rectangle variant
+      <span style="color: red;">
+        supports upload status, enabling/disabling preview, and enabling/disabling preview mask
+      </span>
     </span>
     <div class="files-card-container">
       <el-x-files-card
-        name="上传进度.jpeg"
+        name="Uploading progress.jpeg"
         :percent="50"
         status="uploading"
         show-del-icon
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
       <el-x-files-card
-        name="上传失败.jpeg"
+        name="Upload failed.jpeg"
         status="error"
         show-del-icon
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
       <el-x-files-card
-        name="关闭预览悬停遮罩.jpeg"
+        name="Disable preview hover mask.jpeg"
         :img-preview-mask="false"
         show-del-icon
         @image-preview="imagePreviewEvent"
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
       <el-x-files-card
-        name="关闭预览功能.jpeg"
+        name="Disable preview functionality.jpeg"
         :img-preview="false"
         show-del-icon
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
@@ -223,12 +225,14 @@
     </div>
 
     <span>
-      图片文件 正方形变体
-      <span style="color: red;">支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span>
+      Image file square variant
+      <span style="color: red;">
+        supports upload status, enabling/disabling preview, and enabling/disabling preview mask
+      </span>
     </span>
     <div class="files-card-container">
       <el-x-files-card
-        name="上传进度.jpeg"
+        name="Uploading progress.jpeg"
         img-variant="square"
         :percent="50"
         status="uploading"
@@ -236,27 +240,27 @@
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
       <el-x-files-card
-        name="上传失败.jpeg"
+        name="Upload failed.jpeg"
         img-variant="square"
         status="error"
         show-del-icon
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
       <el-x-files-card
-        name="上传完成.jpeg"
+        name="Upload complete.jpeg"
         img-variant="square"
         show-del-icon
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
       <el-x-files-card
-        name="关闭预览悬停遮罩.jpeg"
+        name="Disable preview hover mask.jpeg"
         img-variant="square"
         :img-preview-mask="false"
         show-del-icon
         url="https://avatars.githubusercontent.com/u/76239030?v=4"
       />
       <el-x-files-card
-        name="关闭预览功能.jpeg"
+        name="Disable preview functionality.jpeg"
         img-variant="square"
         :img-preview="false"
         show-del-icon
@@ -290,17 +294,17 @@
 
 :::
 
-### 自定义
+### Customization
 
-通过 `iconColor` 属性自定义图标颜色。
-通过 `styleConfig` `hoverStyle` 属性自定义样式。
+Customize the icon color with the `iconColor` attribute.
+Customize styles with `styleConfig` and `hoverStyle` attributes.
 
 :::demo
 
 ```html
 <template>
   <div class="files-card-container-wrapper">
-    <p>自定义颜色</p>
+    <p>Custom Colors</p>
     <div class="files-card-container">
       <el-x-files-card
         v-for="items in colorKeys"
@@ -310,7 +314,7 @@
         :file-type="items"
       />
     </div>
-    <p>自定义样式/hover样式</p>
+    <p>Custom Style / Hover Style</p>
     <div class="files-card-container">
       <el-x-files-card
         :style-config="{
@@ -376,8 +380,8 @@
         },
         filesCardProps: {
           uid: '1',
-          name: '测试名称',
-          description: '测试description',
+          name: 'Test Name',
+          description: 'Test description',
         },
       };
     },
@@ -405,46 +409,46 @@
 
 :::
 
-## 属性
+## Attributes
 
-| 参数           | 说明                                   | 类型          | 默认值      |
-| -------------- | -------------------------------------- | ------------- | ----------- |
-| uid            | 唯一标识                               | String/Number | -           |
-| name           | 文件名                                 | String        | -           |
-| fileSize       | 文件大小                               | String/Number | -           |
-| fileType       | 文件类型                               | String        | -           |
-| description    | 文件描述                               | String        | -           |
-| url            | 文件 URL                               | String        | -           |
-| thumbUrl       | 缩略图 URL                             | String        | -           |
-| imgFile        | 图片文件对象                           | Object        | -           |
-| iconSize       | 图标大小                               | String        | '42px'      |
-| iconColor      | 图标颜色                               | String        | -           |
-| showDelIcon    | 是否显示删除图标                       | Boolean       | false       |
-| maxWidth       | 最大宽度                               | String        | '236px'     |
-| styleConfig    | 自定义样式                             | Object        | -           |
-| hoverStyle     | 悬停样式                               | Object        | -           |
-| imgVariant     | 图片变体（'rectangle'或'square'）      | String        | 'rectangle' |
-| imgPreview     | 是否开启图片预览                       | Boolean       | true        |
-| imgPreviewMask | 是否显示图片预览遮罩                   | Boolean       | true        |
-| status         | 文件状态（'uploading','done','error'） | String        | -           |
-| percent        | 上传进度（0-100）                      | Number        | -           |
-| errorTip       | 错误提示信息                           | String        | -           |
+| Attribute      | Description                              | Type          | Default     |
+| -------------- | ---------------------------------------- | ------------- | ----------- |
+| uid            | Unique identifier                        | String/Number | -           |
+| name           | File name                                | String        | -           |
+| fileSize       | File size                                | String/Number | -           |
+| fileType       | File type                                | String        | -           |
+| description    | File description                         | String        | -           |
+| url            | File URL                                 | String        | -           |
+| thumbUrl       | Thumbnail URL                            | String        | -           |
+| imgFile        | Image file object                        | Object        | -           |
+| iconSize       | Icon size                                | String        | '42px'      |
+| iconColor      | Icon color                               | String        | -           |
+| showDelIcon    | Whether to show the delete icon          | Boolean       | false       |
+| maxWidth       | Maximum width                            | String        | '236px'     |
+| styleConfig    | Custom styles                            | Object        | -           |
+| hoverStyle     | Hover styles                             | Object        | -           |
+| imgVariant     | Image variant ('rectangle' or 'square')  | String        | 'rectangle' |
+| imgPreview     | Whether to enable image preview          | Boolean       | true        |
+| imgPreviewMask | Whether to show the image preview mask   | Boolean       | true        |
+| status         | File status ('uploading','done','error') | String        | -           |
+| percent        | Upload progress (0-100)                  | Number        | -           |
+| errorTip       | Error tip message                        | String        | -           |
 
-## 插槽
+## Events
 
-| 插槽名                | 说明               | 作用域参数           |
-| --------------------- | ------------------ | -------------------- |
-| icon                  | 自定义图标         | item                 |
-| content               | 自定义内容         | item                 |
-| name-prefix           | 自定义文件名前缀   | item, prefix, suffix |
-| name-suffix           | 自定义文件名后缀   | item, prefix, suffix |
-| description           | 自定义描述         | item, prefix, suffix |
-| del-icon              | 自定义删除图标     | item                 |
-| image-preview-actions | 自定义图片预览操作 | item, prefix, suffix |
+| Event Name    | Description                      | Callback Parameters |
+| ------------- | -------------------------------- | ------------------- |
+| delete        | Triggered on delete button click | File data object    |
+| image-preview | Triggered on image preview       | File data object    |
 
-## 事件
+## Slots
 
-| 事件名        | 说明               | 回调参数     |
-| ------------- | ------------------ | ------------ |
-| delete        | 点击删除按钮时触发 | 文件数据对象 |
-| image-preview | 图片预览时触发     | 文件数据对象 |
+| Slot Name             | Description                  | Scope Parameters     |
+| --------------------- | ---------------------------- | -------------------- |
+| icon                  | Custom icon                  | item                 |
+| content               | Custom content               | item                 |
+| name-prefix           | Custom file name prefix      | item, prefix, suffix |
+| name-suffix           | Custom file name suffix      | item, prefix, suffix |
+| description           | Custom description           | item, prefix, suffix |
+| del-icon              | Custom delete icon           | item                 |
+| image-preview-actions | Custom image preview actions | item, prefix, suffix |

@@ -1,19 +1,19 @@
 # sendMixin & XRequest
 
-## 功能说明
+## Feature Description
 
-发送操作混入，提供统一的请求状态管理和中断控制，支持以下特性：
+A mixin for send operations that provides unified request state management and interruption control, supporting the following features:
 
-- 支持 SSE (Server-Sent Events) 和 Fetch 两种请求方式
-- 提供完整的请求生命周期管理
-- 支持请求的中断控制
-- 自动处理请求状态
-- 错误处理机制
-- 支持自定义数据转换器
-- 支持非组件场景的工具函数版本
-- 集成 XRequest 类提供强大的请求处理能力
+- Supports two request methods: SSE (Server-Sent Events) and Fetch
+- Provides complete request lifecycle management
+- Supports request interruption control
+- Automatically handles request status
+- Error handling mechanism
+- Supports custom data transformers
+- Supports a utility function version for non-component scenarios
+- Integrates the XRequest class to provide powerful request handling capabilities
 
-## 导入和使用
+## Import and Usage
 
 ```js
 import { sendMixin } from 'vue-element-ui-x';
@@ -24,16 +24,16 @@ export default {
 };
 ```
 
-:::tip 说明
-以下示例的导入方式是解决文档站打包时的报错，正常情况下请按正常的方式导入即可
+:::tip Note
+The import method in the following examples is to resolve an error during the documentation site's packaging. Under normal circumstances, please import it in the standard way.
 :::
 
-## 使用示例
+## Usage Examples
 
-### sendMixin 基本用法
+### Basic Usage of sendMixin
 
-::: tip 基本流程
-用户操作 → handleSend/handleAbort/handleFinish → 更新 loading 状态 → 调用用户回调
+::: tip Basic Flow
+User Action → handleSend/handleAbort/handleFinish → Update loading state → Call user callback
 :::
 
 :::demo
@@ -47,28 +47,28 @@ export default {
         type="primary"
         @click="handleSend"
       >
-        {{ loading ? '加载中...' : '模拟请求' }}
+        {{ loading ? 'Loading...' : 'Simulate Request' }}
       </el-button>
       <el-button
         :disabled="!loading"
         type="primary"
         @click="handleFinish"
       >
-        结束请求
+        Finish Request
       </el-button>
       <el-button
         :disabled="!loading"
         type="danger"
         @click="handleAbort"
       >
-        终止请求
+        Abort Request
       </el-button>
     </div>
     <div
       v-if="basicResult"
       class="result"
     >
-      结果：{{ basicResult }}
+      Result: {{ basicResult }}
     </div>
   </div>
 </template>
@@ -102,7 +102,7 @@ export default {
       };
     },
     mounted() {
-      // 初始化发送配置
+      // Initialize send configuration
       this.initSend({
         sendHandler: this.startFn,
         finishHandler: this.finishBasicRequest,
@@ -112,20 +112,21 @@ export default {
     },
     methods: {
       async startFn() {
-        // 在这里做一个异步操作，可以是发请求
-        console.log('开始模拟请求');
+        // Perform an asynchronous operation here, such as making a request
+        console.log('Starting simulated request');
         this.basicResult = '';
       },
       finishBasicRequest() {
-        this.basicResult = '请求成功完成！时间：' + new Date().toLocaleTimeString();
-        console.log('基础请求处理完成');
+        this.basicResult =
+          'Request completed successfully! Time: ' + new Date().toLocaleTimeString();
+        console.log('Basic request processing finished');
       },
       abortBasicRequest() {
-        this.basicResult = '请求被中止';
-        console.log('基础请求被中止', this.loading);
+        this.basicResult = 'Request was aborted';
+        console.log('Basic request aborted', this.loading);
       },
       onBasicAbort() {
-        console.log('基础请求中止回调');
+        console.log('Basic request abort callback');
       },
     },
   };
@@ -155,7 +156,7 @@ export default {
 
 :::
 
-有了对状态的控制，我们可以很方便的，自定义一些按钮的加载状态
+With state control, we can easily customize the loading state of some buttons.
 
 :::demo
 
@@ -163,11 +164,14 @@ export default {
 <template>
   <div class="custom-btn-container">
     <div class="btn-description">
-      <p>点击任意按钮开始操作，按钮会自动切换到加载状态，几秒后自动结束：</p>
+      <p>
+        Click any button to start the operation. The button will automatically switch to a loading
+        state and end after a few seconds:
+      </p>
     </div>
 
     <div class="btn-list">
-      <!-- 语音按钮 -->
+      <!-- Voice button -->
       <el-button
         v-if="!voiceLoading"
         style="background-color: #9145c8; border-color: #9145c8; color: white;"
@@ -188,7 +192,7 @@ export default {
         <i class="el-icon-loading"></i>
       </el-button>
 
-      <!-- 发送按钮 -->
+      <!-- Send button -->
       <el-button
         v-if="!senderLoading"
         style="background-color: transparent; border-color: #c2306a; color: #c2306a;"
@@ -197,7 +201,7 @@ export default {
         @click="startSender"
       >
         <i class="el-icon-s-promotion"></i>
-        <span style="margin-left: 5px;">发送</span>
+        <span style="margin-left: 5px;">Send</span>
       </el-button>
 
       <el-button
@@ -208,10 +212,10 @@ export default {
         @click="stopSender"
       >
         <i class="el-icon-refresh el-icon-loading"></i>
-        <span style="margin-left: 5px;">发送中</span>
+        <span style="margin-left: 5px;">Sending</span>
       </el-button>
 
-      <!-- 播放按钮 -->
+      <!-- Play button -->
       <el-button
         v-if="!readLoading"
         size="mini"
@@ -223,7 +227,7 @@ export default {
           class="el-icon-video-play"
           style="font-size: 20px; color: #fff;"
         ></i>
-        <span style="margin-left: 5px;">播放</span>
+        <span style="margin-left: 5px;">Play</span>
       </el-button>
 
       <el-button
@@ -237,10 +241,10 @@ export default {
           class="el-icon-video-pause"
           style="font-size: 20px; color: #fff;"
         ></i>
-        <span style="margin-left: 5px;">播放中</span>
+        <span style="margin-left: 5px;">Playing</span>
       </el-button>
 
-      <!-- 录制按钮 -->
+      <!-- Record button -->
       <el-button
         v-if="!recordLoading"
         size="mini"
@@ -264,36 +268,36 @@ export default {
 
     <div class="status-info">
       <p>
-        当前状态：{{ type }} | 活跃按钮：
+        Current Status: {{ type }} | Active Button:
         <span
           v-if="voiceLoading"
           class="status-active"
         >
-          语音录制中
+          Recording Voice
         </span>
         <span
           v-if="senderLoading"
           class="status-active"
         >
-          文本发送中
+          Sending Text
         </span>
         <span
           v-if="readLoading"
           class="status-active"
         >
-          视频播放中
+          Playing Video
         </span>
         <span
           v-if="recordLoading"
           class="status-active"
         >
-          视频录制中
+          Recording Video
         </span>
         <span
           v-if="!voiceLoading && !senderLoading && !readLoading && !recordLoading"
           class="status-idle"
         >
-          空闲
+          Idle
         </span>
       </p>
     </div>
@@ -305,91 +309,91 @@ export default {
     data() {
       return {
         type: 'voice',
-        // 多个独立的loading状态
+        // Multiple independent loading states
         voiceLoading: false,
         senderLoading: false,
         readLoading: false,
         recordLoading: false,
 
-        // 存储定时器引用
+        // Store timer references
         timers: {},
       };
     },
     methods: {
-      // 语音按钮操作
+      // Voice button operations
       startVoice() {
         this.type = 'voice';
         this.voiceLoading = true;
-        this.$message.success('自定义语音按钮，开始录音！');
+        this.$message.success('Custom voice button, starting recording!');
 
-        // 模拟3秒后自动结束
+        // Simulate auto-finish after 3 seconds
         this.timers.voice = setTimeout(() => {
           this.stopVoice();
         }, 3000);
       },
       stopVoice() {
         this.voiceLoading = false;
-        this.$message.info('自定义语音按钮，结束录音！');
+        this.$message.info('Custom voice button, finishing recording!');
         if (this.timers.voice) {
           clearTimeout(this.timers.voice);
           delete this.timers.voice;
         }
       },
 
-      // 发送按钮操作
+      // Send button operations
       startSender() {
         this.type = 'sender';
         this.senderLoading = true;
-        this.$message.success('自定义发送按钮，开始发送文本！');
+        this.$message.success('Custom send button, starting to send text!');
 
-        // 模拟2秒后自动结束
+        // Simulate auto-finish after 2 seconds
         this.timers.sender = setTimeout(() => {
           this.stopSender();
         }, 2000);
       },
       stopSender() {
         this.senderLoading = false;
-        this.$message.info('自定义发送按钮，结束发送！');
+        this.$message.info('Custom send button, finished sending!');
         if (this.timers.sender) {
           clearTimeout(this.timers.sender);
           delete this.timers.sender;
         }
       },
 
-      // 播放按钮操作
+      // Play button operations
       startRead() {
         this.type = 'read';
         this.readLoading = true;
-        this.$message.success('自定义播放，开始播放啦！');
+        this.$message.success('Custom play, starting to play!');
 
-        // 模拟4秒后自动结束
+        // Simulate auto-finish after 4 seconds
         this.timers.read = setTimeout(() => {
           this.stopRead();
         }, 4000);
       },
       stopRead() {
         this.readLoading = false;
-        this.$message.info('自定义播放按钮，结束播放！');
+        this.$message.info('Custom play button, finished playing!');
         if (this.timers.read) {
           clearTimeout(this.timers.read);
           delete this.timers.read;
         }
       },
 
-      // 录制按钮操作
+      // Record button operations
       startRecord() {
         this.type = 'record';
         this.recordLoading = true;
-        this.$message.success('自定义录制，开始录制啦！');
+        this.$message.success('Custom record, starting to record!');
 
-        // 模拟5秒后自动结束
+        // Simulate auto-finish after 5 seconds
         this.timers.record = setTimeout(() => {
           this.stopRecord();
         }, 5000);
       },
       stopRecord() {
         this.recordLoading = false;
-        this.$message.info('自定义录制按钮，结束录制！');
+        this.$message.info('Custom record button, finished recording!');
         if (this.timers.record) {
           clearTimeout(this.timers.record);
           delete this.timers.record;
@@ -398,7 +402,7 @@ export default {
     },
 
     beforeDestroy() {
-      // 清理所有定时器
+      // Clear all timers
       Object.values(this.timers).forEach(timer => {
         if (timer) clearTimeout(timer);
       });
@@ -465,7 +469,7 @@ export default {
     color: #67c23a;
   }
 
-  /* 图标动画效果 */
+  /* Icon animation effect */
   .el-icon-loading {
     animation: rotating 2s linear infinite;
   }
@@ -479,7 +483,7 @@ export default {
     }
   }
 
-  /* 响应式设计 */
+  /* Responsive Design */
   @media (max-width: 768px) {
     .btn-list {
       gap: 15px;
@@ -494,9 +498,9 @@ export default {
 
 :::
 
-以上都是 `前端加载状态` 的控制，那一定少不了 `请求状态` 控制。接下来我们来介绍一下 工具类 XRequest 的简单用法
+The above examples control the `front-end loading state`. Of course, `request state` control is also essential. Next, let's introduce the basic usage of the utility class XRequest.
 
-### XRequest 基础用法(sse)
+### XRequest Basic Usage (sse)
 
 :::demo
 
@@ -504,7 +508,7 @@ export default {
 <template>
   <div class="xrequest-container">
     <div class="description">
-      <p>XRequest 工具类支持的SSE请求方式</p>
+      <p>The SSE request method supported by the XRequest utility class</p>
     </div>
 
     <div class="btn-list">
@@ -513,7 +517,7 @@ export default {
         :disabled="loading"
         @click="startSSERequest"
       >
-        {{ loading ? '请求中...' : '发起 SSE 请求' }}
+        {{ loading ? 'Requesting...' : 'Initiate SSE Request' }}
       </el-button>
 
       <el-button
@@ -521,33 +525,33 @@ export default {
         :disabled="!loading"
         @click="abortRequest"
       >
-        取消请求
+        Cancel Request
       </el-button>
 
       <el-button
         type="info"
         @click="clearResult"
       >
-        清空结果
+        Clear Result
       </el-button>
     </div>
 
     <div class="result-container">
       <div class="result-header">
-        <h4>接收到的消息：</h4>
+        <h4>Received Messages:</h4>
         <el-tag
           v-if="loading"
           type="success"
           size="mini"
         >
-          连接中
+          Connected
         </el-tag>
         <el-tag
           v-else
           type="info"
           size="mini"
         >
-          已断开
+          Disconnected
         </el-tag>
       </div>
       <div class="result-content">
@@ -555,7 +559,7 @@ export default {
           v-if="!str"
           class="empty-state"
         >
-          暂无消息
+          No messages yet
         </div>
         <pre
           v-else
@@ -578,22 +582,22 @@ export default {
       };
     },
     mounted() {
-      // 初始化 XRequest 实例
+      // Initialize XRequest instance
       this.initXRequest();
     },
     methods: {
       initXRequest() {
-        // 导入 XRequest 类
+        // Import XRequest class
         const { XRequest } = require('vue-element-ui-x').customMixins;
 
-        // 创建 XRequest 实例
+        // Create XRequest instance
         this.sse = new XRequest({
           baseURL: 'https://testsse.element-ui-x.com',
-          type: 'sse', // 使用 SSE 模式
+          type: 'sse', // Use SSE mode
 
           onMessage: msg => {
-            console.log('收到消息:', msg);
-            // 假设消息格式为 { data: string }
+            console.log('Message received:', msg);
+            // Assume message format is { data: string }
             if (msg && msg.data) {
               this.str += `
               ${msg.data}`;
@@ -603,21 +607,21 @@ export default {
             }
           },
           onOpen: () => {
-            console.log('SSE 连接已打开');
-            this.$message.success('SSE 连接已建立');
+            console.log('SSE connection opened');
+            this.$message.success('SSE connection established');
             this.loading = true;
           },
           onError: error => {
-            console.error('SSE 错误:', error);
+            console.error('SSE error:', error);
             this.loading = false;
           },
           onAbort: () => {
-            console.log('SSE 连接已中止');
+            console.log('SSE connection aborted');
             this.loading = false;
           },
           onFinish: messages => {
-            console.log('SSE 连接已完成，共接收消息:', messages?.length || 0);
-            this.$message.success('连接已完成');
+            console.log('SSE connection finished, total messages received:', messages?.length || 0);
+            this.$message.success('Connection finished');
             this.loading = false;
           },
         });
@@ -628,16 +632,16 @@ export default {
           return;
         }
 
-        // 清空之前的结果
+        // Clear previous results
         this.str = '';
 
         try {
-          // 发起 SSE 请求
+          // Initiate SSE request
           this.sse.send('/api/sse');
-          this.$message.info('正在建立 SSE 连接...');
+          this.$message.info('Establishing SSE connection...');
         } catch (error) {
-          console.error('发起请求失败:', error);
-          this.$message.error('发起请求失败');
+          console.error('Failed to initiate request:', error);
+          this.$message.error('Failed to initiate request');
         }
       },
 
@@ -653,7 +657,7 @@ export default {
     },
 
     beforeDestroy() {
-      // 组件销毁时清理资源
+      // Clean up resources when the component is destroyed
       if (this.sse) {
         this.sse.abort();
         this.sse = null;
@@ -740,7 +744,7 @@ export default {
     color: #2c3e50;
   }
 
-  /* 响应式设计 */
+  /* Responsive Design */
   @media (max-width: 768px) {
     .btn-list {
       flex-direction: column;
@@ -762,7 +766,7 @@ export default {
 
 :::
 
-### XRequest 基础用法(fetch)
+### XRequest Basic Usage (fetch)
 
 :::demo
 
@@ -770,7 +774,7 @@ export default {
 <template>
   <div class="xrequest-container">
     <div class="description">
-      <p>XRequest 工具类的fetch请求方式</p>
+      <p>The fetch request method of the XRequest utility class</p>
     </div>
 
     <div class="btn-list">
@@ -779,7 +783,7 @@ export default {
         :disabled="loading"
         @click="startSSERequest"
       >
-        {{ loading ? '请求中...' : '发起请求' }}
+        {{ loading ? 'Requesting...' : 'Initiate Request' }}
       </el-button>
 
       <el-button
@@ -787,33 +791,33 @@ export default {
         :disabled="!loading"
         @click="abortRequest"
       >
-        取消请求
+        Cancel Request
       </el-button>
 
       <el-button
         type="info"
         @click="clearResult"
       >
-        清空结果
+        Clear Result
       </el-button>
     </div>
 
     <div class="result-container">
       <div class="result-header">
-        <h4>接收到的消息：</h4>
+        <h4>Received Messages:</h4>
         <el-tag
           v-if="loading"
           type="success"
           size="mini"
         >
-          连接中
+          Connected
         </el-tag>
         <el-tag
           v-else
           type="info"
           size="mini"
         >
-          已断开
+          Disconnected
         </el-tag>
       </div>
       <div class="result-content">
@@ -821,7 +825,7 @@ export default {
           v-if="!str"
           class="empty-state"
         >
-          暂无消息
+          No messages yet
         </div>
         <pre
           v-else
@@ -844,20 +848,20 @@ export default {
       };
     },
     mounted() {
-      // 初始化 XRequest 实例
+      // Initialize XRequest instance
       this.initXRequest();
     },
     methods: {
       initXRequest() {
-        // 导入 XRequest 类
+        // Import XRequest class
         const { XRequest } = require('vue-element-ui-x').customMixins;
 
-        // 创建 XRequest 实例
+        // Create XRequest instance
         this.sse = new XRequest({
           baseURL: 'https://testsse.element-ui-x.com',
-          type: 'fetch', // 使用 fetch 模式
+          type: 'fetch', // Use fetch mode
           onMessage: msg => {
-            // 假设消息格式为 { data: string }
+            // Assume message format is { data: string }
             if (msg && msg.data) {
               this.str += `
               ${msg.data}`;
@@ -868,18 +872,18 @@ export default {
           },
 
           onError: error => {
-            console.error('错误:', error);
-            this.$message.error('请求出现错误');
+            console.error('Error:', error);
+            this.$message.error('An error occurred during the request');
             this.loading = false;
           },
           onAbort: () => {
-            console.log('请求已中止');
-            // this.$message.info('请求已中止');
+            console.log('Request aborted');
+            // this.$message.info('Request aborted');
             this.loading = false;
           },
           onFinish: messages => {
-            console.log('请求已完成，共接收消息:', messages?.length || 0);
-            this.$message.success('请求已完成');
+            console.log('Request finished, total messages received:', messages?.length || 0);
+            this.$message.success('Request finished');
             this.loading = false;
           },
         });
@@ -890,17 +894,17 @@ export default {
           return;
         }
 
-        // 清空之前的结果
+        // Clear previous results
         this.str = '';
 
         try {
-          // 发起 SSE 请求
+          // Initiate fetch request
           this.sse.send('/api/sse');
-          this.$message.info('正在请求...');
+          this.$message.info('Requesting...');
           this.loading = true;
         } catch (error) {
-          console.error('发起请求失败:', error);
-          this.$message.error('发起请求失败');
+          console.error('Failed to initiate request:', error);
+          this.$message.error('Failed to initiate request');
         }
       },
 
@@ -916,7 +920,7 @@ export default {
     },
 
     beforeDestroy() {
-      // 组件销毁时清理资源
+      // Clean up resources when the component is destroyed
       if (this.sse) {
         this.sse.abort();
         this.sse = null;
@@ -1003,7 +1007,7 @@ export default {
     color: #2c3e50;
   }
 
-  /* 响应式设计 */
+  /* Responsive Design */
   @media (max-width: 768px) {
     .btn-list {
       flex-direction: column;
@@ -1025,9 +1029,9 @@ export default {
 
 :::
 
-### `sendMixin` 和 `XRequest`的混合使用
+### Mixed Usage of `sendMixin` and `XRequest`
 
-使用 `sendMixin` 对前端进行状态控制，使用 `XRequest` 对后端进行状态控制
+Use `sendMixin` for front-end state control and `XRequest` for back-end request control.
 
 :::demo
 
@@ -1059,7 +1063,7 @@ export default {
       v-if="!str"
       class="empty-state"
     >
-      暂无消息
+      No messages yet
     </div>
     <pre
       v-else
@@ -1100,7 +1104,7 @@ export default {
       };
     },
     mounted() {
-      // 初始化 XRequest 实例
+      // Initialize XRequest instance
       this.initXRequest();
       this.initSend({
         sendHandler: this.startFn,
@@ -1111,16 +1115,16 @@ export default {
     },
     methods: {
       initXRequest() {
-        // 导入 XRequest 类
+        // Import XRequest class
         const { XRequest } = require('vue-element-ui-x').customMixins;
 
-        // 创建 XRequest 实例
+        // Create XRequest instance
         this.sse = new XRequest({
           baseURL: 'https://testsse.element-ui-x.com',
-          type: 'fetch', // 使用 fetch 模式
+          type: 'fetch', // Use fetch mode
 
           onMessage: msg => {
-            console.log('收到消息:', msg);
+            console.log('Message received:', msg);
             if (msg && msg.data) {
               this.str += `
               ${msg.data}`;
@@ -1131,27 +1135,27 @@ export default {
           },
 
           onError: error => {
-            console.error('错误:', error);
-            this.$message.error('请求出现错误');
+            console.error('Error:', error);
+            this.$message.error('An error occurred during the request');
           },
           onAbort: () => {},
           onFinish: messages => {
             this.handleFinish();
-            console.log('请求已完成，共接收消息:', messages?.length || 0);
+            console.log('Request finished, total messages received:', messages?.length || 0);
           },
         });
       },
       finishBasicRequest() {
-        console.log('基础请求处理完成');
+        console.log('Basic request processing finished');
       },
       abortBasicRequest() {
         if (this.sse) {
           this.sse.abort();
         }
-        console.log('基础请求被中止', this.loading);
+        console.log('Basic request aborted', this.loading);
       },
       onBasicAbort() {
-        console.log('基础请求中止回调');
+        console.log('Basic request abort callback');
       },
       startFn() {
         this.str = '';
@@ -1160,7 +1164,7 @@ export default {
     },
 
     beforeDestroy() {
-      // 组件销毁时清理资源
+      // Clean up resources when the component is destroyed
       if (this.sse) {
         this.sse.abort();
         this.sse = null;
@@ -1172,155 +1176,157 @@ export default {
 
 :::
 
-## 混入属性
+## Mixin Properties
 
-| 参数             | 说明             | 类型    | 默认值 |
-| ---------------- | ---------------- | ------- | ------ |
-| loading          | 请求加载状态     | Boolean | false  |
-| \_sendPromise    | 发送操作 Promise | Promise | null   |
-| \_sendController | 发送控制器       | Object  | null   |
+| Parameter        | Description            | Type    | Default |
+| ---------------- | ---------------------- | ------- | ------- |
+| loading          | Request loading state  | Boolean | false   |
+| \_sendPromise    | Send operation Promise | Promise | null    |
+| \_sendController | Send controller        | Object  | null    |
 
-## 混入方法
+## Mixin Methods
 
-| 方法名         | 说明               | 参数                                                           | 返回值   |
-| -------------- | ------------------ | -------------------------------------------------------------- | -------- |
-| initSend       | 初始化发送配置     | options: { onAbort, sendHandler, abortHandler, finishHandler } | -        |
-| handleSend     | 执行发送操作       | ...args: 传递给 sendHandler 的参数                             | -        |
-| handleAbort    | 中止发送操作       | -                                                              | -        |
-| handleFinish   | 完成发送操作       | -                                                              | -        |
-| createXRequest | 创建 XRequest 实例 | options: XRequest 配置选项                                     | XRequest |
+| Method Name    | Description                   | Parameters                                                     | Return Value |
+| -------------- | ----------------------------- | -------------------------------------------------------------- | ------------ |
+| initSend       | Initialize send configuration | options: { onAbort, sendHandler, abortHandler, finishHandler } | -            |
+| handleSend     | Execute send operation        | ...args: Arguments passed to sendHandler                       | -            |
+| handleAbort    | Abort send operation          | -                                                              | -            |
+| handleFinish   | Finish send operation         | -                                                              | -            |
+| createXRequest | Create XRequest instance      | options: XRequest configuration options                        | XRequest     |
 
-## XRequest 类
+## XRequest Class
 
-### 构造函数选项
+### Constructor Options
 
-| 参数        | 说明                    | 类型     | 默认值 |
-| ----------- | ----------------------- | -------- | ------ |
-| baseURL     | 基础 URL                | String   | ''     |
-| type        | 请求类型 (sse/fetch)    | String   | 'sse'  |
-| transformer | 数据转换器              | Function | -      |
-| baseOptions | 基础配置选项            | Object   | {}     |
-| onAbort     | 中止回调                | Function | -      |
-| onMessage   | 消息回调                | Function | -      |
-| onError     | 错误回调                | Function | -      |
-| onOpen      | 连接打开回调 (SSE 模式) | Function | -      |
-| onFinish    | 完成回调                | Function | -      |
+| Parameter   | Description                         | Type     | Default |
+| ----------- | ----------------------------------- | -------- | ------- |
+| baseURL     | Base URL                            | String   | ''      |
+| type        | Request type (sse/fetch)            | String   | 'sse'   |
+| transformer | Data transformer                    | Function | -       |
+| baseOptions | Base configuration options          | Object   | {}      |
+| onAbort     | Abort callback                      | Function | -       |
+| onMessage   | Message callback                    | Function | -       |
+| onError     | Error callback                      | Function | -       |
+| onOpen      | Connection open callback (SSE mode) | Function | -       |
+| onFinish    | Finish callback                     | Function | -       |
 
-### XRequest 方法
+### XRequest Methods
 
-| 方法名 | 说明     | 参数                         | 返回值   |
-| ------ | -------- | ---------------------------- | -------- |
-| send   | 发送请求 | url: 请求地址, options: 配置 | XRequest |
-| abort  | 中止请求 | -                            | -        |
+| Method Name | Description   | Parameters                         | Return Value |
+| ----------- | ------------- | ---------------------------------- | ------------ |
+| send        | Send request  | url: Request URL, options: options | XRequest     |
+| abort       | Abort request | -                                  | -            |
 
-## 事件
+## Events
 
-混入本身不直接触发事件，但支持在 `initSend` 中配置回调函数：
+The mixin itself does not trigger events directly, but it supports configuring callback functions in `initSend`:
 
-| 回调函数      | 说明           | 回调参数          |
-| ------------- | -------------- | ----------------- |
-| onAbort       | 请求中止时触发 | -                 |
-| sendHandler   | 发送处理器     | ...args: 发送参数 |
-| abortHandler  | 中止处理器     | -                 |
-| finishHandler | 完成处理器     | -                 |
+| Callback Function | Description                           | Callback Parameters      |
+| ----------------- | ------------------------------------- | ------------------------ |
+| onAbort           | Triggered when the request is aborted | -                        |
+| sendHandler       | Send handler                          | ...args: send parameters |
+| abortHandler      | Abort handler                         | -                        |
+| finishHandler     | Finish handler                        | -                        |
 
-## 工具函数版本
+## Utility Function Version
 
-对于非组件场景，提供了工具函数版本：
+For non-component scenarios, a utility function version is provided:
 
 ```js
 import { createSendUtils, XRequest } from 'vue-element-ui-x';
 
-// 创建发送工具
+// Create send utility
 const sendUtils = createSendUtils({
   sendHandler: (...args) => {
-    console.log('开始发送:', args);
-    // 执行发送逻辑
+    console.log('Start sending:', args);
+    // Execute sending logic
   },
-  abortHandler: () => console.log('请求已中止'),
-  finishHandler: () => console.log('请求完成'),
-  onAbort: () => console.log('中止回调'),
+  abortHandler: () => console.log('Request aborted'),
+  finishHandler: () => console.log('Request finished'),
+  onAbort: () => console.log('Abort callback'),
 });
 
-// 使用工具发送请求
+// Use utility to send request
 function sendRequest() {
   sendUtils.send('param1', 'param2');
 }
 
-// 中止请求
+// Abort request
 function abortRequest() {
   sendUtils.abort();
 }
 
-// 获取当前状态
+// Get current status
 function getStatus() {
   return {
     isLoading: sendUtils.state.loading,
   };
 }
 
-// 直接使用 XRequest 类
+// Use XRequest class directly
 const xRequest = new XRequest({
   baseURL: 'https://api.example.com',
   type: 'fetch',
   transformer: data => JSON.parse(data),
-  onMessage: message => console.log('消息:', message),
-  onError: error => console.error('错误:', error),
-  onFinish: messages => console.log('完成:', messages.length, '条消息'),
+  onMessage: message => console.log('Message:', message),
+  onError: error => console.error('Error:', error),
+  onFinish: messages => console.log('Finished:', messages.length, 'messages'),
 });
 
-// 发送请求
+// Send request
 xRequest.send('/api/stream', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ query: 'hello' }),
 });
 
-// 中止请求
+// Abort request
 xRequest.abort();
 ```
 
-## 注意事项
+## Precautions
 
-1. 该混入支持现代浏览器的 Fetch API 和 EventSource API，使用前请确保浏览器兼容性。
-2. SSE 模式适用于服务器推送场景，Fetch 模式适用于流式读取响应数据。
-3. 自定义 `transformer` 函数可以对接收的数据进行预处理。
-4. 在组件销毁时会自动清理相关资源，避免内存泄漏。
-5. 对于长时间运行的请求，建议实现适当的错误重试机制。
-6. `baseOptions` 配置仅在 SSE 模式下生效，用于 EventSource 构造函数。
-7. Fetch 模式下的 `options` 参数会传递给 fetch 函数，支持所有标准 fetch 选项。
+1. This mixin supports modern browsers' Fetch API and EventSource API. Please ensure browser compatibility before use.
+2. SSE mode is suitable for server-push scenarios, while Fetch mode is for streaming response data.
+3. A custom `transformer` function can be used to preprocess received data.
+4. Resources are automatically cleaned up when the component is destroyed to prevent memory leaks.
+5. For long-running requests, it is recommended to implement an appropriate error retry mechanism.
+6. The `baseOptions` configuration is only effective in SSE mode and is used for the EventSource constructor.
+7. The `options` parameter in Fetch mode is passed to the fetch function and supports all standard fetch options.
 
-## SSE 连接结束检测机制
+## SSE Connection End Detection Mechanism
 
-XRequest 类在 SSE 模式下采用了多重检测机制来准确判断连接是否正常结束：
+The XRequest class in SSE mode uses multiple detection mechanisms to accurately determine if a connection has ended normally:
 
-1. **结束消息检测**：支持检测 `[DONE]` 或 `data: [DONE]` 等结束标记
-2. **超时检测**：当 10 秒内没有新消息时，如果连接状态非正在连接，则认为连接已结束
-3. **状态检测**：结合 EventSource 的 readyState 和已接收消息数量进行综合判断
-4. **防重复触发**：使用内部标志位避免同一连接多次触发结束事件
+1.  **End Message Detection**: Supports detecting end markers like `[DONE]` or `data: [DONE]`.
+2.  **Timeout Detection**: If no new message arrives within 10 seconds and the connection is not in a connecting state, it is considered ended.
+3.  **State Detection**: A comprehensive judgment based on the EventSource's readyState and the number of messages received.
+4.  **Duplicate Trigger Prevention**: Uses an internal flag to prevent the end event from being triggered multiple times for the same connection.
 
-这样的设计可以有效避免正常结束的连接被误判为错误，确保 `onFinish` 和 `onError` 回调的正确触发。
+This design effectively prevents normally closed connections from being mistaken for errors, ensuring that the `onFinish` and `onError` callbacks are triggered correctly.
 
-### 自定义超时时间
+### Custom Timeout
 
-如果需要调整超时检测时间，可以在创建 XRequest 实例时进行配置：
+If you need to adjust the timeout detection period, you can configure it when creating the XRequest instance:
 
 ```js
 const xRequest = new XRequest({
-  // 其他配置...
+  // Other configurations...
   onMessage: msg => {
-    // 处理消息
-    console.log('收到消息:', msg);
+    // Process message
+    console.log('Message received:', msg);
   },
   onFinish: messages => {
-    console.log('连接正常结束，共收到', messages.length, '条消息');
+    console.log('Connection finished normally, received', messages.length, 'messages in total');
   },
   onError: error => {
-    console.error('连接发生错误:', error);
+    console.error('An error occurred with the connection:', error);
   },
 });
 
-// 可以通过修改实例的超时时间来自定义检测间隔
-// 注意：这需要在 send 之前设置
-xRequest._finishTimeout = 5000; // 5秒超时
+// You can customize the detection interval by modifying the instance's timeout period
+// Note: This must be set before calling send
+xRequest._finishTimeout = 5000; // 5-second timeout
 ```
+
+</rewritten_file>

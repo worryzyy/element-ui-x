@@ -1,22 +1,22 @@
-# ThoughtChain 思维链组件
+# ThoughtChain
 
-## 功能说明
+## Features
 
-思维链组件，用于展示 AI 思考过程的步骤和逻辑链，支持以下特性：
+The ThoughtChain component is used to display the steps and logical chain of an AI's thinking process, supporting the following features:
 
-- 可折叠的思考步骤
-- 支持 Markdown 内容渲染
-- 步骤之间的逻辑关联展示
-- 可交互的思考过程展示
-- 自定义时间线样式和图标
-- 支持加载、错误和成功状态显示
-- 渐变色时间线支持
+- Collapsible thinking steps
+- Markdown content rendering
+- Logical connection display between steps
+- Interactive display of the thinking process
+- Custom timeline styles and icons
+- Support for loading, error, and success status displays
+- Gradient color timeline support
 
-## 使用示例
+## Usage Examples
 
-### 基础用法
+### Basic Usage
 
-展示基本的思维链组件，包含多个思考步骤。
+Displays a basic thought chain component with multiple thinking steps.
 
 :::demo
 
@@ -34,23 +34,23 @@
         thinkingItems: [
           {
             id: 1,
-            title: '第一步',
-            thinkTitle: '理解问题',
-            thinkContent: '分析用户需求的核心要点',
+            title: 'Step 1',
+            thinkTitle: 'Understand the Problem',
+            thinkContent: "Analyze the core points of the user's request.",
             status: 'success',
           },
           {
             id: 2,
-            title: '第二步',
-            thinkTitle: '收集信息',
-            thinkContent: '从知识库中检索相关信息',
+            title: 'Step 2',
+            thinkTitle: 'Gather Information',
+            thinkContent: 'Retrieve relevant information from the knowledge base.',
             status: 'success',
           },
           {
             id: 3,
-            title: '第三步',
-            thinkTitle: '生成回答',
-            thinkContent: '基于收集的信息构建回答',
+            title: 'Step 3',
+            thinkTitle: 'Generate Answer',
+            thinkContent: 'Construct an answer based on the gathered information.',
             status: 'loading',
           },
         ],
@@ -62,9 +62,9 @@
 
 :::
 
-### 可折叠的思考步骤
+### Collapsible Thinking Steps
 
-展示可折叠展开的详细思考内容。
+Displays detailed thinking content that can be collapsed and expanded.
 
 :::demo
 
@@ -87,18 +87,18 @@
         thinkingItems: [
           {
             id: 1,
-            title: '分析阶段',
-            thinkTitle: '问题分解',
-            thinkContent: '将复杂问题拆解为多个子问题',
+            title: 'Analysis Phase',
+            thinkTitle: 'Problem Decomposition',
+            thinkContent: 'Break down the complex problem into multiple sub-problems.',
             isCanExpand: true,
             isDefaultExpand: true,
             status: 'success',
           },
           {
             id: 2,
-            title: '推理阶段',
-            thinkTitle: '逻辑推理',
-            thinkContent: '基于子问题逐步推导解决方案',
+            title: 'Reasoning Phase',
+            thinkTitle: 'Logical Deduction',
+            thinkContent: 'Derive the solution step by step based on the sub-problems.',
             isCanExpand: true,
             status: 'success',
           },
@@ -116,9 +116,9 @@
 
 :::
 
-### 自定义状态和样式
+### Custom Status and Styles
 
-自定义思考步骤的状态和显示样式。
+Customize the status and display style of the thinking steps.
 
 :::demo
 
@@ -154,24 +154,24 @@
         thinkingItems: [
           {
             id: 1,
-            title: '数据收集',
+            title: 'Data Collection',
             status: 'completed',
-            thinkTitle: '收集用户数据',
-            thinkContent: '从数据库获取用户历史记录',
+            thinkTitle: 'Collecting user data',
+            thinkContent: 'Fetching user history from the database.',
           },
           {
             id: 2,
-            title: '分析处理',
+            title: 'Analysis and Processing',
             status: 'processing',
-            thinkTitle: '分析用户行为',
-            thinkContent: '使用机器学习模型分析用户偏好',
+            thinkTitle: 'Analyzing user behavior',
+            thinkContent: 'Using machine learning models to analyze user preferences.',
           },
           {
             id: 3,
-            title: '生成结果',
+            title: 'Result Generation',
             status: 'failed',
-            thinkTitle: '生成推荐',
-            thinkContent: '由于数据不足，无法生成准确推荐',
+            thinkTitle: 'Generating recommendations',
+            thinkContent: 'Could not generate accurate recommendations due to insufficient data.',
           },
         ],
       };
@@ -182,45 +182,45 @@
 
 :::
 
-## 组件属性
+## Component Attributes
 
-| 参数            | 说明                                                                                   | 类型    | 默认值                                                                                                                                        |
-| --------------- | -------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| thinkingItems   | 思考项数组，每个项包含思考步骤信息                                                     | Array   | []                                                                                                                                            |
-| dotSize         | 时间线节点大小，可选值：'mini'/'small'/'medium',或者为空,与`el-button`的`size`保持一致 | String  | 'small'                                                                                                                                       |
-| maxWidth        | 组件最大宽度                                                                           | String  | '600px'                                                                                                                                       |
-| lineGradient    | 是否启用时间线渐变色效果                                                               | Boolean | false                                                                                                                                         |
-| rowKey          | 指定 thinkingItems 中每个项的唯一标识字段                                              | String  | 'id'                                                                                                                                          |
-| statusKey       | 指定 thinkingItems 中状态字段                                                          | String  | 'status'                                                                                                                                      |
-| statusEnum      | 状态枚举配置，包含 loading/error/success 等状态                                        | Object  | { loading: { value: 'loading', type: 'warning' }, error: { value: 'error', type: 'danger' }, success: { value: 'success', type: 'success' } } |
-| titleKey        | 指定 thinkingItems 中标题字段                                                          | String  | 'title'                                                                                                                                       |
-| thinkTitleKey   | 指定 thinkingItems 中思考标题字段                                                      | String  | 'thinkTitle'                                                                                                                                  |
-| thinkContentKey | 指定 thinkingItems 中思考内容字段                                                      | String  | 'thinkContent'                                                                                                                                |
-| dotIsIcon       | 是否使用图标替代默认节点，为 true 时可在 thinkingItems 中设置 icon/iconColor/iconSize  | Boolean | false                                                                                                                                         |
+| Attribute       | Description                                                                                                               | Type    | Default Value                                                                                                                                 |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| thinkingItems   | Array of thinking items, each containing information about a thinking step.                                               | Array   | []                                                                                                                                            |
+| dotSize         | Size of the timeline node, can be 'mini'/'small'/'medium', or empty, consistent with `el-button`'s `size`.                | String  | 'small'                                                                                                                                       |
+| maxWidth        | Maximum width of the component.                                                                                           | String  | '600px'                                                                                                                                       |
+| lineGradient    | Whether to enable gradient color effect for the timeline.                                                                 | Boolean | false                                                                                                                                         |
+| rowKey          | Specifies the unique identifier field for each item in `thinkingItems`.                                                   | String  | 'id'                                                                                                                                          |
+| statusKey       | Specifies the status field in `thinkingItems`.                                                                            | String  | 'status'                                                                                                                                      |
+| statusEnum      | Status enumeration configuration, including loading/error/success states.                                                 | Object  | { loading: { value: 'loading', type: 'warning' }, error: { value: 'error', type: 'danger' }, success: { value: 'success', type: 'success' } } |
+| titleKey        | Specifies the title field in `thinkingItems`.                                                                             | String  | 'title'                                                                                                                                       |
+| thinkTitleKey   | Specifies the thinking title field in `thinkingItems`.                                                                    | String  | 'thinkTitle'                                                                                                                                  |
+| thinkContentKey | Specifies the thinking content field in `thinkingItems`.                                                                  | String  | 'thinkContent'                                                                                                                                |
+| dotIsIcon       | Whether to use an icon instead of the default node. If true, `icon`/`iconColor`/`iconSize` can be set in `thinkingItems`. | Boolean | false                                                                                                                                         |
 
-## thinkingItems 字段说明
+## `thinkingItems` Field Descriptions
 
-thinkingItems 数组中每个对象可包含以下字段：
+Each object in the `thinkingItems` array can contain the following fields:
 
-| 字段名          | 说明                                   | 类型           | 可选值/默认值                              |
-| --------------- | -------------------------------------- | -------------- | ------------------------------------------ | --- |
-| id              | 思考项的唯一标识                       | String/Number  | 必填                                       |
-| title           | 思考项的标题                           | String         | 必填                                       |
-| thinkTitle      | 思考项的思考标题                       | String         | 可选                                       |
-| thinkContent    | 思考项的详细内容                       | String         | 可选                                       |
-| status          | 思考项的状态                           | String         | 'loading'/'success'/'error' 或自定义状态   |
-| isCanExpand     | 是否可展开                             | Boolean        | false                                      |
-| isDefaultExpand | 是否默认展开                           | Boolean        | false                                      |
-| hideTitle       | 是否隐藏标题                           | Boolean        | false                                      |
-| placement       | 时间轴项的位置                         | String         | 'top'/'bottom'                             |
-| isMarkdown      | 内容是否为 Markdown 格式               | Boolean        | false                                      |
-| typing          | 是否启用打字器效果                     | Boolean/Object | false 或 {interval: 50, step: 1, suffix: " | "}  |
-| icon            | 节点图标类名(dotIsIcon 为 true 时生效) | String         | 'el-icon-more'                             |
-| iconColor       | 节点图标颜色(dotIsIcon 为 true 时生效) | String         | ''                                         |
-| iconSize        | 节点图标大小(dotIsIcon 为 true 时生效) | String         | 'normal'/'large'                           |
+| Field Name      | Description                                                | Type           | Options/Default Value                        |
+| --------------- | ---------------------------------------------------------- | -------------- | -------------------------------------------- | --- |
+| id              | Unique identifier for the thinking item.                   | String/Number  | Required                                     |
+| title           | Title of the thinking item.                                | String         | Required                                     |
+| thinkTitle      | Thinking title of the item.                                | String         | Optional                                     |
+| thinkContent    | Detailed content of the item.                              | String         | Optional                                     |
+| status          | Status of the item.                                        | String         | 'loading'/'success'/'error' or custom status |
+| isCanExpand     | Whether the item can be expanded.                          | Boolean        | false                                        |
+| isDefaultExpand | Whether the item is expanded by default.                   | Boolean        | false                                        |
+| hideTitle       | Whether to hide the title.                                 | Boolean        | false                                        |
+| placement       | Position of the timeline item.                             | String         | 'top'/'bottom'                               |
+| isMarkdown      | Whether the content is in Markdown format.                 | Boolean        | false                                        |
+| typing          | Whether to enable the typewriter effect.                   | Boolean/Object | false or {interval: 50, step: 1, suffix: "   | "}  |
+| icon            | Node icon class name (effective when `dotIsIcon` is true). | String         | 'el-icon-more'                               |
+| iconColor       | Node icon color (effective when `dotIsIcon` is true).      | String         | ''                                           |
+| iconSize        | Node icon size (effective when `dotIsIcon` is true).       | String         | 'normal'/'large'                             |
 
-## 事件
+## Events
 
-| 事件名        | 说明                      | 回调参数       |
-| ------------- | ------------------------- | -------------- |
-| handle-expand | 当思考项被展开/收起时触发 | 当前思考项对象 |
+| Event Name    | Description                                           | Callback Parameters              |
+| ------------- | ----------------------------------------------------- | -------------------------------- |
+| handle-expand | Triggered when a thinking item is expanded/collapsed. | The current thinking item object |

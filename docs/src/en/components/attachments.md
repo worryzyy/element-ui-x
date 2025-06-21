@@ -848,9 +848,9 @@ Attachment upload component for file uploading and attachment management, suppor
 | upload-drop    | Triggered when drag uploading files | files, props             |
 | delete-card    | Triggered when deleting files       | item, index              |
 
-## Slot
+## Slots
 
-| Name            | Description                      | Scope Parameters    |
+| Slot Name       | Description                      | Scope Parameters    |
 | --------------- | -------------------------------- | ------------------- |
 | empty-upload    | Upload button in empty state     | -                   |
 | no-empty-upload | Upload button in non-empty state | -                   |

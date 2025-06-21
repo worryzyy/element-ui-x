@@ -1,20 +1,20 @@
-# Welcome 欢迎页组件
+# Welcome
 
-## 功能说明
+## Features
 
-欢迎页组件，用于展示应用的欢迎界面和引导信息，支持以下特性：
+The Welcome component is used to display the application's welcome screen and introductory information, supporting the following features:
 
-- 可自定义图标、标题和描述内容
-- 支持左右布局方向切换
-- 提供边框和无边框样式变体
-- 可扩展的额外内容区域
-- 灵活的样式定制能力
+- Customizable icon, title, and description content
+- Switch between left and right layout directions
+- Provides bordered and borderless style variants
+- Extendable extra content area
+- Flexible style customization capabilities
 
-## 使用示例
+## Usage Examples
 
-### 基础用法
+### Basic Usage
 
-基本的欢迎组件使用，展示图标、标题和描述。
+Basic usage of the Welcome component, displaying an icon, title, and description.
 
 :::demo
 
@@ -22,17 +22,17 @@
 <template>
   <el-x-welcome
     icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-    title="欢迎使用 Element UI X"
-    description="基于 Element UI 的企业级中后台组件库扩展"
+    title="Welcome to Element UI X"
+    description="An enterprise-level component library extension for Element UI"
   />
 </template>
 ```
 
 :::
 
-### 不同样式变体
+### Different Style Variants
 
-支持 filled 和 borderless 两种样式变体。
+Supports two style variants: `filled` and `borderless`.
 
 :::demo
 
@@ -41,16 +41,16 @@
   <div>
     <el-x-welcome
       icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-      title="默认填充样式 (filled)"
-      description="带有背景色和边框的欢迎组件"
+      title="Default Filled Style (filled)"
+      description="A welcome component with a background color and border"
       style="margin-bottom: 20px;"
     />
 
     <el-x-welcome
       variant="borderless"
       icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-      title="无边框样式 (borderless)"
-      description="不带背景和边框的简洁欢迎组件"
+      title="Borderless Style (borderless)"
+      description="A clean welcome component without a background or border"
     />
   </div>
 </template>
@@ -58,9 +58,9 @@
 
 :::
 
-### 布局方向
+### Layout Direction
 
-支持从左到右(ltr)和从右到左(rtl)两种布局方向。
+Supports both left-to-right (ltr) and right-to-left (rtl) layout directions.
 
 :::demo
 
@@ -69,16 +69,16 @@
   <div>
     <el-x-welcome
       icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-      title="从左到右布局 (ltr)"
-      description="默认的布局方向，适合大多数场景"
+      title="Left-to-Right Layout (ltr)"
+      description="The default layout direction, suitable for most scenarios"
       style="margin-bottom: 20px;"
     />
 
     <el-x-welcome
       direction="rtl"
       icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-      title="从右到左布局 (rtl)"
-      description="适合阿拉伯语等从右到左书写的语言环境"
+      title="Right-to-Left Layout (rtl)"
+      description="Suitable for right-to-left writing environments like Arabic"
     />
   </div>
 </template>
@@ -86,9 +86,9 @@
 
 :::
 
-### 额外内容区域
+### Extra Content Area
 
-通过 extra 属性或插槽添加额外内容。
+Add extra content through the `extra` attribute or slot.
 
 :::demo
 
@@ -97,23 +97,23 @@
   <div>
     <el-x-welcome
       icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-      title="带有额外内容的欢迎组件"
-      description="通过 extra 属性添加简单文本内容"
+      title="Welcome Component with Extra Content"
+      description="Add simple text content via the extra attribute"
       extra="2023-12-31"
       style="margin-bottom: 20px;"
     />
 
     <el-x-welcome
       icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-      title="使用插槽添加复杂内容"
-      description="通过 extra 插槽可以添加按钮等交互元素"
+      title="Use a Slot to Add Complex Content"
+      description="Interactive elements like buttons can be added via the extra slot"
     >
       <template #extra>
         <el-button
           type="primary"
           size="small"
         >
-          开始使用
+          Get Started
         </el-button>
       </template>
     </el-x-welcome>
@@ -123,17 +123,17 @@
 
 :::
 
-### 自定义图标
+### Custom Icon
 
-通过 image 插槽自定义图标区域内容。
+Customize the icon area content through the `image` slot.
 
 :::demo
 
 ```html
 <template>
   <el-x-welcome
-    title="自定义图标区域"
-    description="使用 image 插槽定制图标内容"
+    title="Custom Icon Area"
+    description="Use the image slot to customize the icon content"
   >
     <template #image>
       <div
@@ -151,9 +151,9 @@
 
 :::
 
-### 样式定制
+### Style Customization
 
-使用 styleConfig 和 styles 属性定制组件样式。
+Use the `styleConfig` and `styles` attributes to customize the component's style.
 
 :::demo
 
@@ -161,8 +161,8 @@
 <template>
   <el-x-welcome
     icon="https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp"
-    title="自定义样式"
-    description="通过样式属性定制组件外观"
+    title="Custom Styles"
+    description="Customize the component's appearance through style attributes"
     :styleConfig="{
       background: '#f0f9eb',
       border: '1px solid #e1f3d8',
@@ -179,25 +179,25 @@
 
 :::
 
-## 属性
+## Attributes
 
-| 参数          | 说明                 | 类型          | 可选值              | 默认值   |
-| ------------- | -------------------- | ------------- | ------------------- | -------- |
-| className     | 自定义类名           | String        | —                   | ''       |
-| rootClassName | 根元素自定义类名     | String        | —                   | ''       |
-| variant       | 组件样式变体         | String        | filled / borderless | 'filled' |
-| direction     | 布局方向             | String        | ltr / rtl           | 'ltr'    |
-| classNames    | 各部分自定义类名对象 | Object        | —                   | {}       |
-| icon          | 图标图片地址         | String        | —                   | ''       |
-| title         | 标题文本             | String        | —                   | ''       |
-| extra         | 额外内容             | String/Object | —                   | ''       |
-| description   | 描述文本             | String        | —                   | ''       |
-| styleConfig   | 组件容器样式         | Object        | —                   | {}       |
-| styles        | 各部分自定义样式对象 | Object        | —                   | {}       |
+| Attribute     | Description                                  | Type          | Options             | Default  |
+| ------------- | -------------------------------------------- | ------------- | ------------------- | -------- |
+| className     | Custom class name                            | String        | —                   | ''       |
+| rootClassName | Custom class name for the root element       | String        | —                   | ''       |
+| variant       | Component style variant                      | String        | filled / borderless | 'filled' |
+| direction     | Layout direction                             | String        | ltr / rtl           | 'ltr'    |
+| classNames    | Custom class name object for different parts | Object        | —                   | {}       |
+| icon          | Icon image address                           | String        | —                   | ''       |
+| title         | Title text                                   | String        | —                   | ''       |
+| extra         | Extra content                                | String/Object | —                   | ''       |
+| description   | Description text                             | String        | —                   | ''       |
+| styleConfig   | Component container style                    | Object        | —                   | {}       |
+| styles        | Custom style object for different parts      | Object        | —                   | {}       |
 
-## 插槽
+## Slots
 
-| 插槽名 | 说明               |
-| ------ | ------------------ |
-| image  | 自定义图标区域内容 |
-| extra  | 自定义额外内容区域 |
+| Slot Name | Description               |
+| --------- | ------------------------- |
+| image     | Custom icon area content  |
+| extra     | Custom extra content area |

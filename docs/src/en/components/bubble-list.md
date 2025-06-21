@@ -522,7 +522,7 @@ The Element UI table component is a powerful data display tool that provides the
 
 ## Slots
 
-| Slot           | Description                  | Parameters                             |
+| Slot Name      | Description                  | Parameters                             |
 | -------------- | ---------------------------- | -------------------------------------- |
 | default        | Custom message content       | { item: message object, index: index } |
 | avatar         | Custom avatar                | { item: message object, index: index } |

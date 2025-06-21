@@ -438,12 +438,12 @@ Use slots to customize bubble avatar and content.
 | finish      | Typing complete event      | Component instance  |
 | avatarError | Avatar loading error event | Error object        |
 
-## Slot
+## Slots
 
-| Name    | Description                  |
-| ------- | ---------------------------- |
-| avatar  | Custom avatar content        |
-| header  | Custom bubble header content |
-| content | Custom bubble main content   |
-| footer  | Custom bubble footer content |
-| loading | Custom loading state content |
+| Slot Name | Description                  |
+| --------- | ---------------------------- |
+| avatar    | Custom avatar content        |
+| header    | Custom bubble header content |
+| content   | Custom bubble main content   |
+| footer    | Custom bubble footer content |
+| loading   | Custom loading state content |

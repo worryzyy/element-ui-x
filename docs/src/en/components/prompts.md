@@ -1,27 +1,27 @@
-# Prompts 提示组件
+# Prompts
 
-## 功能说明
+## Features
 
-Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场景中的引导选择、快捷操作等场景，支持以下特性：
+The Prompts component is used to display interactive prompt options, suitable for guided selection, quick operations, and other scenarios in AI conversations. It supports the following features:
 
-- 水平与垂直布局切换
-- 自动换行与固定布局
-- 嵌套提示结构
-- 自定义样式与图标
-- 禁用状态控制
+- Switch between horizontal and vertical layouts
+- Automatic wrapping and fixed layouts
+- Nested prompt structures
+- Custom styles and icons
+- Disable state control
 
-## 使用示例
+## Usage Examples
 
-### 基础用法
+### Basic Usage
 
-:::demo 基础用法展示了 Prompts 组件的基本功能，包括图标、标题和描述文本。
+:::demo The basic usage demonstrates the fundamental features of the Prompts component, including icons, titles, and description text.
 
 ```html
 <template>
   <div>
     <el-x-prompts
       :items="inspirationalItems"
-      :title="'✨ 创意灵感与精彩提示'"
+      :title="'✨ Creative Inspirations & Brilliant Prompts'"
       @on-item-click="handleInspirationalItemClick"
     >
       <template v-slot:icon="{ item }">
@@ -34,7 +34,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
     <div class="demo-controls">
       <el-alert
         v-if="selectedItem"
-        :title="`已选择: ${selectedItem.label}`"
+        :title="`Selected: ${selectedItem.label}`"
         type="success"
         :closable="false"
         show-icon
@@ -53,36 +53,36 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
             key: '1',
             icon: 'el-icon-sunrise',
             iconStyle: { color: '#FFD700' },
-            label: '点燃你的创造力',
-            description: '有什么新项目的灵感吗？',
+            label: 'Ignite Your Creativity',
+            description: 'Any inspiration for a new project?',
           },
           {
             key: '2',
             icon: 'el-icon-info',
             iconStyle: { color: '#1890FF' },
-            label: '揭示背景信息',
-            description: '帮我了解这个主题的背景。',
+            label: 'Reveal Background Information',
+            description: 'Help me understand the background of this topic.',
           },
           {
             key: '3',
             icon: 'el-icon-position',
             iconStyle: { color: '#722ED1' },
-            label: '效率提升战',
-            description: '我如何能工作得更快更好？',
+            label: 'Efficiency Boost Battle',
+            description: 'How can I work faster and better?',
           },
           {
             key: '4',
             icon: 'el-icon-lollipop',
             iconStyle: { color: '#52C41A' },
-            label: '讲个笑话',
-            description: '为什么蚂蚁不生病？因为它们有小小的抗体！',
+            label: 'Tell a joke',
+            description: 'Why dont ants get sick? Because they have little antibodies!',
           },
           {
             key: '5',
             icon: 'el-icon-warning',
             iconStyle: { color: '#FF4D4F' },
-            label: '常见问题解决方案',
-            description: '如何解决常见问题？分享一些技巧！',
+            label: 'Common Issue Solutions',
+            description: 'How to solve common issues? Share some tips!',
           },
         ],
       };
@@ -91,7 +91,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       handleInspirationalItemClick(info) {
         this.selectedItem = info.data;
         this.$message({
-          message: `点击了: ${info.data.label}`,
+          message: `Clicked: ${info.data.label}`,
           type: 'success',
         });
       },
@@ -108,9 +108,9 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 
 :::
 
-### 垂直排列
+### Vertical Layout
 
-:::demo 通过设置 `vertical` 属性为 `true` 可以使提示项垂直排列。
+:::demo Setting the `vertical` attribute to `true` arranges the prompt items vertically.
 
 ```html
 <template>
@@ -118,7 +118,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
     <el-x-prompts
       :items="verticalItems"
       :vertical="true"
-      :title="'🤔 您可能还想问这些：'"
+      :title="'🤔 You might also want to ask:'"
     >
       <template v-slot:icon="{ item }">
         <i
@@ -139,24 +139,24 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
             key: '6',
             icon: 'el-icon-coffee-cup',
             iconStyle: { color: '#964B00' },
-            label: '有效休息',
-            description: '长时间工作后如何有效休息？',
+            label: 'Effective Rest',
+            description: 'How to rest effectively after long hours of work?',
             disabled: false,
           },
           {
             key: '7',
             icon: 'el-icon-lollipop',
             iconStyle: { color: '#FAAD14' },
-            label: '保持积极心态',
-            description: '保持积极心态的秘诀是什么？',
+            label: 'Maintain a Positive Mindset',
+            description: 'What are the secrets to maintaining a positive mindset?',
             disabled: false,
           },
           {
             key: '8',
             icon: 'el-icon-star-off',
             iconStyle: { color: '#FF4D4F' },
-            label: '压力管理',
-            description: '如何在巨大压力下保持冷静？',
+            label: 'Stress Management',
+            description: 'How to stay calm under immense pressure?',
             disabled: false,
           },
         ],
@@ -168,9 +168,9 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 
 :::
 
-### 换行布局
+### Wrap Layout
 
-:::demo 通过设置 `wrap` 属性为 `true` 可以使提示项在容器宽度不足时自动换行。
+:::demo Setting the `wrap` attribute to `true` allows prompt items to wrap automatically when the container width is insufficient.
 
 ```html
 <template>
@@ -178,7 +178,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
     <el-x-prompts
       :items="wrapItems"
       :wrap="true"
-      :title="'✨ 创意灵感与精彩提示'"
+      :title="'✨ Creative Inspirations & Brilliant Prompts'"
     >
       <template v-slot:icon="{ item }">
         <i
@@ -199,57 +199,57 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
             key: '1',
             icon: 'el-icon-sunrise-1',
             iconStyle: { color: '#FFD700' },
-            label: '新项目灵感',
-            description: '有什么新项目的灵感吗？',
+            label: 'New Project Inspiration',
+            description: 'Any inspiration for a new project?',
           },
           {
             key: '2',
             icon: 'el-icon-info',
             iconStyle: { color: '#1890FF' },
-            label: '背景信息',
-            description: '帮我了解这个主题的背景。',
+            label: 'Background Information',
+            description: 'Help me understand the background of this topic.',
           },
           {
             key: '3',
             icon: 'el-icon-warning',
             iconStyle: { color: '#FF4D4F' },
-            label: '解决常见问题',
-            description: '如何解决常见问题？分享一些技巧！',
+            label: 'Solve Common Issues',
+            description: 'How to solve common issues? Share some tips!',
           },
           {
             key: '4',
             icon: 'el-icon-position',
             iconStyle: { color: '#722ED1' },
-            label: '提高效率',
-            description: '我如何能工作得更快更好？',
+            label: 'Improve Efficiency',
+            description: 'How can I work faster and better?',
           },
           {
             key: '5',
             icon: 'el-icon-check',
             iconStyle: { color: '#52C41A' },
-            label: '完成任务技巧',
-            description: '有哪些完成任务的诀窍？',
+            label: 'Task Completion Tips',
+            description: 'What are some tips for completing tasks?',
           },
           {
             key: '6',
             icon: 'el-icon-coffee-cup',
             iconStyle: { color: '#964B00' },
-            label: '有效休息',
-            description: '长时间工作后如何有效休息？',
+            label: 'Effective Rest',
+            description: 'How to rest effectively after long hours of work?',
           },
           {
             key: '7',
             icon: 'el-icon-lollipop',
             iconStyle: { color: '#FAAD14' },
-            label: '保持积极心态',
-            description: '保持积极心态的秘诀是什么？',
+            label: 'Maintain a Positive Mindset',
+            description: 'What are the secrets to maintaining a positive mindset?',
           },
           {
             key: '8',
             icon: 'el-icon-star-off',
             iconStyle: { color: '#FF4D4F' },
-            label: '压力管理',
-            description: '如何在巨大压力下保持冷静？',
+            label: 'Stress Management',
+            description: 'How to stay calm under immense pressure?',
           },
         ],
       };
@@ -260,16 +260,16 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 
 :::
 
-### 禁用状态
+### Disabled State
 
-:::demo 通过设置 `disabled: true` 可以将某一项禁用。
+:::demo Setting `disabled: true` disables an item.
 
 ```html
 <template>
   <div>
     <el-x-prompts
       :items="relaxItems"
-      :title="'☕️ 是时候放松一下了！'"
+      :title="'☕️ Time to relax!'"
     >
       <template v-slot:icon="{ item }">
         <i
@@ -290,16 +290,16 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
             key: '5',
             icon: 'el-icon-check',
             iconStyle: { color: '#52C41A' },
-            label: '任务完成秘诀',
-            description: '有哪些完成任务的技巧？',
+            label: 'Task Completion Secrets',
+            description: 'What are some techniques for completing tasks?',
             disabled: true,
           },
           {
             key: '6',
             icon: 'el-icon-coffee-cup',
             iconStyle: { color: '#964B00' },
-            label: '是时候喝杯咖啡了',
-            description: '长时间工作后如何有效休息？',
+            label: 'Time for a coffee break',
+            description: 'How to rest effectively after long hours of work?',
           },
         ],
       };
@@ -310,11 +310,11 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 
 :::
 
-### 自定义布局
+### Custom Layout
 
-### 自定义宽度与样式
+### Custom Width and Style
 
-:::demo 通过设置 `styles` 属性可以自定义提示项的宽度和样式。
+:::demo Customize the width and style of prompt items by setting the `styles` attribute.
 
 ```html
 <template>
@@ -322,7 +322,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
     <el-x-prompts
       :items="halfWidthItems"
       :wrap="true"
-      :title="'✨ 创意灵感与精彩提示'"
+      :title="'✨ Creative Inspirations & Brilliant Prompts'"
       :styles="halfWidthStyles"
     >
       <template v-slot:icon="{ item }">
@@ -344,36 +344,36 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
             key: '1',
             icon: 'el-icon-sunrise-1',
             iconStyle: { color: '#FFD700' },
-            label: '点燃你的创造力',
-            description: '有新项目的灵感吗？',
+            label: 'Ignite Your Creativity',
+            description: 'Inspiration for a new project?',
           },
           {
             key: '2',
             icon: 'el-icon-info',
             iconStyle: { color: '#1890FF' },
-            label: '揭示背景信息',
-            description: '帮我了解这个主题的背景。',
+            label: 'Reveal Background Information',
+            description: 'Help me understand the background of this topic.',
           },
           {
             key: '3',
             icon: 'el-icon-position',
             iconStyle: { color: '#722ED1' },
-            label: '效率提升战',
-            description: '我怎样才能工作得更快更好？',
+            label: 'Efficiency Boost Battle',
+            description: 'How can I work faster and better?',
           },
           {
             key: '4',
             icon: 'el-icon-ice-cream-round',
             iconStyle: { color: '#52C41A' },
-            label: '讲个笑话',
-            description: '为什么蚂蚁不生病？因为它们有小小的蚂蚁抗体！',
+            label: 'Tell a joke',
+            description: 'Why dont ants get sick? Because they have little antibodies!',
           },
           {
             key: '5',
             icon: 'el-icon-warning',
             iconStyle: { color: '#FF4D4F' },
-            label: '常见问题解决方案',
-            description: '如何解决常见问题？分享一些技巧！',
+            label: 'Common Issue Solutions',
+            description: 'How to solve common issues? Share some tips!',
           },
         ],
         halfWidthStyles: {
@@ -390,16 +390,16 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 
 :::
 
-### 自定义样式
+### Custom Styles
 
-:::demo 通过 `styles` 和 `classNames` 属性可以自定义提示项的样式。
+:::demo Customize the style of prompt items with the `styles` and `classNames` attributes.
 
 ```html
 <template>
   <div>
     <el-x-prompts
       :items="basicItems"
-      :title="'自定义样式提示列表'"
+      :title="'Custom Styled Prompt List'"
       :styles="customStyles"
       :class-names="customClassNames"
     />
@@ -413,18 +413,18 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
         basicItems: [
           {
             key: 'prompt1',
-            label: '编写邮件',
-            description: '帮助您撰写专业的电子邮件',
+            label: 'Write an email',
+            description: 'Help you compose a professional email',
           },
           {
             key: 'prompt2',
-            label: '生成代码',
-            description: '根据描述生成代码片段',
+            label: 'Generate code',
+            description: 'Generate code snippets from a description',
           },
           {
             key: 'prompt3',
-            label: '内容总结',
-            description: '对长文本进行摘要总结',
+            label: 'Summarize content',
+            description: 'Summarize a long text',
           },
         ],
         customStyles: {
@@ -448,7 +448,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
       handleItemClick(info) {
         this.selectedItem = info.data;
         this.$message({
-          message: `您选择了: ${info.data.label}`,
+          message: `You selected: ${info.data.label}`,
           type: 'success',
         });
       },
@@ -476,16 +476,16 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 
 :::
 
-### 嵌套提示
+### Nested Prompts
 
-:::demo 通过在 `items` 中设置 `children` 属性可以创建嵌套的提示结构。
+:::demo Create nested prompt structures by setting the `children` attribute in `items`.
 
 ```html
 <template>
   <div>
     <el-x-prompts
       :items="antdItems"
-      :title="'您需要什么？'"
+      :title="'What do you need?'"
       :wrap="true"
       :styles="antdStyles"
       @on-item-click="handleAntdItemClick"
@@ -507,65 +507,46 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
         antdItems: [
           {
             key: '1',
-            label: '热门话题',
+            label: 'Hot Topics',
             icon: 'el-icon-star-off',
             iconStyle: { color: '#FF4D4F' },
-            description: '你对什么感兴趣？',
+            description: 'What are you interested in?',
             children: [
               {
                 key: '1-1',
-                description: 'X的最新动态是什么？',
+                description: 'What is the latest news about X?',
               },
               {
                 key: '1-2',
-                description: '什么是AGI？',
+                description: 'What is AGI?',
               },
               {
                 key: '1-3',
-                description: '文档在哪里？',
+                description: 'Where is the documentation?',
               },
             ],
           },
           {
             key: '2',
-            label: '设计指南',
+            label: 'Design Guidelines',
             icon: 'el-icon-reading',
             iconStyle: { color: '#1890FF' },
-            description: '如何设计一个好产品？',
+            description: 'How to design a good product?',
             children: [
               {
                 key: '2-1',
                 icon: 'el-icon-star-on',
-                description: '了解用户需求',
+                description: 'Understand user needs',
               },
               {
                 key: '2-2',
                 icon: 'el-icon-ice-cream-round',
-                description: '设定AI角色',
+                description: 'Set AI roles',
               },
               {
                 key: '2-3',
                 icon: 'el-icon-chat-dot-round',
-                description: '表达情感',
-              },
-            ],
-          },
-          {
-            key: '3',
-            label: '开始创作',
-            icon: 'el-icon-position',
-            iconStyle: { color: '#722ED1' },
-            description: '如何开始一个新项目？',
-            children: [
-              {
-                key: '3-1',
-                label: '快速开始',
-                description: '安装Ant Design X',
-              },
-              {
-                key: '3-2',
-                label: '在线演练场',
-                description: '无需安装，直接在网页上体验',
+                description: 'Express emotions',
               },
             ],
           },
@@ -573,7 +554,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
         antdStyles: {
           item: {
             flex: 'none',
-            width: 'calc(30% - 6px)',
+            width: 'calc(50% - 6px)',
             backgroundImage: 'linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)',
             border: '0',
           },
@@ -587,7 +568,7 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
     methods: {
       handleAntdItemClick(info) {
         this.$message({
-          message: `点击了: ${info.data.key}`,
+          message: `Clicked: ${info.data.key}`,
           type: 'success',
         });
       },
@@ -598,87 +579,73 @@ Prompts 提示组件用于展示交互式提示选项，适用于 AI 对话场�
 
 :::
 
-## 属性
+## Attributes
 
-| 参数          | 说明                                     | 类型    | 默认值 |
-| ------------- | ---------------------------------------- | ------- | ------ |
-| items         | 包含多个提示项的列表                     | Array   | []     |
-| title         | 显示在提示列表顶部的标题                 | String  | ''     |
-| vertical      | 提示列表是否垂直排列                     | Boolean | false  |
-| wrap          | 提示列表是否换行                         | Boolean | false  |
-| styles        | 自定义样式，用于各个提示项的不同部分     | Object  | {}     |
-| classNames    | 自定义样式类名，用于各个提示项的不同部分 | Object  | {}     |
-| rootClassName | 根节点的样式类名                         | String  | ''     |
-| customStyle   | 自定义样式                               | Object  | {}     |
-| direction     | 方向                                     | String  | 'ltr'  |
+| Attribute     | Description                             | Type    | Default |
+| ------------- | --------------------------------------- | ------- | ------- |
+| items         | A list of prompt items                  | Array   | []      |
+| title         | Title displayed at the top of the list  | String  | ''      |
+| vertical      | Whether the list is vertically arranged | Boolean | false   |
+| wrap          | Whether the list items should wrap      | Boolean | false   |
+| styles        | Custom styles for different parts       | Object  | {}      |
+| classNames    | Custom class names for different parts  | Object  | {}      |
+| rootClassName | The class name for the root node        | String  | ''      |
+| customStyle   | Custom style                            | Object  | {}      |
+| direction     | Direction                               | String  | 'ltr'   |
 
-### items 数据结构
+### items Data Structure
 
 ```js
 [
   {
-    key: 'unique_key', // 唯一标识
-    icon: 'el-icon-star-off', // 图标类名
-    iconStyle: { color: '#FFD700' }, // 图标样式
-    label: '选项标题', // 选项标题
-    description: '选项描述文本', // 选项描述
-    disabled: false, // 是否禁用
-    children: [], // 嵌套子选项
+    key: 'unique_key', // Unique identifier
+    icon: 'el-icon-star-off', // Icon class name
+    iconStyle: { color: '#FFD700' }, // Icon style
+    label: 'Option Title', // Option title
+    description: 'Option description text', // Option description
+    disabled: false, // Whether it is disabled
+    children: [], // Nested child options
   },
-  // 更多选项...
+  // more options...
 ];
 ```
 
-## 属性
-
-| 参数          | 说明                                     | 类型    | 默认值 |
-| ------------- | ---------------------------------------- | ------- | ------ |
-| items         | 包含多个提示项的列表                     | Array   | []     |
-| title         | 显示在提示列表顶部的标题                 | String  | ''     |
-| vertical      | 提示列表是否垂直排列                     | Boolean | false  |
-| wrap          | 提示列表是否换行                         | Boolean | false  |
-| styles        | 自定义样式，用于各个提示项的不同部分     | Object  | {}     |
-| classNames    | 自定义样式类名，用于各个提示项的不同部分 | Object  | {}     |
-| rootClassName | 根节点的样式类名                         | String  | ''     |
-| customStyle   | 自定义样式                               | Object  | {}     |
-| direction     | 方向                                     | String  | 'ltr'  |
-
-### styles 对象结构
+### styles Object Structure
 
 ```js
 {
-  title: {}, // 标题样式
-  list: {}, // 列表容器样式
-  item: {}, // 选项项样式
-  itemContent: {}, // 选项内容样式
-  subList: {}, // 子列表样式
-  subItem: {} // 子选项样式
+  title: {}, // Title style
+  list: {}, // List container style
+  item: {}, // Option item style
+  itemContent: {}, // Option content style
+  subList: {}, // Sub-list style
+  subItem: {} // Sub-option style
 }
 ```
 
-### classNames 对象结构
+### classNames Object Structure
 
 ```js
 {
-  title: '', // 标题类名
-  list: '', // 列表容器类名
-  item: '', // 选项项类名
-  itemContent: '', // 选项内容类名
-  subList: '', // 子列表类名
-  subItem: '' // 子选项类名
+  title: '', // Title class name
+  list: '', // List container class name
+  item: '', // Option item class name
+  itemContent: '', // Option content class name
+  subList: '', // Sub-list class name
+  subItem: '' // Sub-option class name
 }
 ```
 
-## 事件
+## Events
 
-| 事件名        | 说明             | 回调参数                                   |
-| ------------- | ---------------- | ------------------------------------------ |
-| on-item-click | 点击提示项时触发 | { data: item } item 为当前点击的提示项对象 |
+| Event Name    | Description             | Callback Parameters                            |
+| ------------- | ----------------------- | ---------------------------------------------- |
+| on-item-click | Triggered on item click | { data: item } item is the clicked item object |
 
-## 插槽
+## Slots
 
-| 插槽名      | 说明           | 作用域参数          |
-| ----------- | -------------- | ------------------- |
-| icon        | 自定义图标内容 | { item } 当前提示项 |
-| label       | 自定义标签内容 | { item } 当前提示项 |
-| description | 自定义描述内容 | { item } 当前提示项 |
+| Slot Name   | Description                | Scope Parameters             |
+| ----------- | -------------------------- | ---------------------------- |
+| icon        | Custom icon content        | { item } current prompt item |
+| label       | Custom label content       | { item } current prompt item |
+| description | Custom description content | { item } current prompt item |

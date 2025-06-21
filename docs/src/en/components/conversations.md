@@ -1,21 +1,21 @@
-# Conversations 会话列表组件
+# Conversations
 
-## 功能说明
+## Features
 
-会话列表组件，用于展示和管理多个对话会话，支持以下特性：
+A component for displaying and managing multiple conversation sessions, with the following features:
 
-- 会话列表展示和滚动加载
-- 分组显示和吸顶效果
-- 内置下拉菜单和自定义菜单
-- 自定义项目样式和容器样式
-- 加载更多和回到顶部功能
-- 自定义分组和项目内容
+- Display conversation list with scroll loading
+- Grouped display with sticky headers
+- Built-in and custom dropdown menus
+- Custom item and container styles
+- "Load more" and "back to top" functionality
+- Custom grouping and item content
 
-## 使用示例
+## Usage Examples
 
-### 基础用法
+### Basic Usage
 
-基本的会话列表组件使用，可以显示简单的会话列表并进行选中。
+Basic usage of the conversation list component, displaying a simple list of conversations with selection.
 
 :::demo
 
@@ -33,17 +33,17 @@
     data() {
       return {
         basicItems: [
-          { id: '1', label: '最近对话1', prefixIcon: 'el-icon-chat-dot-round' },
-          { id: '2', label: '最近对话2', prefixIcon: 'el-icon-chat-round' },
+          { id: '1', label: 'Recent Conversation 1', prefixIcon: 'el-icon-chat-dot-round' },
+          { id: '2', label: 'Recent Conversation 2', prefixIcon: 'el-icon-chat-round' },
           {
             id: '3',
-            label: '最近对话3',
+            label: 'Recent Conversation 3',
             prefixIcon: 'el-icon-chat-line-round',
           },
-          { id: '4', label: '最近对话4', prefixIcon: 'el-icon-chat-dot-round' },
+          { id: '4', label: 'Recent Conversation 4', prefixIcon: 'el-icon-chat-dot-round' },
           {
             id: '5',
-            label: '最近对话5',
+            label: 'Recent Conversation 5',
             prefixIcon: 'el-icon-chat-round',
             disabled: true,
           },
@@ -62,9 +62,9 @@
 
 :::
 
-### 分组与吸顶效果
+### Grouping with Sticky Headers
 
-启用分组功能后，滚动时分组标题会自动吸顶显示。
+When grouping is enabled, the group titles will automatically become sticky during scrolling.
 
 :::demo
 
@@ -87,78 +87,78 @@
         groupedItems: [
           {
             id: 'g1',
-            label: '工作群1',
-            group: '工作',
+            label: 'Work Group 1',
+            group: 'Work',
             prefixIcon: 'el-icon-office-building',
           },
           {
             id: 'g2',
-            label: '工作群2',
-            group: '工作',
+            label: 'Work Group 2',
+            group: 'Work',
             prefixIcon: 'el-icon-office-building',
           },
           {
             id: 'g3',
-            label: '工作群3',
-            group: '工作',
+            label: 'Work Group 3',
+            group: 'Work',
             prefixIcon: 'el-icon-office-building',
           },
           {
             id: 'g4',
-            label: '学习小组1',
-            group: '学习',
+            label: 'Study Group 1',
+            group: 'Study',
             prefixIcon: 'el-icon-reading',
           },
           {
             id: 'g5',
-            label: '学习小组2',
-            group: '学习',
+            label: 'Study Group 2',
+            group: 'Study',
             prefixIcon: 'el-icon-reading',
           },
           {
             id: 'g6',
-            label: '同学聊天群',
-            group: '学习',
+            label: 'Classmate Chat Group',
+            group: 'Study',
             prefixIcon: 'el-icon-reading',
           },
           {
             id: 'g7',
-            label: '家人群聊',
-            group: '家庭',
+            label: 'Family Chat',
+            group: 'Family',
             prefixIcon: 'el-icon-house',
           },
           {
             id: 'g8',
-            label: '亲戚群',
-            group: '家庭',
+            label: 'Relatives Group',
+            group: 'Family',
             prefixIcon: 'el-icon-house',
           },
           {
             id: 'g9',
-            label: '朋友圈1',
-            group: '朋友',
+            label: 'Friends Circle 1',
+            group: 'Friends',
             prefixIcon: 'el-icon-user',
           },
           {
             id: 'g10',
-            label: '朋友圈2',
-            group: '朋友',
+            label: 'Friends Circle 2',
+            group: 'Friends',
             prefixIcon: 'el-icon-user',
           },
           {
             id: 'g11',
-            label: '朋友圈3',
-            group: '朋友',
+            label: 'Friends Circle 3',
+            group: 'Friends',
             prefixIcon: 'el-icon-user',
           },
           {
             id: 'g12',
-            label: '未分类会话1',
+            label: 'Uncategorized Conversation 1',
             prefixIcon: 'el-icon-chat-line-round',
           },
           {
             id: 'g13',
-            label: '未分类会话2',
+            label: 'Uncategorized Conversation 2',
             prefixIcon: 'el-icon-chat-line-round',
           },
         ],
@@ -176,9 +176,9 @@
 
 :::
 
-### 自定义分组排序
+### Custom Group Sorting
 
-可以通过自定义排序函数控制分组的顺序，例如按字母排序或其他逻辑。
+You can control the order of groups with a custom sort function, for example, by alphabetical order or other logic.
 
 :::demo
 
@@ -199,45 +199,50 @@
         customGroupedItems: [
           {
             id: 'c1',
-            label: '项目A讨论',
-            group: 'A级项目',
+            label: 'Project A Discussion',
+            group: 'Project Level A',
             prefixIcon: 'el-icon-s-flag',
           },
           {
             id: 'c2',
-            label: '项目B规划',
-            group: 'B级项目',
+            label: 'Project B Planning',
+            group: 'Project Level B',
             prefixIcon: 'el-icon-s-flag',
           },
           {
             id: 'c3',
-            label: '项目C评审',
-            group: 'C级项目',
+            label: 'Project C Review',
+            group: 'Project Level C',
             prefixIcon: 'el-icon-s-flag',
           },
           {
             id: 'c4',
-            label: '项目A需求',
-            group: 'A级项目',
+            label: 'Project A Requirements',
+            group: 'Project Level A',
             prefixIcon: 'el-icon-s-flag',
           },
           {
             id: 'c5',
-            label: '项目B进度',
-            group: 'B级项目',
+            label: 'Project B Progress',
+            group: 'Project Level B',
             prefixIcon: 'el-icon-s-flag',
           },
           {
             id: 'c6',
-            label: '项目D立项',
-            group: 'D级项目',
+            label: 'Project D Kick-off',
+            group: 'Project Level D',
             prefixIcon: 'el-icon-s-flag',
           },
         ],
         groupSortOptions: {
           sort: (a, b) => {
-            // 按项目级别排序: A > B > C > D > 未分组
-            const levels = { A级项目: 1, B级项目: 2, C级项目: 3, D级项目: 4 };
+            // Sort by project level: A > B > C > D > Ungrouped
+            const levels = {
+              'Project Level A': 1,
+              'Project Level B': 2,
+              'Project Level C': 3,
+              'Project Level D': 4,
+            };
             return (levels[a] || 999) - (levels[b] || 999);
           },
         },
@@ -255,9 +260,9 @@
 
 :::
 
-### 内置下拉菜单
+### Built-in Dropdown Menu
 
-启用内置菜单后，鼠标悬停在项目上会显示操作菜单，点击菜单项触发对应操作。
+With the built-in menu enabled, hovering over an item will display an action menu. Clicking a menu item triggers the corresponding action.
 
 :::demo
 
@@ -267,7 +272,7 @@
     <div style="margin-bottom: 15px;">
       <el-switch
         v-model="showBuiltInMenu"
-        active-text="启用内置菜单"
+        active-text="Enable Built-in Menu"
       />
     </div>
     <el-x-conversations
@@ -281,7 +286,7 @@
       v-if="operationLogs.length > 0"
       style="margin-top: 15px; padding: 10px; background-color: #f9f9f9; border-radius: 4px;"
     >
-      <div style="margin-bottom: 8px; font-weight: 500; font-size: 14px;">操作记录：</div>
+      <div style="margin-bottom: 8px; font-weight: 500; font-size: 14px;">Operation Log:</div>
       <div
         v-for="(log, index) in operationLogs"
         :key="index"
@@ -298,10 +303,10 @@
     data() {
       return {
         menuItems: [
-          { id: 'm1', label: '产品需求讨论', prefixIcon: 'el-icon-document' },
-          { id: 'm2', label: '每周例会', prefixIcon: 'el-icon-date' },
-          { id: 'm3', label: '营销策略', prefixIcon: 'el-icon-data-analysis' },
-          { id: 'm4', label: '技术架构评审', prefixIcon: 'el-icon-cpu' },
+          { id: 'm1', label: 'Product Requirement Discussion', prefixIcon: 'el-icon-document' },
+          { id: 'm2', label: 'Weekly Meeting', prefixIcon: 'el-icon-date' },
+          { id: 'm3', label: 'Marketing Strategy', prefixIcon: 'el-icon-data-analysis' },
+          { id: 'm4', label: 'Tech Architecture Review', prefixIcon: 'el-icon-cpu' },
         ],
         activeMenuItem: 'm1',
         showBuiltInMenu: true,
@@ -314,13 +319,13 @@
       },
       handleMenuCommand(command, item) {
         const actionMap = {
-          rename: '重命名',
-          delete: '删除',
+          rename: 'Rename',
+          delete: 'Delete',
         };
         const actionText = actionMap[command] || command;
-        this.operationLogs.unshift(`${actionText} - ${item.label}`);
+        this.operationLogs.unshift(`Action: ${actionText} on item "${item.label}"`);
 
-        // 最多显示5条记录
+        // Show a maximum of 5 records
         if (this.operationLogs.length > 5) {
           this.operationLogs.pop();
         }
@@ -332,9 +337,9 @@
 
 :::
 
-### 自定义菜单交互
+### Custom Menu Interaction
 
-可以自定义菜单项的图标、文本和样式，并处理菜单命令事件。
+You can customize the icon, text, and style of menu items, and handle menu command events.
 
 :::demo
 
@@ -357,17 +362,17 @@
         customMenuItems: [
           {
             id: 'cm1',
-            label: '重要客户A',
+            label: 'Important Client A',
             prefixIcon: 'el-icon-user',
             suffixIcon: 'el-icon-star-on',
           },
-          { id: 'cm2', label: '潜在客户B', prefixIcon: 'el-icon-user' },
-          { id: 'cm3', label: '合作伙伴C', prefixIcon: 'el-icon-user-solid' },
-          { id: 'cm4', label: '供应商D', prefixIcon: 'el-icon-user' },
+          { id: 'cm2', label: 'Potential Client B', prefixIcon: 'el-icon-user' },
+          { id: 'cm3', label: 'Partner C', prefixIcon: 'el-icon-user-solid' },
+          { id: 'cm4', label: 'Supplier D', prefixIcon: 'el-icon-user' },
         ],
         customMenu: [
           {
-            label: '标为重要',
+            label: 'Mark as Important',
             key: 'star',
             icon: 'el-icon-star-off',
             command: 'star',
@@ -377,13 +382,13 @@
             },
           },
           {
-            label: '归档',
+            label: 'Archive',
             key: 'archive',
             icon: 'el-icon-folder',
             command: 'archive',
           },
           {
-            label: '删除',
+            label: 'Delete',
             key: 'delete',
             icon: 'el-icon-delete',
             command: 'delete',
@@ -402,11 +407,11 @@
       },
       handleCustomMenuCommand(command, item) {
         this.$message({
-          message: `执行操作: ${command} - ${item.label}`,
+          message: `Executing action: ${command} on ${item.label}`,
           type: 'success',
         });
 
-        // 如果是星标操作，切换星标状态
+        // If it is a star operation, toggle the star status
         if (command === 'star') {
           const targetItem = this.customMenuItems.find(i => i.id === item.id);
           if (targetItem) {
@@ -421,9 +426,9 @@
 
 :::
 
-### 加载更多功能
+### Load More Functionality
 
-滚动到底部时自动加载更多项目，并支持回到顶部按钮。
+Automatically load more items when scrolling to the bottom, with support for a "back to top" button.
 
 :::demo
 
@@ -445,16 +450,16 @@
     <div style="margin-top: 15px;">
       <div style="display: flex; align-items: center; margin-bottom: 15px;">
         <h4 style="margin: 0 10px 0 0; font-size: 14px; font-weight: normal; width: 80px;">
-          按钮样式：
+          Button Style:
         </h4>
         <el-radio-group
           v-model="toTopBtnType"
           size="small"
         >
-          <el-radio-button label="primary">主要</el-radio-button>
-          <el-radio-button label="success">成功</el-radio-button>
-          <el-radio-button label="warning">警告</el-radio-button>
-          <el-radio-button label="danger">危险</el-radio-button>
+          <el-radio-button label="primary">Primary</el-radio-button>
+          <el-radio-button label="success">Success</el-radio-button>
+          <el-radio-button label="warning">Warning</el-radio-button>
+          <el-radio-button label="danger">Danger</el-radio-button>
         </el-radio-group>
       </div>
     </div>
@@ -477,18 +482,18 @@
       this.loadMoreItems();
     },
     methods: {
-      // 防抖处理的加载更多方法
+      // Debounced method for loading more items
       loadMoreItems() {
-        // 如果已经在加载中，直接返回
+        // If already loading, return directly
         if (this.isLoadingMore) return;
 
-        console.log(`触底加载第${this.currentLazyPage + 1}页数据`);
+        console.log(`Reached bottom, loading page ${this.currentLazyPage + 1}`);
         this.isLoadingMore = true;
 
-        // 模拟异步加载
+        // Simulate asynchronous loading
         setTimeout(() => {
           const newPage = this.currentLazyPage + 1;
-          // 每次都加载10条
+          // Load 10 items each time
           const itemsCount = 10;
           const newItems = Array(itemsCount)
             .fill(0)
@@ -496,7 +501,7 @@
               const itemId = `lazy${newPage}-${index + 1}`;
               return {
                 id: itemId,
-                label: `加载项目 ${newPage}-${index + 1}`,
+                label: `Loaded Item ${newPage}-${index + 1}`,
                 prefixIcon: 'el-icon-time',
               };
             });
@@ -506,10 +511,10 @@
           this.isLoadingMore = false;
 
           console.log(
-            `第${newPage}页加载完成，本次加载${newItems.length}条，总计${this.lazyItems.length}条`,
+            `Page ${newPage} loaded, ${newItems.length} items this time, total ${this.lazyItems.length}`,
           );
 
-          // 如果是第一页，默认选中第一项
+          // If it's the first page, select the first item by default
           if (newPage === 1 && newItems.length > 0) {
             this.activeLazyItem = newItems[0].id;
           }
@@ -525,9 +530,9 @@
 
 :::
 
-### 自定义样式与分组标题
+### Custom Styles and Group Titles
 
-可以自定义项目样式、容器样式，以及通过插槽自定义分组标题和项目内容。
+You can customize item styles, container styles, and use slots to customize group titles and item content.
 
 :::demo
 
@@ -576,44 +581,44 @@
         styledItems: [
           {
             id: 's1',
-            label: '设计讨论',
-            group: '设计部',
+            label: 'Design Discussion',
+            group: 'Design Dept.',
             time: '10:30',
             icon: 'el-icon-picture-outline',
           },
           {
             id: 's2',
-            label: 'UI评审',
-            group: '设计部',
-            time: '昨天',
+            label: 'UI Review',
+            group: 'Design Dept.',
+            time: 'Yesterday',
             icon: 'el-icon-picture',
           },
           {
             id: 's3',
-            label: '后端架构',
-            group: '技术部',
-            time: '周一',
+            label: 'Backend Architecture',
+            group: 'Tech Dept.',
+            time: 'Monday',
             icon: 'el-icon-s-operation',
           },
           {
             id: 's4',
-            label: 'API讨论',
-            group: '技术部',
-            time: '周二',
+            label: 'API Discussion',
+            group: 'Tech Dept.',
+            time: 'Tuesday',
             icon: 'el-icon-s-platform',
           },
           {
             id: 's5',
-            label: '产品规划',
-            group: '产品部',
-            time: '3天前',
+            label: 'Product Planning',
+            group: 'Product Dept.',
+            time: '3 days ago',
             icon: 'el-icon-s-goods',
           },
           {
             id: 's6',
-            label: '需求梳理',
-            group: '产品部',
-            time: '上周',
+            label: 'Requirement Analysis',
+            group: 'Product Dept.',
+            time: 'Last week',
             icon: 'el-icon-document',
           },
         ],
@@ -644,9 +649,9 @@
       },
       getGroupIcon(group) {
         const iconMap = {
-          设计部: 'el-icon-picture-outline',
-          技术部: 'el-icon-s-operation',
-          产品部: 'el-icon-s-goods',
+          'Design Dept.': 'el-icon-picture-outline',
+          'Tech Dept.': 'el-icon-s-operation',
+          'Product Dept.': 'el-icon-s-goods',
         };
         return iconMap[group] || 'el-icon-folder';
       },
@@ -657,58 +662,58 @@
 
 :::
 
-## 属性
+## Attributes
 
-| 参数                 | 说明                         | 类型                  | 默认值                                                                                                                                                                                                                                    |
-| -------------------- | ---------------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| items                | 会话列表数据                 | Array                 | []                                                                                                                                                                                                                                        |
-| itemsStyle           | 项目自定义样式               | Object                | {}                                                                                                                                                                                                                                        |
-| itemsHoverStyle      | 项目悬停样式                 | Object                | {}                                                                                                                                                                                                                                        |
-| itemsActiveStyle     | 项目选中样式                 | Object                | {}                                                                                                                                                                                                                                        |
-| itemsMenuOpenedStyle | 项目菜单打开时样式           | Object                | {}                                                                                                                                                                                                                                        |
-| styleConfig          | 容器样式配置                 | Object                | { padding: '10px 0 10px 10px', backgroundColor: '#fff', borderRadius: '8px', width: '280px', height: '0' }                                                                                                                                |
-| showTooltip          | 是否显示提示框               | Boolean               | false                                                                                                                                                                                                                                     |
-| groupable            | 是否启用分组，可传入排序函数 | Boolean/Object        | false                                                                                                                                                                                                                                     |
-| labelMaxWidth        | 标签最大宽度                 | Number                | undefined                                                                                                                                                                                                                                 |
-| labelHeight          | 标签高度                     | Number                | 20                                                                                                                                                                                                                                        |
-| showBuiltInMenu      | 是否显示内置菜单             | Boolean               | false                                                                                                                                                                                                                                     |
-| menu                 | 自定义菜单项配置             | Array                 | [{ label: '重命名', key: 'rename', icon: 'el-icon-edit', command: 'rename' }, { label: '删除', key: 'delete', icon: 'el-icon-delete', command: 'delete', menuItemHoverStyle: { color: 'red', backgroundColor: 'rgba(255, 0, 0, 0.1)' } }] |
-| ungroupedTitle       | 未分组项标题                 | String                | '未分组'                                                                                                                                                                                                                                  |
-| tooltipPlacement     | 提示框位置                   | String                | 'top'                                                                                                                                                                                                                                     |
-| tooltipOffset        | 提示框偏移量                 | Number                | 12                                                                                                                                                                                                                                        |
-| menuPlacement        | 菜单位置                     | String                | 'bottom-start'                                                                                                                                                                                                                            |
-| menuShowArrow        | 菜单是否显示箭头             | Boolean               | false                                                                                                                                                                                                                                     |
-| menuStyle            | 菜单自定义样式               | Object                | {}                                                                                                                                                                                                                                        |
-| loadMoreLoading      | 加载更多状态                 | Boolean               | false                                                                                                                                                                                                                                     |
-| showToTopBtn         | 是否显示回到顶部按钮         | Boolean               | false                                                                                                                                                                                                                                     |
-| toTopBtnType         | 回到顶部按钮类型             | String                | 'primary'                                                                                                                                                                                                                                 |
-| toTopBtnStyle        | 回到顶部按钮自定义样式       | Object                | {}                                                                                                                                                                                                                                        |
-| labelKey             | 项目标签字段名               | String                | 'label'                                                                                                                                                                                                                                   |
-| rowKey               | 项目唯一键字段名             | String                | 'id'                                                                                                                                                                                                                                      |
-| active               | 当前激活项                   | String/Number/Boolean | ''                                                                                                                                                                                                                                        |
-| loadMore             | 加载更多函数                 | Function              | null                                                                                                                                                                                                                                      |
+| Attribute            | Description                                          | Type                  | Default                                                                                                                                                                                                                                     |
+| -------------------- | ---------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| items                | Conversation list data                               | Array                 | []                                                                                                                                                                                                                                          |
+| itemsStyle           | Custom style for items                               | Object                | {}                                                                                                                                                                                                                                          |
+| itemsHoverStyle      | Hover style for items                                | Object                | {}                                                                                                                                                                                                                                          |
+| itemsActiveStyle     | Style for active items                               | Object                | {}                                                                                                                                                                                                                                          |
+| itemsMenuOpenedStyle | Style for items when the menu is open                | Object                | {}                                                                                                                                                                                                                                          |
+| styleConfig          | Container style configuration                        | Object                | { padding: '10px 0 10px 10px', backgroundColor: '#fff', borderRadius: '8px', width: '280px', height: '0' }                                                                                                                                  |
+| showTooltip          | Whether to show a tooltip                            | Boolean               | false                                                                                                                                                                                                                                       |
+| groupable            | Whether to enable grouping, can pass a sort function | Boolean/Object        | false                                                                                                                                                                                                                                       |
+| labelMaxWidth        | Maximum width for the label                          | Number                | undefined                                                                                                                                                                                                                                   |
+| labelHeight          | Height of the label                                  | Number                | 20                                                                                                                                                                                                                                          |
+| showBuiltInMenu      | Whether to show the built-in menu                    | Boolean               | false                                                                                                                                                                                                                                       |
+| menu                 | Custom menu item configuration                       | Array                 | [{ label: 'Rename', key: 'rename', icon: 'el-icon-edit', command: 'rename' }, { label: 'Delete', key: 'delete', icon: 'el-icon-delete', command: 'delete', menuItemHoverStyle: { color: 'red', backgroundColor: 'rgba(255, 0, 0, 0.1)' } }] |
+| ungroupedTitle       | Title for ungrouped items                            | String                | 'Ungrouped'                                                                                                                                                                                                                                 |
+| tooltipPlacement     | Tooltip position                                     | String                | 'top'                                                                                                                                                                                                                                       |
+| tooltipOffset        | Tooltip offset                                       | Number                | 12                                                                                                                                                                                                                                          |
+| menuPlacement        | Menu position                                        | String                | 'bottom-start'                                                                                                                                                                                                                              |
+| menuShowArrow        | Whether the menu shows an arrow                      | Boolean               | false                                                                                                                                                                                                                                       |
+| menuStyle            | Custom style for the menu                            | Object                | {}                                                                                                                                                                                                                                          |
+| loadMoreLoading      | Loading state for "load more"                        | Boolean               | false                                                                                                                                                                                                                                       |
+| showToTopBtn         | Whether to show the "back to top" button             | Boolean               | false                                                                                                                                                                                                                                       |
+| toTopBtnType         | Type of the "back to top" button                     | String                | 'primary'                                                                                                                                                                                                                                   |
+| toTopBtnStyle        | Custom style for the "back to top" button            | Object                | {}                                                                                                                                                                                                                                          |
+| labelKey             | Field name for the item label                        | String                | 'label'                                                                                                                                                                                                                                     |
+| rowKey               | Field name for the unique key of the item            | String                | 'id'                                                                                                                                                                                                                                        |
+| active               | Currently active item                                | String/Number/Boolean | ''                                                                                                                                                                                                                                          |
+| loadMore             | Function to load more items                          | Function              | null                                                                                                                                                                                                                                        |
 
-## 方法
+## Methods
 
-| 方法名      | 说明       | 参数 | 返回值 |
-| ----------- | ---------- | ---- | ------ |
-| scrollToTop | 滚动到顶部 | -    | -      |
+| Method Name | Description    | Parameters | Return Value |
+| ----------- | -------------- | ---------- | ------------ |
+| scrollToTop | Scrolls to top | -          | -            |
 
-## 事件
+## Events
 
-| 事件名      | 说明           | 回调参数                            |
-| ----------- | -------------- | ----------------------------------- |
-| change      | 选择项改变事件 | 选中的项目对象                      |
-| menuCommand | 菜单命令事件   | (command, item)：命令名称和项目对象 |
+| Event Name  | Description         | Callback Parameters                           |
+| ----------- | ------------------- | --------------------------------------------- |
+| change      | On selection change | The selected item object                      |
+| menuCommand | On menu command     | (command, item): command name and item object |
 
-## 插槽
+## Slots
 
-| 插槽名      | 说明           | 插槽参数            |
-| ----------- | -------------- | ------------------- |
-| header      | 列表顶部内容   | -                   |
-| footer      | 列表底部内容   | -                   |
-| group-title | 分组标题       | { group: 分组对象 } |
-| label       | 项目标签内容   | { item: 项目对象 }  |
-| menu        | 自定义菜单内容 | { item: 项目对象 }  |
-| more-filled | 更多图标内容   | 菜单相关属性        |
-| load-more   | 加载更多内容   | -                   |
+| Slot Name   | Description                       | Scope Parameters        |
+| ----------- | --------------------------------- | ----------------------- |
+| header      | Content at the top of the list    | -                       |
+| footer      | Content at the bottom of the list | -                       |
+| group-title | Group title                       | { group: group object } |
+| label       | Item label content                | { item: item object }   |
+| menu        | Custom menu content               | { item: item object }   |
+| more-filled | More icon content                 | Menu related attributes |
+| load-more   | Load more content                 | -                       |
