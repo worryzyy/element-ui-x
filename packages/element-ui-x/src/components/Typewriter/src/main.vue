@@ -76,11 +76,11 @@
               const grammar = Prism.languages[lang];
               if (grammar) {
                 const highlighted = Prism.highlight(code, grammar, lang);
-                return `<pre class="language-${lang}"><code class="language-${lang}">${highlighted}</code></pre>`;
+                return highlighted;
               }
-              return `<pre class="language-${lang}"><code class="language-${lang}">${code}</code></pre>`;
+              return code;
             } catch {
-              return `<pre><code>${code}</code></pre>`;
+              return code;
             }
           },
         }),
@@ -158,7 +158,6 @@
     },
     mounted() {
       this.initMarkdownPlugins();
-      this.updateFogColor();
       this.$nextTick(() => {
         Prism.highlightAll();
       });
@@ -239,9 +238,6 @@
           isTyping: this.isTyping,
           progress: this.typingProgress,
         };
-      },
-      updateFogColor() {
-        // 实现雾化颜色更新逻辑
       },
     },
   };
