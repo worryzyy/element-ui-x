@@ -302,23 +302,27 @@
             content: '这是一个左侧气泡消息',
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
+            avatarSize: 40,
           },
           {
             content: '这是一个右侧气泡消息',
             placement: 'end',
             avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
+            avatarSize: 40,
           },
           {
             content:
               '# Markdown 标题\n这是一个**Markdown**格式的消息，支持*斜体*和`代码`\n```js\nconst hello = "world";\nconsole.log(hello);\n```',
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
+            avatarSize: 40,
             isMarkdown: true,
           },
         ],
         scrollList: Array.from({ length: 20 }, (_, i) => ({
           content: `滚动列表消息${i + 1}`,
           placement: i % 2 === 0 ? 'start' : 'end',
+          avatarSize: 40,
           avatar:
             i % 2 === 0
               ? 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg'
@@ -329,6 +333,7 @@
           {
             content: '你好，我是AI助手，有什么可以帮您？',
             placement: 'start',
+            avatarSize: 40,
             avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
           },
         ],
@@ -364,6 +369,7 @@
         const message = {
           content: `这是第${this.messageCount}条${placement === 'start' ? '左侧' : '右侧'}消息`,
           placement,
+          avatarSize: 40,
           avatar:
             placement === 'start'
               ? 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg'
@@ -385,6 +391,7 @@
           content: markdownContent,
           placement,
           avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
+          avatarSize: 40,
           isMarkdown: true,
           isFog: this.isFog,
           typing: this.isTyping ? this.typingConfig : false,
@@ -449,6 +456,7 @@
           content: this.newMessage,
           placement: 'end',
           avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
+          avatarSize: 40,
         });
 
         // AI回复
@@ -457,6 +465,7 @@
             content: `这是对"${this.newMessage}"的回复`,
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
+            avatarSize: 40,
           });
           this.$nextTick(() => {
             this.$refs.chatDemo.scrollToBottom();
