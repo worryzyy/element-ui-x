@@ -1,6 +1,6 @@
 {
   "name": "vue-element-ui-x",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于Vue 2 + Element UI的AI聊天组件库",
   "main": "lib/index.esm.js",
   "module": "lib/index.umd.js",
@@ -32,7 +32,9 @@
     "build:esm": "webpack --config build/webpack.esm.conf.js",
     "build:umd": "webpack --config build/webpack.umd.conf.js",
     "build:components": "node build/build-components.js",
-    "build:locale": "node build/build-locale.js"
+    "build:locale": "node build/build-locale.js",
+    "build:lib": "npm run build",
+    "publish:lib": "npm publish"
   },
   "peerDependencies": {
     "element-ui": "2.15.14",
