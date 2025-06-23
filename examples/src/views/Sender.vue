@@ -12,6 +12,12 @@
           clearable
           @submit="handleBasicSubmit"
         ></el-x-sender>
+        <br />
+        <el-x-sender
+          style="width: fit-content"
+          inputWidth="480px"
+          placeholder="💌 欢迎使用 Element-UI-X"
+        />
         <div class="demo-controls">
           <p>输入内容：{{ basicContent }}</p>
           <p v-if="basicSubmitted">已提交内容：{{ basicSubmitted }}</p>
