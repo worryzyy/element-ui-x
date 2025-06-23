@@ -18,7 +18,6 @@
         default: '',
       },
     },
-    emits: ['edit-title'],
   };
 </script>
 

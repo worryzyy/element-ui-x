@@ -52,9 +52,7 @@ export function parseSSEChunk(chunk) {
             conversation_id: data.conversation_id,
             created_at: data.created_at,
             task_id: data.task_id,
-            metadata: {
-              from_variable_selector: data.from_variable_selector || [],
-            },
+            metadata: { from_variable_selector: data.from_variable_selector || [] },
           },
         };
       case 'workflow_finished':
@@ -65,9 +63,29 @@ export function parseSSEChunk(chunk) {
             conversation_id: data.conversation_id,
             created_at: data.created_at,
             task_id: data.task_id,
-            metadata: {
-              from_variable_selector: data.from_variable_selector || [],
-            },
+            metadata: { from_variable_selector: data.from_variable_selector || [] },
+          },
+        };
+      case 'node_started':
+        return {
+          type: 'node_started',
+          data: {
+            id: data.message_id,
+            conversation_id: data.conversation_id,
+            created_at: data.created_at,
+            task_id: data.task_id,
+            data: data.data,
+          },
+        };
+      case 'node_finished':
+        return {
+          type: 'node_finished',
+          data: {
+            id: data.message_id,
+            conversation_id: data.conversation_id,
+            created_at: data.created_at,
+            task_id: data.task_id,
+            data: data.data,
           },
         };
       case 'message':
@@ -80,9 +98,7 @@ export function parseSSEChunk(chunk) {
             conversation_id: data.conversation_id,
             created_at: data.created_at,
             task_id: data.task_id,
-            metadata: {
-              from_variable_selector: data.from_variable_selector || [],
-            },
+            metadata: { from_variable_selector: data.from_variable_selector || [] },
           },
         };
       case 'message_end':
@@ -93,9 +109,7 @@ export function parseSSEChunk(chunk) {
             conversation_id: data.conversation_id,
             created_at: data.created_at,
             task_id: data.task_id,
-            metadata: {
-              from_variable_selector: data.from_variable_selector || [],
-            },
+            metadata: { from_variable_selector: data.from_variable_selector || [] },
           },
         };
       case 'error':
@@ -107,9 +121,7 @@ export function parseSSEChunk(chunk) {
             created_at: data.created_at,
             task_id: data.task_id,
             content: data.message,
-            metadata: {
-              from_variable_selector: data.from_variable_selector || [],
-            },
+            metadata: { from_variable_selector: data.from_variable_selector || [] },
           },
         };
       default:
@@ -241,12 +253,8 @@ export function buildChatMessageRequest(params) {
     response_mode,
     parent_message_id,
     user,
-    ...(conversation_id && {
-      conversation_id,
-    }),
-    ...(formattedFiles.length > 0 && {
-      files: formattedFiles,
-    }),
+    ...(conversation_id && { conversation_id }),
+    ...(formattedFiles.length > 0 && { files: formattedFiles }),
     auto_generate_name,
   };
 }

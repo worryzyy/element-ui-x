@@ -124,7 +124,6 @@
         recordAnimating: false,
       };
     },
-    emits: ['input', 'send', 'stop', 'file-upload', 'delete-file', 'update:is-select'],
     methods: {
       handleRecord() {
         if (this.recordLoading) {

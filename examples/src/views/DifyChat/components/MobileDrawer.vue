@@ -89,7 +89,6 @@
         default: false,
       },
     },
-    emits: ['close', 'new-chat', 'conversation-change', 'menu-command'],
     methods: {
       debouncedClose() {
         if (this.isClosing) return;

@@ -17,6 +17,8 @@
       @update-feedback="$emit('update-feedback', $event)"
       @prompt-click="$emit('prompt-click', $event)"
       @suggested-question-click="$emit('suggested-question-click', $event)"
+      @update-workflow-active="$emit('update-workflow-active', $event)"
+      @update-node-active="$emit('update-node-active', $event)"
     />
     <ChatInput
       :value="senderValue"
@@ -95,21 +97,6 @@
         default: false,
       },
     },
-
-    emits: [
-      'edit-title',
-      'edit-message',
-      'retry-message',
-      'update-feedback',
-      'prompt-click',
-      'send',
-      'stop',
-      'file-upload',
-      'delete-file',
-      'update:is-select',
-      'update:sender-value',
-      'suggested-question-click',
-    ],
   };
 </script>
 

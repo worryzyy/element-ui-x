@@ -41,7 +41,6 @@
         default: '',
       },
     },
-    emits: ['toggle-drawer', 'new-chat'],
   };
 </script>
 

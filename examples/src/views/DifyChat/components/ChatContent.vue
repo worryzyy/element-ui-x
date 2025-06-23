@@ -19,6 +19,8 @@
         <bubble-list-header
           :item="item"
           :map-file-type="mapFileType"
+          @update-workflow-active="handleUpdateWorkflowActive"
+          @update-node-active="handleUpdateNodeActive"
         />
       </template>
       <template #content="{ item }">
@@ -26,7 +28,7 @@
           :content="item.content"
           :md-plugins="mdPlugins"
           :typing="item.typing"
-          :is-markdown="true"
+          :is-markdown="item.isMarkdown"
         />
       </template>
       <template #footer="{ item }">
@@ -120,16 +122,17 @@
     data() {
       return { mdPlugins: [markdownItMermaid, markdownItKatex] };
     },
-    emits: [
-      'edit-message',
-      'retry-message',
-      'update-feedback',
-      'prompt-click',
-      'suggested-question-click',
-    ],
     methods: {
       handleSuggestedQuestionClick(question) {
         this.$emit('suggested-question-click', question);
+      },
+
+      handleUpdateWorkflowActive(data) {
+        this.$emit('update-workflow-active', data);
+      },
+
+      handleUpdateNodeActive(data) {
+        this.$emit('update-node-active', data);
       },
     },
   };

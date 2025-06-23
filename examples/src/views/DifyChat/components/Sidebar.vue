@@ -110,7 +110,6 @@
         default: false,
       },
     },
-    emits: ['toggle', 'new-chat', 'conversation-change', 'menu-command'],
   };
 </script>
 

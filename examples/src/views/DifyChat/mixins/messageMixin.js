@@ -285,6 +285,7 @@ export default {
               loading: thinkingStatus == 'thinking' ? true : false,
               placement: 'start',
               avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+              avatarSize: 40,
               created_at: item.created_at,
               typing: false,
               feedback: item.feedback,
@@ -354,6 +355,7 @@ export default {
           content: '',
           placement: 'start',
           avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+          avatarSize: 40,
           created_at: Date.now(),
           isMarkdown: true,
           loading: true,
@@ -425,29 +427,91 @@ export default {
 
       switch (data.type) {
         case 'workflow_started':
-          this.$set(this.messages[messageIndex], 'thoughtChains', []);
-          this.messages[messageIndex].thoughtChains.push({
-            id: 1,
-            title: '工作流开始',
-            status: 'completed',
-          });
-          this.messages[messageIndex].thoughtChains.push({
-            id: 2,
-            title: '工作流运行中',
-            status: 'processing',
+          // 初始化工作流折叠面板数据结构
+          this.$set(this.messages[messageIndex], 'workflowCollapse', {
+            activeNames: ['workflow-panel'],
+            nodeActiveNames: [], // 管理各个节点的展开状态，默认全部收缩
+            panels: [
+              {
+                name: 'workflow-panel',
+                title: '工作流',
+                status: 'running',
+                workflow_run_id: data.data.workflow_run_id,
+                created_at: data.data.created_at,
+                nodes: [],
+              },
+            ],
           });
           if (data.data.conversation_id && !this.activeConversation) {
             this.activeConversation = data.data.conversation_id;
           }
           break;
+
+        case 'node_started':
+          // 添加新节点到工作流
+          if (this.messages[messageIndex].workflowCollapse) {
+            const nodeData = data.data;
+            const workflowPanel = this.messages[messageIndex].workflowCollapse.panels[0];
+
+            workflowPanel.nodes.push({
+              id: nodeData.data.id,
+              node_id: nodeData.data.node_id,
+              node_type: nodeData.data.node_type,
+              title: nodeData.data.title,
+              index: nodeData.data.index,
+              status: 'running',
+              started_at: nodeData.data.created_at,
+              finished_at: null,
+              duration: null,
+              predecessor_node_id: nodeData.data.predecessor_node_id,
+              parallel_id: nodeData.data.parallel_id,
+              parent_parallel_id: nodeData.data.parent_parallel_id,
+              iteration_id: nodeData.data.iteration_id,
+              loop_id: nodeData.data.loop_id,
+              inputs: nodeData.data.inputs,
+              extras: nodeData.data.extras || {},
+              content: '',
+              error_message: '',
+            });
+          }
+          break;
+
+        case 'node_finished':
+          // 更新节点状态为完成
+          if (this.messages[messageIndex].workflowCollapse) {
+            const nodeData = data.data;
+            const workflowPanel = this.messages[messageIndex].workflowCollapse.panels[0];
+            const nodeIndex = workflowPanel.nodes.findIndex(node => node.id === nodeData.data.id);
+
+            if (nodeIndex !== -1) {
+              this.$set(workflowPanel.nodes[nodeIndex], 'status', 'completed');
+              this.$set(
+                workflowPanel.nodes[nodeIndex],
+                'finished_at',
+                nodeData.data.finished_at || Date.now(),
+              );
+
+              // 计算执行时长
+              const startTime = workflowPanel.nodes[nodeIndex].started_at;
+              const endTime = workflowPanel.nodes[nodeIndex].finished_at;
+              const duration = endTime - startTime;
+              this.$set(workflowPanel.nodes[nodeIndex], 'duration', duration);
+
+              // 更新节点输出和其他信息
+              if (nodeData.data.outputs) {
+                this.$set(workflowPanel.nodes[nodeIndex], 'outputs', nodeData.data.outputs);
+              }
+            }
+          }
+          break;
+
         case 'workflow_finished':
-          this.messages[messageIndex].thoughtChains[0].status = 'completed';
-          this.messages[messageIndex].thoughtChains[1].status = 'success';
-          this.messages[messageIndex].thoughtChains.push({
-            id: 3,
-            title: '工作流结束',
-            status: 'success',
-          });
+          // 工作流完成，更新状态
+          if (this.messages[messageIndex].workflowCollapse) {
+            const workflowPanel = this.messages[messageIndex].workflowCollapse.panels[0];
+            this.$set(workflowPanel, 'status', 'completed');
+            this.$set(workflowPanel, 'title', '工作流');
+          }
           if (data.data.conversation_id && !this.activeConversation) {
             this.activeConversation = data.data.conversation_id;
           }
@@ -541,16 +605,27 @@ export default {
           break;
 
         case 'error':
-          this.messages[messageIndex].thoughtChains[0].status = 'completed';
-          this.messages[messageIndex].thoughtChains[1].status = 'success';
-          this.messages[messageIndex].thoughtChains.push({
-            id: 3,
-            title: '失败',
-            status: 'error',
-          });
+          // 工作流错误处理
+          if (this.messages[messageIndex].workflowCollapse) {
+            const workflowPanel = this.messages[messageIndex].workflowCollapse.panels[0];
+            this.$set(workflowPanel, 'status', 'failed');
+            this.$set(workflowPanel, 'title', '工作流执行失败');
+
+            // 如果有正在运行的节点，标记为失败
+            const runningNodeIndex = workflowPanel.nodes.findIndex(
+              node => node.status === 'running',
+            );
+            if (runningNodeIndex !== -1) {
+              this.$set(workflowPanel.nodes[runningNodeIndex], 'status', 'failed');
+              this.$set(
+                workflowPanel.nodes[runningNodeIndex],
+                'error_message',
+                data.data.message || '节点执行失败',
+              );
+            }
+          }
           this.messages[messageIndex].content = data.data.message;
           this.messages[messageIndex].loading = false;
-
           break;
         case 'end':
           this.messages[messageIndex].typing = false;
@@ -747,6 +822,26 @@ export default {
       this.$nextTick(() => {
         this.handleSendMessage();
       });
+    },
+
+    // 处理工作流激活状态更新
+    handleUpdateWorkflowActive(data) {
+      const { messageId, activeNames } = data;
+      const messageIndex = this.messages.findIndex(msg => msg.id === messageId);
+
+      if (messageIndex !== -1 && this.messages[messageIndex].workflowCollapse) {
+        this.$set(this.messages[messageIndex].workflowCollapse, 'activeNames', activeNames);
+      }
+    },
+
+    // 处理节点激活状态更新
+    handleUpdateNodeActive(data) {
+      const { messageId, nodeActiveNames } = data;
+      const messageIndex = this.messages.findIndex(msg => msg.id === messageId);
+
+      if (messageIndex !== -1 && this.messages[messageIndex].workflowCollapse) {
+        this.$set(this.messages[messageIndex].workflowCollapse, 'nodeActiveNames', nodeActiveNames);
+      }
     },
   },
 };

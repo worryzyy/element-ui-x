@@ -55,6 +55,8 @@
         @update-feedback="handleUpdateFeedback"
         @prompt-click="handlePromptItemClick"
         @suggested-question-click="handleSuggestedQuestionClick"
+        @update-workflow-active="handleUpdateWorkflowActive"
+        @update-node-active="handleUpdateNodeActive"
         @send="handleSendMessage"
         @stop="handleStopMessage"
         @file-upload="handleFileUpload"
