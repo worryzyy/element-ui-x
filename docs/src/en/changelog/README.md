@@ -2,7 +2,7 @@
 
 Records the version update history of the Element-UI-X component library.
 
-## v1.0.0 - First Release 🎉
+## v1.0 - First Release 🎉
 
 **This is the first official version of the Element-UI-X component library!**
 
