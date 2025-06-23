@@ -28,10 +28,9 @@
       class="el-x-bubble-avatar el-x-bubble-avatar-size"
     >
       <el-avatar
-        :size="avatarSize"
+        :size="0"
         :src="avatar"
         :shape="avatarShape"
-        :icon="avatarIcon"
         :src-set="avatarSrcSet"
         :alt="avatarAlt"
         @error="avatarError"
@@ -64,12 +63,12 @@
         class="el-x-bubble-content"
         :class="{
           'el-x-bubble-content-loading': loading,
-          'el-x-bubble-content-round': shape === 'round',
-          'el-x-bubble-content-corner': shape === 'corner',
-          'el-x-bubble-content-filled': variant === 'filled',
-          'el-x-bubble-content-borderless': variant === 'borderless',
-          'el-x-bubble-content-outlined': variant === 'outlined',
-          'el-x-bubble-content-shadow': variant === 'shadow',
+          'el-x-bubble-content-round': shape === 'round' && !noStyle,
+          'el-x-bubble-content-corner': shape === 'corner' && !noStyle,
+          'el-x-bubble-content-filled': variant === 'filled' && !noStyle,
+          'el-x-bubble-content-borderless': variant === 'borderless' && !noStyle,
+          'el-x-bubble-content-outlined': variant === 'outlined' && !noStyle,
+          'el-x-bubble-content-shadow': variant === 'shadow' && !noStyle,
         }"
       >
         <div
@@ -134,15 +133,9 @@
 
   export default {
     name: 'ElXBubble',
-    components: {
-      ElXTypewriter,
-    },
+    components: { ElXTypewriter },
     props: {
       content: {
-        type: String,
-        default: '',
-      },
-      reasoning_content: {
         type: String,
         default: '',
       },
@@ -173,10 +166,6 @@
       avatarShape: {
         type: String,
         default: 'circle',
-      },
-      avatarIcon: {
-        type: String,
-        default: '',
       },
       avatarSrcSet: {
         type: String,

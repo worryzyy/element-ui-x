@@ -37,7 +37,6 @@
       :avatar-size="defaultAvatarSize || item.avatarSize"
       :avatar-gap="defaultAvatarGap || item.avatarGap"
       :avatar-shape="defaultAvatarShape || item.avatarShape"
-      :avatar-icon="defaultAvatarIcon || item.avatarIcon"
       :avatar-src-set="defaultAvatarSrcSet || item.avatarSrcSet"
       :avatar-alt="defaultAvatarAlt || item.avatarAlt"
       :avatar-fit="defaultAvatarFit || item.avatarFit"
@@ -48,19 +47,7 @@
         <slot
           name="avatar"
           :item="item"
-        >
-          <template v-if="defaultAvatar || item.avatar">
-            <el-avatar
-              :size="defaultAvatarSize || item.avatarSize || 40"
-              :src="defaultAvatar || item.avatar"
-              :shape="defaultAvatarShape || item.avatarShape || 'circle'"
-              :icon="defaultAvatarIcon || item.avatarIcon"
-              :src-set="defaultAvatarSrcSet || item.avatarSrcSet"
-              :alt="defaultAvatarAlt || item.avatarAlt"
-              :fit="defaultAvatarFit || item.avatarFit || 'cover'"
-            />
-          </template>
-        </slot>
+        ></slot>
       </template>
       <template
         v-if="$scopedSlots.header || $slots.header"
@@ -129,9 +116,9 @@
 </template>
 
 <script>
+  import createScrollDetector from '../../../utils/scrollDetector';
   import Bubble from '../../Bubble/index.js';
   import loadingBg from './loading.vue';
-  import createScrollDetector from '../../../utils/scrollDetector';
 
   export default {
     name: 'ElXBubbleList',
@@ -229,10 +216,6 @@
         default: undefined,
       },
       defaultAvatarShape: {
-        type: String,
-        default: '',
-      },
-      defaultAvatarIcon: {
         type: String,
         default: '',
       },

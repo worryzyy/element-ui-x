@@ -7,14 +7,14 @@
 
 .el-x-bubble-avatar-size {
   ::v-deep .el-avatar {
-    width: var(--el-x-bubble-avatar-placeholder-width);
-    height: var(--el-x-bubble-avatar-placeholder-height);
+    width: var(--el-x-bubble-avatar-placeholder-width) !important;
+    height: var(--el-x-bubble-avatar-placeholder-height) !important;
   }
 }
 
 .el-x-bubble-avatar-placeholder {
-  width: var(--el-x-bubble-avatar-placeholder-width);
-  height: var(--el-x-bubble-avatar-placeholder-height);
+  width: var(--el-x-bubble-avatar-placeholder-width) !important;
+  height: var(--el-x-bubble-avatar-placeholder-height) !important;
 }
 
 .el-x-bubble-start {
@@ -139,6 +139,7 @@
 
     /* 波浪动画 */
     @keyframes wave {
+
       0%,
       100% {
         transform: translateY(-2px);
