@@ -2,6 +2,7 @@
   <div
     class="el-x-sender-wrap"
     :style="{
+      display: 'block',
       cursor: disabled ? 'not-allowed' : 'default',
       '--el-x-sender-trigger-popover-width': triggerPopoverWidth,
       '--el-x-sender-trigger-popover-left': triggerPopoverLeft,
