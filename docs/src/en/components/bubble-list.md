@@ -33,18 +33,18 @@ Basic usage of the message list component to display multiple messages.
           {
             content: 'Hello, I am an AI assistant. How can I help you?',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
           },
           {
             content: 'I want to learn how to use the Element UI component library',
             placement: 'end',
-            avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
           },
           {
             content:
               'Element UI is a Vue 2.0-based desktop component library for developers, designers, and product managers, providing rich components and features.',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
           },
         ],
       };
@@ -82,17 +82,20 @@ Unify the style of all bubbles through `default*` prefix attributes, with higher
           {
             content: 'Global settings for round bubbles and shadow effects',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
+            avatarSize: 40,
           },
           {
             content: 'All bubbles will apply these default settings',
             placement: 'end',
-            avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
+            avatarSize: 40,
           },
           {
             content: 'Even if individual bubbles do not specify these properties',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
+            avatarSize: 40,
           },
         ],
       };
@@ -147,18 +150,21 @@ Demonstrate typewriter effect and auto scroll to latest message functionality.
           {
             content: 'This is a normal message',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
+            avatarSize: 40,
           },
           {
             content: 'This is my reply',
             placement: 'end',
-            avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
+            avatarSize: 40,
           },
           {
             content:
               'This is a message **with typewriter effect** that will be displayed character by character.\n\nWhen the message is long, it will automatically scroll to the bottom.',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
+            avatarSize: 40,
             typing: true,
           },
         ],
@@ -171,10 +177,11 @@ Demonstrate typewriter effect and auto scroll to latest message functionality.
         this.typingMessages.push({
           content: `This is the newly added ${this.messageCounter}th normal message`,
           placement: this.messageCounter % 2 === 0 ? 'end' : 'start',
+          avatarSize: 40,
           avatar:
             this.messageCounter % 2 === 0
-              ? 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-              : 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+              ? 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png'
+              : 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
         });
       },
       addTypingMessage() {
@@ -182,8 +189,9 @@ Demonstrate typewriter effect and auto scroll to latest message functionality.
         this.typingMessages.push({
           content: `This is the newly added ${this.messageCounter}th **typewriter effect** message that will automatically scroll to the bottom.\n\n- Item 1\n- Item 2\n- Item 3`,
           placement: 'start',
-          avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+          avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
           typing: true,
+          avatarSize: 40,
         });
       },
       onTypingComplete(instance, index) {
@@ -229,10 +237,11 @@ When scrolled to the top, a back to bottom button is displayed.
               : ''
           }`,
           placement: i % 2 === 0 ? 'start' : 'end',
+          avatarSize: 40,
           avatar:
             i % 2 === 0
-              ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-              : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+              ? 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png'
+              : 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
         })),
       };
     },
@@ -337,6 +346,7 @@ Use slots to customize bubble avatar and content.
           placement: i % 2 === 0 ? 'start' : 'end',
           time: new Date().toLocaleTimeString(),
           id: i,
+          avatarSize: 40,
         })),
       };
     },
@@ -396,12 +406,14 @@ Display loading states and different types of message content.
           {
             content: 'Hello, how can I help you?',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
+            avatarSize: 40,
           },
           {
             content: 'I want to learn about Element UI table components',
             placement: 'end',
-            avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
+            avatarSize: 40,
           },
           {
             content: `# Element UI Table Component
@@ -421,13 +433,15 @@ The Element UI table component is a powerful data display tool that provides the
 </el-table>
 \`\`\``,
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
             isMarkdown: true,
+            avatarSize: 40,
           },
           {
             loading: true,
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
+            avatarSize: 40,
           },
         ],
       };
@@ -441,14 +455,16 @@ The Element UI table component is a powerful data display tool that provides the
         this.complexMessages.push({
           content: 'Thank you, this table component looks very powerful!',
           placement: 'end',
-          avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+          avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
+          avatarSize: 40,
         });
 
         // Add loading state
         this.complexMessages.push({
           loading: true,
           placement: 'start',
-          avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+          avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
+          avatarSize: 40,
         });
 
         // Simulate adding new message after loading completes
@@ -458,9 +474,10 @@ The Element UI table component is a powerful data display tool that provides the
 
           // Add new message
           this.complexMessages.push({
+            avatarSize: 40,
             content: 'Do you have any other questions about Element UI?',
             placement: 'start',
-            avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
             typing: true,
           });
         }, 2000);
@@ -498,7 +515,6 @@ The Element UI table component is a powerful data display tool that provides the
 | defaultAvatarSize   | Default avatar size, higher priority than bubble component                     | Number         | undefined                                    |
 | defaultAvatarGap    | Default avatar gap, higher priority than bubble component                      | Number         | undefined                                    |
 | defaultAvatarShape  | Default avatar shape, higher priority than bubble component                    | String         | ''                                           |
-| defaultAvatarIcon   | Default avatar icon, higher priority than bubble component                     | String         | ''                                           |
 | defaultAvatarSrcSet | Default avatar srcset, higher priority than bubble component                   | String         | ''                                           |
 | defaultAvatarAlt    | Default avatar alt, higher priority than bubble component                      | String         | ''                                           |
 | defaultAvatarFit    | Default avatar fit mode, higher priority than bubble component                 | String         | ''                                           |

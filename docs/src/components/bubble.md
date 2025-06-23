@@ -25,7 +25,7 @@
   <div>
     <el-x-bubble
       content="这是一个基础的左侧气泡示例，通常用于展示机器人或对方的消息。"
-      avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       placement="start"
       :avatarSize="40"
     />
@@ -33,7 +33,7 @@
     <div style="margin-top: 20px;">
       <el-x-bubble
         content="这是一个基础的右侧气泡示例，通常用于展示用户自己的消息。"
-        avatar="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png"
         placement="end"
         :avatarSize="40"
       />
@@ -59,7 +59,7 @@
         variant="filled"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -69,7 +69,7 @@
         variant="borderless"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -79,7 +79,7 @@
         variant="outlined"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -89,7 +89,7 @@
         variant="shadow"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -99,7 +99,7 @@
         shape="round"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -109,7 +109,7 @@
         shape="corner"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
   </div>
@@ -136,7 +136,8 @@
     <el-x-bubble
       :content="typingContent"
       :typing="typingConfig"
-      avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+      :avatarSize="40"
       placement="start"
       ref="typingDemo"
       @start="onStart"
@@ -291,7 +292,8 @@
       :is-markdown="true"
       :is-fog="true"
       :typing="{ interval: 30, step: 2 }"
-      avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+      :avatarSize="40"
       placement="start"
       ref="markdownDemo"
     />
@@ -398,27 +400,25 @@ console.log(greet('World'));
 
 ## 属性
 
-| 参数              | 说明                                                                                                                           | 类型           | 默认值    |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------- | --------- |
-| content           | 气泡内容文本                                                                                                                   | String         | ''        |
-| reasoning_content | 推理内容（备用内容）                                                                                                           | String         | ''        |
-| avatar            | 头像图片地址                                                                                                                   | String         | ''        |
-| placement         | 气泡位置，可选值：'start'(左侧)/'end'(右侧)                                                                                    | String         | 'start'   |
-| variant           | 气泡样式，可选值：'filled'/'borderless'/'outlined'/'shadow'                                                                    | String         | 'filled'  |
-| maxWidth          | 气泡最大宽度                                                                                                                   | String         | '500px'   |
-| avatarSize        | 头像尺寸                                                                                                                       | Number         | 0         |
-| avatarGap         | 头像与气泡间距                                                                                                                 | String         | '12px'    |
-| avatarShape       | 头像形状，可选值：'circle'/'square'                                                                                            | String         | 'circle'  |
-| avatarIcon        | 头像图标（当没有头像图片时）                                                                                                   | String         | ''        |
-| avatarSrcSet      | 头像图片 srcset 属性                                                                                                           | String         | ''        |
-| avatarAlt         | 头像图片 alt 属性                                                                                                              | String         | ''        |
-| avatarFit         | 头像图片填充方式                                                                                                               | String         | 'cover'   |
-| noStyle           | 是否移除默认样式                                                                                                               | Boolean        | false     |
-| typing            | 打字效果配置，设为 true 使用默认值或传入对象配置：<br>- interval: 打字间隔(ms)<br>- step: 每次打字字符数<br>- suffix: 光标字符 | Boolean/Object | undefined |
-| loading           | 是否显示加载状态                                                                                                               | Boolean        | false     |
-| shape             | 气泡形状，可选值：''/'round'/'corner'                                                                                          | String         | ''        |
-| isMarkdown        | 是否解析 Markdown 内容                                                                                                         | Boolean        | false     |
-| isFog             | 是否启用雾化效果                                                                                                               | Boolean        | false     |
+| 参数         | 说明                                                                                                                           | 类型           | 默认值    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------ | -------------- | --------- |
+| content      | 气泡内容文本                                                                                                                   | String         | ''        |
+| avatar       | 头像图片地址                                                                                                                   | String         | ''        |
+| placement    | 气泡位置，可选值：'start'(左侧)/'end'(右侧)                                                                                    | String         | 'start'   |
+| variant      | 气泡样式，可选值：'filled'/'borderless'/'outlined'/'shadow'                                                                    | String         | 'filled'  |
+| maxWidth     | 气泡最大宽度                                                                                                                   | String         | '500px'   |
+| avatarSize   | 头像尺寸                                                                                                                       | Number         | 0         |
+| avatarGap    | 头像与气泡间距                                                                                                                 | String         | '12px'    |
+| avatarShape  | 头像形状，可选值：'circle'/'square'                                                                                            | String         | 'circle'  |
+| avatarSrcSet | 头像图片 srcset 属性                                                                                                           | String         | ''        |
+| avatarAlt    | 头像图片 alt 属性                                                                                                              | String         | ''        |
+| avatarFit    | 头像图片填充方式                                                                                                               | String         | 'cover'   |
+| noStyle      | 是否移除默认样式                                                                                                               | Boolean        | false     |
+| typing       | 打字效果配置，设为 true 使用默认值或传入对象配置：<br>- interval: 打字间隔(ms)<br>- step: 每次打字字符数<br>- suffix: 光标字符 | Boolean/Object | undefined |
+| loading      | 是否显示加载状态                                                                                                               | Boolean        | false     |
+| shape        | 气泡形状，可选值：''/'round'/'corner'                                                                                          | String         | ''        |
+| isMarkdown   | 是否解析 Markdown 内容                                                                                                         | Boolean        | false     |
+| isFog        | 是否启用雾化效果                                                                                                               | Boolean        | false     |
 
 ## 方法
 

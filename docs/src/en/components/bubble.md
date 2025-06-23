@@ -25,7 +25,7 @@ Basic bubble component usage, demonstrating bubble effects at different position
   <div>
     <el-x-bubble
       content="This is a basic left-side bubble example, typically used to display bot or other party messages."
-      avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       :avatarSize="40"
       placement="start"
     />
@@ -34,7 +34,7 @@ Basic bubble component usage, demonstrating bubble effects at different position
       <el-x-bubble
         content="This is a basic right-side bubble example, typically used to display user's own messages."
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png"
         placement="end"
       ></el-x-bubble>
     </div>
@@ -59,7 +59,7 @@ Configure different styles and shapes of bubbles through `variant` and `shape` p
         variant="filled"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -69,7 +69,7 @@ Configure different styles and shapes of bubbles through `variant` and `shape` p
         variant="borderless"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -79,7 +79,7 @@ Configure different styles and shapes of bubbles through `variant` and `shape` p
         variant="outlined"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -89,7 +89,7 @@ Configure different styles and shapes of bubbles through `variant` and `shape` p
         variant="shadow"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -99,7 +99,7 @@ Configure different styles and shapes of bubbles through `variant` and `shape` p
         shape="round"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
 
@@ -109,7 +109,7 @@ Configure different styles and shapes of bubbles through `variant` and `shape` p
         shape="corner"
         placement="start"
         :avatarSize="40"
-        avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       />
     </div>
   </div>
@@ -136,7 +136,8 @@ Enable typewriter effect through `typing` property to simulate real-time input.
     <el-x-bubble
       :content="typingContent"
       :typing="typingConfig"
-      avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+      :avatarSize="40"
       placement="start"
       ref="typingDemo"
       @start="onStart"
@@ -291,7 +292,8 @@ Enable Markdown content rendering through `isMarkdown` property.
       :is-markdown="true"
       :is-fog="true"
       :typing="{ interval: 30, step: 2 }"
-      avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+      :avatarSize="40"
+      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
       placement="start"
       ref="markdownDemo"
     />
@@ -398,27 +400,25 @@ Use slots to customize bubble avatar and content.
 
 ## Attributes
 
-| Parameter         | Description                                                                                                                                                                | Type           | Default   |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | --------- |
-| content           | Bubble content text                                                                                                                                                        | String         | ''        |
-| reasoning_content | Reasoning content (backup content)                                                                                                                                         | String         | ''        |
-| avatar            | Avatar image URL                                                                                                                                                           | String         | ''        |
-| placement         | Bubble position, options: 'start'(left)/'end'(right)                                                                                                                       | String         | 'start'   |
-| variant           | Bubble style, options: 'filled'/'borderless'/'outlined'/'shadow'                                                                                                           | String         | 'filled'  |
-| maxWidth          | Maximum width of bubble                                                                                                                                                    | String         | '500px'   |
-| avatarSize        | Avatar size                                                                                                                                                                | Number         | 0         |
-| avatarGap         | Gap between avatar and bubble                                                                                                                                              | String         | '12px'    |
-| avatarShape       | Avatar shape, options: 'circle'/'square'                                                                                                                                   | String         | 'circle'  |
-| avatarIcon        | Avatar icon (when no avatar image)                                                                                                                                         | String         | ''        |
-| avatarSrcSet      | Avatar image srcset attribute                                                                                                                                              | String         | ''        |
-| avatarAlt         | Avatar image alt attribute                                                                                                                                                 | String         | ''        |
-| avatarFit         | Avatar image fit mode                                                                                                                                                      | String         | 'cover'   |
-| noStyle           | Whether to remove default styles                                                                                                                                           | Boolean        | false     |
-| typing            | Typewriter effect configuration, set to true for default or pass object config:<br>- interval: typing interval(ms)<br>- step: characters per step<br>- suffix: cursor char | Boolean/Object | undefined |
-| loading           | Whether to show loading state                                                                                                                                              | Boolean        | false     |
-| shape             | Bubble shape, options: ''/'round'/'corner'                                                                                                                                 | String         | ''        |
-| isMarkdown        | Whether to parse Markdown content                                                                                                                                          | Boolean        | false     |
-| isFog             | Whether to enable fog effect                                                                                                                                               | Boolean        | false     |
+| Parameter    | Description                                                                                                                                                                | Type           | Default   |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | --------- |
+| content      | Bubble content text                                                                                                                                                        | String         | ''        |
+| avatar       | Avatar image URL                                                                                                                                                           | String         | ''        |
+| placement    | Bubble position, options: 'start'(left)/'end'(right)                                                                                                                       | String         | 'start'   |
+| variant      | Bubble style, options: 'filled'/'borderless'/'outlined'/'shadow'                                                                                                           | String         | 'filled'  |
+| maxWidth     | Maximum width of bubble                                                                                                                                                    | String         | '500px'   |
+| avatarSize   | Avatar size                                                                                                                                                                | Number         | 0         |
+| avatarGap    | Gap between avatar and bubble                                                                                                                                              | String         | '12px'    |
+| avatarShape  | Avatar shape, options: 'circle'/'square'                                                                                                                                   | String         | 'circle'  |
+| avatarSrcSet | Avatar image srcset attribute                                                                                                                                              | String         | ''        |
+| avatarAlt    | Avatar image alt attribute                                                                                                                                                 | String         | ''        |
+| avatarFit    | Avatar image fit mode                                                                                                                                                      | String         | 'cover'   |
+| noStyle      | Whether to remove default styles                                                                                                                                           | Boolean        | false     |
+| typing       | Typewriter effect configuration, set to true for default or pass object config:<br>- interval: typing interval(ms)<br>- step: characters per step<br>- suffix: cursor char | Boolean/Object | undefined |
+| loading      | Whether to show loading state                                                                                                                                              | Boolean        | false     |
+| shape        | Bubble shape, options: ''/'round'/'corner'                                                                                                                                 | String         | ''        |
+| isMarkdown   | Whether to parse Markdown content                                                                                                                                          | Boolean        | false     |
+| isFog        | Whether to enable fog effect                                                                                                                                               | Boolean        | false     |
 
 ## Methods
 
