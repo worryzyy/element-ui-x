@@ -19,7 +19,8 @@ Vue.component('SvgIcon', SvgIcon);
 
 Vue.use(VueI18n);
 const i18n = new VueI18n({
-  locale: 'en', // 设置默认语言
+  // locale: 'en',
+  locale: 'zh-CN',
   messages: {
     en: enlang,
     'zh-CN': zhCNlang,
@@ -27,7 +28,7 @@ const i18n = new VueI18n({
 });
 
 Vue.use(ElementUI);
-// 正确的 ElementUIX i18n 配置
+//  ElementUIX i18n 配置
 Vue.use(ElementUIX, { i18n: (key, value) => i18n.t(key, value) });
 
 Vue.config.productionTip = false;

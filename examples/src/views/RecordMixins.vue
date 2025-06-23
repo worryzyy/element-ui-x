@@ -100,50 +100,6 @@
           {{ errorRecordLoading ? '停止录音' : '开始录音' }}
         </el-button>
       </div>
-
-      <div class="demo-block">
-        <h3>实际应用场景</h3>
-        <p>在实际应用中的语音识别使用示例。</p>
-        <div class="chat-container">
-          <el-x-bubble
-            content="你好，请点击下方按钮开始语音输入"
-            placement="start"
-            :avatarSize="40"
-            avatar="https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg"
-          />
-          <el-x-bubble
-            v-if="chatRecordValue"
-            :content="chatRecordValue"
-            placement="end"
-            :avatarSize="40"
-            avatar="https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg"
-            class="mt-10"
-          />
-        </div>
-        <div class="demo-controls">
-          <div class="chat-input-group">
-            <el-input
-              v-model="chatInput"
-              placeholder="输入消息..."
-              @keyup.enter="sendMessage"
-            >
-              <el-button
-                slot="append"
-                icon="el-icon-s-promotion"
-                @click="sendMessage"
-              />
-            </el-input>
-            <el-button
-              type="primary"
-              :loading="chatRecordLoading"
-              @click="handleChatRecord"
-              icon="el-icon-microphone"
-            >
-              {{ chatRecordLoading ? '录音中...' : '语音输入' }}
-            </el-button>
-          </div>
-        </div>
-      </div>
     </el-card>
   </div>
 </template>

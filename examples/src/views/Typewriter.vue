@@ -135,41 +135,6 @@
         </div>
       </div>
     </el-card>
-
-    <el-card class="demo-card">
-      <div slot="header">
-        <h2>实际应用场景</h2>
-      </div>
-
-      <div class="demo-block">
-        <h3>AI对话模拟</h3>
-        <div class="chat-container">
-          <div class="message user">
-            <div class="avatar">用户</div>
-            <div class="content">请介绍一下Typewriter组件的功能</div>
-          </div>
-          <div class="message bot">
-            <div class="avatar">AI</div>
-            <div class="content">
-              <el-x-typewriter
-                :content="aiResponse"
-                :is-fog="fogConfig"
-                :typing="{ interval: 30, step: 1, suffix: '' }"
-                ref="aiDemo"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="demo-controls">
-          <el-button
-            type="primary"
-            @click="regenerateAIResponse"
-          >
-            重新生成回答
-          </el-button>
-        </div>
-      </div>
-    </el-card>
   </div>
 </template>
 
