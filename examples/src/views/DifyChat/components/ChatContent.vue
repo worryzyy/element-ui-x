@@ -77,8 +77,9 @@
 </template>
 
 <script>
+  import markdownItMermaidPlugin from '@/utils/markdownMermaidPlugin';
+  import 'katex/dist/katex.min.css';
   import markdownItKatex from 'markdown-it-katex';
-  import markdownItMermaid from 'markdown-it-mermaid';
   import BubbleListFooter from './BubbleListFooter.vue';
   import BubbleListHeader from './BubbleListHeader.vue';
   import Welcome from './Welcome.vue';
@@ -120,7 +121,7 @@
       },
     },
     data() {
-      return { mdPlugins: [markdownItMermaid, markdownItKatex] };
+      return { mdPlugins: [markdownItMermaidPlugin, markdownItKatex] };
     },
     methods: {
       handleSuggestedQuestionClick(question) {
@@ -169,8 +170,12 @@
     }
 
     ::v-deep .el-x-bubble-list {
-      .el-x-bubble {
+      .el-x-bubble.el-x-bubble-start {
         .el-x-bubble-content-wrapper {
+          .el-x-bubble-header,
+          .el-x-bubble-content:not(.el-x-bubble-content-loading) {
+            width: 100%;
+          }
           .el-x-bubble-footer {
             .end-action,
             .start-action {

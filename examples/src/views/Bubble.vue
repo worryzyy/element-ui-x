@@ -414,10 +414,11 @@
 </template>
 
 <script>
+  import markdownItMermaidPlugin from '@/utils/markdownMermaidPlugin';
   import 'katex/dist/katex.min.css'; // 确保样式被引入
   import { full as emoji } from 'markdown-it-emoji';
   import markdownItKatex from 'markdown-it-katex';
-  import markdownItMermaid from 'markdown-it-mermaid';
+
   export default {
     name: 'BubbleDemo',
     data() {
@@ -441,7 +442,7 @@
         markdownEmojiContent: `# 你可以使用 \`markdown-it-emoji\` 插件来显示表情
 
 :rocket: :sparkles: :bookmark_tabs: :satellite: :heart_eyes: :heart:`,
-        markdownMermaidContent: `#  你可以使用 \`markdown-it-katex\` 跟 \`markdown-it-mermaid\` 插件来显示公式和图表
+        markdownMermaidContent: `#  你可以使用 \`markdown-it-katex\` 跟 \`mermaid\` 来显示公式和图表
 $$
 \\int_{a}^{b} x^2 dx
 $$
@@ -453,6 +454,16 @@ graph TD
 A-->B
 B-->C
 B-->D
+\`\`\`
+
+\`\`\`mermaid
+pie 
+ title 鼠鼠生存核心指标
+    "偷油成功次数" : 38
+    "猫口脱险成就" : 27
+    "粮仓装修预算" : 18
+    "尾巴保养花费" : 12
+    "星际旅行梦想" : 5
 \`\`\`
 
 \`\`\`mermaid
@@ -500,24 +511,8 @@ sequenceDiagram
     A->>B: How are you?
     B-->>A: I am good thanks!
 \`\`\``,
-        mdPlugins: [emoji, markdownItMermaid, markdownItKatex],
-        chatMessages: [
-          {
-            content: '你好，有什么可以帮您的吗？',
-            placement: 'start',
-            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
-          },
-          {
-            content: '我想了解这个组件如何使用',
-            placement: 'end',
-            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
-          },
-          {
-            content: '这个组件支持打字器效果、Markdown渲染等功能',
-            placement: 'start',
-            avatar: 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg',
-          },
-        ],
+        mdPlugins: [emoji, markdownItMermaidPlugin, markdownItKatex],
+
         markdownContent: `# Markdown示例
   这是一个支持**Markdown**渲染的打字器效果演示。
 

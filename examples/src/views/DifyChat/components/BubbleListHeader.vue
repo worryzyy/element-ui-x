@@ -336,8 +336,20 @@
   // 工作流折叠面板样式
   .workflow-collapse {
     margin-bottom: 8px;
-    min-width: 400px;
-    // 移除Element UI默认的border
+
+    width: 100%;
+    max-width: none;
+    margin: 0 0 8px 0;
+    padding: 0;
+
+    // 移动端适配
+    @media (max-width: 768px) {
+      width: 100vw;
+      max-width: none;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      padding: 0 16px;
+    }
 
     ::v-deep .el-collapse-item {
       border: none;

@@ -401,3 +401,56 @@ body {
 
 // 响应式样式
 @import './responsive.scss';
+
+/* Mermaid 图表样式 */
+// .mermaid-container {
+//   margin: 16px 0;
+//   padding: 16px;
+//   border: 1px solid #e1e5e9;
+//   border-radius: 8px;
+//   background: #fafbfc;
+//   text-align: center;
+//   overflow-x: auto;
+
+//   .mermaid-loading {
+//     color: #666;
+//     font-style: italic;
+//     padding: 20px;
+//   }
+
+//   .mermaid-error {
+//     color: #d73a49;
+//     background: #ffeef0;
+//     border: 1px solid #fdaeb7;
+//     border-radius: 4px;
+//     padding: 12px;
+//     font-family: monospace;
+//     font-size: 12px;
+//   }
+
+//   .mermaid {
+//     background: transparent;
+//     border: none;
+
+//     svg {
+//       max-width: 100%;
+//       height: auto;
+//     }
+//   }
+// }
+
+/* 深色主题支持 */
+.dark .mermaid-container {
+  background: #21262d;
+  border-color: #30363d;
+
+  .mermaid-loading {
+    color: #8b949e;
+  }
+
+  .mermaid-error {
+    color: #f85149;
+    background: #2d1117;
+    border-color: #f85149;
+  }
+}
