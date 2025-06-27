@@ -327,7 +327,9 @@
 
   ::v-deep .el-x-thinking {
     .content-wrapper {
-      margin-bottom: 4px;
+      pre {
+        margin-bottom: 4px;
+      }
     }
   }
   ::v-deep .el-collapse {

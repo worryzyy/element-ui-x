@@ -238,6 +238,7 @@ export default {
               placement: 'end',
               created_at: item.created_at,
               typing: false,
+
               message_files: item.message_files || [],
               // 如果消息包含文件信息，添加附件
               ...(item.files &&
@@ -263,7 +264,7 @@ export default {
             // 检查是否包含完整的思考内容（有开始和结束标签）
             const thinkMatch = content.match(/<think>([\s\S]*?)<\/think>/);
             if (thinkMatch) {
-              reasoning_content = thinkMatch[1];
+              reasoning_content = thinkMatch[1].trim();
               content = content.replace(/<think>[\s\S]*?<\/think>/g, '');
               thinkingStatus = 'end';
             } else if (content.includes('<think>')) {
@@ -273,7 +274,7 @@ export default {
               const thinkContent = content.substring(thinkStartIndex + 7); // 7是'<think>'的长度
 
               content = beforeThink;
-              reasoning_content = thinkContent;
+              reasoning_content = thinkContent.trim();
               thinkingStatus = 'thinking'; // 标记为思考中状态
             }
 
@@ -284,6 +285,7 @@ export default {
               thinkingStatus: thinkingStatus,
               loading: thinkingStatus == 'thinking' ? true : false,
               placement: 'start',
+              isMarkdown: true,
               avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
               avatarSize: 40,
               created_at: item.created_at,
@@ -554,7 +556,7 @@ export default {
               if (thinkStart && thinkStart.includes('</think>')) {
                 // 提取思考内容
                 const thinkContent = thinkStart.split('</think>')[0];
-                this.$set(this.messages[messageIndex], 'reasoning_content', thinkContent);
+                this.$set(this.messages[messageIndex], 'reasoning_content', thinkContent.trim());
 
                 // 提取</think>后的内容（如果有）
                 const afterThink = thinkStart.split('</think>')[1];
@@ -567,7 +569,11 @@ export default {
                 this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
               } else {
                 // 立即显示当前的思考内容（动态显示）
-                this.$set(this.messages[messageIndex], 'reasoning_content', thinkStart || '');
+                this.$set(
+                  this.messages[messageIndex],
+                  'reasoning_content',
+                  (thinkStart || '').trim(),
+                );
               }
             }
             // 正在思考中，累积内容
@@ -581,7 +587,7 @@ export default {
               if (deltaContent.includes('</think>')) {
                 // 提取完整的思考内容
                 const thinkContent = newContent.split('</think>')[0];
-                this.$set(this.messages[messageIndex], 'reasoning_content', thinkContent);
+                this.$set(this.messages[messageIndex], 'reasoning_content', thinkContent.trim());
 
                 // 提取</think>后的内容（如果有）
                 const afterThink = deltaContent.split('</think>')[1];
@@ -594,7 +600,7 @@ export default {
                 this.$set(this.messages[messageIndex], 'thinkingStatus', 'end');
               } else {
                 // 动态更新思考内容显示
-                this.$set(this.messages[messageIndex], 'reasoning_content', newContent);
+                this.$set(this.messages[messageIndex], 'reasoning_content', newContent.trim());
               }
             } else {
               // 普通内容，直接添加
