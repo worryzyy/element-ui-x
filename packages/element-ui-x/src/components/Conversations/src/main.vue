@@ -13,7 +13,22 @@
     >
       <!-- 滚动区域容器 -->
       <li class="el-x-conversations-scroll-wrapper">
+        <!-- 虚拟滚动模式 -->
+        <template v-if="virtualScroll">
+          <virtual-list
+            ref="virtualScrollContainer"
+            class="el-x-conversations-virtual-scrollbar"
+            :data-key="'key'"
+            :data-sources="flattenedList"
+            :data-component="virtualItemComponent"
+            v-bind="virtualListConfig"
+            @scroll="handleVirtualScroll"
+          />
+        </template>
+
+        <!-- 原生滚动模式 -->
         <div
+          v-else
           ref="scrollContainer"
           class="el-x-conversations-scrollbar"
           @scroll="handleScroll"
@@ -189,11 +204,12 @@
 <script>
   import { get } from 'lodash';
   import ConversationsItem from './components/item.vue';
+  import VirtualList from 'vue-virtual-scroll-list';
 
   export default {
     name: 'ElXConversations',
 
-    components: { ConversationsItem },
+    components: { ConversationsItem, VirtualList },
 
     props: {
       items: {
@@ -326,6 +342,19 @@
         type: Function,
         default: null,
       },
+      virtualScroll: {
+        type: Boolean,
+        default: false,
+      },
+      virtualScrollOptions: {
+        type: Object,
+        default: () => ({
+          size: 60,
+          remain: 15,
+          variable: true,
+          bench: 5,
+        }),
+      },
     },
 
     data() {
@@ -429,6 +458,153 @@
           return 0;
         });
       },
+
+      // 虚拟滚动用的扁平化列表
+      flattenedList() {
+        if (!this.virtualScroll) return [];
+
+        if (this.shouldUseGrouping) {
+          const result = [];
+          this.groups.forEach(group => {
+            // 添加分组标题
+            result.push({
+              type: 'group-title',
+              key: `group-${group.key}`,
+              title: group.title,
+              groupKey: group.key,
+              isUngrouped: group.isUngrouped,
+              // 为虚拟滚动指定分组标题的高度
+              virtualHeight: 40, // 分组标题高度
+            });
+            // 添加分组内容
+            group.children.forEach(item => {
+              result.push({
+                type: 'item',
+                ...item,
+                groupKey: group.key,
+                // 为虚拟滚动指定项目的高度
+                virtualHeight: this.virtualScrollOptions.size || 60,
+              });
+            });
+          });
+          return result;
+        } else {
+          return this.filteredItems.map(item => ({
+            type: 'item',
+            ...item,
+            virtualHeight: this.virtualScrollOptions.size || 60,
+          }));
+        }
+      },
+
+      // 虚拟滚动配置
+      virtualListConfig() {
+        const config = {
+          ...this.virtualScrollOptions,
+          // 对于分组模式，需要启用变高支持
+          variable: this.shouldUseGrouping || this.virtualScrollOptions.variable,
+        };
+
+        // 如果有高度样式，应用到虚拟列表
+        if (this.mergedStyle.height && this.mergedStyle.height !== '0') {
+          config.height = this.mergedStyle.height;
+        }
+
+        return config;
+      },
+
+      // 虚拟列表项组件
+      virtualItemComponent() {
+        const self = this;
+        return {
+          props: {
+            index: Number,
+            source: Object,
+          },
+          render(h) {
+            const { source } = this;
+
+            if (source.type === 'group-title') {
+              // 渲染分组标题 - 包装在分组容器中以保持一致的结构
+              return h(
+                'div',
+                {
+                  class: 'el-x-conversation-group',
+                  key: source.key,
+                },
+                [
+                  h(
+                    'div',
+                    {
+                      class: {
+                        'el-x-conversation-group-title': true,
+                        'sticky-title': true,
+                        'active-sticky': self.stickyGroupKeys.has(source.groupKey),
+                      },
+                      ref: `group-${source.groupKey}`,
+                      refInFor: true,
+                    },
+                    [
+                      self.$scopedSlots['group-title']
+                        ? self.$scopedSlots['group-title']({ group: source })
+                        : source.title,
+                    ],
+                  ),
+                ],
+              );
+            } else {
+              // 渲染普通项目 - 包装在分组项目容器中
+              return h(
+                'div',
+                {
+                  class: 'el-x-conversation-group-items',
+                  key: `item-wrapper-${source.uniqueKey}`,
+                },
+                [
+                  h(ConversationsItem, {
+                    props: {
+                      item: source,
+                      active: source.uniqueKey === self.active,
+                      itemsStyle: self.itemsStyle,
+                      itemsHoverStyle: self.itemsHoverStyle,
+                      itemsActiveStyle: self.itemsActiveStyle,
+                      itemsMenuOpenedStyle: self.itemsMenuOpenedStyle,
+                      prefixIcon: source.prefixIcon,
+                      showTooltip: self.showTooltip,
+                      tooltipPlacement: self.tooltipPlacement,
+                      tooltipOffset: self.tooltipOffset,
+                      suffixIcon: source.suffixIcon,
+                      activeKey: self.active || '',
+                      labelMaxWidth: self.labelMaxWidth,
+                      menu: self.menu,
+                      showBuiltInMenu: self.showBuiltInMenu,
+                      menuPlacement: self.menuPlacement,
+                      menuStyle: self.menuStyle,
+                      menuShowArrow: self.menuShowArrow,
+                    },
+                    on: {
+                      click: () => self.handleClick(source),
+                      'menu-command': (command, item) => self.handleMenuItemClick(command, item),
+                    },
+                    scopedSlots: {
+                      label: self.$scopedSlots.label
+                        ? () => self.$scopedSlots.label({ item: source })
+                        : undefined,
+                      'more-filled': self.$scopedSlots['more-filled']
+                        ? props => self.$scopedSlots['more-filled'](props)
+                        : undefined,
+                      menu: self.$scopedSlots.menu
+                        ? () => self.$scopedSlots.menu({ item: source })
+                        : undefined,
+                    },
+                    key: source.uniqueKey,
+                  }),
+                ],
+              );
+            }
+          },
+        };
+      },
     },
 
     mounted() {
@@ -470,6 +646,32 @@
 
         // 更新吸顶状态
         this.updateStickyStatus();
+      },
+
+      handleVirtualScroll(e) {
+        // 虚拟滚动事件处理
+        const scrollTop = e.target.scrollTop;
+
+        // 显示/隐藏回到顶部按钮
+        this.showScrollTop = scrollTop > 200;
+
+        // 检查是否需要加载更多
+        const bottomOffset = 20;
+        const scrollHeight = e.target.scrollHeight;
+        const clientHeight = e.target.clientHeight;
+
+        // 计算是否接近底部
+        const isNearBottom = scrollHeight - scrollTop - clientHeight < bottomOffset;
+
+        if (isNearBottom) {
+          this.loadMoreDataVirtual();
+        }
+
+        // 更新虚拟滚动模式下的吸顶状态
+        this.updateVirtualStickyStatus();
+
+        // 触发滚动事件
+        this.$emit('scroll', e);
       },
 
       updateStickyStatus() {
@@ -558,8 +760,16 @@
       },
 
       scrollToTop() {
-        if (this.$refs.scrollContainer) {
-          this.$refs.scrollContainer.scrollTop = 0;
+        if (this.virtualScroll) {
+          // 虚拟滚动模式
+          if (this.$refs.virtualScrollContainer) {
+            this.$refs.virtualScrollContainer.scrollToIndex(0);
+          }
+        } else {
+          // 原生滚动模式
+          if (this.$refs.scrollContainer) {
+            this.$refs.scrollContainer.scrollTop = 0;
+          }
         }
 
         // 确保吸顶组状态也被重置
@@ -569,6 +779,13 @@
         }
       },
 
+      loadMoreDataVirtual() {
+        if (!this.loadMore) return;
+        this.loadMore();
+        // 虚拟滚动模式下的加载更多不需要手动滚动
+        // 虚拟列表会自动处理新数据的渲染
+      },
+
       handleMenuItemClick(command, item) {
         this.$emit('menu-command', command, item);
       },
@@ -576,6 +793,51 @@
       bindGroupRef(el, item) {
         if (el) {
           this.groupRefs[item.key] = el;
+        }
+      },
+
+      updateVirtualStickyStatus() {
+        if (!this.shouldUseGrouping || this.groups.length === 0 || !this.virtualScroll) return;
+
+        // 获取虚拟滚动容器
+        const virtualContainer = this.$refs.virtualScrollContainer;
+        if (!virtualContainer) return;
+
+        // 清空当前的吸顶组
+        this.stickyGroupKeys.clear();
+
+        // 简化的虚拟滚动吸顶逻辑 - 基于当前可见范围
+        const scrollTop = virtualContainer.$el ? virtualContainer.$el.scrollTop : 0;
+        const containerHeight = virtualContainer.$el ? virtualContainer.$el.clientHeight : 0;
+
+        // 根据滚动位置和项目高度估算当前可见的分组
+        const estimatedItemHeight = this.virtualScrollOptions.size || 60;
+        const visibleStartIndex = Math.floor(scrollTop / estimatedItemHeight);
+        const visibleEndIndex = Math.ceil((scrollTop + containerHeight) / estimatedItemHeight);
+
+        // 在可见范围内查找分组标题
+        let currentGroupKey = null;
+        for (
+          let i = visibleStartIndex;
+          i <= visibleEndIndex && i < this.flattenedList.length;
+          i++
+        ) {
+          const item = this.flattenedList[i];
+          if (item && item.type === 'group-title') {
+            currentGroupKey = item.groupKey;
+            break;
+          } else if (item && item.groupKey) {
+            // 如果是普通项目，记录其所属分组
+            currentGroupKey = item.groupKey;
+          }
+        }
+
+        // 如果找到了分组，设置为吸顶状态
+        if (currentGroupKey) {
+          this.stickyGroupKeys.add(currentGroupKey);
+        } else if (this.groups.length > 0) {
+          // 如果没有找到，默认使用第一个分组
+          this.stickyGroupKeys.add(this.groups[0].key);
         }
       },
     },
@@ -614,9 +876,36 @@
     }
   }
 
+  /* 虚拟滚动容器样式 */
+  .el-x-conversations-virtual-scrollbar {
+    height: 100%;
+
+    /* 继承原滚动条样式 */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: transparent;
+      border-radius: 3px;
+      transition: background-color 0.3s ease;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+
   /* 为Firefox添加滚动条样式 */
   @supports (scrollbar-width: thin) {
-    .el-x-conversations-scrollbar {
+    .el-x-conversations-scrollbar,
+    .el-x-conversations-virtual-scrollbar {
       scrollbar-width: thin;
       scrollbar-color: transparent transparent;
 
