@@ -264,6 +264,47 @@
                 style="width: 200px"
               />
             </div>
+
+            <!-- 自定义滚动功能控制 -->
+            <div
+              v-if="scrollMode === 'virtual'"
+              class="custom-scroll-controls"
+            >
+              <h4>自定义滚动功能：</h4>
+              <div class="control-row">
+                <el-checkbox v-model="performanceMonitorVisible">性能监控</el-checkbox>
+                <el-checkbox v-model="scrollInteractions.autoScrollEnabled">自动滚动</el-checkbox>
+                <el-checkbox v-model="scrollInteractions.highlightOnScroll">滚动高亮</el-checkbox>
+                <el-checkbox v-model="scrollInteractions.scrollToMiddleOnClick">
+                  点击居中
+                </el-checkbox>
+              </div>
+
+              <div
+                v-if="scrollInteractions.autoScrollEnabled"
+                class="control-row"
+              >
+                <h4>自动滚动速度：</h4>
+                <el-slider
+                  v-model="scrollInteractions.autoScrollSpeed"
+                  :min="1"
+                  :max="10"
+                  style="width: 150px"
+                />
+                <el-button
+                  size="mini"
+                  @click="startAutoScroll"
+                >
+                  开始
+                </el-button>
+                <el-button
+                  size="mini"
+                  @click="stopAutoScroll"
+                >
+                  停止
+                </el-button>
+              </div>
+            </div>
           </div>
 
           <div
@@ -277,6 +318,7 @@
               :groupable="enableGrouping"
               :virtual-scroll="scrollMode === 'virtual'"
               :virtual-scroll-options="virtualScrollTestOptions"
+              :virtual-scroll-custom-handler="customVirtualScrollHandler"
               :show-to-top-btn="true"
               :style="testContainerStyle"
               @change="handleTestItemChange"
@@ -307,6 +349,66 @@
                 </div>
               </template>
             </el-x-conversations>
+          </div>
+
+          <!-- 性能监控面板 -->
+          <div
+            v-if="performanceMonitorVisible && scrollMode === 'virtual'"
+            class="performance-monitor"
+          >
+            <h4>🚀 性能监控</h4>
+            <div class="performance-grid">
+              <div class="performance-item">
+                <span class="label">FPS:</span>
+                <span
+                  class="value"
+                  :class="{
+                    warning: scrollPerformanceData.fps < 50,
+                    danger: scrollPerformanceData.fps < 30,
+                  }"
+                >
+                  {{ scrollPerformanceData.fps }}
+                </span>
+              </div>
+              <div class="performance-item">
+                <span class="label">滚动事件:</span>
+                <span class="value">{{ scrollPerformanceData.scrollEvents }}</span>
+              </div>
+              <div class="performance-item">
+                <span class="label">当前速度:</span>
+                <span class="value">
+                  {{ scrollPerformanceData.currentScrollSpeed.toFixed(2) }}px/s
+                </span>
+              </div>
+              <div class="performance-item">
+                <span class="label">最大速度:</span>
+                <span class="value">{{ scrollPerformanceData.maxScrollSpeed.toFixed(2) }}px/s</span>
+              </div>
+              <div class="performance-item">
+                <span class="label">总滚动距离:</span>
+                <span class="value">{{ scrollStatistics.totalScrollDistance.toFixed(0) }}px</span>
+              </div>
+              <div class="performance-item">
+                <span class="label">滚动方向:</span>
+                <span class="value">
+                  {{ scrollStatistics.scrollDirection === 'up' ? '⬆️ 向上' : '⬇️ 向下' }}
+                </span>
+              </div>
+            </div>
+            <div class="performance-actions">
+              <el-button
+                size="mini"
+                @click="resetPerformanceData"
+              >
+                重置数据
+              </el-button>
+              <el-button
+                size="mini"
+                @click="jumpToRandomItem"
+              >
+                随机跳转
+              </el-button>
+            </div>
           </div>
 
           <div class="test-info">
@@ -1132,15 +1234,41 @@
         testListHeight: 400,
         testConversationItems: [],
         activeTestItem: '',
+        autoScrollTimer: null,
         virtualScrollTestOptions: {
           size: 60, // 每项高度
-          remain: 10, // 可见项数量
-          bench: 5, // 缓冲区大小
-          variable: true, // 支持变高
+          buffer: 200, // 缓冲区大小(像素)
         },
         testContainerStyle: {
           border: '1px solid #ebeef5',
           borderRadius: '4px',
+        },
+
+        // 自定义滚动功能数据
+        scrollPerformanceData: {
+          fps: 0,
+          scrollEvents: 0,
+          lastTime: 0,
+          frameCount: 0,
+          averageRenderTime: 0,
+          maxScrollSpeed: 0,
+          currentScrollSpeed: 0,
+        },
+        scrollInteractions: {
+          autoScrollEnabled: false,
+          autoScrollSpeed: 2,
+          highlightOnScroll: false,
+          scrollToMiddleOnClick: false,
+          smoothScrollEnabled: true,
+        },
+        performanceMonitorVisible: false,
+        scrollStatistics: {
+          totalScrollDistance: 0,
+          scrollDirection: 'down',
+          lastScrollTop: 0,
+          scrollSessions: 0,
+          averageScrollSpeed: 0,
+          maxScrollPosition: 0,
         },
       };
     },
@@ -1714,6 +1842,7 @@
           const groupIndex = Math.floor(i / (count / groups.length));
           const item = {
             id: `test-${i + 1}`,
+            key: `test-${i + 1}`,
             label: `测试会话 ${i + 1}`,
             subtitle: `这是第 ${i + 1} 个测试消息，用于演示滚动性能`,
             icon: icons[i % icons.length],
@@ -1745,6 +1874,19 @@
 
       handleTestItemChange(item) {
         this.activeTestItem = item.uniqueKey || item.id;
+
+        // 点击居中功能
+        if (this.scrollInteractions.scrollToMiddleOnClick && this.scrollMode === 'virtual') {
+          this.$nextTick(() => {
+            const conversationComponent = this.$children.find(
+              child => child.$options.name === 'ElXConversations' && child.virtualScroll,
+            );
+
+            if (conversationComponent) {
+              conversationComponent.scrollToItem(item.id || item.uniqueKey);
+            }
+          });
+        }
       },
 
       getTestGroupIcon(groupTitle) {
@@ -1758,6 +1900,202 @@
         };
         return iconMap[groupTitle] || 'el-icon-folder';
       },
+
+      // 自定义虚拟滚动处理方法 - 包含性能监控、统计和特殊交互
+      customVirtualScrollHandler(event, scrollInfo) {
+        // 只在虚拟滚动模式下执行自定义逻辑
+        if (this.scrollMode !== 'virtual') {
+          return;
+        }
+
+        // === 性能监控 ===
+        if (this.performanceMonitorVisible) {
+          this.updatePerformanceMetrics(scrollInfo);
+        }
+
+        // === 滚动统计 ===
+        this.updateScrollStatistics(scrollInfo);
+
+        // === 滚动高亮特效 ===
+        if (this.scrollInteractions.highlightOnScroll) {
+          this.highlightVisibleItems();
+        }
+
+        // === 智能滚动优化 ===
+        if (this.scrollInteractions.smoothScrollEnabled) {
+          this.applySmoothScrolling(event);
+        }
+
+        // 继续执行默认滚动处理
+        return undefined;
+      },
+
+      // 更新性能指标
+      updatePerformanceMetrics(scrollInfo) {
+        const currentTime = performance.now();
+        this.scrollPerformanceData.scrollEvents++;
+
+        // 计算 FPS
+        if (this.scrollPerformanceData.lastTime) {
+          const deltaTime = currentTime - this.scrollPerformanceData.lastTime;
+          if (deltaTime > 0) {
+            const currentFPS = Math.round(1000 / deltaTime);
+            this.scrollPerformanceData.fps = currentFPS;
+          }
+        }
+        this.scrollPerformanceData.lastTime = currentTime;
+
+        // 计算滚动速度
+        if (this.scrollStatistics.lastScrollTop !== undefined) {
+          const deltaScroll = Math.abs(scrollInfo.scrollTop - this.scrollStatistics.lastScrollTop);
+          const deltaTime = currentTime - (this.scrollPerformanceData.lastTime || currentTime);
+          if (deltaTime > 0) {
+            this.scrollPerformanceData.currentScrollSpeed = (deltaScroll / deltaTime) * 1000;
+            if (
+              this.scrollPerformanceData.currentScrollSpeed >
+              this.scrollPerformanceData.maxScrollSpeed
+            ) {
+              this.scrollPerformanceData.maxScrollSpeed =
+                this.scrollPerformanceData.currentScrollSpeed;
+            }
+          }
+        }
+      },
+
+      // 更新滚动统计
+      updateScrollStatistics(scrollInfo) {
+        if (this.scrollStatistics.lastScrollTop !== undefined) {
+          const deltaScroll = Math.abs(scrollInfo.scrollTop - this.scrollStatistics.lastScrollTop);
+          this.scrollStatistics.totalScrollDistance += deltaScroll;
+
+          // 判断滚动方向
+          if (scrollInfo.scrollTop > this.scrollStatistics.lastScrollTop) {
+            this.scrollStatistics.scrollDirection = 'down';
+          } else if (scrollInfo.scrollTop < this.scrollStatistics.lastScrollTop) {
+            this.scrollStatistics.scrollDirection = 'up';
+          }
+        }
+
+        this.scrollStatistics.lastScrollTop = scrollInfo.scrollTop;
+
+        // 记录最大滚动位置
+        if (scrollInfo.scrollTop > this.scrollStatistics.maxScrollPosition) {
+          this.scrollStatistics.maxScrollPosition = scrollInfo.scrollTop;
+        }
+      },
+
+      // 高亮可见项目
+      highlightVisibleItems() {
+        // 简单的视觉反馈，可以通过CSS动画实现
+        this.$nextTick(() => {
+          const visibleItems = document.querySelectorAll('.test-item-label');
+          visibleItems.forEach((item, index) => {
+            if (index % 3 === 0) {
+              // 每三个项目高亮一个
+              item.style.transition = 'background-color 0.3s ease';
+              item.style.backgroundColor = 'rgba(64, 158, 255, 0.1)';
+              setTimeout(() => {
+                item.style.backgroundColor = '';
+              }, 300);
+            }
+          });
+        });
+      },
+
+      // 应用平滑滚动
+      applySmoothScrolling(event) {
+        // 添加平滑滚动的CSS类
+        const container = event.target;
+        if (container) {
+          container.style.scrollBehavior = 'smooth';
+        }
+      },
+
+      // 重置性能数据
+      resetPerformanceData() {
+        this.scrollPerformanceData = {
+          fps: 0,
+          scrollEvents: 0,
+          lastTime: 0,
+          frameCount: 0,
+          averageRenderTime: 0,
+          maxScrollSpeed: 0,
+          currentScrollSpeed: 0,
+        };
+        this.scrollStatistics = {
+          totalScrollDistance: 0,
+          scrollDirection: 'down',
+          lastScrollTop: 0,
+          scrollSessions: 0,
+          averageScrollSpeed: 0,
+          maxScrollPosition: 0,
+        };
+        this.$message.success('性能数据已重置');
+      },
+
+      // 跳转到随机项目
+      jumpToRandomItem() {
+        if (this.testConversationItems.length === 0) return;
+
+        const randomIndex = Math.floor(Math.random() * this.testConversationItems.length);
+        const randomItem = this.testConversationItems[randomIndex];
+
+        // 使用组件的公共方法滚动到指定项目
+        const conversationComponent = this.$children.find(
+          child => child.$options.name === 'ElXConversations' && child.virtualScroll,
+        );
+
+        if (conversationComponent) {
+          conversationComponent.scrollToItem(randomItem.id);
+          this.activeTestItem = randomItem.id;
+          this.$message.info(`已跳转到：${randomItem.label}`);
+        }
+      },
+
+      // 开始自动滚动
+      startAutoScroll() {
+        if (this.autoScrollTimer) return;
+
+        this.autoScrollTimer = setInterval(() => {
+          const conversationComponent = this.$children.find(
+            child => child.$options.name === 'ElXConversations' && child.virtualScroll,
+          );
+
+          if (conversationComponent) {
+            const container = conversationComponent.getVirtualScrollContainer();
+            if (container && container.$el) {
+              const currentScrollTop = container.$el.scrollTop;
+              const maxScroll = container.$el.scrollHeight - container.$el.clientHeight;
+              const newScrollTop = currentScrollTop + this.scrollInteractions.autoScrollSpeed * 10;
+
+              if (newScrollTop >= maxScroll) {
+                // 到达底部，回到顶部
+                container.scrollToPosition(0);
+              } else {
+                container.scrollToPosition(newScrollTop);
+              }
+            }
+          }
+        }, 100);
+
+        this.$message.success('自动滚动已开始');
+      },
+
+      // 停止自动滚动
+      stopAutoScroll() {
+        if (this.autoScrollTimer) {
+          clearInterval(this.autoScrollTimer);
+          this.autoScrollTimer = null;
+          this.$message.info('自动滚动已停止');
+        }
+      },
+    },
+    beforeDestroy() {
+      // 清理自动滚动定时器
+      if (this.autoScrollTimer) {
+        clearInterval(this.autoScrollTimer);
+        this.autoScrollTimer = null;
+      }
     },
     watch: {
       cssProperty() {
@@ -2323,5 +2661,106 @@
         }
       }
     }
+  }
+
+  /* 自定义滚动控制面板样式 */
+  .custom-scroll-controls {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #409eff;
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #409eff;
+      font-size: 14px;
+    }
+  }
+
+  /* 性能监控面板样式 */
+  .performance-monitor {
+    margin-top: 15px;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .performance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .performance-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+
+      .label {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .value {
+        font-weight: bold;
+        font-size: 14px;
+
+        &.warning {
+          color: #ffa726;
+        }
+
+        &.danger {
+          color: #ef5350;
+        }
+      }
+    }
+
+    .performance-actions {
+      text-align: center;
+
+      .el-button {
+        margin: 0 5px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+  }
+
+  /* 滚动高亮动画 */
+  @keyframes scrollHighlight {
+    0% {
+      background-color: transparent;
+    }
+    50% {
+      background-color: rgba(64, 158, 255, 0.2);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+
+  .scroll-highlight {
+    animation: scrollHighlight 0.5s ease-in-out;
   }
 </style>

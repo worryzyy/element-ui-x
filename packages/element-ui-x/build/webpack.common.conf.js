@@ -17,11 +17,7 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          compilerOptions: {
-            preserveWhitespace: false,
-          },
-        },
+        options: { compilerOptions: { preserveWhitespace: false } },
       },
       {
         test: /\.js$/,
@@ -35,11 +31,7 @@ module.exports = {
           'css-loader',
           {
             loader: 'sass-loader',
-            options: {
-              sassOptions: {
-                outputStyle: 'compressed',
-              },
-            },
+            options: { sassOptions: { outputStyle: 'compressed' } },
           },
         ],
       },
@@ -47,9 +39,7 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/(locale)$/,
       contextRegExp: /moment$/,

@@ -1,5 +1,8 @@
 /* ElXConversations 组件样式 */
 
+/* 引入虚拟滚动样式 */
+@import '~vue-virtual-scroller/dist/vue-virtual-scroller.css';
+
 /* 主容器 */
 .el-x-conversations-container {
   display: flex;

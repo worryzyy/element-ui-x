@@ -15,8 +15,20 @@ module.exports = merge(commonConfig, {
   },
   // 外部化依赖，不打包进组件库
   externals: {
-    vue: 'Vue',
-    'element-ui': 'ELEMENT',
+    // vue: 'Vue',
+    // 'element-ui': 'ELEMENT',
+    vue: {
+      commonjs: 'vue',
+      commonjs2: 'vue',
+      amd: 'vue',
+      root: 'Vue',
+    },
+    'element-ui': {
+      commonjs: 'element-ui',
+      commonjs2: 'element-ui',
+      amd: 'element-ui',
+      root: 'ELEMENT',
+    },
     // 'markdown-it': 'markdown-it',
     // dompurify: 'DOMPurify',
     // prismjs: 'Prism',
@@ -51,9 +63,7 @@ module.exports = merge(commonConfig, {
   },
   plugins: [
     // 定义环境变量
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
     // 忽略特定的模块
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/(locale)$/,
