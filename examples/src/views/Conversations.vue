@@ -220,6 +220,233 @@
       </div>
 
       <div class="demo-block">
+        <h3>虚拟滚动 vs 原生滚动对比测试</h3>
+        <div class="virtual-scroll-test">
+          <div class="control-section">
+            <div class="control-row">
+              <h4>滚动模式：</h4>
+              <el-radio-group
+                v-model="scrollMode"
+                size="small"
+                @change="handleScrollModeChange"
+              >
+                <el-radio-button label="native">原生滚动</el-radio-button>
+                <el-radio-button label="virtual">虚拟滚动</el-radio-button>
+              </el-radio-group>
+            </div>
+            <div class="control-row">
+              <h4>数据量：</h4>
+              <el-radio-group
+                v-model="dataSize"
+                size="small"
+                @change="generateTestData"
+              >
+                <el-radio-button label="small">少量 (50条)</el-radio-button>
+                <el-radio-button label="medium">中等 (500条)</el-radio-button>
+                <el-radio-button label="large">大量 (2000条)</el-radio-button>
+              </el-radio-group>
+            </div>
+            <div class="control-row">
+              <h4>分组模式：</h4>
+              <el-switch
+                v-model="enableGrouping"
+                active-text="启用分组"
+                @change="generateTestData"
+              />
+            </div>
+            <div class="control-row">
+              <h4>列表高度：</h4>
+              <el-slider
+                v-model="testListHeight"
+                :min="200"
+                :max="600"
+                :step="50"
+                style="width: 200px"
+              />
+            </div>
+
+            <!-- 自定义滚动功能控制 -->
+            <div
+              v-if="scrollMode === 'virtual'"
+              class="custom-scroll-controls"
+            >
+              <h4>自定义滚动功能：</h4>
+              <div class="control-row">
+                <el-checkbox v-model="performanceMonitorVisible">性能监控</el-checkbox>
+                <el-checkbox v-model="scrollInteractions.autoScrollEnabled">自动滚动</el-checkbox>
+                <el-checkbox v-model="scrollInteractions.highlightOnScroll">滚动高亮</el-checkbox>
+                <el-checkbox v-model="scrollInteractions.scrollToMiddleOnClick">
+                  点击居中
+                </el-checkbox>
+              </div>
+
+              <div
+                v-if="scrollInteractions.autoScrollEnabled"
+                class="control-row"
+              >
+                <h4>自动滚动速度：</h4>
+                <el-slider
+                  v-model="scrollInteractions.autoScrollSpeed"
+                  :min="1"
+                  :max="10"
+                  style="width: 150px"
+                />
+                <el-button
+                  size="mini"
+                  @click="startAutoScroll"
+                >
+                  开始
+                </el-button>
+                <el-button
+                  size="mini"
+                  @click="stopAutoScroll"
+                >
+                  停止
+                </el-button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="test-container"
+            :style="{ height: `${testListHeight}px` }"
+          >
+            <el-x-conversations
+              :key="scrollMode + dataSize + enableGrouping"
+              :items="testConversationItems"
+              :active="activeTestItem"
+              :groupable="enableGrouping"
+              :virtual-scroll="scrollMode === 'virtual'"
+              :virtual-scroll-options="virtualScrollTestOptions"
+              :virtual-scroll-custom-handler="customVirtualScrollHandler"
+              :show-to-top-btn="true"
+              :style="testContainerStyle"
+              @change="handleTestItemChange"
+            >
+              <template #group-title="{ group }">
+                <div class="test-group-title">
+                  <i :class="getTestGroupIcon(group.title)"></i>
+                  <span>{{ group.title }}</span>
+                  <span class="group-count">
+                    ({{ group.children ? group.children.length : 0 }})
+                  </span>
+                </div>
+              </template>
+
+              <template #label="{ item }">
+                <div class="test-item-label">
+                  <i
+                    :class="item.icon || 'el-icon-chat-dot-round'"
+                    class="item-icon"
+                  ></i>
+                  <div class="item-content">
+                    <div class="item-title">{{ item.label }}</div>
+                    <div class="item-subtitle">{{ item.subtitle || '测试消息内容' }}</div>
+                  </div>
+                  <div class="item-meta">
+                    <span class="item-time">{{ item.time || '刚刚' }}</span>
+                  </div>
+                </div>
+              </template>
+            </el-x-conversations>
+          </div>
+
+          <!-- 性能监控面板 -->
+          <div
+            v-if="performanceMonitorVisible && scrollMode === 'virtual'"
+            class="performance-monitor"
+          >
+            <h4>🚀 性能监控</h4>
+            <div class="performance-grid">
+              <div class="performance-item">
+                <span class="label">FPS:</span>
+                <span
+                  class="value"
+                  :class="{
+                    warning: scrollPerformanceData.fps < 50,
+                    danger: scrollPerformanceData.fps < 30,
+                  }"
+                >
+                  {{ scrollPerformanceData.fps }}
+                </span>
+              </div>
+              <div class="performance-item">
+                <span class="label">滚动事件:</span>
+                <span class="value">{{ scrollPerformanceData.scrollEvents }}</span>
+              </div>
+              <div class="performance-item">
+                <span class="label">当前速度:</span>
+                <span class="value">
+                  {{ scrollPerformanceData.currentScrollSpeed.toFixed(2) }}px/s
+                </span>
+              </div>
+              <div class="performance-item">
+                <span class="label">最大速度:</span>
+                <span class="value">{{ scrollPerformanceData.maxScrollSpeed.toFixed(2) }}px/s</span>
+              </div>
+              <div class="performance-item">
+                <span class="label">总滚动距离:</span>
+                <span class="value">{{ scrollStatistics.totalScrollDistance.toFixed(0) }}px</span>
+              </div>
+              <div class="performance-item">
+                <span class="label">滚动方向:</span>
+                <span class="value">
+                  {{ scrollStatistics.scrollDirection === 'up' ? '⬆️ 向上' : '⬇️ 向下' }}
+                </span>
+              </div>
+            </div>
+            <div class="performance-actions">
+              <el-button
+                size="mini"
+                @click="resetPerformanceData"
+              >
+                重置数据
+              </el-button>
+              <el-button
+                size="mini"
+                @click="jumpToRandomItem"
+              >
+                随机跳转
+              </el-button>
+            </div>
+          </div>
+
+          <div class="test-info">
+            <div class="info-item">
+              <strong>当前模式：</strong>
+              <el-tag :type="scrollMode === 'virtual' ? 'success' : 'primary'">
+                {{ scrollMode === 'virtual' ? '虚拟滚动' : '原生滚动' }}
+              </el-tag>
+            </div>
+            <div class="info-item">
+              <strong>数据量：</strong>
+              <el-tag>{{ testConversationItems.length }} 条</el-tag>
+            </div>
+            <div class="info-item">
+              <strong>分组状态：</strong>
+              <el-tag :type="enableGrouping ? 'success' : 'info'">
+                {{ enableGrouping ? '已启用' : '已禁用' }}
+              </el-tag>
+            </div>
+            <div class="info-item">
+              <strong>性能提示：</strong>
+              <span class="performance-tip">
+                {{
+                  scrollMode === 'virtual'
+                    ? '虚拟滚动适合大量数据，只渲染可见区域，性能更好'
+                    : '原生滚动适合少量数据，DOM结构完整，功能更全面'
+                }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="demo-description">
+          通过切换滚动模式和数据量，可以直观感受虚拟滚动和原生滚动的性能差异。虚拟滚动在大数据量时表现更佳，
+          原生滚动在功能完整性方面更有优势。
+        </div>
+      </div>
+
+      <div class="demo-block">
         <h3>实际应用场景 - 智能客服系统</h3>
         <div class="real-world-container">
           <div class="customer-service-panel">
@@ -999,6 +1226,50 @@
             description: '您可以在收到商品后15天内申请退换货。',
           },
         ],
+
+        // 虚拟滚动测试相关数据
+        scrollMode: 'native', // 'native' | 'virtual'
+        dataSize: 'small', // 'small' | 'medium' | 'large'
+        enableGrouping: true,
+        testListHeight: 400,
+        testConversationItems: [],
+        activeTestItem: '',
+        autoScrollTimer: null,
+        virtualScrollTestOptions: {
+          size: 60, // 每项高度
+          buffer: 200, // 缓冲区大小(像素)
+        },
+        testContainerStyle: {
+          border: '1px solid #ebeef5',
+          borderRadius: '4px',
+        },
+
+        // 自定义滚动功能数据
+        scrollPerformanceData: {
+          fps: 0,
+          scrollEvents: 0,
+          lastTime: 0,
+          frameCount: 0,
+          averageRenderTime: 0,
+          maxScrollSpeed: 0,
+          currentScrollSpeed: 0,
+        },
+        scrollInteractions: {
+          autoScrollEnabled: false,
+          autoScrollSpeed: 2,
+          highlightOnScroll: false,
+          scrollToMiddleOnClick: false,
+          smoothScrollEnabled: true,
+        },
+        performanceMonitorVisible: false,
+        scrollStatistics: {
+          totalScrollDistance: 0,
+          scrollDirection: 'down',
+          lastScrollTop: 0,
+          scrollSessions: 0,
+          averageScrollSpeed: 0,
+          maxScrollPosition: 0,
+        },
       };
     },
     created() {
@@ -1008,6 +1279,8 @@
       this.updateBtnStyle();
       // 初始化客服列表
       this.initServiceConversations();
+      // 初始化虚拟滚动测试数据
+      this.generateTestData();
     },
     computed: {
       activeServiceItemData() {
@@ -1175,149 +1448,49 @@
         setTimeout(() => {
           const valueMap = {
             backgroundColor: [
-              {
-                value: '#409EFF',
-              },
-              {
-                value: '#67C23A',
-              },
-              {
-                value: '#E6A23C',
-              },
-              {
-                value: '#F56C6C',
-              },
-              {
-                value: 'transparent',
-              },
+              { value: '#409EFF' },
+              { value: '#67C23A' },
+              { value: '#E6A23C' },
+              { value: '#F56C6C' },
+              { value: 'transparent' },
             ],
-            borderRadius: [
-              {
-                value: '2px',
-              },
-              {
-                value: '4px',
-              },
-              {
-                value: '8px',
-              },
-              {
-                value: '50%',
-              },
-            ],
+            borderRadius: [{ value: '2px' }, { value: '4px' }, { value: '8px' }, { value: '50%' }],
             boxShadow: [
-              {
-                value: '0 2px 4px rgba(0,0,0,0.1)',
-              },
-              {
-                value: '0 2px 12px 0 rgba(0,0,0,0.1)',
-              },
-              {
-                value: '0 0 6px rgba(0,0,0,0.2)',
-              },
-              {
-                value: 'none',
-              },
+              { value: '0 2px 4px rgba(0,0,0,0.1)' },
+              { value: '0 2px 12px 0 rgba(0,0,0,0.1)' },
+              { value: '0 0 6px rgba(0,0,0,0.2)' },
+              { value: 'none' },
             ],
             color: [
-              {
-                value: '#409EFF',
-              },
-              {
-                value: '#67C23A',
-              },
-              {
-                value: '#E6A23C',
-              },
-              {
-                value: '#F56C6C',
-              },
-              {
-                value: '#FFFFFF',
-              },
+              { value: '#409EFF' },
+              { value: '#67C23A' },
+              { value: '#E6A23C' },
+              { value: '#F56C6C' },
+              { value: '#FFFFFF' },
             ],
-            fontSize: [
-              {
-                value: '12px',
-              },
-              {
-                value: '14px',
-              },
-              {
-                value: '16px',
-              },
-              {
-                value: '18px',
-              },
-            ],
+            fontSize: [{ value: '12px' }, { value: '14px' }, { value: '16px' }, { value: '18px' }],
             fontWeight: [
-              {
-                value: 'normal',
-              },
-              {
-                value: 'bold',
-              },
-              {
-                value: '400',
-              },
-              {
-                value: '600',
-              },
+              { value: 'normal' },
+              { value: 'bold' },
+              { value: '400' },
+              { value: '600' },
             ],
-            position: [
-              {
-                value: 'absolute',
-              },
-              {
-                value: 'fixed',
-              },
-              {
-                value: 'relative',
-              },
-            ],
+            position: [{ value: 'absolute' }, { value: 'fixed' }, { value: 'relative' }],
             transform: [
-              {
-                value: 'scale(1.1)',
-              },
-              {
-                value: 'rotate(45deg)',
-              },
-              {
-                value: 'translateY(-5px)',
-              },
+              { value: 'scale(1.1)' },
+              { value: 'rotate(45deg)' },
+              { value: 'translateY(-5px)' },
             ],
-            opacity: [
-              {
-                value: '0.5',
-              },
-              {
-                value: '0.8',
-              },
-              {
-                value: '1',
-              },
-            ],
+            opacity: [{ value: '0.5' }, { value: '0.8' }, { value: '1' }],
           };
 
           this.cssValueOptions = valueMap[this.cssProperty] || [
-            {
-              value: 'auto',
-            },
-            {
-              value: '0',
-            },
-            {
-              value: '10px',
-            },
-            {
-              value: '16px',
-            },
-            {
-              value: '24px',
-            },
-            {
-              value: '100%',
-            },
+            { value: 'auto' },
+            { value: '0' },
+            { value: '10px' },
+            { value: '16px' },
+            { value: '24px' },
+            { value: '100%' },
           ];
 
           this.loadingCssValues = false;
@@ -1327,54 +1500,22 @@
       // 输入提示处理函数
       queryPropertySearch(queryString, cb) {
         const properties = [
-          {
-            value: 'backgroundColor',
-          },
-          {
-            value: 'borderRadius',
-          },
-          {
-            value: 'boxShadow',
-          },
-          {
-            value: 'color',
-          },
-          {
-            value: 'fontSize',
-          },
-          {
-            value: 'fontWeight',
-          },
-          {
-            value: 'height',
-          },
-          {
-            value: 'left',
-          },
-          {
-            value: 'opacity',
-          },
-          {
-            value: 'padding',
-          },
-          {
-            value: 'position',
-          },
-          {
-            value: 'right',
-          },
-          {
-            value: 'top',
-          },
-          {
-            value: 'transform',
-          },
-          {
-            value: 'width',
-          },
-          {
-            value: 'zIndex',
-          },
+          { value: 'backgroundColor' },
+          { value: 'borderRadius' },
+          { value: 'boxShadow' },
+          { value: 'color' },
+          { value: 'fontSize' },
+          { value: 'fontWeight' },
+          { value: 'height' },
+          { value: 'left' },
+          { value: 'opacity' },
+          { value: 'padding' },
+          { value: 'position' },
+          { value: 'right' },
+          { value: 'top' },
+          { value: 'transform' },
+          { value: 'width' },
+          { value: 'zIndex' },
         ];
 
         const results = queryString
@@ -1674,6 +1815,287 @@
           message: '已选择快速回复模板',
         });
       },
+
+      // 虚拟滚动测试相关方法
+      generateTestData() {
+        const dataSizes = {
+          small: 50,
+          medium: 500,
+          large: 2000,
+        };
+
+        const count = dataSizes[this.dataSize];
+        const items = [];
+
+        // 预定义的分组
+        const groups = ['工作群组', '学习小组', '朋友圈', '家庭群', '技术交流', '兴趣爱好'];
+        const icons = [
+          'el-icon-chat-dot-round',
+          'el-icon-chat-round',
+          'el-icon-chat-line-round',
+          'el-icon-user',
+          'el-icon-office-building',
+        ];
+        const times = ['刚刚', '5分钟前', '10分钟前', '半小时前', '1小时前', '昨天', '上周'];
+
+        for (let i = 0; i < count; i++) {
+          const groupIndex = Math.floor(i / (count / groups.length));
+          const item = {
+            id: `test-${i + 1}`,
+            key: `test-${i + 1}`,
+            label: `测试会话 ${i + 1}`,
+            subtitle: `这是第 ${i + 1} 个测试消息，用于演示滚动性能`,
+            icon: icons[i % icons.length],
+            time: times[i % times.length],
+          };
+
+          // 如果启用分组，添加分组信息
+          if (this.enableGrouping) {
+            item.group = groups[groupIndex] || groups[0];
+          }
+
+          items.push(item);
+        }
+
+        this.testConversationItems = items;
+
+        // 默认选中第一项
+        if (items.length > 0) {
+          this.activeTestItem = items[0].id;
+        }
+      },
+
+      handleScrollModeChange() {
+        // 滚动模式切换时重新生成数据以确保组件重新渲染
+        this.$nextTick(() => {
+          this.generateTestData();
+        });
+      },
+
+      handleTestItemChange(item) {
+        this.activeTestItem = item.uniqueKey || item.id;
+
+        // 点击居中功能
+        if (this.scrollInteractions.scrollToMiddleOnClick && this.scrollMode === 'virtual') {
+          this.$nextTick(() => {
+            const conversationComponent = this.$children.find(
+              child => child.$options.name === 'ElXConversations' && child.virtualScroll,
+            );
+
+            if (conversationComponent) {
+              conversationComponent.scrollToItem(item.id || item.uniqueKey);
+            }
+          });
+        }
+      },
+
+      getTestGroupIcon(groupTitle) {
+        const iconMap = {
+          工作群组: 'el-icon-office-building',
+          学习小组: 'el-icon-reading',
+          朋友圈: 'el-icon-user',
+          家庭群: 'el-icon-house',
+          技术交流: 'el-icon-cpu',
+          兴趣爱好: 'el-icon-star-on',
+        };
+        return iconMap[groupTitle] || 'el-icon-folder';
+      },
+
+      // 自定义虚拟滚动处理方法 - 包含性能监控、统计和特殊交互
+      customVirtualScrollHandler(event, scrollInfo) {
+        // 只在虚拟滚动模式下执行自定义逻辑
+        if (this.scrollMode !== 'virtual') {
+          return;
+        }
+
+        // === 性能监控 ===
+        if (this.performanceMonitorVisible) {
+          this.updatePerformanceMetrics(scrollInfo);
+        }
+
+        // === 滚动统计 ===
+        this.updateScrollStatistics(scrollInfo);
+
+        // === 滚动高亮特效 ===
+        if (this.scrollInteractions.highlightOnScroll) {
+          this.highlightVisibleItems();
+        }
+
+        // === 智能滚动优化 ===
+        if (this.scrollInteractions.smoothScrollEnabled) {
+          this.applySmoothScrolling(event);
+        }
+
+        // 继续执行默认滚动处理
+        return undefined;
+      },
+
+      // 更新性能指标
+      updatePerformanceMetrics(scrollInfo) {
+        const currentTime = performance.now();
+        this.scrollPerformanceData.scrollEvents++;
+
+        // 计算 FPS
+        if (this.scrollPerformanceData.lastTime) {
+          const deltaTime = currentTime - this.scrollPerformanceData.lastTime;
+          if (deltaTime > 0) {
+            const currentFPS = Math.round(1000 / deltaTime);
+            this.scrollPerformanceData.fps = currentFPS;
+          }
+        }
+        this.scrollPerformanceData.lastTime = currentTime;
+
+        // 计算滚动速度
+        if (this.scrollStatistics.lastScrollTop !== undefined) {
+          const deltaScroll = Math.abs(scrollInfo.scrollTop - this.scrollStatistics.lastScrollTop);
+          const deltaTime = currentTime - (this.scrollPerformanceData.lastTime || currentTime);
+          if (deltaTime > 0) {
+            this.scrollPerformanceData.currentScrollSpeed = (deltaScroll / deltaTime) * 1000;
+            if (
+              this.scrollPerformanceData.currentScrollSpeed >
+              this.scrollPerformanceData.maxScrollSpeed
+            ) {
+              this.scrollPerformanceData.maxScrollSpeed =
+                this.scrollPerformanceData.currentScrollSpeed;
+            }
+          }
+        }
+      },
+
+      // 更新滚动统计
+      updateScrollStatistics(scrollInfo) {
+        if (this.scrollStatistics.lastScrollTop !== undefined) {
+          const deltaScroll = Math.abs(scrollInfo.scrollTop - this.scrollStatistics.lastScrollTop);
+          this.scrollStatistics.totalScrollDistance += deltaScroll;
+
+          // 判断滚动方向
+          if (scrollInfo.scrollTop > this.scrollStatistics.lastScrollTop) {
+            this.scrollStatistics.scrollDirection = 'down';
+          } else if (scrollInfo.scrollTop < this.scrollStatistics.lastScrollTop) {
+            this.scrollStatistics.scrollDirection = 'up';
+          }
+        }
+
+        this.scrollStatistics.lastScrollTop = scrollInfo.scrollTop;
+
+        // 记录最大滚动位置
+        if (scrollInfo.scrollTop > this.scrollStatistics.maxScrollPosition) {
+          this.scrollStatistics.maxScrollPosition = scrollInfo.scrollTop;
+        }
+      },
+
+      // 高亮可见项目
+      highlightVisibleItems() {
+        // 简单的视觉反馈，可以通过CSS动画实现
+        this.$nextTick(() => {
+          const visibleItems = document.querySelectorAll('.test-item-label');
+          visibleItems.forEach((item, index) => {
+            if (index % 3 === 0) {
+              // 每三个项目高亮一个
+              item.style.transition = 'background-color 0.3s ease';
+              item.style.backgroundColor = 'rgba(64, 158, 255, 0.1)';
+              setTimeout(() => {
+                item.style.backgroundColor = '';
+              }, 300);
+            }
+          });
+        });
+      },
+
+      // 应用平滑滚动
+      applySmoothScrolling(event) {
+        // 添加平滑滚动的CSS类
+        const container = event.target;
+        if (container) {
+          container.style.scrollBehavior = 'smooth';
+        }
+      },
+
+      // 重置性能数据
+      resetPerformanceData() {
+        this.scrollPerformanceData = {
+          fps: 0,
+          scrollEvents: 0,
+          lastTime: 0,
+          frameCount: 0,
+          averageRenderTime: 0,
+          maxScrollSpeed: 0,
+          currentScrollSpeed: 0,
+        };
+        this.scrollStatistics = {
+          totalScrollDistance: 0,
+          scrollDirection: 'down',
+          lastScrollTop: 0,
+          scrollSessions: 0,
+          averageScrollSpeed: 0,
+          maxScrollPosition: 0,
+        };
+        this.$message.success('性能数据已重置');
+      },
+
+      // 跳转到随机项目
+      jumpToRandomItem() {
+        if (this.testConversationItems.length === 0) return;
+
+        const randomIndex = Math.floor(Math.random() * this.testConversationItems.length);
+        const randomItem = this.testConversationItems[randomIndex];
+
+        // 使用组件的公共方法滚动到指定项目
+        const conversationComponent = this.$children.find(
+          child => child.$options.name === 'ElXConversations' && child.virtualScroll,
+        );
+
+        if (conversationComponent) {
+          conversationComponent.scrollToItem(randomItem.id);
+          this.activeTestItem = randomItem.id;
+          this.$message.info(`已跳转到：${randomItem.label}`);
+        }
+      },
+
+      // 开始自动滚动
+      startAutoScroll() {
+        if (this.autoScrollTimer) return;
+
+        this.autoScrollTimer = setInterval(() => {
+          const conversationComponent = this.$children.find(
+            child => child.$options.name === 'ElXConversations' && child.virtualScroll,
+          );
+
+          if (conversationComponent) {
+            const container = conversationComponent.getVirtualScrollContainer();
+            if (container && container.$el) {
+              const currentScrollTop = container.$el.scrollTop;
+              const maxScroll = container.$el.scrollHeight - container.$el.clientHeight;
+              const newScrollTop = currentScrollTop + this.scrollInteractions.autoScrollSpeed * 10;
+
+              if (newScrollTop >= maxScroll) {
+                // 到达底部，回到顶部
+                container.scrollToPosition(0);
+              } else {
+                container.scrollToPosition(newScrollTop);
+              }
+            }
+          }
+        }, 100);
+
+        this.$message.success('自动滚动已开始');
+      },
+
+      // 停止自动滚动
+      stopAutoScroll() {
+        if (this.autoScrollTimer) {
+          clearInterval(this.autoScrollTimer);
+          this.autoScrollTimer = null;
+          this.$message.info('自动滚动已停止');
+        }
+      },
+    },
+    beforeDestroy() {
+      // 清理自动滚动定时器
+      if (this.autoScrollTimer) {
+        clearInterval(this.autoScrollTimer);
+        this.autoScrollTimer = null;
+      }
     },
     watch: {
       cssProperty() {
@@ -2135,5 +2557,210 @@
     p {
       font-size: 16px;
     }
+  }
+
+  /* 虚拟滚动测试样式 */
+  .virtual-scroll-test {
+    .control-section {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+
+    .test-container {
+      border: 1px solid #ebeef5;
+      border-radius: 4px;
+      margin: 15px 0;
+      overflow: hidden;
+    }
+
+    .test-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #f5f7fa;
+      border-radius: 4px;
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        strong {
+          color: #303133;
+          font-size: 13px;
+        }
+
+        .performance-tip {
+          color: #606266;
+          font-size: 12px;
+          max-width: 300px;
+        }
+      }
+    }
+
+    .test-group-title {
+      display: flex;
+      align-items: center;
+
+      i {
+        margin-right: 8px;
+        color: #409eff;
+      }
+
+      .group-count {
+        margin-left: 5px;
+        font-size: 12px;
+        color: #909399;
+      }
+    }
+
+    .test-item-label {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 10px;
+
+      .item-icon {
+        color: #409eff;
+        flex-shrink: 0;
+      }
+
+      .item-content {
+        flex: 1;
+        min-width: 0;
+
+        .item-title {
+          font-weight: 500;
+          color: #303133;
+          font-size: 14px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .item-subtitle {
+          font-size: 12px;
+          color: #909399;
+          margin-top: 2px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .item-meta {
+        flex-shrink: 0;
+
+        .item-time {
+          font-size: 12px;
+          color: #909399;
+        }
+      }
+    }
+  }
+
+  /* 自定义滚动控制面板样式 */
+  .custom-scroll-controls {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #409eff;
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #409eff;
+      font-size: 14px;
+    }
+  }
+
+  /* 性能监控面板样式 */
+  .performance-monitor {
+    margin-top: 15px;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .performance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .performance-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+
+      .label {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .value {
+        font-weight: bold;
+        font-size: 14px;
+
+        &.warning {
+          color: #ffa726;
+        }
+
+        &.danger {
+          color: #ef5350;
+        }
+      }
+    }
+
+    .performance-actions {
+      text-align: center;
+
+      .el-button {
+        margin: 0 5px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+  }
+
+  /* 滚动高亮动画 */
+  @keyframes scrollHighlight {
+    0% {
+      background-color: transparent;
+    }
+    50% {
+      background-color: rgba(64, 158, 255, 0.2);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+
+  .scroll-highlight {
+    animation: scrollHighlight 0.5s ease-in-out;
   }
 </style>
