@@ -69,10 +69,9 @@
       </transition>
     </button>
 
-    <Transition name="slide">
+    <transition name="slide">
       <div
-        v-show="isExpanded"
-        v-if="displayedContent"
+        v-if="isExpanded && displayedContent"
         class="content-wrapper"
         :class="{ 'error-state': localStatus === 'error' }"
       >
@@ -94,7 +93,7 @@
           </slot>
         </div>
       </div>
-    </Transition>
+    </transition>
   </div>
 </template>
 

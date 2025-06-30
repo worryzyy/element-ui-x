@@ -42,29 +42,9 @@
             @scroll="handleVirtualScroll"
           >
             <template #default="{ item }">
-              <div
-                class="virtual-item-wrapper"
-                :class="{
-                  'is-group-title': item.type === 'group-title',
-                  'is-conversation-item': item.type === 'item',
-                }"
-              >
-                <!-- 分组标题 -->
-                <div
-                  v-if="item.type === 'group-title'"
-                  class="el-x-conversation-group-title virtual-group-title"
-                >
-                  <slot
-                    name="group-title"
-                    :group="item"
-                  >
-                    {{ item.title }}
-                  </slot>
-                </div>
-
-                <!-- 普通项目 -->
+              <div class="virtual-item-wrapper">
+                <!-- 会话项目 -->
                 <conversations-item
-                  v-else
                   :item="item"
                   :active="item.uniqueKey === active"
                   :items-style="itemsStyle"
@@ -299,8 +279,8 @@
 
 <script>
   import { get } from 'lodash';
-  import ConversationsItem from './components/item.vue';
   import { RecycleScroller } from 'vue-virtual-scroller';
+  import ConversationsItem from './components/item.vue';
   export default {
     name: 'ElXConversations',
 
@@ -564,23 +544,14 @@
         if (this.shouldUseGrouping) {
           const result = [];
           this.groups.forEach(group => {
-            // 添加分组标题
-            result.push({
-              type: 'group-title',
-              key: `group-${group.key}`,
-              title: group.title,
-              groupKey: group.key,
-              isUngrouped: group.isUngrouped,
-              // 为虚拟滚动指定分组标题的高度
-              virtualHeight: 40, // 分组标题高度
-              size: 40,
-            });
-            // 添加分组内容
+            // 直接添加分组内容，不添加分组标题项
             group.children.forEach(item => {
               result.push({
                 type: 'item',
                 ...item,
                 groupKey: group.key,
+                groupTitle: group.title, // 添加分组标题信息用于粘性标题显示
+                isUngrouped: group.isUngrouped,
                 // 为虚拟滚动指定项目的高度
                 virtualHeight: this.virtualScrollOptions.size || 60,
                 size: this.virtualScrollOptions.size || 60,
@@ -829,18 +800,13 @@
         // 计算当前应该显示的粘性分组
         let currentGroupKey = null;
         let accumulatedHeight = 0;
+        const itemHeight = this.virtualScrollOptions.size || 60;
 
         // 遍历扁平化列表，找到当前滚动位置对应的分组
         for (const item of this.flattenedList) {
-          const itemHeight =
-            item.type === 'group-title' ? 40 : this.virtualScrollOptions.size || 60;
-
           if (accumulatedHeight + itemHeight > scrollTop) {
-            // 如果当前项目是分组标题且已经滚动过了，使用这个分组
-            if (item.type === 'group-title' && accumulatedHeight <= scrollTop) {
-              currentGroupKey = item.groupKey;
-            } else if (item.groupKey) {
-              // 如果是普通项目，使用其所属分组
+            // 直接使用项目的分组信息
+            if (item.groupKey) {
               currentGroupKey = item.groupKey;
             }
             break;
@@ -1023,22 +989,6 @@
     z-index: 100;
     background-color: var(--conversation-list-auto-bg-color, #fff);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  /* 虚拟滚动中的分组标题样式 */
-  .virtual-group-title {
-    margin-bottom: 0 !important;
-  }
-
-  /* 虚拟项目包装器样式调整 */
-  .virtual-item-wrapper {
-    &.is-group-title {
-      margin-bottom: 0 !important;
-    }
-
-    &.is-conversation-item {
-      margin-top: 0 !important;
-    }
   }
 
   /* 确保虚拟滚动容器有正确的相对定位 */

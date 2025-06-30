@@ -68,16 +68,21 @@
 
 .slide-enter-active,
 .slide-leave-active {
-  height: max-content;
-  transition: height var(--el-x-thinking-animation-duration) ease-in-out,
+  transition: max-height var(--el-x-thinking-animation-duration) ease-in-out,
     opacity var(--el-x-thinking-animation-duration) ease-in-out;
   overflow: hidden;
 }
 
 .slide-enter-from,
 .slide-leave-to {
-  height: 0 !important;
+  max-height: 0;
   opacity: 0;
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  max-height: 1000px;
+  opacity: 1;
 }
 
 .content-wrapper {
