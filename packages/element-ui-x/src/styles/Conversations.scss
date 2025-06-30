@@ -261,3 +261,164 @@
   max-height: 300px;
   overflow-y: auto;
 }
+
+/* ===== 虚拟滚动相关样式 ===== */
+
+/* 自定义滚动条样式 */
+.el-x-conversations-scrollbar {
+  height: 100%;
+  overflow-y: auto;
+
+  /* 隐藏默认滚动条 */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  /* 鼠标悬停时显示滚动条 */
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background-color: #e0e0e0;
+    }
+  }
+}
+
+/* 虚拟滚动容器样式 */
+.el-x-conversations-virtual-scrollbar {
+  height: 100%;
+
+  /* 继承原滚动条样式 */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background-color: #e0e0e0;
+    }
+  }
+
+  /* 修复 vue-virtual-scroller 默认样式 */
+  .vue-recycle-scroller {
+    height: 100%;
+  }
+
+  .vue-recycle-scroller__item-wrapper {
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .vue-recycle-scroller__item-view {
+    width: 100%;
+  }
+
+  .virtual-item-wrapper {
+    .el-x-conversation-item {
+      margin-bottom: 4px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+/* 为Firefox添加滚动条样式 */
+@supports (scrollbar-width: thin) {
+  .el-x-conversations-scrollbar,
+  .el-x-conversations-virtual-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &:hover {
+      scrollbar-color: #e0e0e0 transparent;
+    }
+  }
+}
+
+/* 虚拟滚动项目包装器样式 */
+.virtual-item-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 覆盖 vue-virtual-scroller 的默认样式 */
+// .el-x-conversations-virtual-scrollbar {
+//   ::v-deep .vue-recycle-scroller__item-wrapper {
+//     margin: 0 !important;
+//     padding: 0 !important;
+//   }
+
+//   ::v-deep .vue-recycle-scroller__item-view {
+//     margin: 0 !important;
+//     padding: 0 !important;
+//     width: 100% !important;
+//   }
+// }
+
+/* 虚拟粘性分组标题 */
+.virtual-sticky-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--conversation-list-auto-bg-color, #fff);
+
+  .el-x-conversation-group-title {
+    font-size: 14px;
+    color: #909399;
+    padding: 8px 0;
+    font-weight: 500;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    // 预留滚动条宽度
+    width: calc(100% - 10px);
+    box-sizing: border-box;
+  }
+}
+
+/* 有粘性标题时给虚拟滚动容器添加顶部padding */
+.vue-recycle-scroller.el-x-conversations-virtual-scrollbar.has-sticky-header {
+  padding-top: 40px; /* 为粘性标题留出空间 */
+}
+
+/* 虚拟滚动项目间距样式 */
+.virtual-item-wrapper {
+  &.with-margin {
+    margin-bottom: 4px;
+  }
+}
+
+/* 虚拟滚动模式下的item样式调整 */
+// .el-x-conversations-virtual-scrollbar {
+//   .virtual-item-wrapper {
+//     // margin-top: 4px;
+//     // &:not(:first-child) {
+//     //   margin-top: 4px;
+//     // }
+//   }
+// }

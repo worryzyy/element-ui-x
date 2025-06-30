@@ -1236,7 +1236,7 @@
         activeTestItem: '',
         autoScrollTimer: null,
         virtualScrollTestOptions: {
-          size: 60, // 每项高度
+          size: 52, // 每项高度
           buffer: 200, // 缓冲区大小(像素)
         },
         testContainerStyle: {

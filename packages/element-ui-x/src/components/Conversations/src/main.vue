@@ -39,10 +39,14 @@
             :item-size="virtualScrollOptions.size || 60"
             :buffer="virtualScrollOptions.buffer || 200"
             key-field="key"
-            @scroll="handleVirtualScroll"
+            :emit-update="true"
+            @update="handleVirtualUpdate"
           >
             <template #default="{ item }">
-              <div class="virtual-item-wrapper">
+              <div
+                class="virtual-item-wrapper"
+                :class="{ 'with-margin': !shouldUseGrouping }"
+              >
                 <!-- 会话项目 -->
                 <conversations-item
                   :item="item"
@@ -581,6 +585,14 @@
           this.currentStickyGroup = this.groups[0];
         }
       }
+
+      // 虚拟滚动模式不需要手动添加滚动监听器
+      // RecycleScroller 组件已经通过 @scroll 事件提供了滚动监听
+    },
+
+    beforeDestroy() {
+      // 虚拟滚动模式不需要手动移除监听器
+      // RecycleScroller 组件会自动处理事件的清理
     },
 
     methods: {
@@ -595,17 +607,25 @@
         const scrollContainer = this.$refs.scrollContainer;
         if (!scrollContainer) return;
 
-        const scrollTop = scrollContainer.scrollTop;
+        // 安全获取滚动信息
+        let scrollTop = 0;
+        let scrollHeight = 0;
+        let clientHeight = 0;
+
+        try {
+          scrollTop = scrollContainer.scrollTop || 0;
+          scrollHeight = scrollContainer.scrollHeight || 0;
+          clientHeight = scrollContainer.clientHeight || 0;
+        } catch (error) {
+          console.warn('无法获取滚动容器信息:', error);
+          return;
+        }
 
         // 显示/隐藏回到顶部按钮
         this.showScrollTop = scrollTop > 200;
 
         // 检查是否需要加载更多
         const bottomOffset = 20;
-        const scrollHeight = scrollContainer.scrollHeight;
-        const clientHeight = scrollContainer.clientHeight;
-
-        // 计算是否接近底部
         const isNearBottom = scrollHeight - scrollTop - clientHeight < bottomOffset;
 
         if (isNearBottom) {
@@ -616,48 +636,44 @@
         this.updateStickyStatus();
       },
 
-      handleVirtualScroll(e) {
-        // 如果用户提供了自定义滚动处理方法，先调用它
-        if (
-          this.virtualScrollCustomHandler &&
-          typeof this.virtualScrollCustomHandler === 'function'
-        ) {
-          const result = this.virtualScrollCustomHandler(e, {
-            scrollTop: e.target.scrollTop,
-            scrollHeight: e.target.scrollHeight,
-            clientHeight: e.target.clientHeight,
-            virtualContainer: this.$refs.virtualScrollContainer,
-          });
+      handleVirtualUpdate(startIndex, endIndex, visibleStartIndex, visibleEndIndex) {
+        // 更新虚拟滚动模式下的吸顶状态
+        this.updateVirtualStickyStatus();
 
-          // 如果自定义处理返回 false，则跳过默认处理
-          if (result === false) {
-            return;
-          }
-        }
+        // 控制回到顶部按钮显示
+        // 如果开始索引大于10，说明已经滚动了一定距离，显示回到顶部按钮
+        this.showScrollTop = startIndex > 10;
 
-        // 虚拟滚动事件处理
-        const scrollTop = e.target.scrollTop;
-
-        // 显示/隐藏回到顶部按钮
-        this.showScrollTop = scrollTop > 200;
-
-        // 检查是否需要加载更多
-        const bottomOffset = 20;
-        const scrollHeight = e.target.scrollHeight;
-        const clientHeight = e.target.clientHeight;
-
-        // 计算是否接近底部
-        const isNearBottom = scrollHeight - scrollTop - clientHeight < bottomOffset;
+        // 检查是否需要加载更多（接近底部）
+        const totalItems = this.flattenedList.length;
+        const isNearBottom = endIndex >= totalItems - 5; // 距离底部5个项目时触发加载更多
 
         if (isNearBottom) {
           this.loadMoreDataVirtual();
         }
 
-        // 更新虚拟滚动模式下的吸顶状态
-        this.updateVirtualStickyStatus();
+        // 如果用户提供了自定义滚动处理方法，调用它
+        if (
+          this.virtualScrollCustomHandler &&
+          typeof this.virtualScrollCustomHandler === 'function'
+        ) {
+          this.virtualScrollCustomHandler({
+            startIndex,
+            endIndex,
+            visibleStartIndex,
+            visibleEndIndex,
+            totalItems,
+            isNearBottom,
+          });
+        }
 
-        // 触发滚动事件
-        this.$emit('scroll', e);
+        // 触发更新事件
+        this.$emit('virtual-update', {
+          startIndex,
+          endIndex,
+          visibleStartIndex,
+          visibleEndIndex,
+        });
       },
 
       updateStickyStatus() {
@@ -676,10 +692,21 @@
           return;
         }
 
-        const scrollContainerTop = scrollContainer.getBoundingClientRect().top;
-        const containerHeight = scrollContainer.clientHeight;
-        const scrollHeight = scrollContainer.scrollHeight;
-        const scrollTop = scrollContainer.scrollTop;
+        // 安全获取滚动容器信息
+        let scrollContainerTop = 0;
+        let containerHeight = 0;
+        let scrollHeight = 0;
+        let scrollTop = 0;
+
+        try {
+          scrollContainerTop = scrollContainer.getBoundingClientRect().top;
+          containerHeight = scrollContainer.clientHeight || 0;
+          scrollHeight = scrollContainer.scrollHeight || 0;
+          scrollTop = scrollContainer.scrollTop || 0;
+        } catch (error) {
+          console.warn('无法获取滚动容器信息:', error);
+          return;
+        }
 
         // 判断是否已经滚动到底部
         const isNearBottom = scrollHeight - scrollTop - containerHeight < 20;
@@ -794,35 +821,21 @@
         const virtualContainer = this.$refs.virtualScrollContainer;
         if (!virtualContainer) return;
 
-        // 获取滚动位置
-        const scrollTop = virtualContainer.$el ? virtualContainer.$el.scrollTop : 0;
+        // 使用当前可见项目来确定粘性分组
+        // 由于无法可靠获取 scrollTop，改用可见项目的分组信息
+        const visibleItems = virtualContainer.pool || [];
 
-        // 计算当前应该显示的粘性分组
-        let currentGroupKey = null;
-        let accumulatedHeight = 0;
-        const itemHeight = this.virtualScrollOptions.size || 60;
-
-        // 遍历扁平化列表，找到当前滚动位置对应的分组
-        for (const item of this.flattenedList) {
-          if (accumulatedHeight + itemHeight > scrollTop) {
-            // 直接使用项目的分组信息
-            if (item.groupKey) {
-              currentGroupKey = item.groupKey;
+        if (visibleItems.length > 0) {
+          // 获取第一个可见项目的分组信息
+          const firstVisibleItem = visibleItems[0];
+          if (firstVisibleItem && firstVisibleItem.item && firstVisibleItem.item.groupKey) {
+            const targetGroup = this.groups.find(g => g.key === firstVisibleItem.item.groupKey);
+            if (targetGroup) {
+              this.currentStickyGroup = targetGroup;
             }
-            break;
-          }
-
-          accumulatedHeight += itemHeight;
-        }
-
-        // 更新当前粘性分组
-        if (currentGroupKey) {
-          const targetGroup = this.groups.find(g => g.key === currentGroupKey);
-          if (targetGroup) {
-            this.currentStickyGroup = targetGroup;
           }
         } else if (this.groups.length > 0) {
-          // 如果没有找到，默认使用第一个分组
+          // 如果没有可见项目，默认使用第一个分组
           this.currentStickyGroup = this.groups[0];
         }
       },
@@ -876,130 +889,4 @@
 <style lang="scss">
   // 引入外部样式文件
   @import '../../../styles/Conversations.scss';
-
-  /* 自定义滚动条样式 */
-  .el-x-conversations-scrollbar {
-    height: 100%;
-    overflow-y: auto;
-
-    /* 隐藏默认滚动条 */
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: transparent;
-      border-radius: 3px;
-      transition: background-color 0.3s ease;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    /* 鼠标悬停时显示滚动条 */
-    &:hover {
-      &::-webkit-scrollbar-thumb {
-        background-color: #e0e0e0;
-      }
-    }
-  }
-
-  /* 虚拟滚动容器样式 */
-  .el-x-conversations-virtual-scrollbar {
-    height: 100%;
-
-    /* 继承原滚动条样式 */
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: transparent;
-      border-radius: 3px;
-      transition: background-color 0.3s ease;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    &:hover {
-      &::-webkit-scrollbar-thumb {
-        background-color: #e0e0e0;
-      }
-    }
-
-    /* 修复 vue-virtual-scroller 默认样式 */
-    .vue-recycle-scroller {
-      height: 100%;
-    }
-
-    .vue-recycle-scroller__item-wrapper {
-      box-sizing: border-box;
-      overflow: hidden;
-    }
-
-    .vue-recycle-scroller__item-view {
-      width: 100%;
-    }
-  }
-
-  /* 为Firefox添加滚动条样式 */
-  @supports (scrollbar-width: thin) {
-    .el-x-conversations-scrollbar,
-    .el-x-conversations-virtual-scrollbar {
-      scrollbar-width: thin;
-      scrollbar-color: transparent transparent;
-
-      &:hover {
-        scrollbar-color: #e0e0e0 transparent;
-      }
-    }
-  }
-
-  /* 虚拟滚动项目包装器样式 */
-  .virtual-item-wrapper {
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* 覆盖 vue-virtual-scroller 的默认样式 */
-  .el-x-conversations-virtual-scrollbar {
-    ::v-deep .vue-recycle-scroller__item-wrapper {
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    ::v-deep .vue-recycle-scroller__item-view {
-      margin: 0 !important;
-      padding: 0 !important;
-      width: 100% !important;
-    }
-  }
-
-  /* 虚拟粘性分组标题 */
-  .virtual-sticky-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background-color: var(--conversation-list-auto-bg-color, #fff);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  /* 确保虚拟滚动容器有正确的相对定位 */
-  .el-x-conversations-scroll-wrapper {
-    position: relative;
-  }
-
-  /* 有粘性标题时给虚拟滚动容器添加顶部padding */
-  .el-x-conversations-virtual-scrollbar.has-sticky-header {
-    ::v-deep .vue-recycle-scroller {
-      padding-top: 40px; /* 为粘性标题留出空间 */
-    }
-  }
 </style>
