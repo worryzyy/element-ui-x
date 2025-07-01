@@ -14,7 +14,7 @@ import router from './router';
 import './utils/svg-icons';
 
 // 导入并全局注册 SvgIcon 组件
-import SvgIcon from '../components/SvgIcon.vue';
+import SvgIcon from './components/SvgIcon.vue';
 Vue.component('SvgIcon', SvgIcon);
 
 Vue.use(VueI18n);
