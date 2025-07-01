@@ -68,20 +68,23 @@
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: max-height var(--el-x-thinking-animation-duration) ease-in-out,
-    opacity var(--el-x-thinking-animation-duration) ease-in-out;
+  transition: max-height var(--el-x-thinking-animation-duration) ease-out,
+    transform var(--el-x-thinking-animation-duration) ease-out,
+    opacity var(--el-x-thinking-animation-duration) ease-out;
   overflow: hidden;
 }
 
-.slide-enter-from,
+.slide-enter,
 .slide-leave-to {
   max-height: 0;
+  transform: translateY(-10px);
   opacity: 0;
 }
 
 .slide-enter-to,
-.slide-leave-from {
-  max-height: 1000px;
+.slide-leave {
+  max-height: 200px;
+  transform: translateY(0);
   opacity: 1;
 }
 
