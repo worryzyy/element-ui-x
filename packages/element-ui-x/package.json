@@ -57,6 +57,7 @@
     "dompurify": "^3.2.5",
     "lodash": "^4.17.21",
     "markdown-it": "^12.3.2",
-    "prismjs": "^1.30.0"
+    "prismjs": "^1.30.0",
+    "vue-virtual-scroller": "^1.1.2"
   }
 }
