@@ -36,6 +36,7 @@
 
       <!-- 聊天容器 -->
       <ChatContainer
+        ref="chatContainer"
         :title="messages.length === 0 ? '' : currentConversationTitle"
         :messages="messages"
         :is-loading-messages="isLoadingMessages"
@@ -110,7 +111,15 @@
     },
 
     async mounted() {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+
       await this.loadConversations();
+    },
+
+    beforeDestroy() {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     },
 
     methods: {

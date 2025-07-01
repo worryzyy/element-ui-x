@@ -198,6 +198,20 @@ export default {
       }
     },
 
+    // 滚动到底部的通用方法
+    scrollToBottom() {
+      this.$nextTick(() => {
+        // 通过组件引用链访问滚动方法
+        const chatContainer = this.$refs.chatContainer;
+        const chatContent = chatContainer && chatContainer.$refs.chatContent;
+        const bubbleList = chatContent && chatContent.$refs.bubbleListRef;
+
+        if (bubbleList && typeof bubbleList.scrollToBottom === 'function') {
+          bubbleList.scrollToBottom();
+        }
+      });
+    },
+
     // 初始化 Dify 请求配置
     initializeDifyRequest() {
       const requestConfig = createDifyRequestConfig(this.difyConfig);
@@ -217,6 +231,7 @@ export default {
     async loadMessages(conversationId) {
       if (!conversationId) {
         this.messages = [];
+        this.scrollToBottom();
         return;
       }
 
@@ -297,6 +312,9 @@ export default {
 
         // 按时间排序消息
         this.messages = messages.sort((a, b) => a.created_at - b.created_at);
+
+        // 加载完成后滚动到底部
+        this.scrollToBottom();
       } catch (error) {
         this.$message.error('加载消息历史失败: ' + error.message);
       } finally {
@@ -718,6 +736,9 @@ export default {
       this.currentStreamContent = '';
       this.currentMessageId = null;
       this.currentTaskId = null;
+
+      // 消息完成后滚动到底部
+      this.scrollToBottom();
     },
 
     // 发送消息
@@ -729,15 +750,12 @@ export default {
 
       try {
         this.handleSend(messageContent);
-        this.$nextTick(() => {
-          if (this.$refs.bubbleListRef) {
-            this.$refs.bubbleListRef.scrollToBottom();
-          }
-          // 只有当使用输入框内容时才清空
-          if (!message) {
-            this.senderValue = '';
-          }
-        });
+        // 发送消息后滚动到底部
+        this.scrollToBottom();
+        // 只有当使用输入框内容时才清空
+        if (!message) {
+          this.senderValue = '';
+        }
       } catch (error) {
         console.error('发送消息失败:', error);
         this.$message.error('发送消息失败: ' + error.message);
@@ -764,11 +782,13 @@ export default {
     handleEditMessage(content) {
       this.senderValue = content;
       this.handleSend(content);
+      this.scrollToBottom();
     },
 
     // 处理重试消息事件
     handleRetryMessage(content) {
       this.handleSend(content);
+      this.scrollToBottom();
     },
 
     // 处理反馈更新事件

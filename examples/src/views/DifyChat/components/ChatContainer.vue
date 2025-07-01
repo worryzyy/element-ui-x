@@ -5,6 +5,7 @@
       @edit-title="$emit('edit-title')"
     />
     <ChatContent
+      ref="chatContent"
       :messages="messages"
       :is-loading-messages="isLoadingMessages"
       :map-file-type="mapFileType"
