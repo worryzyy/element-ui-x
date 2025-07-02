@@ -195,8 +195,18 @@
         &:hover {
           .el-x-bubble-content-wrapper {
             .el-x-bubble-footer {
-              .end-action,
               .start-action {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+      .el-x-bubble.el-x-bubble-end {
+        &:hover {
+          .el-x-bubble-content-wrapper {
+            .el-x-bubble-footer {
+              .end-action {
                 opacity: 1;
               }
             }
