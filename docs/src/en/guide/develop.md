@@ -14,16 +14,6 @@ cd element-ui-x
 npm install:all
 ```
 
-:::warning Note
-Since the component package uses `node-sass` and `sass-loader` to maintain consistency with Element, it is recommended to use Node.js version 16.x, otherwise dependency installation may fail, like this:
-
-`gyp ERR!....`
-
-`gyp ERR!....`
-
-`gyp ERR!....`
-:::
-
 #### **3. Project Structure**
 
 - docs: Documentation site

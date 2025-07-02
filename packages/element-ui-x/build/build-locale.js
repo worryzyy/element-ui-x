@@ -33,7 +33,7 @@ function buildFile(srcPath, destPath) {
     const transformedCode = transformToCommonJS(code);
 
     fs.writeFileSync(destPath, transformedCode);
-    console.log(`✅ 构建成功: ${path.relative(process.cwd(), destPath)}`);
+    // console.log(`✅ 构建成功: ${path.relative(process.cwd(), destPath)}`);
     return true;
   } catch (error) {
     console.error(`❌ 构建失败: ${path.relative(process.cwd(), srcPath)}`);
@@ -148,7 +148,7 @@ const createUMDLang = (langName, langCode) => {
 
       const umdPath = path.join(langDir, `${langCode}.umd.js`);
       fs.writeFileSync(umdPath, umdContent);
-      console.log(`✅ 构建成功: lib/locale/lang/${langCode}.umd.js (UMD格式)`);
+      // console.log(`✅ 构建成功: lib/locale/lang/${langCode}.umd.js (UMD格式)`);
     }
   }
 };

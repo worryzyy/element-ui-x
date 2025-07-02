@@ -14,16 +14,6 @@ cd element-ui-x
 npm install:all
 ```
 
-:::warning 注意
-由于组件包使用了 `node-sass` 跟 `sass-loader`，跟 Element 保持一致了，建议 Node.js 版本使用 16.x，否则依赖可能安装失败，像下面这样：
-
-`gyp ERR!....`
-
-`gyp ERR!....`
-
-`gyp ERR!....`
-:::
-
 #### **三、项目结构**
 
 - docs：文档站
