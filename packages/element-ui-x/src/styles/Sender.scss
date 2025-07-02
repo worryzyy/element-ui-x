@@ -1,15 +1,16 @@
 @import '../theme/var.scss';
 
 // 设置全局CSS变量默认值
-:root {
-  --el-x-sender-trigger-popover-width: fit-content;
-  --el-x-sender-trigger-popover-left: 0px;
-}
+// :root {
+//   --el-x-sender-trigger-popover-width: fit-content;
+//   --el-x-sender-trigger-popover-left: 0px;
+// }
 
 $--el-x-sender-box-shadow-tertiary: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
-  0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+0 1px 6px -1px rgba(0, 0, 0, 0.02),
+0 2px 4px 0 rgba(0, 0, 0, 0.02);
 $--el-x-sender-input-font-size: 14px;
-$--el-x-sender-header-animation-duration: 300ms;
+// $--el-x-sender-header-animation-duration: 300ms;
 $--el-x-border-width: $--border-width-base;
 $--el-x-padding-xs: 8px;
 $--el-x-padding-sm: 12px;
@@ -36,7 +37,7 @@ $--el-x-fill-color: $--background-color-base;
   border-color: $--el-x-border-color;
   border-width: 0;
   border-style: solid;
-  transition: width $--el-x-sender-header-animation-duration;
+  transition: width var(--el-x-sender-header-animation-duration);
 
   &:after {
     content: '';
@@ -68,25 +69,35 @@ $--el-x-fill-color: $--background-color-base;
     padding: 0;
   }
 
-  // 展开收起动画
+  // 展开收起动画 - calc-size：解决无法对某些非固定尺寸（如 auto、min-content、max-content 等）进行动画过渡的新特性
   .slide-enter-active,
   .slide-leave-active {
-    transition: height $--el-x-sender-header-animation-duration,
-      opacity $--el-x-sender-header-animation-duration,
-      border $--el-x-sender-header-animation-duration;
+    height: calc-size(max-content, size);
+    opacity: 1;
+    transition:
+      height var(--el-x-sender-header-animation-duration),
+      opacity var(--el-x-sender-header-animation-duration),
+      border var(--el-x-sender-header-animation-duration);
     overflow: hidden;
   }
-
-  // .slide-enter-from,
-  // .slide-leave-to {
-  //   height: 0;
-  //   opacity: 0;
-  // }
 
   .slide-enter,
   .slide-leave-to {
     height: 0;
-    opacity: 0;
+    opacity: 0 !important;
+  }
+
+  .slide-enter-to,
+  .slide-leave {
+    height: calc-size(max-content, size);
+    opacity: 1;
+  }
+
+  // 确保内部内容能够正确收缩
+  .slide-enter-active .el-x-sender-header-wrap,
+  .slide-leave-active .el-x-sender-header-wrap {
+    min-height: 0;
+    overflow: hidden;
   }
 
   .el-x-sender-header {
