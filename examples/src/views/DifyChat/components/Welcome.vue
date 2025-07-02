@@ -12,8 +12,9 @@
         />
       </template>
     </el-x-welcome>
-    <br />
+    <br v-if="!isMobile" />
     <el-x-prompts
+      v-if="!isMobile"
       :items="promptItems"
       :wrap="true"
       :styles="promptStyles"
@@ -32,6 +33,11 @@
 <script>
   export default {
     name: 'Welcome',
+    computed: {
+      isMobile() {
+        return window.innerWidth <= 767;
+      },
+    },
     data() {
       return {
         promptItems: [
@@ -104,9 +110,18 @@
         },
       };
     },
+    mounted() {
+      window.addEventListener('resize', this.handleResize);
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.handleResize);
+    },
     methods: {
       handlePromptItemClick({ data }) {
         this.$emit('click-prompt', data);
+      },
+      handleResize() {
+        this.$forceUpdate();
       },
     },
   };
