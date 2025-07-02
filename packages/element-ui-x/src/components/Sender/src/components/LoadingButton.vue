@@ -15,14 +15,12 @@
 
   export default {
     name: 'LoadingButton',
-    components: {
-      Loading,
-    },
+    components: { Loading },
   };
 </script>
 
 <style scoped lang="scss">
-  @import '~element-ui/packages/theme-chalk/src/common/var';
+  @import '../../../../theme/var.scss';
 
   .el-x-send-button {
     height: 32px;

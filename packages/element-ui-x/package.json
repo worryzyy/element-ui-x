@@ -1,6 +1,6 @@
 {
   "name": "vue-element-ui-x",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "基于Vue 2 + Element UI的AI聊天组件库",
   "main": "lib/index.common.js",
   "module": "lib/index.esm.js",
@@ -28,11 +28,11 @@
   },
   "scripts": {
     "build": "npm run build:common && npm run build:esm && npm run build:umd && npm run build:components && npm run build:locale",
-    "build:common": "webpack --config build/webpack.common.conf.js",
-    "build:esm": "webpack --config build/webpack.esm.conf.js",
-    "build:umd": "webpack --config build/webpack.umd.conf.js",
-    "build:components": "node build/build-components.js",
-    "build:locale": "node build/build-locale.js",
+    "build:common": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import webpack --config build/webpack.common.conf.js",
+    "build:esm": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import webpack --config build/webpack.esm.conf.js",
+    "build:umd": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import webpack --config build/webpack.umd.conf.js",
+    "build:components": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import node build/build-components.js",
+    "build:locale": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import node build/build-locale.js",
     "build:lib": "npm run build",
     "publish:lib": "npm publish"
   },
@@ -42,8 +42,9 @@
   },
   "devDependencies": {
     "babel-loader": "^8.2.3",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.2.7",
-    "node-sass": "^6.0.1",
+    "sass": "^1.32.13",
     "sass-loader": "^10.0.0",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^4.2.3",

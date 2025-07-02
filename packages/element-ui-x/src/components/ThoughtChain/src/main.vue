@@ -102,9 +102,7 @@
   import ElXTypewriter from '../../Typewriter/index.js';
   export default {
     name: 'ElXThoughtChain',
-    components: {
-      ElXTypewriter,
-    },
+    components: { ElXTypewriter },
     props: {
       thinkingItems: {
         type: Array,

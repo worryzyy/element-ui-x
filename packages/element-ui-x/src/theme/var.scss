@@ -1,18 +1,132 @@
-@import '~element-ui/packages/theme-chalk/src/common/var';
+// Element UI X 变量代理系统
+// 替代 element-ui/packages/theme-chalk/src/common/var 的完整变量定义
 
+// ===== 过渡动画 =====
+$--all-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !default;
+$--fade-transition: opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) !default;
+$--fade-linear-transition: opacity 200ms linear !default;
+$--md-fade-transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1),
+opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) !default;
+$--border-transition-base: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) !default;
+$--color-transition-base: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) !default;
+
+// ===== 基础颜色 =====
+$--color-primary: #409eff !default;
+$--color-white: #ffffff !default;
+$--color-black: #000000 !default;
+$--color-primary-light-1: #53a8ff !default;
+$--color-primary-light-2: #66b1ff !default;
+$--color-primary-light-3: #79bbff !default;
+$--color-primary-light-4: #8cc5ff !default;
+$--color-primary-light-5: #a0cfff !default;
+$--color-primary-light-6: #b3d8ff !default;
+$--color-primary-light-7: #c6e2ff !default;
+$--color-primary-light-8: #d9ecff !default;
+$--color-primary-light-9: #ecf5ff !default;
+
+$--color-success: #67c23a !default;
+$--color-warning: #e6a23c !default;
+$--color-danger: #f56c6c !default;
+$--color-info: #909399 !default;
+
+$--color-success-light: #b3e19d !default;
+$--color-warning-light: #f3d19e !default;
+$--color-danger-light: #fbc4c4 !default;
+$--color-info-light: #c8c9cc !default;
+
+$--color-success-lighter: #d9f2be !default;
+$--color-warning-lighter: #f9e8cf !default;
+$--color-danger-lighter: #fde2e2 !default;
+$--color-info-lighter: #e4e5e6 !default;
+
+// ===== 文字颜色 =====
+$--color-text-primary: #303133 !default;
+$--color-text-regular: #606266 !default;
+$--color-text-secondary: #909399 !default;
+$--color-text-placeholder: #c0c4cc !default;
+
+// ===== 边框颜色 =====
+$--border-color-base: #dcdfe6 !default;
+$--border-color-light: #e4e7ed !default;
+$--border-color-lighter: #ebeef5 !default;
+$--border-color-extra-light: #f2f6fc !default;
+
+// ===== 背景颜色 =====
+$--background-color-base: #f5f7fa !default;
+
+// ===== 链接颜色 =====
+$--link-color: $--color-primary-light-2 !default;
+$--link-hover-color: $--color-primary !default;
+
+// ===== 边框样式 =====
+$--border-width-base: 1px !default;
+$--border-style-base: solid !default;
+$--border-color-hover: $--color-text-placeholder !default;
+$--border-base: $--border-width-base $--border-style-base $--border-color-base !default;
+
+$--border-radius-base: 4px !default;
+$--border-radius-small: 2px !default;
+$--border-radius-circle: 100% !default;
+$--border-radius-zero: 0 !default;
+
+// ===== 阴影 =====
+$--box-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.12),
+0 0 6px rgba(0, 0, 0, 0.04) !default;
+$--box-shadow-dark: 0 2px 4px rgba(0, 0, 0, 0.12),
+0 0 6px rgba(0, 0, 0, 0.12) !default;
+$--box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !default;
+
+// ===== 填充 =====
+$--fill-base: $--color-white !default;
+
+// ===== 字体 =====
+$--font-path: 'fonts' !default;
+$--font-display: 'auto' !default;
+$--font-size-extra-large: 20px !default;
+$--font-size-large: 18px !default;
+$--font-size-medium: 16px !default;
+$--font-size-base: 14px !default;
+$--font-size-small: 13px !default;
+$--font-size-extra-small: 12px !default;
+$--font-weight-primary: 500 !default;
+$--font-weight-secondary: 100 !default;
+$--font-line-height-primary: 24px !default;
+$--font-line-height-secondary: 16px !default;
+$--font-color-disabled-base: #bbb !default;
+
+// ===== 尺寸 =====
+$--size-base: 14px !default;
+
+// ===== 层级 =====
+$--index-normal: 1 !default;
+$--index-top: 1000 !default;
+$--index-popper: 2000 !default;
+
+// ===== 禁用状态 =====
+$--disabled-fill-base: $--background-color-base !default;
+$--disabled-color-base: $--color-text-placeholder !default;
+$--disabled-border-base: $--border-color-light !default;
+
+// ===== 图标 =====
+$--icon-color: #666 !default;
+$--icon-color-base: $--color-info !default;
+
+// ===== 消息背景色 =====
+$--message-background-color: #edf2fc !default;
+
+// ===== CSS 变量定义 =====
 :root {
   --color-primary: #{$--color-primary};
   --color-success: #{$--color-success};
   --color-warning: #{$--color-warning};
   --color-danger: #{$--color-danger};
   --color-info: #{$--color-info};
-
-  $--el-x-color-primary: $--color-primary;
-  $--el-x-color-success: $--color-success;
 }
 
+// ===== Element UI X 扩展变量 =====
 $--el-x-color-primary: $--color-primary;
 $--el-x-color-success: $--color-success;
+
 // 字体大小
 $--el-x-font-size-small: $--font-size-small !default;
 $--el-x-font-size-base: $--font-size-base !default;
@@ -34,15 +148,13 @@ $--el-x-font-line-height-primary: $--font-line-height-primary;
 $--el-x-fill-color: $--message-background-color;
 
 // 边框
-
 $--el-x-border-radius-base: $--border-radius-base;
 $--el-x-border-radius-md: 8px;
 $--el-x-border-radius-round: 20px;
 $--el-x-border-radius-small: $--border-radius-small;
 $--el-x-border-radius-circle: $--border-radius-circle;
 
-//间距
-
+// 间距
 $--el-x-spacing-xs: 4px !default;
 $--el-x-spacing-sm: 8px !default;
 $--el-x-spacing-md: 12px !default;
@@ -50,7 +162,6 @@ $--el-x-spacing-lg: 16px !default;
 $--el-x-spacing-xl: 20px !default;
 
 // 内边距
-
 $--el-x-padding-xs: 4px !default;
 $--el-x-padding-sm: 8px !default;
 $--el-x-padding-md: 12px !default;

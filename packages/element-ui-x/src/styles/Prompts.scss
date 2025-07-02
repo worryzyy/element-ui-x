@@ -5,13 +5,13 @@ $--mobile-breakpoint: 768px;
 
 // Prompts 组件样式
 .el-x-prompts {
-  // 基础样式
+  max-width: 100%;
+
   &,
   & * {
     box-sizing: border-box;
   }
 
-  max-width: 100%;
 
   // RTL 支持
   &.el-x-prompts-rtl {
@@ -35,9 +35,11 @@ $--mobile-breakpoint: 768px;
     // 隐藏滚动条
     scrollbar-width: none;
     -ms-overflow-style: none;
+
     &::-webkit-scrollbar {
       display: none;
     }
+
     list-style: none;
     padding-left: 0;
     margin: 0;
@@ -152,7 +154,7 @@ $--mobile-breakpoint: 768px;
     }
 
     // 描述样式
-    .el-x-prompts-label + .el-x-prompts-desc {
+    .el-x-prompts-label+.el-x-prompts-desc {
       color: $--color-text-secondary;
     }
 
@@ -170,8 +172,8 @@ $--mobile-breakpoint: 768px;
 
   // 嵌套样式
   .el-x-prompts-item-has-nest {
-    > .el-x-prompts-content {
-      > .el-x-prompts-label {
+    >.el-x-prompts-content {
+      >.el-x-prompts-label {
         font-size: $--font-size-large;
         line-height: $--font-line-height-primary;
       }

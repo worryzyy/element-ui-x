@@ -15,9 +15,7 @@
 
   export default {
     name: 'SpeechLoadingButton',
-    components: {
-      SpeechLoading,
-    },
+    components: { SpeechLoading },
     methods: {
       onClick() {
         this.$emit('click');
@@ -27,7 +25,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '~element-ui/packages/theme-chalk/src/common/var';
+  @import '../../../../theme/var.scss';
 
   .el-x-send-button {
     .el-button {

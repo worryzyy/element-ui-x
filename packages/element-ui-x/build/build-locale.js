@@ -123,7 +123,7 @@ module.exports = {
 `;
 
 fs.writeFileSync(path.join(langDir, 'index.js'), langIndexContent);
-console.log(`✅ 构建成功: lib/locale/lang/index.js`);
+// console.log(`✅ 构建成功: lib/locale/lang/index.js`);
 
 // 创建便于 CDN 使用的 UMD 格式语言包
 const createUMDLang = (langName, langCode) => {

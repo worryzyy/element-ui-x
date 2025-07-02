@@ -159,9 +159,7 @@
 
   export default {
     name: 'ElXAttachments',
-    components: {
-      ElXFilesCard,
-    },
+    components: { ElXFilesCard },
     props: {
       items: {
         type: Array,
@@ -348,13 +346,7 @@
 
         // 默认实现：发出事件，让父组件处理
         const { file } = options;
-        this.$emit(
-          'upload-change',
-          {
-            file,
-          },
-          [file],
-        );
+        this.$emit('upload-change', { file }, [file]);
 
         // 如果需要模拟上传进度和成功/失败状态，可以在此实现
         // 例如：options.onProgress({ percent: 50 })
