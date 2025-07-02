@@ -4,7 +4,16 @@ export default {
   data() {
     return {
       uploadedFiles: [],
+      maxFileCount: 3,
     };
+  },
+  computed: {
+    fileCountStatus() {
+      return `${this.uploadedFiles.length}/${this.maxFileCount}个文件`;
+    },
+    isFileCountLimit() {
+      return this.uploadedFiles.length >= this.maxFileCount;
+    },
   },
   watch: {
     uploadedFiles: {
@@ -12,6 +21,12 @@ export default {
         // 监听上传文件变化，控制header显示隐藏
         this.$nextTick(() => {
           this.$emit('files-changed', newFiles);
+          this.$emit('file-status-changed', {
+            count: newFiles.length,
+            maxCount: this.maxFileCount,
+            status: this.fileCountStatus,
+            isLimit: this.isFileCountLimit,
+          });
         });
       },
       deep: true,
@@ -27,6 +42,12 @@ export default {
 
     async handleFileChange(file) {
       if (!file) return;
+
+      // 检查文件数量限制
+      if (this.uploadedFiles.length >= this.maxFileCount) {
+        this.$message.warning(`最多只能上传${this.maxFileCount}个文件，请先删除现有文件后再试`);
+        return;
+      }
 
       try {
         const response = await fileApi.uploadFile(file, this.difyConfig.user);
