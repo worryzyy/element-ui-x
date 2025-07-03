@@ -125,3 +125,14 @@ new Vue({
 - 💡 新功能提案
 - 📝 文档完善
 - 🎨 样式优化
+
+## 👥 社区支持
+
+<div align="center">
+<h3>🎀交流群🎀</h3>
+<img src="https://element-ui-x.com/wechat.png" alt="微信交流群" width="180" style="margin: 20px;" />
+<p>加入微信交流群，获取最新动态和技术支持</p>
+
+<p>交流群失效 => 添加添加我的微信入群, 备注:element-ui-x</p>
+<img src="https://element-ui-x.com/demo/author.png" alt="vx" width="180" style="margin: 20px;" />
+</div>
