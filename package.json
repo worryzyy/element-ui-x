@@ -4,7 +4,6 @@
   "description": "基于Vue 2 + Element UI的企业级AI聊天组件库",
   "private": true,
   "scripts": {
-    "format": "node format-project.js",
     "lint": "eslint --ext .js,.vue .",
     "lint:fix": "eslint --ext .js,.vue . --fix",
     "install:all": "npm install && cd packages/element-ui-x && npm install && cd ../../examples && npm install && cd ../docs && npm install",
