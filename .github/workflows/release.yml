@@ -1,0 +1,191 @@
+name: Auto Release on Version Change
+
+on:
+  push:
+    branches: [master]
+    tags-ignore:
+      - '**'
+
+jobs:
+  check-version-and-release:
+    name: 检查版本变化并发布
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      - name: Get current version from package.json
+        id: current-version
+        run: |
+          current_version=$(jq -r '.version' package.json)
+          echo "version=$current_version" >> $GITHUB_OUTPUT
+          echo "🔍 当前 package.json 版本: $current_version"
+
+      - name: Get latest tag version
+        id: latest-tag
+        run: |
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "0.0.0")
+          echo "version=$latest_tag" >> $GITHUB_OUTPUT
+          echo "📋 仓库最新标签版本: $latest_tag"
+
+      - name: Compare versions
+        id: version-check
+        run: |
+          current="${{ steps.current-version.outputs.version }}"
+          latest="${{ steps.latest-tag.outputs.version }}"
+
+          echo "当前版本: $current"
+          echo "最新标签: $latest"
+
+          if [ "$current" != "$latest" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✅ 版本已发生变化，将创建新的发布"
+            echo "new_tag=v$current" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ 版本未发生变化，跳过发布流程"
+          fi
+
+      - name: Generate changelog
+        if: steps.version-check.outputs.changed == 'true'
+        id: changelog
+        run: |
+          npm install -g conventional-changelog-cli
+
+          if [ "${{ steps.latest-tag.outputs.version }}" == "0.0.0" ]; then
+            changelog=$(conventional-changelog -p angular)
+          else
+            changelog=$(conventional-changelog -p angular --from v${{ steps.latest-tag.outputs.version }})
+          fi
+
+          if [ -z "$changelog" ]; then
+            cat > changelog.md << 'EOF'
+          ### 🚀 版本 ${{ steps.current-version.outputs.version }}
+
+          - 版本更新至 ${{ steps.current-version.outputs.version }}
+          - 详细更改请查看提交历史
+          EOF
+          else
+            echo "$changelog" > changelog.md
+          fi
+
+          echo "generated=true" >> $GITHUB_OUTPUT
+          echo "📝 Changelog 已生成"
+
+      - name: Create Git tag
+        if: steps.version-check.outputs.changed == 'true'
+        run: |
+          tag_name="${{ steps.version-check.outputs.new_tag }}"
+          echo "🏷️ 创建标签: $tag_name"
+
+          git tag -a "$tag_name" -m "Release $tag_name"
+          git push origin "$tag_name"
+
+          echo "✅ 标签 $tag_name 已创建并推送"
+
+      - name: Create GitHub Release
+        if: steps.version-check.outputs.changed == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version-check.outputs.new_tag }}
+          release_name: Release ${{ steps.version-check.outputs.new_tag }}
+          body_path: changelog.md
+          draft: false
+          prerelease: false
+
+      - name: Install root dependencies
+        if: steps.version-check.outputs.changed == 'true'
+        run: |
+          echo "📦 安装根目录依赖..."
+          npm install
+
+      - name: Install package dependencies
+        if: steps.version-check.outputs.changed == 'true'
+        working-directory: packages/element-ui-x
+        run: |
+          echo "📦 安装组件库依赖..."
+          npm install
+
+      - name: Build component library
+        if: steps.version-check.outputs.changed == 'true'
+        working-directory: packages/element-ui-x
+        run: |
+          echo "🔨 构建组件库..."
+          npm run build
+
+      - name: Configure npm authentication
+        if: steps.version-check.outputs.changed == 'true'
+        working-directory: packages/element-ui-x
+        run: |
+          echo "🔑 配置 npm 认证..."
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm
+        if: steps.version-check.outputs.changed == 'true'
+        id: npm-publish
+        working-directory: packages/element-ui-x
+        run: |
+          echo "🚀 发布到 npm..."
+          npm publish --access public
+          echo "success=true" >> $GITHUB_OUTPUT
+          echo "✅ 包已成功发布到 npm"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        continue-on-error: true
+
+      - name: Output npm publish status
+        if: steps.version-check.outputs.changed == 'true'
+        run: |
+          if [ "${{ steps.npm-publish.outputs.success }}" == "true" ]; then
+            echo "✅ npm 发布成功!"
+            echo "包名: vue-element-ui-x"
+            echo "版本: ${{ steps.current-version.outputs.version }}"
+            echo "npm 地址: https://www.npmjs.com/package/vue-element-ui-x"
+          else
+            echo "❌ npm 发布失败"
+            echo "请检查 NPM_TOKEN 配置或手动发布"
+          fi
+
+      - name: Output release info
+        if: steps.version-check.outputs.changed == 'true'
+        run: |
+          echo "🎉 发布完成!"
+          echo "版本: ${{ steps.current-version.outputs.version }}"
+          echo "标签: ${{ steps.version-check.outputs.new_tag }}"
+          echo "Release 地址: https://github.com/${{ github.repository }}/releases/tag/${{ steps.version-check.outputs.new_tag }}"
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.version-check.outputs.changed }}" == "true" ]; then
+            echo "✅ 自动发布流程已完成" >> $GITHUB_STEP_SUMMARY
+            echo "- 新版本: ${{ steps.current-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+            echo "- 标签: ${{ steps.version-check.outputs.new_tag }}" >> $GITHUB_STEP_SUMMARY
+            echo "- [查看 Release](https://github.com/${{ github.repository }}/releases/tag/${{ steps.version-check.outputs.new_tag }})" >> $GITHUB_STEP_SUMMARY
+            
+            if [ "${{ steps.npm-publish.outputs.success }}" == "true" ]; then
+              echo "- ✅ [npm 包已发布](https://www.npmjs.com/package/vue-element-ui-x)" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- ❌ npm 发布失败，请手动检查" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "ℹ️ 版本未变化，未执行发布操作" >> $GITHUB_STEP_SUMMARY
+            echo "- 当前版本: ${{ steps.current-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          fi
