@@ -1,6 +1,6 @@
 {
   "name": "element-ui-x",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "基于Vue 2 + Element UI的企业级AI聊天组件库",
   "private": true,
   "scripts": {
