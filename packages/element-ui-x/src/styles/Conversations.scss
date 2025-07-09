@@ -1,6 +1,3 @@
-/* ElXConversations 组件样式 */
-
-/* 主容器 */
 .el-x-conversations-container {
   display: flex;
   flex-direction: column;
@@ -9,7 +6,7 @@
   width: fit-content;
   box-sizing: border-box;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .1)
 }
 
 .el-x-conversations-list {
@@ -19,34 +16,30 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  box-sizing: border-box
 }
 
 .el-x-conversations-scroll-wrapper {
   flex: 1;
   overflow: hidden;
-  position: relative;
-
-  /* 在右侧添加留白区域 */
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 8px;
-    /* 右侧留白宽度 */
-    height: 100%;
-    background-color: transparent;
-    pointer-events: none;
-    /* 确保不影响交互 */
-  }
+  position: relative
 }
 
-// 加载更多
+.el-x-conversations-scroll-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  pointer-events: none
+}
+
 .el-x-conversations-load-more {
   display: flex;
   width: calc(100% - 20px);
-  padding: 4px 0;
+  padding: 14px 10px;
   justify-content: center;
   align-items: center;
   font-size: 12px;
@@ -57,71 +50,69 @@
   border-radius: 8px;
   height: auto;
   min-height: var(--conversation-label-height, 20px);
-  box-sizing: border-box;
+  box-sizing: border-box
 }
 
-// 加载动画
 .el-x-conversations-load-more-is-loading {
   margin-top: 2px;
-  animation: spinloading 2s linear infinite;
+  animation: spinloading 2s linear infinite
 }
 
 @keyframes spinloading {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(0deg)
   }
 
   100% {
-    transform: rotate(360deg);
+    transform: rotate(360deg)
   }
 }
 
 .scroll-content {
-  min-height: 100%;
+  min-height: 100%
 }
 
 .loading-more {
   text-align: center;
   padding: 10px 0;
   color: #909399;
-  font-size: 14px;
+  font-size: 14px
 }
 
 .el-x-conversation-group {
-  position: relative;
+  position: relative
+}
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+.el-x-conversation-group:last-child {
+  margin-bottom: 0
+}
 
-  .el-x-conversation-group-title {
-    font-size: 14px;
-    color: #909399;
-    padding: 8px 0;
-    font-weight: 500;
-    margin-bottom: 4px;
-    border-radius: 4px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    // 预留滚动条宽度
-    width: calc(100% - 10px);
-    box-sizing: border-box;
-  }
+.el-x-conversation-group .el-x-conversation-group-title {
+  font-size: 14px;
+  color: #909399;
+  padding: 8px 0;
+  font-weight: 500;
+  margin-bottom: 4px;
+  border-radius: 4px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  width: calc(100% - 10px);
+  box-sizing: border-box
+}
 
-  .sticky-title {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background-color: var(--conversation-list-auto-bg-color, #fff);
-  }
+.el-x-conversation-group .sticky-title {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: var(--conversation-list-auto-bg-color, #fff)
+}
 
-  .active-sticky {
-    z-index: 10;
-  }
+.el-x-conversation-group .active-sticky {
+  z-index: 10
+}
 
-  .el-x-conversation-group-items {
-    padding-top: 0;
-  }
+.el-x-conversation-group .el-x-conversation-group-items {
+  padding-top: 0
 }
 
 .scroll-to-top-btn {
@@ -129,132 +120,164 @@
   right: 16px;
   bottom: 16px;
   z-index: 99;
-  opacity: 0.8;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 1;
-  }
+  opacity: .8;
+  transition: opacity .3s
 }
 
-/* 项目样式 */
+.scroll-to-top-btn:hover {
+  opacity: 1
+}
+
 .el-x-conversation-item {
   padding: 14px 10px;
   margin-right: 20px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color .2s ease
+}
 
-  &+& {
-    margin-top: 4px;
-  }
+.el-x-conversation-item+.el-x-conversation-item {
+  margin-top: 4px
+}
 
-  &.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    color: #c0c4cc;
-  }
+.el-x-conversation-item.disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  color: #c0c4cc
+}
 
-  &.active {
-    background-color: #f0f0f0;
-  }
+.el-x-conversation-item.active {
+  background-color: #f0f0f0
+}
 
-  &.hovered,
-  &:hover {
-    background-color: #f0f0f0;
-  }
+.el-x-conversation-item.hovered,
+.el-x-conversation-item:hover {
+  background-color: #f0f0f0
+}
 
-  &.menu-opened {
-    background-color: #f0f0f0;
-  }
+.el-x-conversation-item.menu-opened {
+  background-color: #f0f0f0
 }
 
 .el-x-conversation-content {
   display: flex;
   align-items: center;
-  height: var(--conversation-label-height, 20px);
-
-  .el-x-conversation-prefix-icon {
-    margin-right: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .el-x-conversation-content-main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .el-x-conversation-label-container {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    overflow: hidden;
-  }
-
-  .el-x-conversation-label {
-    font-size: 14px;
-    color: #303133;
-    position: relative;
-    white-space: nowrap;
-
-    &.text-gradient {
-      mask-image: linear-gradient(to right, black 60%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
-    }
-  }
-
-  .el-x-conversation-timestamp {
-    font-size: 14px;
-    color: #909399;
-    margin-left: 8px;
-  }
-
-  .el-x-conversation-suffix-icon {
-    margin-left: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .el-x-conversation-dropdown-more {
-    justify-self: center;
-    height: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  .el-x-conversation-dropdown-more-icon {
-    font-size: 16px;
-    padding: 2px;
-    border-radius: 5px;
-
-    &:hover {
-      background-color: #d3d3d3;
-    }
-  }
-
-  .el-x-conversation-menu {
-    margin-left: 8px;
-    display: flex;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-
-    .hovered &,
-    .active & {
-      opacity: 1;
-    }
-  }
+  height: var(--conversation-label-height, 20px)
 }
 
-// Dropdown菜单样式
+.el-x-conversation-content .el-x-conversation-prefix-icon {
+  margin-right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.el-x-conversation-content .el-x-conversation-content-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden
+}
+
+.el-x-conversation-content .el-x-conversation-label-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden
+}
+
+.el-x-conversation-content .el-x-conversation-label {
+  font-size: 14px;
+  color: #303133;
+  position: relative;
+  white-space: nowrap
+}
+
+.el-x-conversation-content .el-x-conversation-label.text-gradient {
+  mask-image: linear-gradient(to right, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%)
+}
+
+.el-x-conversation-content .el-x-conversation-timestamp {
+  font-size: 14px;
+  color: #909399;
+  margin-left: 8px
+}
+
+.el-x-conversation-content .el-x-conversation-suffix-icon {
+  margin-left: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.el-x-conversation-content .el-x-conversation-dropdown-more {
+  justify-self: center;
+  height: 100%;
+  display: flex;
+  align-items: center
+}
+
+.el-x-conversation-content .el-x-conversation-dropdown-more-icon {
+  font-size: 16px;
+  padding: 2px;
+  border-radius: 5px
+}
+
+.el-x-conversation-content .el-x-conversation-dropdown-more-icon:hover {
+  background-color: #d3d3d3
+}
+
+.el-x-conversation-content .el-x-conversation-menu {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity .2s ease
+}
+
+.hovered .el-x-conversation-content .el-x-conversation-menu,
+.active .el-x-conversation-content .el-x-conversation-menu {
+  opacity: 1
+}
+
 .el-x-conversation-dropdown-menu {
   max-height: 300px;
-  overflow-y: auto;
+  overflow-y: auto
+}
+
+.el-x-conversations-scrollbar {
+  height: 100%;
+  overflow-y: auto
+}
+
+.el-x-conversations-scrollbar::-webkit-scrollbar {
+  width: 6px
+}
+
+.el-x-conversations-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 3px;
+  transition: background-color .3s ease
+}
+
+.el-x-conversations-scrollbar::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0)
+}
+
+.el-x-conversations-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: #e0e0e0
+}
+
+@supports(scrollbar-width: thin) {
+  .el-x-conversations-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
+  }
+
+  .el-x-conversations-scrollbar:hover {
+    scrollbar-color: #e0e0e0 rgba(0, 0, 0, 0)
+  }
 }
