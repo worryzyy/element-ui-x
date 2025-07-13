@@ -1,3 +1,9 @@
+<div align="center">
+  <a href="https://element-ui-x.com/">
+    <img src="https://element-ui-x.com/images/logo.png" alt="Element-UI-X" width="180" class="logo" />
+  </a>
+</div>
+
 # Element-UI-X
 
 **开箱即用的企业级 AI 组件库（基于 Vue 2.x + Element-Ui）**
@@ -27,21 +33,15 @@
 
 ## 🛠️ 核心特性
 
-- ✨ **企业级 AI 组件**：内置聊天机器人、语音交互等场景化组件
-- 🚀 **零配置集成**：基于 Element-UI 设计体系，开箱即用
+- ✨ **企业级 AI 组件**
+- 🚀 **零配置集成**
 - 📦 **按需加载**
 
 ## 📦 安装
 
 ```bash
-# NPM
+# NPM （推荐）
 npm install vue-element-ui-x
-
-# PNPM（推荐）
-pnpm install vue-element-ui-x
-
-# Yarn
-yarn install vue-element-ui-x
 
 ```
 
@@ -127,3 +127,14 @@ new Vue({
 - 💡 新功能提案
 - 📝 文档完善
 - 🎨 样式优化
+
+## 👥 社区支持
+
+<div align="center">
+<h3>🎀交流群🎀</h3>
+<img src="https://element-ui-x.com/wechat.png" alt="微信交流群" width="180" style="margin: 20px;" />
+<p>加入微信交流群，获取最新动态和技术支持</p>
+
+<p>交流群失效 => 添加我的微信入群, 备注:element-ui-x</p>
+<img src="https://element-ui-x.com/demo/author.png" alt="vx" width="180" style="margin: 20px;" />
+</div>
