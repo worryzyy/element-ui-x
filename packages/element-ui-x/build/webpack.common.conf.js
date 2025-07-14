@@ -31,7 +31,12 @@ module.exports = {
           'css-loader',
           {
             loader: 'sass-loader',
-            options: { sassOptions: { outputStyle: 'compressed' } },
+            options: { 
+              sassOptions: { 
+                outputStyle: 'compressed',
+                silenceDeprecations: ['legacy-js-api', 'import']
+              } 
+            },
           },
         ],
       },
