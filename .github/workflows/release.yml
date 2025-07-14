@@ -10,6 +10,10 @@ jobs:
   check-version-and-release:
     name: 检查版本变化并发布
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -22,6 +26,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "github-actions@github.com"
+          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -91,6 +96,9 @@ jobs:
         run: |
           tag_name="${{ steps.version-check.outputs.new_tag }}"
           echo "🏷️ 创建标签: $tag_name"
+
+          # 设置远程 URL 使用 token 认证
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
 
           git tag -a "$tag_name" -m "Release $tag_name"
           git push origin "$tag_name"
