@@ -1,5 +1,13 @@
 // App 主布局样式
-@import '~element-ui/packages/theme-chalk/src/common/var';
+$--color-primary: #409eff;
+$--color-primary-light-7: #c6e2ff;
+$--color-primary-light-8: #d9ecff;
+$--color-primary-light-9: #ecf5ff;
+$--color-danger: #f56c6c;
+$--color-success: #67c23a;
+$--color-success-light: #b3e19d;
+$--color-info: #909399;
+$--color-info-light: #c8c9cc;
 
 // 自定义变量
 $aside-width: 260px;

@@ -51,8 +51,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '~element-ui/packages/theme-chalk/src/common/var';
-
   .svg-icon {
     display: inline-block;
     overflow: hidden;

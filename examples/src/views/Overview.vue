@@ -285,7 +285,13 @@
 </script>
 
 <style lang="scss">
-  @import '~element-ui/packages/theme-chalk/src/common/var';
+  $--color-text-primary: #303133;
+  $--color-text-secondary: #909399;
+  $--color-primary: #409eff;
+  $--color-primary-light-7: #c6e2ff;
+  $--color-primary-light-9: #ecf5ff;
+  $--border-color-lighter: #ebeef5;
+  $--color-white: #ffffff;
 
   .component-overview {
     padding: 20px;

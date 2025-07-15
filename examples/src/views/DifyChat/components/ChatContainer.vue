@@ -102,6 +102,8 @@
 </script>
 
 <style lang="scss" scoped>
+  $--color-white: #ffffff;
+
   .chat-container {
     width: 100%;
     max-width: 800px;

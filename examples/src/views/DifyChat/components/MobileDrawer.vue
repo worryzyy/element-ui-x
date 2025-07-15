@@ -117,6 +117,11 @@
 </script>
 
 <style lang="scss" scoped>
+  $--color-primary: #409eff;
+  $--color-text-primary: #303133;
+  $--color-text-regular: #606266;
+  $--border-color-lighter: #ebeef5;
+
   .mobile-drawer {
     .drawer-content {
       height: 100%;

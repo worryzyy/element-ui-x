@@ -114,6 +114,12 @@
 </script>
 
 <style lang="scss" scoped>
+  $--color-primary: #409eff;
+  $--color-primary-light-9: #ecf5ff;
+  $--color-text-primary: #303133;
+  $--color-text-regular: #606266;
+  $--border-color-lighter: #ebeef5;
+
   .sidebar-enter-active,
   .sidebar-leave-active {
     transition: all 0.3s ease;

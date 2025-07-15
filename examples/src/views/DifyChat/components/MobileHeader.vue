@@ -45,6 +45,12 @@
 </script>
 
 <style lang="scss" scoped>
+  $--color-white: #ffffff;
+  $--color-text-primary: #303133;
+  $--color-text-regular: #606266;
+  $--color-primary-light-9: #ecf5ff;
+  $--border-color-lighter: #ebeef5;
+
   .mobile-header {
     display: none;
     height: 56px;

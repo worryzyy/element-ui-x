@@ -12,7 +12,6 @@ lib/
 .idea/
 *.swp
 *.swo
-.trae
 .env
 .env.local
 .DS_Store

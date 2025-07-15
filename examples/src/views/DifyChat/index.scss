@@ -1,4 +1,10 @@
-@import '~element-ui/packages/theme-chalk/src/common/var';
+// Element UI 变量手动定义
+$--color-white: #ffffff;
+$--color-text-primary: #303133;
+$--color-text-regular: #606266;
+$--color-primary: #409eff;
+$--color-primary-light-9: #ecf5ff;
+$--border-color-lighter: #ebeef5;
 
 .dify-chat {
   height: 100vh;

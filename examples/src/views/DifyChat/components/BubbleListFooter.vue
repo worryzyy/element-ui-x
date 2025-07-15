@@ -367,8 +367,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '~element-ui/packages/theme-chalk/src/common/var';
-
   .end-action,
   .start-action {
     display: flex;
