@@ -34,17 +34,20 @@ Basic usage of the message list component to display multiple messages.
             content: 'Hello, I am an AI assistant. How can I help you?',
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
+            avatarSize: 40,
           },
           {
             content: 'I want to learn how to use the Element UI component library',
             placement: 'end',
             avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
+            avatarSize: 40,
           },
           {
             content:
               'Element UI is a Vue 2.0-based desktop component library for developers, designers, and product managers, providing rich components and features.',
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
+            avatarSize: 40,
           },
         ],
       };

@@ -96,6 +96,7 @@ Example of using component instance method calls.
       :submit-btn-disabled="submitBtnDisabled"
       :loading="senderLoading"
       clearable
+      placeholder="Please enter the content"
       @submit="handleSubmit"
       @cancel="handleCancel"
     />
