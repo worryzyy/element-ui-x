@@ -1,38 +1,22 @@
-# 依赖目录
+
 .idea/
 node_modules/
 packages/*/node_modules/
 examples/node_modules/
 docs/node_modules/
-
-
-/packages/*/src/styles/button.scss
-/packages/*/src/styles/var.scss
-
-# 忽略所有 package-lock.json 文件
 package-lock.json
 **/package-lock.json
-
-# 构建输出
 dist/
 lib/
 *.log
-
-# IDE配置
 .idea/
 *.swp
 *.swo
 .trae
-# 环境变量
 .env
 .env.local
-
-# 系统文件
 .DS_Store
 Thumbs.db
-.windsurf
-.cursor
-.clinerules
 
 
 
