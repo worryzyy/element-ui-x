@@ -5,12 +5,8 @@
 发送操作混入，提供统一的请求状态管理和中断控制，支持以下特性：
 
 - 支持 SSE (Server-Sent Events) 和 Fetch 两种请求方式
-- 提供完整的请求生命周期管理
-- 支持请求的中断控制
-- 自动处理请求状态
 - 错误处理机制
 - 支持自定义数据转换器
-- 支持非组件场景的工具函数版本
 - 集成 XRequest 类提供强大的请求处理能力
 
 ## 导入和使用
@@ -1224,103 +1220,10 @@ export default {
 | abortHandler  | 中止处理器     | -                 |
 | finishHandler | 完成处理器     | -                 |
 
-## 工具函数版本
-
-对于非组件场景，提供了工具函数版本：
-
-```js
-import { createSendUtils, XRequest } from 'vue-element-ui-x';
-
-// 创建发送工具
-const sendUtils = createSendUtils({
-  sendHandler: (...args) => {
-    console.log('开始发送:', args);
-    // 执行发送逻辑
-  },
-  abortHandler: () => console.log('请求已中止'),
-  finishHandler: () => console.log('请求完成'),
-  onAbort: () => console.log('中止回调'),
-});
-
-// 使用工具发送请求
-function sendRequest() {
-  sendUtils.send('param1', 'param2');
-}
-
-// 中止请求
-function abortRequest() {
-  sendUtils.abort();
-}
-
-// 获取当前状态
-function getStatus() {
-  return {
-    isLoading: sendUtils.state.loading,
-  };
-}
-
-// 直接使用 XRequest 类
-const xRequest = new XRequest({
-  baseURL: 'https://api.example.com',
-  type: 'fetch',
-  transformer: data => JSON.parse(data),
-  onMessage: message => console.log('消息:', message),
-  onError: error => console.error('错误:', error),
-  onFinish: messages => console.log('完成:', messages.length, '条消息'),
-});
-
-// 发送请求
-xRequest.send('/api/stream', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ query: 'hello' }),
-});
-
-// 中止请求
-xRequest.abort();
-```
-
 ## 注意事项
 
 1. 该混入支持现代浏览器的 Fetch API 和 EventSource API，使用前请确保浏览器兼容性。
 2. SSE 模式适用于服务器推送场景，Fetch 模式适用于流式读取响应数据。
 3. 自定义 `transformer` 函数可以对接收的数据进行预处理。
-4. 在组件销毁时会自动清理相关资源，避免内存泄漏。
-5. 对于长时间运行的请求，建议实现适当的错误重试机制。
-6. `baseOptions` 配置仅在 SSE 模式下生效，用于 EventSource 构造函数。
-7. Fetch 模式下的 `options` 参数会传递给 fetch 函数，支持所有标准 fetch 选项。
-
-## SSE 连接结束检测机制
-
-XRequest 类在 SSE 模式下采用了多重检测机制来准确判断连接是否正常结束：
-
-1. **结束消息检测**：支持检测 `[DONE]` 或 `data: [DONE]` 等结束标记
-2. **超时检测**：当 10 秒内没有新消息时，如果连接状态非正在连接，则认为连接已结束
-3. **状态检测**：结合 EventSource 的 readyState 和已接收消息数量进行综合判断
-4. **防重复触发**：使用内部标志位避免同一连接多次触发结束事件
-
-这样的设计可以有效避免正常结束的连接被误判为错误，确保 `onFinish` 和 `onError` 回调的正确触发。
-
-### 自定义超时时间
-
-如果需要调整超时检测时间，可以在创建 XRequest 实例时进行配置：
-
-```js
-const xRequest = new XRequest({
-  // 其他配置...
-  onMessage: msg => {
-    // 处理消息
-    console.log('收到消息:', msg);
-  },
-  onFinish: messages => {
-    console.log('连接正常结束，共收到', messages.length, '条消息');
-  },
-  onError: error => {
-    console.error('连接发生错误:', error);
-  },
-});
-
-// 可以通过修改实例的超时时间来自定义检测间隔
-// 注意：这需要在 send 之前设置
-xRequest._finishTimeout = 5000; // 5秒超时
-```
+4. `baseOptions` 配置仅在 SSE 模式下生效，用于 EventSource 构造函数。
+5. Fetch 模式下的 `options` 参数会传递给 fetch 函数，支持所有标准 fetch 选项。

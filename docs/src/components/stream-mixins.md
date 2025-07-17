@@ -5,12 +5,10 @@
 提供 SSE (Server-Sent Events) 数据解析和中断功能，支持以下特性：
 
 - 支持 SSE 数据流解析和处理
-- 提供完整的生命周期事件
 - 支持流式请求的中断控制
 - 自动处理流数据状态
 - 错误处理机制
 - 支持自定义转换流
-- 支持非组件场景的工具函数版本
 
 ## 导入和使用
 
@@ -166,6 +164,7 @@ export default {
   }
 </style>
 ```
+
 :::
 
 ### SIP 协议数据处理示例
@@ -335,47 +334,9 @@ export default {
 | stream-finish   | 流处理结束时触发 | -                |
 | stream-cancel   | 流被中断时触发   | -                |
 
-## 工具函数版本
-
-对于非组件场景，提供了工具函数版本：
-
-```js
-import { createStreamUtils } from 'vue-element-ui-x';
-
-// 创建流处理工具
-const streamUtils = createStreamUtils({
-  onData: item => console.log('数据:', item),
-  onComplete: allData => console.log('完成:', allData.length, '条数据'),
-  onError: error => console.error('错误:', error),
-  onCancel: () => console.log('已取消'),
-  onFinish: () => console.log('处理结束'),
-});
-
-// 使用工具处理流数据
-async function processStreamData() {
-  const response = await fetch('/api/stream');
-  await streamUtils.startStream({ readableStream: response.body });
-}
-
-// 取消处理
-function cancelProcessing() {
-  streamUtils.cancel();
-}
-
-// 获取当前状态
-function getStatus() {
-  return {
-    isLoading: streamUtils.state.loading,
-    hasError: !!streamUtils.state.error,
-    dataCount: streamUtils.state.data.length,
-  };
-}
-```
-
 ## 注意事项
 
 1. 该混入依赖现代浏览器的 Streams API，使用前请确保浏览器支持。
 2. 流处理过程中产生的错误会通过 `streamError` 属性和 `stream-error` 事件提供。
 3. 在组件销毁时会自动清理相关资源。
 4. 自定义转换流需要实现 `transform` 和可选的 `flush` 方法。
-5. 对于大量数据的流处理，建议实现节流或批处理以提高性能。

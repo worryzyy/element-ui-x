@@ -5,12 +5,10 @@
 Provides SSE (Server-Sent Events) data parsing and interruption capabilities, supporting the following features:
 
 - Supports parsing and processing of SSE data streams
-- Provides a complete set of lifecycle events
 - Supports interruption control for streaming requests
 - Automatically handles stream data status
 - Error handling mechanism
 - Supports custom transform streams
-- Supports a utility function version for non-component scenarios
 
 ## Import and Usage
 
@@ -335,43 +333,6 @@ Demonstrates how to handle SIP protocol stream data and use a custom transform s
 | stream-error    | Fired when a stream error occurs  | error: The error object    |
 | stream-finish   | Fired when stream processing ends | -                          |
 | stream-cancel   | Fired when the stream is canceled | -                          |
-
-## Utility Function Version
-
-For non-component scenarios, a utility function version is provided:
-
-```js
-import { createStreamUtils } from 'vue-element-ui-x';
-
-// Create stream processing utilities
-const streamUtils = createStreamUtils({
-  onData: item => console.log('Data:', item),
-  onComplete: allData => console.log('Complete:', allData.length, 'items'),
-  onError: error => console.error('Error:', error),
-  onCancel: () => console.log('Canceled'),
-  onFinish: () => console.log('Processing finished'),
-});
-
-// Use utilities to process stream data
-async function processStreamData() {
-  const response = await fetch('/api/stream');
-  await streamUtils.startStream({ readableStream: response.body });
-}
-
-// Cancel processing
-function cancelProcessing() {
-  streamUtils.cancel();
-}
-
-// Get current status
-function getStatus() {
-  return {
-    isLoading: streamUtils.state.loading,
-    hasError: !!streamUtils.state.error,
-    dataCount: streamUtils.state.data.length,
-  };
-}
-```
 
 ## Precautions
 

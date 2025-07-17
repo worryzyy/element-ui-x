@@ -5,12 +5,8 @@
 A mixin for send operations that provides unified request state management and interruption control, supporting the following features:
 
 - Supports two request methods: SSE (Server-Sent Events) and Fetch
-- Provides complete request lifecycle management
-- Supports request interruption control
-- Automatically handles request status
 - Error handling mechanism
 - Supports custom data transformers
-- Supports a utility function version for non-component scenarios
 - Integrates the XRequest class to provide powerful request handling capabilities
 
 ## Import and Usage
@@ -1228,105 +1224,10 @@ The mixin itself does not trigger events directly, but it supports configuring c
 | abortHandler      | Abort handler                         | -                        |
 | finishHandler     | Finish handler                        | -                        |
 
-## Utility Function Version
-
-For non-component scenarios, a utility function version is provided:
-
-```js
-import { createSendUtils, XRequest } from 'vue-element-ui-x';
-
-// Create send utility
-const sendUtils = createSendUtils({
-  sendHandler: (...args) => {
-    console.log('Start sending:', args);
-    // Execute sending logic
-  },
-  abortHandler: () => console.log('Request aborted'),
-  finishHandler: () => console.log('Request finished'),
-  onAbort: () => console.log('Abort callback'),
-});
-
-// Use utility to send request
-function sendRequest() {
-  sendUtils.send('param1', 'param2');
-}
-
-// Abort request
-function abortRequest() {
-  sendUtils.abort();
-}
-
-// Get current status
-function getStatus() {
-  return {
-    isLoading: sendUtils.state.loading,
-  };
-}
-
-// Use XRequest class directly
-const xRequest = new XRequest({
-  baseURL: 'https://api.example.com',
-  type: 'fetch',
-  transformer: data => JSON.parse(data),
-  onMessage: message => console.log('Message:', message),
-  onError: error => console.error('Error:', error),
-  onFinish: messages => console.log('Finished:', messages.length, 'messages'),
-});
-
-// Send request
-xRequest.send('/api/stream', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ query: 'hello' }),
-});
-
-// Abort request
-xRequest.abort();
-```
-
 ## Precautions
 
 1. This mixin supports modern browsers' Fetch API and EventSource API. Please ensure browser compatibility before use.
 2. SSE mode is suitable for server-push scenarios, while Fetch mode is for streaming response data.
 3. A custom `transformer` function can be used to preprocess received data.
-4. Resources are automatically cleaned up when the component is destroyed to prevent memory leaks.
-5. For long-running requests, it is recommended to implement an appropriate error retry mechanism.
-6. The `baseOptions` configuration is only effective in SSE mode and is used for the EventSource constructor.
-7. The `options` parameter in Fetch mode is passed to the fetch function and supports all standard fetch options.
-
-## SSE Connection End Detection Mechanism
-
-The XRequest class in SSE mode uses multiple detection mechanisms to accurately determine if a connection has ended normally:
-
-1.  **End Message Detection**: Supports detecting end markers like `[DONE]` or `data: [DONE]`.
-2.  **Timeout Detection**: If no new message arrives within 10 seconds and the connection is not in a connecting state, it is considered ended.
-3.  **State Detection**: A comprehensive judgment based on the EventSource's readyState and the number of messages received.
-4.  **Duplicate Trigger Prevention**: Uses an internal flag to prevent the end event from being triggered multiple times for the same connection.
-
-This design effectively prevents normally closed connections from being mistaken for errors, ensuring that the `onFinish` and `onError` callbacks are triggered correctly.
-
-### Custom Timeout
-
-If you need to adjust the timeout detection period, you can configure it when creating the XRequest instance:
-
-```js
-const xRequest = new XRequest({
-  // Other configurations...
-  onMessage: msg => {
-    // Process message
-    console.log('Message received:', msg);
-  },
-  onFinish: messages => {
-    console.log('Connection finished normally, received', messages.length, 'messages in total');
-  },
-  onError: error => {
-    console.error('An error occurred with the connection:', error);
-  },
-});
-
-// You can customize the detection interval by modifying the instance's timeout period
-// Note: This must be set before calling send
-xRequest._finishTimeout = 5000; // 5-second timeout
-```
-
-</rewritten_file>
+4. The `baseOptions` configuration is only effective in SSE mode and is used for the EventSource constructor.
+5. The `options` parameter in Fetch mode is passed to the fetch function and supports all standard fetch options.
