@@ -10,9 +10,7 @@
       "import": "./lib/index.esm.js",
       "require": "./lib/index.common.js"
     },
-    "./lib/*": "./lib/*.js",
-    "./lib/style.css": "./lib/style.css",
-    "./package.json": "./package.json"
+    "./lib/*": "./lib/*.js"
   },
   "files": [
     "lib",
