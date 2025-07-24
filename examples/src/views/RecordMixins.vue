@@ -131,7 +131,6 @@
       };
     },
     mounted() {
-      // console.log('customMixins', customMixins);
       // return;
       // 基础用法初始化
       this.initRecord({

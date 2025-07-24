@@ -355,14 +355,14 @@
 </template>
 
 <script>
-  import { customMixins } from 'vue-element-ui-x';
+  import { streamMixin } from 'vue-element-ui-x';
 
   const DEFAULT_API_KEY = 'sk-pgwnpnjiredqnosawllqfihokzmchdtswbrghveeuaryzqsj';
   const DEFAULT_MODEL = 'deepseek-ai/DeepSeek-R1';
 
   export default {
     name: 'ThinkingDemo',
-    mixins: [customMixins.streamMixin],
+    mixins: [streamMixin],
     data() {
       return {
         // 基础配置
