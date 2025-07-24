@@ -72,9 +72,9 @@ User Action → handleSend/handleAbort/handleFinish → Update loading state →
   let sendMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      sendMixin = window['vue-element-ui-x'].customMixins.sendMixin;
+      sendMixin = window['vue-element-ui-x'].sendMixin;
     } else if (typeof require !== 'undefined') {
-      sendMixin = require('vue-element-ui-x').customMixins.sendMixin;
+      sendMixin = require('vue-element-ui-x').sendMixin;
     }
   } catch (e) {
     sendMixin = {
@@ -584,7 +584,7 @@ The above examples control the `front-end loading state`. Of course, `request st
     methods: {
       initXRequest() {
         // Import XRequest class
-        const { XRequest } = require('vue-element-ui-x').customMixins;
+        const { XRequest } = require('vue-element-ui-x');
 
         // Create XRequest instance
         this.sse = new XRequest({
@@ -850,7 +850,7 @@ The above examples control the `front-end loading state`. Of course, `request st
     methods: {
       initXRequest() {
         // Import XRequest class
-        const { XRequest } = require('vue-element-ui-x').customMixins;
+        const { XRequest } = require('vue-element-ui-x');
 
         // Create XRequest instance
         this.sse = new XRequest({
@@ -1073,9 +1073,9 @@ Use `sendMixin` for front-end state control and `XRequest` for back-end request 
   let sendMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      sendMixin = window['vue-element-ui-x'].customMixins.sendMixin;
+      sendMixin = window['vue-element-ui-x'].sendMixin;
     } else if (typeof require !== 'undefined') {
-      sendMixin = require('vue-element-ui-x').customMixins.sendMixin;
+      sendMixin = require('vue-element-ui-x').sendMixin;
     }
   } catch (e) {
     sendMixin = {
@@ -1112,7 +1112,7 @@ Use `sendMixin` for front-end state control and `XRequest` for back-end request 
     methods: {
       initXRequest() {
         // Import XRequest class
-        const { XRequest } = require('vue-element-ui-x').customMixins;
+        const { XRequest } = require('vue-element-ui-x');
 
         // Create XRequest instance
         this.sse = new XRequest({

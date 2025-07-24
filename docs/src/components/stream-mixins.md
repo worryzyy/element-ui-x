@@ -72,9 +72,9 @@ export default {
   let streamMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      streamMixin = window['vue-element-ui-x'].customMixins.streamMixin;
+      streamMixin = window['vue-element-ui-x'].streamMixin;
     } else if (typeof require !== 'undefined') {
-      streamMixin = require('vue-element-ui-x').customMixins.streamMixin;
+      streamMixin = require('vue-element-ui-x').streamMixin;
     }
   } catch (e) {
     streamMixin = {
@@ -211,9 +211,9 @@ export default {
   let streamMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      streamMixin = window['vue-element-ui-x'].customMixins.streamMixin;
+      streamMixin = window['vue-element-ui-x'].streamMixin;
     } else if (typeof require !== 'undefined') {
-      streamMixin = require('vue-element-ui-x').customMixins.streamMixin;
+      streamMixin = require('vue-element-ui-x').streamMixin;
     }
   } catch (e) {
     streamMixin = {

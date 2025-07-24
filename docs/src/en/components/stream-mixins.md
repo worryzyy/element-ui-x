@@ -72,9 +72,9 @@ Demonstrates how to handle SSE stream data and display Markdown content in the B
   let streamMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      streamMixin = window['vue-element-ui-x'].customMixins.streamMixin;
+      streamMixin = window['vue-element-ui-x'].streamMixin;
     } else if (typeof require !== 'undefined') {
-      streamMixin = require('vue-element-ui-x').customMixins.streamMixin;
+      streamMixin = require('vue-element-ui-x').streamMixin;
     }
   } catch (e) {
     streamMixin = {
@@ -211,9 +211,9 @@ Demonstrates how to handle SIP protocol stream data and use a custom transform s
   let streamMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      streamMixin = window['vue-element-ui-x'].customMixins.streamMixin;
+      streamMixin = window['vue-element-ui-x'].streamMixin;
     } else if (typeof require !== 'undefined') {
-      streamMixin = require('vue-element-ui-x').customMixins.streamMixin;
+      streamMixin = require('vue-element-ui-x').streamMixin;
     }
   } catch (e) {
     streamMixin = {

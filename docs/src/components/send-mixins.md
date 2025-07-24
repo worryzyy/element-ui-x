@@ -72,9 +72,9 @@ export default {
   let sendMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      sendMixin = window['vue-element-ui-x'].customMixins.sendMixin;
+      sendMixin = window['vue-element-ui-x'].sendMixin;
     } else if (typeof require !== 'undefined') {
-      sendMixin = require('vue-element-ui-x').customMixins.sendMixin;
+      sendMixin = require('vue-element-ui-x').sendMixin;
     }
   } catch (e) {
     sendMixin = {
@@ -580,7 +580,7 @@ export default {
     methods: {
       initXRequest() {
         // 导入 XRequest 类
-        const { XRequest } = require('vue-element-ui-x').customMixins;
+        const { XRequest } = require('vue-element-ui-x');
 
         // 创建 XRequest 实例
         this.sse = new XRequest({
@@ -846,7 +846,7 @@ export default {
     methods: {
       initXRequest() {
         // 导入 XRequest 类
-        const { XRequest } = require('vue-element-ui-x').customMixins;
+        const { XRequest } = require('vue-element-ui-x');
 
         // 创建 XRequest 实例
         this.sse = new XRequest({
@@ -1069,9 +1069,9 @@ export default {
   let sendMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      sendMixin = window['vue-element-ui-x'].customMixins.sendMixin;
+      sendMixin = window['vue-element-ui-x'].sendMixin;
     } else if (typeof require !== 'undefined') {
-      sendMixin = require('vue-element-ui-x').customMixins.sendMixin;
+      sendMixin = require('vue-element-ui-x').sendMixin;
     }
   } catch (e) {
     sendMixin = {
@@ -1108,7 +1108,7 @@ export default {
     methods: {
       initXRequest() {
         // 导入 XRequest 类
-        const { XRequest } = require('vue-element-ui-x').customMixins;
+        const { XRequest } = require('vue-element-ui-x');
 
         // 创建 XRequest 实例
         this.sse = new XRequest({

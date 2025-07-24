@@ -32,8 +32,8 @@
     <br />
     <el-x-sender
       style="width: fit-content;"
-      inputWidth="480px"
-      placeholder="💌 欢迎使用 Element-UI-X"
+      inputWidth="500px"
+      placeholder="欢迎使用 Element-UI-X"
     />
   </div>
 </template>

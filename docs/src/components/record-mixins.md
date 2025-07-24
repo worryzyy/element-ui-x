@@ -72,9 +72,9 @@ export default {
   let recordMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
+      recordMixin = window['vue-element-ui-x'].recordMixin;
     } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
+      recordMixin = require('vue-element-ui-x').recordMixin;
     }
   } catch (e) {
     recordMixin = {
@@ -189,9 +189,9 @@ export default {
   let recordMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
+      recordMixin = window['vue-element-ui-x'].recordMixin;
     } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
+      recordMixin = require('vue-element-ui-x').recordMixin;
     }
   } catch (e) {
     recordMixin = {
@@ -291,9 +291,9 @@ export default {
   let recordMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
+      recordMixin = window['vue-element-ui-x'].recordMixin;
     } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
+      recordMixin = require('vue-element-ui-x').recordMixin;
     }
   } catch (e) {
     recordMixin = {

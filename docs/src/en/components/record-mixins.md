@@ -72,9 +72,9 @@ An example of a basic speech recognition feature.
   let recordMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
+      recordMixin = window['vue-element-ui-x'].recordMixin;
     } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
+      recordMixin = require('vue-element-ui-x').recordMixin;
     }
   } catch (e) {
     recordMixin = {
@@ -189,9 +189,9 @@ Shows how to customize the start and end of speech recognition.
   let recordMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
+      recordMixin = window['vue-element-ui-x'].recordMixin;
     } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
+      recordMixin = require('vue-element-ui-x').recordMixin;
     }
   } catch (e) {
     recordMixin = {
@@ -291,9 +291,9 @@ Shows how to handle errors during the speech recognition process.
   let recordMixin = {};
   try {
     if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
+      recordMixin = window['vue-element-ui-x'].recordMixin;
     } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
+      recordMixin = require('vue-element-ui-x').recordMixin;
     }
   } catch (e) {
     recordMixin = {
