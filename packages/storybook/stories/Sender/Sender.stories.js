@@ -270,7 +270,7 @@ export const Slot = {
     disabled: false,
     readOnly: false,
     allowSpeech: true,
-    autoSize: { minRows: 2, maxRows: 8 },
+    autoSize: { minRows: 1, maxRows: 6 },
     inputStyle: {
       fontSize: '15px',
       padding: '12px',
