@@ -54,7 +54,7 @@
     "publish:lib": "npm publish"
   },
   "peerDependencies": {
-    "element-ui": "2.15.14",
+    "element-ui": "^2.14.1",
     "vue": "^2.6.14"
   },
   "devDependencies": {
