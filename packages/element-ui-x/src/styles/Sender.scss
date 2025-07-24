@@ -129,7 +129,7 @@ $--el-x-fill-color: $--background-color-base;
       align-self: center;
 
       ::v-deep .el-textarea__inner {
-        padding: 0;
+        padding: 0 !important;
         margin: 0;
         color: $--el-x-text-color-primary;
         font-size: $--el-x-sender-input-font-size;

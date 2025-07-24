@@ -18,7 +18,7 @@
 # ci:       CI配置
 
 # Scope 范围说明：
-# core:     packages/core 核心组件
+# core:     packages/element-ui-x 核心组件
 # examples: examples 示例应用
 # docs:     docs 文档
 # server:   server 服务端

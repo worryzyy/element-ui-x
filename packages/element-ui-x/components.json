@@ -1,13 +1,13 @@
 {
-  "typewriter": "./lib/typewriter.js",
-  "bubble": "./lib/bubble.js",
-  "bubble-list": "./lib/bubble-list.js",
-  "conversations": "./lib/conversations.js",
-  "files-card": "./lib/files-card.js",
-  "prompts": "./lib/prompts.js",
-  "sender": "./lib/sender.js",
-  "thinking": "./lib/thinking.js",
-  "thought-chain": "./lib/thought-chain.js",
-  "welcome": "./lib/welcome.js",
-  "attachments": "./lib/attachments.js"
+  "typewriter": "./lib/components/Typewriter/index.js",
+  "bubble": "./lib/components/Bubble/index.js",
+  "bubble-list": "./lib/components/BubbleList/index.js",
+  "conversations": "./lib/components/Conversations/index.js",
+  "files-card": "./lib/components/FilesCard/index.js",
+  "prompts": "./lib/components/Prompts/index.js",
+  "sender": "./lib/components/Sender/index.js",
+  "thinking": "./lib/components/Thinking/index.js",
+  "thought-chain": "./lib/components/ThoughtChain/index.js",
+  "welcome": "./lib/components/Welcome/index.js",
+  "attachments": "./lib/components/Attachments/index.js"
 }
