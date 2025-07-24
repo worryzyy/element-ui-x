@@ -8,11 +8,10 @@ module.exports = merge(commonConfig, {
   output: {
     path: path.join(__dirname, '../lib'),
     filename: 'index.esm.js',
-    library: 'ElementUIX',
-    libraryTarget: 'umd',
-    globalObject: 'this',
-    umdNamedDefine: true,
+    library: { type: 'module' },
+    environment: { module: true },
   },
+  experiments: { outputModule: true },
   module: {
     rules: [
       {
@@ -77,7 +76,6 @@ module.exports = merge(commonConfig, {
         parallel: true,
       }),
     ],
-    sideEffects: true, // 启用副作用标记
   },
   plugins: [
     // 定义环境变量

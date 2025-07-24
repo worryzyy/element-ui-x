@@ -79,7 +79,6 @@ module.exports = merge(commonConfig, {
         parallel: true,
       }),
     ],
-    sideEffects: true, // 启用副作用标记
   },
   plugins: [
     // 定义环境变量

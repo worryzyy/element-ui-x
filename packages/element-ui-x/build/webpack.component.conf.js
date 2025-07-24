@@ -42,16 +42,12 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader', 
-          'css-loader', 
+          'style-loader',
+          'css-loader',
           {
             loader: 'sass-loader',
-            options: {
-              sassOptions: {
-                silenceDeprecations: ['legacy-js-api', 'import']
-              }
-            }
-          }
+            options: { sassOptions: { silenceDeprecations: ['legacy-js-api', 'import'] } },
+          },
         ],
       },
       {

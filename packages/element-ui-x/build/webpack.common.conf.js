@@ -31,11 +31,11 @@ module.exports = {
           'css-loader',
           {
             loader: 'sass-loader',
-            options: { 
-              sassOptions: { 
+            options: {
+              sassOptions: {
                 outputStyle: 'compressed',
-                silenceDeprecations: ['legacy-js-api', 'import']
-              } 
+                silenceDeprecations: ['legacy-js-api', 'import'],
+              },
             },
           },
         ],
