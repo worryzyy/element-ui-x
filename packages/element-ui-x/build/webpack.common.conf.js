@@ -81,7 +81,6 @@ module.exports = {
         parallel: true,
       }),
     ],
-    sideEffects: true,
   },
   performance: {
     hints: 'warning',
