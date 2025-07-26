@@ -41,7 +41,7 @@ User Action → handleSend/handleAbort/handleFinish → Update loading state →
       <el-button
         :disabled="loading"
         type="primary"
-        @click="handleSend"
+        @click="customSend"
       >
         {{ loading ? 'Loading...' : 'Simulate Request' }}
       </el-button>
@@ -70,25 +70,10 @@ User Action → handleSend/handleAbort/handleFinish → Update loading state →
 </template>
 <script>
   let sendMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      sendMixin = window['vue-element-ui-x'].sendMixin;
-    } else if (typeof require !== 'undefined') {
-      sendMixin = require('vue-element-ui-x').sendMixin;
-    }
-  } catch (e) {
-    sendMixin = {
-      data() {
-        return { loading: false };
-      },
-      methods: {
-        initSend() {},
-        handleSend() {},
-        handleFinish() {},
-        handleAbort() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    sendMixin = require('vue-element-ui-x').sendMixin;
   }
+
   export default {
     name: 'SendBasicDemo',
     mixins: [sendMixin],
@@ -98,15 +83,32 @@ User Action → handleSend/handleAbort/handleFinish → Update loading state →
       };
     },
     mounted() {
-      // Initialize send configuration
-      this.initSend({
-        sendHandler: this.startFn,
-        finishHandler: this.finishBasicRequest,
-        abortHandler: this.abortBasicRequest,
-        onAbort: this.onBasicAbort,
-      });
+      if (typeof window !== 'undefined') {
+        // Initialize send configuration
+        this.initSend({
+          sendHandler: this.startFn,
+          finishHandler: this.finishBasicRequest,
+          abortHandler: this.abortBasicRequest,
+          onAbort: this.onBasicAbort,
+        });
+      }
     },
     methods: {
+      customSend() {
+        if (typeof window !== 'undefined') {
+          this.handleSend();
+        }
+      },
+      handleFinish() {
+        if (typeof window !== 'undefined') {
+          this.handleFinish();
+        }
+      },
+      handleAbort() {
+        if (typeof window !== 'undefined') {
+          this.handleAbort();
+        }
+      },
       async startFn() {
         // Perform an asynchronous operation here, such as making a request
         console.log('Starting simulated request');
@@ -1041,7 +1043,7 @@ Use `sendMixin` for front-end state control and `XRequest` for back-end request 
       plain
       icon="el-icon-position"
       size="large"
-      @click="handleSend"
+      @click="customSend"
     ></el-button>
 
     <el-button
@@ -1071,25 +1073,10 @@ Use `sendMixin` for front-end state control and `XRequest` for back-end request 
 </template>
 <script>
   let sendMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      sendMixin = window['vue-element-ui-x'].sendMixin;
-    } else if (typeof require !== 'undefined') {
-      sendMixin = require('vue-element-ui-x').sendMixin;
-    }
-  } catch (e) {
-    sendMixin = {
-      data() {
-        return { loading: false };
-      },
-      methods: {
-        initSend() {},
-        handleSend() {},
-        handleFinish() {},
-        handleAbort() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    sendMixin = window['vue-element-ui-x'].sendMixin;
   }
+
   export default {
     name: 'XRequestDemo',
     mixins: [sendMixin],
@@ -1101,15 +1088,20 @@ Use `sendMixin` for front-end state control and `XRequest` for back-end request 
     },
     mounted() {
       // Initialize XRequest instance
-      this.initXRequest();
-      this.initSend({
-        sendHandler: this.startFn,
-        finishHandler: this.finishBasicRequest,
-        abortHandler: this.abortBasicRequest,
-        onAbort: this.onBasicAbort,
-      });
+      if (typeof window !== 'undefined') {
+        this.initXRequest();
+        this.initSend({
+          sendHandler: this.startFn,
+          finishHandler: this.finishBasicRequest,
+          abortHandler: this.abortBasicRequest,
+          onAbort: this.onBasicAbort,
+        });
+      }
     },
     methods: {
+      customSend() {
+        this.handleSend();
+      },
       initXRequest() {
         // Import XRequest class
         const { XRequest } = require('vue-element-ui-x');
@@ -1123,10 +1115,10 @@ Use `sendMixin` for front-end state control and `XRequest` for back-end request 
             console.log('Message received:', msg);
             if (msg && msg.data) {
               this.str += `
-              ${msg.data}`;
+                  ${msg.data}`;
             } else {
               this.str += `
-              ${JSON.stringify(msg)}`;
+                  ${JSON.stringify(msg)}`;
             }
           },
 

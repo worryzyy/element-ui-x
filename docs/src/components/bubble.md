@@ -23,21 +23,23 @@
 ```html
 <template>
   <div>
-    <el-x-bubble
-      content="这是一个基础的左侧气泡示例，通常用于展示机器人或对方的消息。"
-      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      placement="start"
-      :avatarSize="40"
-    />
-
-    <div style="margin-top: 20px;">
+    <client-only>
       <el-x-bubble
-        content="这是一个基础的右侧气泡示例，通常用于展示用户自己的消息。"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png"
-        placement="end"
+        content="这是一个基础的左侧气泡示例，通常用于展示机器人或对方的消息。"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        placement="start"
         :avatarSize="40"
       />
-    </div>
+
+      <div style="margin-top: 20px;">
+        <el-x-bubble
+          content="这是一个基础的右侧气泡示例，通常用于展示用户自己的消息。"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png"
+          placement="end"
+          :avatarSize="40"
+        />
+      </div>
+    </client-only>
   </div>
 </template>
 ```
@@ -53,65 +55,67 @@
 ```html
 <template>
   <div>
-    <div class="bubble-row">
-      <el-x-bubble
-        content="默认填充样式 (filled)"
-        variant="filled"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+    <client-only>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="默认填充样式 (filled)"
+          variant="filled"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="带边框样式 (borderless)"
-        variant="borderless"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="带边框样式 (borderless)"
+          variant="borderless"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="轮廓样式 (outlined)"
-        variant="outlined"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="轮廓样式 (outlined)"
+          variant="outlined"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="阴影样式 (shadow)"
-        variant="shadow"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="阴影样式 (shadow)"
+          variant="shadow"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="圆角样式 (shape='round')"
-        shape="round"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="圆角样式 (shape='round')"
+          shape="round"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="尖角样式 (shape='corner')"
-        shape="corner"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="尖角样式 (shape='corner')"
+          shape="corner"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -133,56 +137,58 @@
 ```html
 <template>
   <div>
-    <el-x-bubble
-      :content="typingContent"
-      :typing="typingConfig"
-      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      :avatarSize="40"
-      placement="start"
-      ref="typingDemo"
-      @start="onStart"
-      @writing="onWriting"
-      @finish="onFinish"
-    />
+    <client-only>
+      <el-x-bubble
+        :content="typingContent"
+        :typing="typingConfig"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        :avatarSize="40"
+        placement="start"
+        ref="typingDemo"
+        @start="onStart"
+        @writing="onWriting"
+        @finish="onFinish"
+      />
 
-    <div
-      class="progress-bar"
-      v-if="isTyping"
-    >
-      <el-progress
-        :percentage="progress"
-        :show-text="false"
-      ></el-progress>
-      <div class="progress-text">{{ Math.floor(progress) }}%</div>
-    </div>
+      <div
+        class="progress-bar"
+        v-if="isTyping"
+      >
+        <el-progress
+          :percentage="progress"
+          :show-text="false"
+        ></el-progress>
+        <div class="progress-text">{{ Math.floor(progress) }}%</div>
+      </div>
 
-    <div class="demo-controls">
-      <el-button-group>
-        <el-button
-          size="small"
-          type="primary"
-          @click="startTyping"
-        >
-          开始
-        </el-button>
-        <el-button
-          size="small"
-          type="warning"
-          :disabled="!isTyping"
-          @click="pauseTyping"
-        >
-          暂停
-        </el-button>
-        <el-button
-          size="small"
-          type="success"
-          :disabled="isTyping || progress >= 100"
-          @click="continueTyping"
-        >
-          继续
-        </el-button>
-      </el-button-group>
-    </div>
+      <div class="demo-controls">
+        <el-button-group>
+          <el-button
+            size="small"
+            type="primary"
+            @click="startTyping"
+          >
+            开始
+          </el-button>
+          <el-button
+            size="small"
+            type="warning"
+            :disabled="!isTyping"
+            @click="pauseTyping"
+          >
+            暂停
+          </el-button>
+          <el-button
+            size="small"
+            type="success"
+            :disabled="isTyping || progress >= 100"
+            @click="continueTyping"
+          >
+            继续
+          </el-button>
+        </el-button-group>
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -255,23 +261,25 @@
 ```html
 <template>
   <div>
-    <div class="bubble-row">
-      <el-x-bubble
-        loading
-        placement="start"
-      />
-    </div>
+    <client-only>
+      <div class="bubble-row">
+        <el-x-bubble
+          loading
+          placement="start"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        loading
-        placement="end"
-      >
-        <template #loading>
-          <span style="margin-left: 5px;">正在输入...</span>
-        </template>
-      </el-x-bubble>
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          loading
+          placement="end"
+        >
+          <template #loading>
+            <span style="margin-left: 5px;">正在输入...</span>
+          </template>
+        </el-x-bubble>
+      </div>
+    </client-only>
   </div>
 </template>
 ```
@@ -287,26 +295,28 @@
 ```html
 <template>
   <div>
-    <el-x-bubble
-      :content="markdownContent"
-      :is-markdown="true"
-      :is-fog="true"
-      :typing="{ interval: 30, step: 2 }"
-      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      :avatarSize="40"
-      placement="start"
-      ref="markdownDemo"
-    />
+    <client-only>
+      <el-x-bubble
+        :content="markdownContent"
+        :is-markdown="true"
+        :is-fog="true"
+        :typing="{ interval: 30, step: 2 }"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        :avatarSize="40"
+        placement="start"
+        ref="markdownDemo"
+      />
 
-    <div class="demo-controls">
-      <el-button
-        size="small"
-        type="primary"
-        @click="startMarkdown"
-      >
-        预览
-      </el-button>
-    </div>
+      <div class="demo-controls">
+        <el-button
+          size="small"
+          type="primary"
+          @click="startMarkdown"
+        >
+          预览
+        </el-button>
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -351,37 +361,39 @@ console.log(greet('World'));
 ```html
 <template>
   <div>
-    <el-x-bubble placement="start">
-      <template #avatar>
-        <el-avatar
-          :size="40"
-          icon="el-icon-user-solid"
-          style="background-color: #409EFF;"
-        ></el-avatar>
-      </template>
+    <client-only>
+      <el-x-bubble placement="start">
+        <template #avatar>
+          <el-avatar
+            :size="40"
+            icon="el-icon-user-solid"
+            style="background-color: #409EFF;"
+          ></el-avatar>
+        </template>
 
-      <template #header>
-        <div style="font-weight: bold; margin-bottom: 5px;">自定义头部</div>
-      </template>
+        <template #header>
+          <div style="font-weight: bold; margin-bottom: 5px;">自定义头部</div>
+        </template>
 
-      <template #content>
-        <div style="padding: 10px;">
-          <p>这是使用内容插槽的自定义内容示例。</p>
-          <el-rate
-            v-model="rating"
-            disabled
-            show-score
-          ></el-rate>
-        </div>
-      </template>
+        <template #content>
+          <div style="padding: 10px;">
+            <p>这是使用内容插槽的自定义内容示例。</p>
+            <el-rate
+              v-model="rating"
+              disabled
+              show-score
+            ></el-rate>
+          </div>
+        </template>
 
-      <template #footer>
-        <div style="font-size: 12px; color: #909399;">
-          <i class="el-icon-time"></i>
-          <span>12:30</span>
-        </div>
-      </template>
-    </el-x-bubble>
+        <template #footer>
+          <div style="font-size: 12px; color: #909399;">
+            <i class="el-icon-time"></i>
+            <span>12:30</span>
+          </div>
+        </template>
+      </el-x-bubble>
+    </client-only>
   </div>
 </template>
 

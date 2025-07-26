@@ -70,24 +70,8 @@ export default {
 </template>
 <script>
   let streamMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      streamMixin = window['vue-element-ui-x'].streamMixin;
-    } else if (typeof require !== 'undefined') {
-      streamMixin = require('vue-element-ui-x').streamMixin;
-    }
-  } catch (e) {
-    streamMixin = {
-      data() {
-        return { streamData: [], streamError: null, streamLoading: false };
-      },
-      methods: {
-        startStream() {},
-        cancelStream() {},
-        resetStream() {},
-        createStreamProcessor() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    streamMixin = require('vue-element-ui-x').streamMixin;
   }
   export default {
     name: 'SSEStreamDemo',
@@ -96,6 +80,25 @@ export default {
       return {
         content: '',
       };
+    },
+    methods: {
+      cancelStream() {
+        if (typeof window !== 'undefined') {
+          this.stopStream();
+        }
+      },
+      async startSSE() {
+        if (typeof window === 'undefined') return;
+        try {
+          const response = await fetch('https://testsse.element-ui-x.com/api/sse', {
+            headers: { 'Content-Type': 'text/event-stream' },
+          });
+          const readableStream = response.body;
+          await this.startStream({ readableStream });
+        } catch (err) {
+          console.error('Fetch error:', err);
+        }
+      }
     },
     watch: {
       // 监听流数据变化，更新内容
@@ -127,19 +130,6 @@ export default {
           this.content = text;
         },
         deep: true,
-      },
-    },
-    methods: {
-      async startSSE() {
-        try {
-          const response = await fetch('https://testsse.element-ui-x.com/api/sse', {
-            headers: { 'Content-Type': 'text/event-stream' },
-          });
-          const readableStream = response.body;
-          await this.startStream({ readableStream });
-        } catch (err) {
-          console.error('Fetch error:', err);
-        }
       },
     },
   };
@@ -209,24 +199,8 @@ export default {
 </template>
 <script>
   let streamMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      streamMixin = window['vue-element-ui-x'].streamMixin;
-    } else if (typeof require !== 'undefined') {
-      streamMixin = require('vue-element-ui-x').streamMixin;
-    }
-  } catch (e) {
-    streamMixin = {
-      data() {
-        return { streamData: [], streamError: null, streamLoading: false };
-      },
-      methods: {
-        startStream() {},
-        cancelStream() {},
-        resetStream() {},
-        createStreamProcessor() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    streamMixin = require('vue-element-ui-x').streamMixin;
   }
   export default {
     name: 'SIPStreamDemo',
@@ -235,6 +209,37 @@ export default {
       return {
         content: '',
       };
+    },
+    methods: {
+      cancelStream() {
+        if (typeof window !== 'undefined') {
+          this.stopStream();
+        }
+      },
+      async startSIPStream() {
+        if (typeof window === 'undefined') return;
+        try {
+          const response = await fetch('https://testsse.element-ui-x.com/api/sip', {
+            headers: { 'Content-Type': 'application/sip' },
+          });
+          const readableStream = response.body;
+
+          // 自定义 transformStream 处理 SIP 数据
+          const sipTransformStream = new TransformStream({
+            transform(chunk, controller) {
+              // 这里可以添加 SIP 数据的解析逻辑
+              controller.enqueue(chunk);
+            },
+          });
+
+          await this.startStream({
+            readableStream,
+            transformStream: sipTransformStream,
+          });
+        } catch (err) {
+          console.error('Fetch error:', err);
+        }
+      }
     },
     watch: {
       // 监听流数据变化，更新内容
@@ -259,31 +264,6 @@ export default {
           this.content = text;
         },
         deep: true,
-      },
-    },
-    methods: {
-      async startSIPStream() {
-        try {
-          const response = await fetch('https://testsse.element-ui-x.com/api/sip', {
-            headers: { 'Content-Type': 'application/sip' },
-          });
-          const readableStream = response.body;
-
-          // 自定义 transformStream 处理 SIP 数据
-          const sipTransformStream = new TransformStream({
-            transform(chunk, controller) {
-              // 这里可以添加 SIP 数据的解析逻辑
-              controller.enqueue(chunk);
-            },
-          });
-
-          await this.startStream({
-            readableStream,
-            transformStream: sipTransformStream,
-          });
-        } catch (err) {
-          console.error('Fetch error:', err);
-        }
       },
     },
   };

@@ -21,7 +21,9 @@
 ```html
 <template>
   <div>
-    <el-x-bubble-list :list="messageList" />
+    <client-only>
+      <el-x-bubble-list :list="messageList" />
+    </client-only>
   </div>
 </template>
 
@@ -67,13 +69,15 @@
 ```html
 <template>
   <div>
-    <el-x-bubble-list
-      :list="messageList"
-      defaultShape="round"
-      defaultVariant="shadow"
-      :defaultAvatarSize="40"
-      defaultAvatarShape="circle"
-    />
+    <client-only>
+      <el-x-bubble-list
+        :list="messageList"
+        defaultShape="round"
+        defaultVariant="shadow"
+        :defaultAvatarSize="40"
+        defaultAvatarShape="circle"
+      />
+    </client-only>
   </div>
 </template>
 
@@ -115,30 +119,32 @@
 ```html
 <template>
   <div>
-    <el-x-bubble-list
-      :list="typingMessages"
-      :max-height="'300px'"
-      :defaultIsMarkdown="true"
-      :defaultTyping="{ interval: 30, step: 2 }"
-      @complete="onTypingComplete"
-    />
+    <client-only>
+      <el-x-bubble-list
+        :list="typingMessages"
+        :max-height="'300px'"
+        :defaultIsMarkdown="true"
+        :defaultTyping="{ interval: 30, step: 2 }"
+        @complete="onTypingComplete"
+      />
 
-    <div style="margin-top: 15px;">
-      <el-button
-        type="primary"
-        size="small"
-        @click="addMessage"
-      >
-        添加消息
-      </el-button>
-      <el-button
-        type="success"
-        size="small"
-        @click="addTypingMessage"
-      >
-        添加打字效果消息
-      </el-button>
-    </div>
+      <div style="margin-top: 15px;">
+        <el-button
+          type="primary"
+          size="small"
+          @click="addMessage"
+        >
+          添加消息
+        </el-button>
+        <el-button
+          type="success"
+          size="small"
+          @click="addTypingMessage"
+        >
+          添加打字效果消息
+        </el-button>
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -213,14 +219,16 @@
 ```html
 <template>
   <div>
-    <el-x-bubble-list
-      :list="longMessages"
-      :max-height="'300px'"
-      :back-button-threshold="80"
-      :show-back-button="true"
-      :btn-color="'#409EFF'"
-      :btn-icon-size="24"
-    />
+    <client-only>
+      <el-x-bubble-list
+        :list="longMessages"
+        :max-height="'300px'"
+        :back-button-threshold="80"
+        :show-back-button="true"
+        :btn-color="'#409EFF'"
+        :btn-icon-size="24"
+      />
+    </client-only>
   </div>
 </template>
 
@@ -258,78 +266,80 @@
 ```html
 <template>
   <div>
-    <el-x-bubble-list
-      :list="customMessages"
-      :max-height="'300px'"
-    >
-      <template #avatar="{ item }">
-        <el-avatar
-          :size="40"
-          :icon="
-            item.placement === 'start' ? 'el-icon-s-custom' : 'el-icon-user'
-          "
-          :style="{
-            backgroundColor: item.placement === 'start' ? '#409EFF' : '#67C23A',
-          }"
-        ></el-avatar>
-      </template>
+    <client-only>
+      <el-x-bubble-list
+        :list="customMessages"
+        :max-height="'300px'"
+      >
+        <template #avatar="{ item }">
+          <el-avatar
+            :size="40"
+            :icon="
+              item.placement === 'start' ? 'el-icon-s-custom' : 'el-icon-user'
+            "
+            :style="{
+              backgroundColor: item.placement === 'start' ? '#409EFF' : '#67C23A',
+            }"
+          ></el-avatar>
+        </template>
 
-      <template #header="{ item }">
-        <div style="font-weight: bold; margin-bottom: 5px; color: #606266;">
-          {{ item.placement === "start" ? "AI助手" : "用户" }}
-          <span style="font-size: 12px; margin-left: 10px; font-weight: normal;">
-            {{ item.time }}
-          </span>
-        </div>
-      </template>
+        <template #header="{ item }">
+          <div style="font-weight: bold; margin-bottom: 5px; color: #606266;">
+            {{ item.placement === "start" ? "AI助手" : "用户" }}
+            <span style="font-size: 12px; margin-left: 10px; font-weight: normal;">
+              {{ item.time }}
+            </span>
+          </div>
+        </template>
 
-      <template #footer="{ item }">
-        <div style=" color: #909399; text-align: right; ">
-          <el-button
-            circle
-            size="mini"
-            @click="copyMessage(item)"
-          >
-            <i class="el-icon-document-copy"></i>
-          </el-button>
-          <el-button
-            circle
-            size="mini"
-            @click="favoriteMessage(item)"
-          >
-            <i class="el-icon-star-off"></i>
-          </el-button>
-
-          <!-- 只在AI消息中显示点赞和踩按钮 -->
-          <template v-if="item.placement === 'start'">
+        <template #footer="{ item }">
+          <div style=" color: #909399; text-align: right; ">
             <el-button
               circle
               size="mini"
-              @click="likeMessage(item)"
+              @click="copyMessage(item)"
             >
-              <i class="el-icon-thumb"></i>
+              <i class="el-icon-document-copy"></i>
             </el-button>
             <el-button
               circle
               size="mini"
-              @click="dislikeMessage(item)"
+              @click="favoriteMessage(item)"
             >
-              <i class="el-icon-bottom"></i>
+              <i class="el-icon-star-off"></i>
             </el-button>
-          </template>
-        </div>
-      </template>
 
-      <template #backToBottom>
-        <el-button
-          type="primary"
-          size="mini"
-          circle
-        >
-          <i class="el-icon-bottom"></i>
-        </el-button>
-      </template>
-    </el-x-bubble-list>
+            <!-- 只在AI消息中显示点赞和踩按钮 -->
+            <template v-if="item.placement === 'start'">
+              <el-button
+                circle
+                size="mini"
+                @click="likeMessage(item)"
+              >
+                <i class="el-icon-thumb"></i>
+              </el-button>
+              <el-button
+                circle
+                size="mini"
+                @click="dislikeMessage(item)"
+              >
+                <i class="el-icon-bottom"></i>
+              </el-button>
+            </template>
+          </div>
+        </template>
+
+        <template #backToBottom>
+          <el-button
+            type="primary"
+            size="mini"
+            circle
+          >
+            <i class="el-icon-bottom"></i>
+          </el-button>
+        </template>
+      </el-x-bubble-list>
+    </client-only>
   </div>
 </template>
 
@@ -374,22 +384,24 @@
 ```html
 <template>
   <div>
-    <el-x-bubble-list
-      :list="complexMessages"
-      :max-height="'400px'"
-      :defaultIsMarkdown="true"
-      :defaultAvatarSize="40"
-    />
+    <client-only>
+      <el-x-bubble-list
+        :list="complexMessages"
+        :max-height="'400px'"
+        :defaultIsMarkdown="true"
+        :defaultAvatarSize="40"
+      />
 
-    <div style="margin-top: 15px;">
-      <el-button
-        type="primary"
-        size="small"
-        @click="sendMessage"
-      >
-        发送消息
-      </el-button>
-    </div>
+      <div style="margin-top: 15px;">
+        <el-button
+          type="primary"
+          size="small"
+          @click="sendMessage"
+        >
+          发送消息
+        </el-button>
+      </div>
+    </client-only>
   </div>
 </template>
 

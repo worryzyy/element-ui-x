@@ -70,25 +70,10 @@ Demonstrates how to handle SSE stream data and display Markdown content in the B
 </template>
 <script>
   let streamMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      streamMixin = window['vue-element-ui-x'].streamMixin;
-    } else if (typeof require !== 'undefined') {
-      streamMixin = require('vue-element-ui-x').streamMixin;
-    }
-  } catch (e) {
-    streamMixin = {
-      data() {
-        return { streamData: [], streamError: null, streamLoading: false };
-      },
-      methods: {
-        startStream() {},
-        cancelStream() {},
-        resetStream() {},
-        createStreamProcessor() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    streamMixin = require('vue-element-ui-x').streamMixin;
   }
+
   export default {
     name: 'SSEStreamDemo',
     mixins: [streamMixin],
@@ -96,6 +81,25 @@ Demonstrates how to handle SSE stream data and display Markdown content in the B
       return {
         content: '',
       };
+    },
+    methods: {
+      cancelStream() {
+        if (typeof window !== 'undefined') {
+          this.stopStream();
+        }
+      },
+      async startSSE() {
+        if (typeof window === 'undefined') return;
+        try {
+          const response = await fetch('https://testsse.element-ui-x.com/api/sse', {
+            headers: { 'Content-Type': 'text/event-stream' },
+          });
+          const readableStream = response.body;
+          await this.startStream({ readableStream });
+        } catch (err) {
+          console.error('Fetch error:', err);
+        }
+      }
     },
     watch: {
       // Watch for changes in stream data and update content
@@ -127,19 +131,6 @@ Demonstrates how to handle SSE stream data and display Markdown content in the B
           this.content = text;
         },
         deep: true,
-      },
-    },
-    methods: {
-      async startSSE() {
-        try {
-          const response = await fetch('https://testsse.element-ui-x.com/api/sse', {
-            headers: { 'Content-Type': 'text/event-stream' },
-          });
-          const readableStream = response.body;
-          await this.startStream({ readableStream });
-        } catch (err) {
-          console.error('Fetch error:', err);
-        }
       },
     },
   };
@@ -209,24 +200,8 @@ Demonstrates how to handle SIP protocol stream data and use a custom transform s
 </template>
 <script>
   let streamMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      streamMixin = window['vue-element-ui-x'].streamMixin;
-    } else if (typeof require !== 'undefined') {
-      streamMixin = require('vue-element-ui-x').streamMixin;
-    }
-  } catch (e) {
-    streamMixin = {
-      data() {
-        return { streamData: [], streamError: null, streamLoading: false };
-      },
-      methods: {
-        startStream() {},
-        cancelStream() {},
-        resetStream() {},
-        createStreamProcessor() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    streamMixin = require('vue-element-ui-x').streamMixin;
   }
   export default {
     name: 'SIPStreamDemo',
@@ -235,6 +210,37 @@ Demonstrates how to handle SIP protocol stream data and use a custom transform s
       return {
         content: '',
       };
+    },
+    methods: {
+      cancelStream() {
+        if (typeof window !== 'undefined') {
+          this.stopStream();
+        }
+      },
+      async startSIPStream() {
+        if (typeof window === 'undefined') return;
+        try {
+          const response = await fetch('https://testsse.element-ui-x.com/api/sip', {
+            headers: { 'Content-Type': 'application/sip' },
+          });
+          const readableStream = response.body;
+
+          // Custom transformStream to handle SIP data
+          const sipTransformStream = new TransformStream({
+            transform(chunk, controller) {
+              // SIP data parsing logic can be added here
+              controller.enqueue(chunk);
+            },
+          });
+
+          await this.startStream({
+            readableStream,
+            transformStream: sipTransformStream,
+          });
+        } catch (err) {
+          console.error('Fetch error:', err);
+        }
+      }
     },
     watch: {
       // Watch for changes in stream data and update content
@@ -259,31 +265,6 @@ Demonstrates how to handle SIP protocol stream data and use a custom transform s
           this.content = text;
         },
         deep: true,
-      },
-    },
-    methods: {
-      async startSIPStream() {
-        try {
-          const response = await fetch('https://testsse.element-ui-x.com/api/sip', {
-            headers: { 'Content-Type': 'application/sip' },
-          });
-          const readableStream = response.body;
-
-          // Custom transformStream to handle SIP data
-          const sipTransformStream = new TransformStream({
-            transform(chunk, controller) {
-              // SIP data parsing logic can be added here
-              controller.enqueue(chunk);
-            },
-          });
-
-          await this.startStream({
-            readableStream,
-            transformStream: sipTransformStream,
-          });
-        } catch (err) {
-          console.error('Fetch error:', err);
-        }
       },
     },
   };

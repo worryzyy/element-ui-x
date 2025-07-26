@@ -1,55 +1,57 @@
-import { Message } from 'element-ui';
+import ElementUI, { Message } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-// 导入 Element UI 文档风格的代码高亮样式
 import BackToTop from './components/BackToTop.vue';
 import EnHero from './components/EnHero.vue';
 import Hero from './components/Hero.vue';
+
 export default async ({ Vue, router, isServer }) => {
-  // Vue.use(ElementUI);
   Vue.component('BackToTop', BackToTop);
   Vue.component('Hero', Hero);
   Vue.component('EnHero', EnHero);
 
   Vue.prototype.$message = Message;
-
-  // 添加全局的路由切换后回到顶部的功能
-  router.options.scrollBehavior = (to, from, savedPosition) => {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return { x: 0, y: 0 };
-    }
-  };
-  // 同步加载UI库，确保SSR和客户端都能使用
-  if (isServer) {
-    // 服务端也需要注册组件，避免SSR错误
-    const ElementUI = require('element-ui');
-    const ElementUIX = require('vue-element-ui-x');
-    Vue.use(ElementUI);
-    Vue.use(ElementUIX.default || ElementUIX);
-  } else {
-    // 客户端立即加载
-    const [ElementUI, ElementUIX] = await Promise.all([
-      import('element-ui'),
-      import('vue-element-ui-x'),
-    ]);
-    Vue.use(ElementUI.default || ElementUI);
-    Vue.use(ElementUIX.default || ElementUIX);
+  Vue.use(ElementUI);
+  // 解决引入自己组件报错document未找到的问题
+  let isElementUIXLoaded = false;
+  Vue.mixin({
+    mounted() {
+      if (!isElementUIXLoaded) {
+        import('vue-element-ui-x').then(function (m) {
+          Vue.use(m.default);
+          isElementUIXLoaded = true;
+        });
+      }
+    },
+  });
+  if (!isServer) {
+    const module = await import('vue-element-ui-x');
+    Vue.use(module.default || module);
   }
-  // // 防止路由错误
-  // if (!isServer) {
-  //   if (!isServer) {
-  //     import('vue-element-ui-x').then(ElementUIX => {
-  //       Vue.use(ElementUIX.default || ElementUIX);
+
+  // // 修复锚点滚动和页面切换的滚动行为
+  // router.options.scrollBehavior = (to, from, savedPosition) => {
+  //   if (savedPosition) {
+  //     return savedPosition;
+  //   } else if (to.hash) {
+  //     // 处理锚点跳转
+  //     const position = { selector: to.hash };
+  //     // 添加延迟以确保DOM已渲染
+  //     return new Promise((resolve) => {
+  //       setTimeout(() => {
+  //         // 查找元素并滚动到位置
+  //         const element = document.querySelector(to.hash);
+  //         if (element) {
+  //           const offsetTop = element.offsetTop - 80; // 留出顶部导航的空间
+  //           resolve({ x: 0, y: offsetTop });
+  //         } else {
+  //           resolve({ x: 0, y: 0 });
+  //         }
+  //       }, 100);
   //     });
+  //   } else if (to.path !== from.path) {
+  //     return { x: 0, y: 0 };
+  //   } else {
+  //     return false;
   //   }
-  //   // 添加全局错误处理
-  //   window.addEventListener('error', event => {
-  //     // 忽略路由相关错误
-  //     if (event.message && event.message.includes('Cannot read properties of undefined')) {
-  //       event.preventDefault();
-  //       console.warn('Suppressed router error:', event.message);
-  //     }
-  //   });
-  // }
+  // };
 };

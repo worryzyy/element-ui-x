@@ -23,21 +23,23 @@ Basic bubble component usage, demonstrating bubble effects at different position
 ```html
 <template>
   <div>
-    <el-x-bubble
-      content="This is a basic left-side bubble example, typically used to display bot or other party messages."
-      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      :avatarSize="40"
-      placement="start"
-    />
-
-    <div style="margin-top: 20px;">
+    <client-only>
       <el-x-bubble
-        content="This is a basic right-side bubble example, typically used to display user's own messages."
+        content="This is a basic left-side bubble example, typically used to display bot or other party messages."
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
         :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png"
-        placement="end"
-      ></el-x-bubble>
-    </div>
+        placement="start"
+      />
+
+      <div style="margin-top: 20px;">
+        <el-x-bubble
+          content="This is a basic right-side bubble example, typically used to display user's own messages."
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png"
+          placement="end"
+        ></el-x-bubble>
+      </div>
+    </client-only>
   </div>
 </template>
 ```
@@ -53,65 +55,67 @@ Configure different styles and shapes of bubbles through `variant` and `shape` p
 ```html
 <template>
   <div>
-    <div class="bubble-row">
-      <el-x-bubble
-        content="Default filled style (filled)"
-        variant="filled"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+    <client-only>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="Default filled style (filled)"
+          variant="filled"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="Borderless style (borderless)"
-        variant="borderless"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="Borderless style (borderless)"
+          variant="borderless"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="Outlined style (outlined)"
-        variant="outlined"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="Outlined style (outlined)"
+          variant="outlined"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="Shadow style (shadow)"
-        variant="shadow"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="Shadow style (shadow)"
+          variant="shadow"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="Round style (shape='round')"
-        shape="round"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="Round style (shape='round')"
+          shape="round"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        content="Corner style (shape='corner')"
-        shape="corner"
-        placement="start"
-        :avatarSize="40"
-        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      />
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          content="Corner style (shape='corner')"
+          shape="corner"
+          placement="start"
+          :avatarSize="40"
+          avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        />
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -133,56 +137,58 @@ Enable typewriter effect through `typing` property to simulate real-time input.
 ```html
 <template>
   <div>
-    <el-x-bubble
-      :content="typingContent"
-      :typing="typingConfig"
-      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      :avatarSize="40"
-      placement="start"
-      ref="typingDemo"
-      @start="onStart"
-      @writing="onWriting"
-      @finish="onFinish"
-    />
+    <client-only>
+      <el-x-bubble
+        :content="typingContent"
+        :typing="typingConfig"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        :avatarSize="40"
+        placement="start"
+        ref="typingDemo"
+        @start="onStart"
+        @writing="onWriting"
+        @finish="onFinish"
+      />
 
-    <div
-      class="progress-bar"
-      v-if="isTyping"
-    >
-      <el-progress
-        :percentage="progress"
-        :show-text="false"
-      ></el-progress>
-      <div class="progress-text">{{ Math.floor(progress) }}%</div>
-    </div>
+      <div
+        class="progress-bar"
+        v-if="isTyping"
+      >
+        <el-progress
+          :percentage="progress"
+          :show-text="false"
+        ></el-progress>
+        <div class="progress-text">{{ Math.floor(progress) }}%</div>
+      </div>
 
-    <div class="demo-controls">
-      <el-button-group>
-        <el-button
-          size="small"
-          type="primary"
-          @click="startTyping"
-        >
-          Start
-        </el-button>
-        <el-button
-          size="small"
-          type="warning"
-          :disabled="!isTyping"
-          @click="pauseTyping"
-        >
-          Pause
-        </el-button>
-        <el-button
-          size="small"
-          type="success"
-          :disabled="isTyping || progress >= 100"
-          @click="continueTyping"
-        >
-          Continue
-        </el-button>
-      </el-button-group>
-    </div>
+      <div class="demo-controls">
+        <el-button-group>
+          <el-button
+            size="small"
+            type="primary"
+            @click="startTyping"
+          >
+            Start
+          </el-button>
+          <el-button
+            size="small"
+            type="warning"
+            :disabled="!isTyping"
+            @click="pauseTyping"
+          >
+            Pause
+          </el-button>
+          <el-button
+            size="small"
+            type="success"
+            :disabled="isTyping || progress >= 100"
+            @click="continueTyping"
+          >
+            Continue
+          </el-button>
+        </el-button-group>
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -255,23 +261,25 @@ Display loading state through `loading` property, supporting custom loading anim
 ```html
 <template>
   <div>
-    <div class="bubble-row">
-      <el-x-bubble
-        loading
-        placement="start"
-      />
-    </div>
+    <client-only>
+      <div class="bubble-row">
+        <el-x-bubble
+          loading
+          placement="start"
+        />
+      </div>
 
-    <div class="bubble-row">
-      <el-x-bubble
-        loading
-        placement="end"
-      >
-        <template #loading>
-          <span style="margin-left: 5px;">Typing...</span>
-        </template>
-      </el-x-bubble>
-    </div>
+      <div class="bubble-row">
+        <el-x-bubble
+          loading
+          placement="end"
+        >
+          <template #loading>
+            <span style="margin-left: 5px;">Typing...</span>
+          </template>
+        </el-x-bubble>
+      </div>
+    </client-only>
   </div>
 </template>
 ```
@@ -287,26 +295,28 @@ Enable Markdown content rendering through `isMarkdown` property.
 ```html
 <template>
   <div>
-    <el-x-bubble
-      :content="markdownContent"
-      :is-markdown="true"
-      :is-fog="true"
-      :typing="{ interval: 30, step: 2 }"
-      :avatarSize="40"
-      avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
-      placement="start"
-      ref="markdownDemo"
-    />
+    <client-only>
+      <el-x-bubble
+        :content="markdownContent"
+        :is-markdown="true"
+        :is-fog="true"
+        :typing="{ interval: 30, step: 2 }"
+        :avatarSize="40"
+        avatar="https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png"
+        placement="start"
+        ref="markdownDemo"
+      />
 
-    <div class="demo-controls">
-      <el-button
-        size="small"
-        type="primary"
-        @click="startMarkdown"
-      >
-        Preview
-      </el-button>
-    </div>
+      <div class="demo-controls">
+        <el-button
+          size="small"
+          type="primary"
+          @click="startMarkdown"
+        >
+          Preview
+        </el-button>
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -351,37 +361,39 @@ Use slots to customize bubble avatar and content.
 ```html
 <template>
   <div>
-    <el-x-bubble placement="start">
-      <template #avatar>
-        <el-avatar
-          :size="40"
-          icon="el-icon-user-solid"
-          style="background-color: #409EFF;"
-        ></el-avatar>
-      </template>
+    <client-only>
+      <el-x-bubble placement="start">
+        <template #avatar>
+          <el-avatar
+            :size="40"
+            icon="el-icon-user-solid"
+            style="background-color: #409EFF;"
+          ></el-avatar>
+        </template>
 
-      <template #header>
-        <div style="font-weight: bold; margin-bottom: 5px;">Custom Header</div>
-      </template>
+        <template #header>
+          <div style="font-weight: bold; margin-bottom: 5px;">Custom Header</div>
+        </template>
 
-      <template #content>
-        <div style="padding: 10px;">
-          <p>This is a custom content example using content slot.</p>
-          <el-rate
-            v-model="rating"
-            disabled
-            show-score
-          ></el-rate>
-        </div>
-      </template>
+        <template #content>
+          <div style="padding: 10px;">
+            <p>This is a custom content example using content slot.</p>
+            <el-rate
+              v-model="rating"
+              disabled
+              show-score
+            ></el-rate>
+          </div>
+        </template>
 
-      <template #footer>
-        <div style="font-size: 12px; color: #909399;">
-          <i class="el-icon-time"></i>
-          <span>12:30</span>
-        </div>
-      </template>
-    </el-x-bubble>
+        <template #footer>
+          <div style="font-size: 12px; color: #909399;">
+            <i class="el-icon-time"></i>
+            <span>12:30</span>
+          </div>
+        </template>
+      </el-x-bubble>
+    </client-only>
   </div>
 </template>
 
