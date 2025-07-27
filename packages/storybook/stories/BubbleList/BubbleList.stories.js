@@ -1,0 +1,173 @@
+import ElXBubbleList from '@/components/BubbleList';
+import BasicDemo from './BasicDemo.vue';
+import SlotDemo from './SlotDemo.vue';
+
+export default {
+  title: '组件库/BubbleList 对话列表',
+  component: ElXBubbleList,
+  parameters: { controls: { exclude: ['complete'] } },
+  argTypes: {
+    list: {
+      control: 'object',
+      description: '对话消息列表数组',
+      table: {
+        type: { summary: 'Array' },
+        defaultValue: { summary: '[]' },
+      },
+    },
+    maxHeight: {
+      control: 'text',
+      description: '列表容器最大高度',
+      table: {
+        type: { summary: 'String' },
+        defaultValue: { summary: "'500px'" },
+      },
+    },
+    triggerIndices: {
+      control: { type: 'select' },
+      options: ['only-last', 'all'],
+      description: '触发完成事件的索引规则',
+      table: {
+        type: { summary: 'String | Array' },
+        defaultValue: { summary: "'only-last'" },
+      },
+    },
+    alwaysShowScrollbar: {
+      control: 'boolean',
+      description: '是否始终显示滚动条',
+      table: {
+        type: { summary: 'Boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    backButtonThreshold: {
+      control: {
+        type: 'number',
+        min: 0,
+        max: 200,
+        step: 10,
+      },
+      description: '显示返回底部按钮的滚动距离阈值（像素）',
+      table: {
+        type: { summary: 'Number' },
+        defaultValue: { summary: '80' },
+      },
+    },
+    showBackButton: {
+      control: 'boolean',
+      description: '是否显示返回底部按钮',
+      table: {
+        type: { summary: 'Boolean' },
+        defaultValue: { summary: 'true' },
+      },
+    },
+    backButtonPosition: {
+      control: 'object',
+      description: '返回底部按钮的位置配置',
+      table: {
+        type: { summary: 'Object' },
+        defaultValue: { summary: "{ bottom: '20px', left: 'calc(50% - 19px)' }" },
+      },
+    },
+    btnLoading: {
+      control: 'boolean',
+      description: '返回按钮是否显示加载状态',
+      table: {
+        type: { summary: 'Boolean' },
+        defaultValue: { summary: 'true' },
+      },
+    },
+    btnColor: {
+      control: 'color',
+      description: '返回按钮的颜色',
+      table: {
+        type: { summary: 'String' },
+        defaultValue: { summary: "'#409EFF'" },
+      },
+    },
+    btnIconSize: {
+      control: {
+        type: 'number',
+        min: 16,
+        max: 32,
+        step: 2,
+      },
+      description: '返回按钮图标大小（像素）',
+      table: {
+        type: { summary: 'Number' },
+        defaultValue: { summary: '24' },
+      },
+    },
+
+    defaultNoStyle: {
+      control: 'boolean',
+      description: '全局默认是否禁用样式',
+      table: {
+        type: { summary: 'Boolean' },
+        defaultValue: { summary: 'undefined' },
+      },
+    },
+  },
+};
+
+export const Basic = {
+  name: '基础用法',
+  render: args => ({
+    components: { BasicDemo },
+    template: '<BasicDemo v-bind="$props" />',
+    props: Object.keys(args),
+  }),
+  args: {
+    list: [],
+    maxHeight: '400px',
+    triggerIndices: 'only-last',
+    alwaysShowScrollbar: false,
+    backButtonThreshold: 80,
+    showBackButton: true,
+    backButtonPosition: {
+      bottom: '20px',
+      left: 'calc(50% - 19px)',
+    },
+    defaultIsMarkdown: false,
+    btnLoading: true,
+    btnColor: '#409EFF',
+    btnIconSize: 24,
+  },
+};
+
+export const Slots = {
+  name: '插槽用法',
+  render: args => ({
+    components: { SlotDemo },
+    template: '<SlotDemo v-bind="$props" />',
+    props: Object.keys(args),
+  }),
+  args: {
+    list: [],
+    maxHeight: '500px',
+    triggerIndices: 'only-last',
+    alwaysShowScrollbar: false,
+    backButtonThreshold: 80,
+    showBackButton: true,
+    backButtonPosition: {
+      bottom: '20px',
+      left: 'calc(50% - 19px)',
+    },
+    btnLoading: true,
+    btnColor: '#409EFF',
+    btnIconSize: 24,
+    defaultPlacement: '',
+    defaultLoading: undefined,
+    defaultShape: '',
+    defaultVariant: '',
+    defaultIsMarkdown: false,
+    defaultIsFog: false,
+    defaultTyping: undefined,
+    defaultMaxWidth: '',
+    defaultAvatar: '',
+    defaultAvatarSize: undefined,
+    defaultAvatarGap: undefined,
+    defaultAvatarShape: '',
+    defaultNoStyle: undefined,
+  },
+};
