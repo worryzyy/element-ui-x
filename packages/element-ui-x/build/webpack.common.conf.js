@@ -23,6 +23,22 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: { browsers: ['> 1%', 'last 2 versions', 'ie >= 9'] },
+                modules: 'commonjs',
+                loose: true,
+              },
+            ],
+          ],
+          plugins: [
+            '@babel/plugin-transform-arrow-functions',
+            '@babel/plugin-transform-block-scoping',
+          ],
+        },
       },
       {
         test: /\.scss$/,
@@ -68,10 +84,12 @@ module.exports = {
             drop_console: true,
             drop_debugger: true,
             pure_funcs: ['console.log'],
-            unused: true,
-            dead_code: true,
+            unused: false, // 禁用删除未使用变量，可能导致问题
+            dead_code: false, // 禁用删除不可达代码，可能导致问题
+            sequences: false, // 禁用逗号表达式优化
+            conditionals: false, // 禁用条件表达式优化
           },
-          mangle: true,
+          mangle: false, // 禁用变量名混淆，避免语法错误
           output: {
             comments: false,
             beautify: false,
