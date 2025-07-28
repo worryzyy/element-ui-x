@@ -5,7 +5,7 @@
       <div class="bubble-list-container">
         <el-x-bubble-list
           v-bind="bubbleListProps"
-          :list="scrollList"
+          :list="displayList"
           ref="bubbleListDemo"
         >
           <template
@@ -134,69 +134,9 @@
         type: Number,
         default: 24,
       },
-      defaultPlacement: {
-        type: String,
-        default: '',
-      },
-      defaultLoading: {
-        type: Boolean,
-        default: undefined,
-      },
-      defaultShape: {
-        type: String,
-        default: '',
-      },
-      defaultVariant: {
-        type: String,
-        default: '',
-      },
       defaultIsMarkdown: {
         type: Boolean,
         default: true,
-      },
-      defaultIsFog: {
-        type: Boolean,
-        default: false,
-      },
-      defaultTyping: {
-        type: [Boolean, Object],
-        default: undefined,
-      },
-      defaultMaxWidth: {
-        type: String,
-        default: '',
-      },
-      defaultAvatar: {
-        type: String,
-        default: '',
-      },
-      defaultAvatarSize: {
-        type: Number,
-        default: undefined,
-      },
-      defaultAvatarGap: {
-        type: Number,
-        default: undefined,
-      },
-      defaultAvatarShape: {
-        type: String,
-        default: '',
-      },
-      defaultAvatarSrcSet: {
-        type: String,
-        default: '',
-      },
-      defaultAvatarAlt: {
-        type: String,
-        default: '',
-      },
-      defaultAvatarFit: {
-        type: String,
-        default: '',
-      },
-      defaultNoStyle: {
-        type: Boolean,
-        default: undefined,
       },
     },
     data() {
@@ -225,23 +165,13 @@
           btnLoading: this.btnLoading,
           btnColor: this.btnColor,
           btnIconSize: this.btnIconSize,
-          defaultPlacement: this.defaultPlacement,
-          defaultLoading: this.defaultLoading,
-          defaultShape: this.defaultShape,
-          defaultVariant: this.defaultVariant,
+
           defaultIsMarkdown: this.defaultIsMarkdown,
-          defaultIsFog: this.defaultIsFog,
-          defaultTyping: this.defaultTyping,
-          defaultMaxWidth: this.defaultMaxWidth,
-          defaultAvatar: this.defaultAvatar,
-          defaultAvatarSize: this.defaultAvatarSize,
-          defaultAvatarGap: this.defaultAvatarGap,
-          defaultAvatarShape: this.defaultAvatarShape,
-          defaultAvatarSrcSet: this.defaultAvatarSrcSet,
-          defaultAvatarAlt: this.defaultAvatarAlt,
-          defaultAvatarFit: this.defaultAvatarFit,
-          defaultNoStyle: this.defaultNoStyle,
         };
+      },
+      displayList() {
+        // 如果外部传入了list，使用外部的，否则使用内部默认的
+        return this.list.length > 0 ? this.list : this.scrollList;
       },
     },
     methods: {
@@ -256,23 +186,26 @@
       },
       toggleLoading() {
         // 切换最后两条消息的加载状态
-        const len = this.scrollList.length;
+        const currentList = this.list.length > 0 ? this.list : this.scrollList;
+        const len = currentList.length;
         if (len >= 2) {
-          this.scrollList[len - 1].loading = !this.scrollList[len - 1].loading;
-          this.scrollList[len - 2].loading = !this.scrollList[len - 2].loading;
+          currentList[len - 1].loading = !currentList[len - 1].loading;
+          currentList[len - 2].loading = !currentList[len - 2].loading;
         }
       },
       recallMessage(item) {
-        const index = this.scrollList.indexOf(item);
+        const currentList = this.list.length > 0 ? this.list : this.scrollList;
+        const index = currentList.indexOf(item);
         if (index !== -1) {
-          this.scrollList.splice(index, 1);
+          currentList.splice(index, 1);
           console.log('消息已撤回');
         }
       },
       deleteMessage(item) {
-        const index = this.scrollList.indexOf(item);
+        const currentList = this.list.length > 0 ? this.list : this.scrollList;
+        const index = currentList.indexOf(item);
         if (index !== -1) {
-          this.scrollList.splice(index, 1);
+          currentList.splice(index, 1);
           console.log('消息已删除');
         }
       },

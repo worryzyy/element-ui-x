@@ -5,7 +5,36 @@ import SlotDemo from './SlotDemo.vue';
 export default {
   title: '组件库/BubbleList 对话列表',
   component: ElXBubbleList,
-  parameters: { controls: { exclude: ['complete'] } },
+  parameters: {
+    controls: {
+      exclude: [
+        'complete',
+        'defaultNoStyle',
+        'defaultIsMarkdown',
+        'defaultIsFog',
+        'defaultTyping',
+        'defaultMaxWidth',
+        'defaultAvatar',
+        'defaultAvatarSize',
+        'defaultAvatarGap',
+        'defaultAvatarShape',
+        'defaultPlacement',
+        'defaultLoading',
+        'defaultShape',
+        'defaultVariant',
+        'defaultIsMarkdown',
+        'defaultIsFog',
+        'defaultTyping',
+        'defaultAvatarSrcSet',
+        'defaultAvatarAlt',
+        'defaultAvatarFit',
+        'avatar',
+        'content',
+        'loading',
+        'backToBottom',
+      ],
+    },
+  },
   argTypes: {
     list: {
       control: 'object',
@@ -118,8 +147,17 @@ export const Basic = {
     props: Object.keys(args),
   }),
   args: {
-    list: [],
-    maxHeight: '400px',
+    list: Array.from({ length: 10 }, (_, i) => ({
+      content: `基础消息${i + 1}`,
+      placement: i % 2 === 0 ? 'start' : 'end',
+      avatarSize: 40,
+      avatar:
+        i % 2 === 0
+          ? 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/166/166.jpg'
+          : 'https://game.gtimg.cn/images/yxzj/img201606/heroimg/507/507.jpg',
+      loading: i >= 8, // 最后两条消息显示加载状态
+    })),
+    maxHeight: '600px',
     triggerIndices: 'only-last',
     alwaysShowScrollbar: false,
     backButtonThreshold: 80,
@@ -143,7 +181,19 @@ export const Slots = {
     props: Object.keys(args),
   }),
   args: {
-    list: [],
+    list: Array.from({ length: 10 }, (_, i) => ({
+      content: `这是第${i + 1}条消息，演示插槽功能`,
+      placement: i % 2 === 0 ? 'start' : 'end',
+      isMarkdown: false,
+      noStyle: true,
+      isFog: true,
+      avatar:
+        i % 2 === 0
+          ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+          : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+      avatarSize: 40,
+      loading: i >= 8, // 最后两条消息显示加载状态
+    })),
     maxHeight: '500px',
     triggerIndices: 'only-last',
     alwaysShowScrollbar: false,
@@ -156,18 +206,5 @@ export const Slots = {
     btnLoading: true,
     btnColor: '#409EFF',
     btnIconSize: 24,
-    defaultPlacement: '',
-    defaultLoading: undefined,
-    defaultShape: '',
-    defaultVariant: '',
-    defaultIsMarkdown: false,
-    defaultIsFog: false,
-    defaultTyping: undefined,
-    defaultMaxWidth: '',
-    defaultAvatar: '',
-    defaultAvatarSize: undefined,
-    defaultAvatarGap: undefined,
-    defaultAvatarShape: '',
-    defaultNoStyle: undefined,
   },
 };

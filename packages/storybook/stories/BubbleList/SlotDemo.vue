@@ -1,11 +1,19 @@
 <template>
   <div class="component-container">
     <div class="component-title">插槽演示</div>
-    <ElXBubbleList
+    <el-x-bubble-list
       v-bind="bubbleListProps"
       :list="messageList"
       ref="bubbleListDemo"
     >
+      <template
+        slot="content"
+        slot-scope="{ item }"
+      >
+        <div class="content">
+          {{ item.content }}
+        </div>
+      </template>
       <template
         slot="footer"
         slot-scope="{ item }"
@@ -54,7 +62,7 @@
           <span class="back-text">回到底部</span>
         </div>
       </template>
-    </ElXBubbleList>
+    </el-x-bubble-list>
   </div>
 </template>
 
@@ -108,89 +116,23 @@
         type: Number,
         default: 24,
       },
-      defaultPlacement: {
-        type: String,
-        default: '',
-      },
-      defaultLoading: {
-        type: Boolean,
-        default: undefined,
-      },
-      defaultShape: {
-        type: String,
-        default: '',
-      },
-      defaultVariant: {
-        type: String,
-        default: '',
-      },
-      defaultIsMarkdown: {
-        type: Boolean,
-        default: true,
-      },
-      defaultIsFog: {
-        type: Boolean,
-        default: false,
-      },
-      defaultTyping: {
-        type: [Boolean, Object],
-        default: undefined,
-      },
-      defaultMaxWidth: {
-        type: String,
-        default: '',
-      },
-      defaultAvatar: {
-        type: String,
-        default: '',
-      },
-      defaultAvatarSize: {
-        type: Number,
-        default: undefined,
-      },
-      defaultAvatarGap: {
-        type: Number,
-        default: undefined,
-      },
-      defaultAvatarShape: {
-        type: String,
-        default: '',
-      },
-      defaultAvatarSrcSet: {
-        type: String,
-        default: '',
-      },
-      defaultAvatarAlt: {
-        type: String,
-        default: '',
-      },
-      defaultAvatarFit: {
-        type: String,
-        default: '',
-      },
-      defaultNoStyle: {
-        type: Boolean,
-        default: undefined,
-      },
     },
     data() {
       return {
-        messageList: Array.from({ length: 10 }, (_, i) => ({
-          content: `这是第${i + 1}条消息，演示插槽功能`,
-          placement: i % 2 === 0 ? 'start' : 'end',
-          avatar:
-            i % 2 === 0
-              ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-              : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-          avatarSize: 40,
-          loading: i >= 8, // 最后两条消息显示加载状态
-        })),
+        messageList: [],
       };
+    },
+    watch: {
+      list: {
+        immediate: true,
+        handler(newList) {
+          this.messageList = newList.length > 0 ? [...newList] : [];
+        },
+      },
     },
     computed: {
       bubbleListProps() {
         return {
-          list: this.list.length > 0 ? this.list : this.messageList,
           maxHeight: this.maxHeight,
           triggerIndices: this.triggerIndices,
           alwaysShowScrollbar: this.alwaysShowScrollbar,
@@ -200,22 +142,6 @@
           btnLoading: this.btnLoading,
           btnColor: this.btnColor,
           btnIconSize: this.btnIconSize,
-          defaultPlacement: this.defaultPlacement,
-          defaultLoading: this.defaultLoading,
-          defaultShape: this.defaultShape,
-          defaultVariant: this.defaultVariant,
-          defaultIsMarkdown: this.defaultIsMarkdown,
-          defaultIsFog: this.defaultIsFog,
-          defaultTyping: this.defaultTyping,
-          defaultMaxWidth: this.defaultMaxWidth,
-          defaultAvatar: this.defaultAvatar,
-          defaultAvatarSize: this.defaultAvatarSize,
-          defaultAvatarGap: this.defaultAvatarGap,
-          defaultAvatarShape: this.defaultAvatarShape,
-          defaultAvatarSrcSet: this.defaultAvatarSrcSet,
-          defaultAvatarAlt: this.defaultAvatarAlt,
-          defaultAvatarFit: this.defaultAvatarFit,
-          defaultNoStyle: this.defaultNoStyle,
         };
       },
     },
@@ -264,7 +190,15 @@
         background-color: #409eff;
       }
     }
-
+    .content {
+      font-size: 14px;
+      font-weight: 700;
+      color: #333;
+      padding: 12px;
+      background: linear-gradient(to right, #fdfcfb 0%, #ffd1ab 100%);
+      border-radius: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
     .bubble-footer {
       padding: 4px 0 0;
       display: flex;
