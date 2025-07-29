@@ -21,7 +21,6 @@ export default {
   argTypes: {
     content: {
       control: 'text',
-      description: '要显示的文本内容',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -29,7 +28,6 @@ export default {
     },
     isMarkdown: {
       control: 'boolean',
-      description: '是否为Markdown格式',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -37,8 +35,6 @@ export default {
     },
     typing: {
       control: 'object',
-      description:
-        '打字机配置。可以是布尔值或对象 { step: 每次打字字符数, interval: 间隔毫秒, suffix: 光标字符 }',
       table: {
         type: { summary: 'Boolean | Object' },
         defaultValue: { summary: 'false' },
@@ -46,7 +42,6 @@ export default {
     },
     isFog: {
       control: 'object',
-      description: '雾化效果配置。可以是布尔值或对象 { bgColor: 背景色, width: 雾化宽度 }',
       table: {
         type: { summary: 'Boolean | Object' },
         defaultValue: { summary: 'false' },
@@ -55,7 +50,6 @@ export default {
 
     mdPlugins: {
       control: false,
-      description: 'Markdown插件数组',
       table: {
         type: { summary: 'Array' },
         defaultValue: { summary: 'undefined' },

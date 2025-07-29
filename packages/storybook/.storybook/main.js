@@ -44,11 +44,10 @@ module.exports = {
     defaultName: 'Documentation',
   },
 
-
   // 自定义页面标题
   managerHead: head => `
     ${head}
-    <title>Element UI X Storybook</title>
+    <title>Element UI X</title>
     <meta name="description" content="Element UI X 组件库 Storybook 文档" />
   `,
 };

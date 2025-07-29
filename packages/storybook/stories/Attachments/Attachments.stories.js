@@ -25,7 +25,6 @@ export default {
   argTypes: {
     items: {
       control: 'object',
-      description: '文件列表数组',
       table: {
         type: { summary: 'Array' },
         defaultValue: { summary: '[]' },
@@ -34,7 +33,6 @@ export default {
     overflow: {
       control: { type: 'select' },
       options: ['scrollX', 'scrollY', 'wrap'],
-      description: '溢出处理方式',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'scrollX' },
@@ -42,7 +40,6 @@ export default {
     },
     listStyle: {
       control: 'object',
-      description: '列表容器样式',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: '{}' },
@@ -50,7 +47,6 @@ export default {
     },
     uploadIconSize: {
       control: 'text',
-      description: '上传图标尺寸',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: '64px' },
@@ -58,7 +54,6 @@ export default {
     },
     dragTarget: {
       control: 'text',
-      description: '拖拽目标元素ID或选择器',
       table: {
         type: { summary: 'String | Object | HTMLElement' },
         defaultValue: { summary: 'undefined' },
@@ -66,7 +61,6 @@ export default {
     },
     hideUpload: {
       control: 'boolean',
-      description: '是否隐藏上传按钮',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -79,7 +73,6 @@ export default {
         max: 50,
         step: 1,
       },
-      description: '文件数量限制',
       table: {
         type: { summary: 'Number' },
         defaultValue: { summary: 'undefined' },
@@ -87,7 +80,6 @@ export default {
     },
     uploadAction: {
       control: 'text',
-      description: '上传地址',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: '#' },
@@ -96,7 +88,6 @@ export default {
     // 继承的Upload属性
     accept: {
       control: 'text',
-      description: '接受的文件类型',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'undefined' },
@@ -104,7 +95,6 @@ export default {
     },
     multiple: {
       control: 'boolean',
-      description: '是否支持多选文件',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -112,7 +102,6 @@ export default {
     },
     disabled: {
       control: 'boolean',
-      description: '是否禁用上传',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -120,7 +109,6 @@ export default {
     },
     drag: {
       control: 'boolean',
-      description: '是否启用拖拽上传',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },

@@ -37,7 +37,6 @@ export default {
   argTypes: {
     thinkingItems: {
       control: 'object',
-      description: '思考链数据',
       table: {
         type: { summary: 'Array' },
         defaultValue: { summary: '[]' },
@@ -45,7 +44,6 @@ export default {
     },
     dotIsIcon: {
       control: 'boolean',
-      description: '是否使用图标作为节点',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -54,7 +52,6 @@ export default {
     dotSize: {
       control: { type: 'select' },
       options: ['mini', 'small', 'medium', 'large'],
-      description: '节点大小',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'small'" },
@@ -62,7 +59,6 @@ export default {
     },
     maxWidth: {
       control: 'text',
-      description: '最大宽度',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'600px'" },
@@ -70,7 +66,6 @@ export default {
     },
     lineGradient: {
       control: 'boolean',
-      description: '是否使用渐变线条',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -78,7 +73,6 @@ export default {
     },
     rowKey: {
       control: 'text',
-      description: '数据项的唯一标识字段',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'id'" },
@@ -86,7 +80,6 @@ export default {
     },
     statusKey: {
       control: 'text',
-      description: '状态字段名',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'status'" },
@@ -94,7 +87,6 @@ export default {
     },
     titleKey: {
       control: 'text',
-      description: '标题字段名',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'title'" },
@@ -102,7 +94,6 @@ export default {
     },
     thinkTitleKey: {
       control: 'text',
-      description: '思考标题字段名',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'thinkTitle'" },
@@ -110,7 +101,6 @@ export default {
     },
     thinkContentKey: {
       control: 'text',
-      description: '思考内容字段名',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'thinkContent'" },
@@ -118,7 +108,6 @@ export default {
     },
     statusEnum: {
       control: 'object',
-      description: '状态枚举配置',
       table: {
         type: { summary: 'Object' },
         defaultValue: {

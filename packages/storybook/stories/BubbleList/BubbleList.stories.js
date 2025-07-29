@@ -38,7 +38,6 @@ export default {
   argTypes: {
     list: {
       control: 'object',
-      description: '对话消息列表数组',
       table: {
         type: { summary: 'Array' },
         defaultValue: { summary: '[]' },
@@ -46,7 +45,6 @@ export default {
     },
     maxHeight: {
       control: 'text',
-      description: '列表容器最大高度',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'500px'" },
@@ -55,7 +53,6 @@ export default {
     triggerIndices: {
       control: { type: 'select' },
       options: ['only-last', 'all'],
-      description: '触发完成事件的索引规则',
       table: {
         type: { summary: 'String | Array' },
         defaultValue: { summary: "'only-last'" },
@@ -63,7 +60,6 @@ export default {
     },
     alwaysShowScrollbar: {
       control: 'boolean',
-      description: '是否始终显示滚动条',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -76,7 +72,6 @@ export default {
         max: 200,
         step: 10,
       },
-      description: '显示返回底部按钮的滚动距离阈值（像素）',
       table: {
         type: { summary: 'Number' },
         defaultValue: { summary: '80' },
@@ -84,7 +79,6 @@ export default {
     },
     showBackButton: {
       control: 'boolean',
-      description: '是否显示返回底部按钮',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'true' },
@@ -92,7 +86,6 @@ export default {
     },
     backButtonPosition: {
       control: 'object',
-      description: '返回底部按钮的位置配置',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: "{ bottom: '20px', left: 'calc(50% - 19px)' }" },
@@ -100,7 +93,6 @@ export default {
     },
     btnLoading: {
       control: 'boolean',
-      description: '返回按钮是否显示加载状态',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'true' },
@@ -108,7 +100,6 @@ export default {
     },
     btnColor: {
       control: 'color',
-      description: '返回按钮的颜色',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'#409EFF'" },
@@ -121,7 +112,6 @@ export default {
         max: 32,
         step: 2,
       },
-      description: '返回按钮图标大小（像素）',
       table: {
         type: { summary: 'Number' },
         defaultValue: { summary: '24' },
@@ -130,7 +120,6 @@ export default {
 
     defaultNoStyle: {
       control: 'boolean',
-      description: '全局默认是否禁用样式',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'undefined' },

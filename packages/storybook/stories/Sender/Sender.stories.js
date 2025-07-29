@@ -23,7 +23,6 @@ export default {
   argTypes: {
     value: {
       control: 'text',
-      description: '输入框内容',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -31,7 +30,6 @@ export default {
     },
     placeholder: {
       control: 'text',
-      description: '输入框占位文本',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -39,7 +37,6 @@ export default {
     },
     autoSize: {
       control: 'object',
-      description: '自适应内容高度配置',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: '{ minRows: 1, maxRows: 6 }' },
@@ -47,7 +44,6 @@ export default {
     },
     readOnly: {
       control: 'boolean',
-      description: '是否只读',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -55,7 +51,6 @@ export default {
     },
     disabled: {
       control: 'boolean',
-      description: '是否禁用',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -63,7 +58,6 @@ export default {
     },
     loading: {
       control: 'boolean',
-      description: '是否加载中',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -71,7 +65,6 @@ export default {
     },
     clearable: {
       control: 'boolean',
-      description: '是否显示清除按钮',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -79,7 +72,6 @@ export default {
     },
     allowSpeech: {
       control: 'boolean',
-      description: '是否允许语音输入',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -88,7 +80,6 @@ export default {
     submitType: {
       control: { type: 'select' },
       options: ['enter', 'shiftEnter'],
-      description: '提交方式',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'enter'" },
@@ -101,7 +92,6 @@ export default {
         max: 1000,
         step: 100,
       },
-      description: '头部动画时长(ms)',
       table: {
         type: { summary: 'Number' },
         defaultValue: { summary: '300' },
@@ -109,7 +99,6 @@ export default {
     },
     inputWidth: {
       control: 'text',
-      description: '输入框宽度',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'100%'" },
@@ -118,7 +107,6 @@ export default {
     variant: {
       control: { type: 'select' },
       options: ['default', 'updown'],
-      description: '组件变体',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'default'" },
@@ -126,7 +114,6 @@ export default {
     },
     showUpdown: {
       control: 'boolean',
-      description: '是否显示上下变体操作区域',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'true' },
@@ -134,7 +121,6 @@ export default {
     },
     submitBtnDisabled: {
       control: 'boolean',
-      description: '提交按钮是否禁用',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -142,7 +128,6 @@ export default {
     },
     inputStyle: {
       control: 'object',
-      description: '输入框自定义样式',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: '{}' },
@@ -150,7 +135,6 @@ export default {
     },
     triggerStrings: {
       control: 'object',
-      description: '触发弹窗的字符串数组',
       table: {
         type: { summary: 'Array' },
         defaultValue: { summary: '[]' },
@@ -158,7 +142,6 @@ export default {
     },
     triggerPopoverVisible: {
       control: 'boolean',
-      description: '触发弹窗是否可见',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -166,7 +149,6 @@ export default {
     },
     triggerPopoverWidth: {
       control: 'text',
-      description: '触发弹窗宽度',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'fit-content'" },
@@ -174,7 +156,6 @@ export default {
     },
     triggerPopoverLeft: {
       control: 'text',
-      description: '触发弹窗左偏移',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'0px'" },
@@ -187,7 +168,6 @@ export default {
         max: 50,
         step: 1,
       },
-      description: '触发弹窗偏移量',
       table: {
         type: { summary: 'Number' },
         defaultValue: { summary: '0' },
@@ -209,7 +189,6 @@ export default {
         'right-start',
         'right-end',
       ],
-      description: '触发弹窗位置',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'top-start'" },

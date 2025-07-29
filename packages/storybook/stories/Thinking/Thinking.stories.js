@@ -22,7 +22,6 @@ export default {
   argTypes: {
     content: {
       control: 'text',
-      description: '思考内容',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -30,7 +29,6 @@ export default {
     },
     modelValue: {
       control: 'boolean',
-      description: '是否展开',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'true' },
@@ -39,7 +37,6 @@ export default {
     status: {
       control: { type: 'select' },
       options: ['start', 'thinking', 'end', 'error'],
-      description: '状态',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'start'" },
@@ -47,7 +44,6 @@ export default {
     },
     disabled: {
       control: 'boolean',
-      description: '是否禁用',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -55,7 +51,6 @@ export default {
     },
     autoCollapse: {
       control: 'boolean',
-      description: '是否自动收起',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -63,7 +58,6 @@ export default {
     },
     buttonWidth: {
       control: 'text',
-      description: '按钮宽度',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'160px'" },
@@ -71,7 +65,6 @@ export default {
     },
     duration: {
       control: 'text',
-      description: '动画持续时间',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'0.2s'" },
@@ -79,7 +72,6 @@ export default {
     },
     maxWidth: {
       control: 'text',
-      description: '最大宽度',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'500px'" },
@@ -87,7 +79,6 @@ export default {
     },
     backgroundColor: {
       control: 'color',
-      description: '背景颜色',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'#fcfcfc'" },
@@ -95,7 +86,6 @@ export default {
     },
     color: {
       control: 'color',
-      description: '文字颜色',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'#909399'" },

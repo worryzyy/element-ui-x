@@ -23,7 +23,6 @@ export default {
   argTypes: {
     uid: {
       control: 'text',
-      description: '文件唯一标识',
       table: {
         type: { summary: 'String | Number' },
         defaultValue: { summary: 'undefined' },
@@ -31,7 +30,6 @@ export default {
     },
     name: {
       control: 'text',
-      description: '文件名',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'undefined' },
@@ -39,7 +37,6 @@ export default {
     },
     fileSize: {
       control: 'number',
-      description: '文件大小(字节)',
       table: {
         type: { summary: 'String | Number' },
         defaultValue: { summary: 'undefined' },
@@ -65,7 +62,6 @@ export default {
         'file',
         'unknown',
       ],
-      description: '文件类型',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'undefined' },
@@ -73,7 +69,6 @@ export default {
     },
     description: {
       control: 'text',
-      description: '文件描述',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'undefined' },
@@ -81,7 +76,6 @@ export default {
     },
     url: {
       control: 'text',
-      description: '文件URL',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'undefined' },
@@ -89,7 +83,6 @@ export default {
     },
     thumbUrl: {
       control: 'text',
-      description: '缩略图URL',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'undefined' },
@@ -97,7 +90,6 @@ export default {
     },
     iconSize: {
       control: 'text',
-      description: '图标尺寸',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: '42px' },
@@ -105,7 +97,6 @@ export default {
     },
     iconColor: {
       control: 'color',
-      description: '图标颜色',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'undefined' },
@@ -113,7 +104,6 @@ export default {
     },
     showDelIcon: {
       control: 'boolean',
-      description: '是否显示删除图标',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -121,7 +111,6 @@ export default {
     },
     maxWidth: {
       control: 'text',
-      description: '最大宽度',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: '236px' },
@@ -129,7 +118,6 @@ export default {
     },
     styleConfig: {
       control: 'object',
-      description: '自定义样式配置',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: 'undefined' },
@@ -137,7 +125,6 @@ export default {
     },
     hoverStyle: {
       control: 'object',
-      description: '悬停时的样式',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: 'undefined' },
@@ -146,7 +133,6 @@ export default {
     imgVariant: {
       control: { type: 'select' },
       options: ['rectangle', 'square'],
-      description: '图片变体',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'rectangle' },
@@ -154,7 +140,6 @@ export default {
     },
     imgPreview: {
       control: 'boolean',
-      description: '是否启用图片预览',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'true' },
@@ -162,7 +147,6 @@ export default {
     },
     imgPreviewMask: {
       control: 'boolean',
-      description: '是否显示预览遮罩',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'true' },
@@ -171,7 +155,6 @@ export default {
     status: {
       control: { type: 'select' },
       options: ['uploading', 'done', 'error'],
-      description: '文件状态',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'undefined' },
@@ -184,7 +167,6 @@ export default {
         max: 100,
         step: 1,
       },
-      description: '上传进度百分比',
       table: {
         type: { summary: 'Number' },
         defaultValue: { summary: 'undefined' },
@@ -192,7 +174,6 @@ export default {
     },
     errorTip: {
       control: 'text',
-      description: '错误提示文本',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: 'undefined' },

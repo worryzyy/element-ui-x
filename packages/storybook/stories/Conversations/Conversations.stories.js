@@ -70,88 +70,71 @@ export default {
   argTypes: {
     items: {
       control: 'object',
-      description: '会话列表数据',
       table: { type: { summary: 'Array' }, defaultValue: { summary: '[]' } },
     },
     active: {
       control: 'text',
-      description: '当前激活项',
       table: { type: { summary: 'String/Number/Boolean' }, defaultValue: { summary: "''" } },
     },
     groupable: {
       control: 'boolean',
-      description: '是否启用分组',
       table: { type: { summary: 'Boolean/Object' }, defaultValue: { summary: 'false' } },
     },
     showBuiltInMenu: {
       control: 'boolean',
-      description: '是否显示内置菜单',
       table: { type: { summary: 'Boolean' }, defaultValue: { summary: 'false' } },
     },
     showTooltip: {
       control: 'boolean',
-      description: '是否显示提示框',
       table: { type: { summary: 'Boolean' }, defaultValue: { summary: 'false' } },
     },
     showToTopBtn: {
       control: 'boolean',
-      description: '是否显示回到顶部按钮',
       table: { type: { summary: 'Boolean' }, defaultValue: { summary: 'false' } },
     },
     toTopBtnType: {
       control: { type: 'select' },
       options: ['primary', 'success', 'warning', 'danger'],
-      description: '回到顶部按钮类型',
       table: { type: { summary: 'String' }, defaultValue: { summary: "'primary'" } },
     },
     loadMoreLoading: {
       control: 'boolean',
-      description: '加载更多状态',
       table: { type: { summary: 'Boolean' }, defaultValue: { summary: 'false' } },
     },
     labelKey: {
       control: 'text',
-      description: '项目标签字段名',
       table: { type: { summary: 'String' }, defaultValue: { summary: "'label'" } },
     },
     rowKey: {
       control: 'text',
-      description: '项目唯一键字段名',
       table: { type: { summary: 'String' }, defaultValue: { summary: "'id'" } },
     },
     ungroupedTitle: {
       control: 'text',
-      description: '未分组项标题',
       table: { type: { summary: 'String' }, defaultValue: { summary: "'未分组'" } },
     },
     itemsStyle: {
       control: 'object',
-      description: '项目自定义样式',
       table: { type: { summary: 'Object' }, defaultValue: { summary: '{}' } },
     },
     itemsHoverStyle: {
       control: 'object',
-      description: '项目悬停样式',
       table: { type: { summary: 'Object' }, defaultValue: { summary: '{}' } },
     },
     itemsActiveStyle: {
       control: 'object',
-      description: '项目选中样式',
       table: { type: { summary: 'Object' }, defaultValue: { summary: '{}' } },
     },
     itemsMenuOpenedStyle: {
       control: 'object',
-      description: '项目菜单打开时样式',
       table: { type: { summary: 'Object' }, defaultValue: { summary: '{}' } },
     },
     labelMaxWidth: {
       control: 'number',
-      description: '标签最大宽度',
       table: { type: { summary: 'Number' }, defaultValue: { summary: 'undefined' } },
     },
     labelHeight: {
       control: 'number',
-      description: '标签高度',
       table: { type: { summary: 'Number' }, defaultValue: { summary: '20' } },
     },
     tooltipPlacement: {
@@ -170,12 +153,10 @@ export default {
         'right-start',
         'right-end',
       ],
-      description: '提示框位置',
       table: { type: { summary: 'String' }, defaultValue: { summary: "'top'" } },
     },
     tooltipOffset: {
       control: 'number',
-      description: '提示框偏移量',
       table: { type: { summary: 'Number' }, defaultValue: { summary: '12' } },
     },
     menuPlacement: {
@@ -194,27 +175,22 @@ export default {
         'right-start',
         'right-end',
       ],
-      description: '菜单位置',
       table: { type: { summary: 'String' }, defaultValue: { summary: "'bottom-start'" } },
     },
     menuShowArrow: {
       control: 'boolean',
-      description: '菜单是否显示箭头',
       table: { type: { summary: 'Boolean' }, defaultValue: { summary: 'false' } },
     },
     menuStyle: {
       control: 'object',
-      description: '菜单自定义样式',
       table: { type: { summary: 'Object' }, defaultValue: { summary: '{}' } },
     },
     toTopBtnStyle: {
       control: 'object',
-      description: '回到顶部按钮自定义样式',
       table: { type: { summary: 'Object' }, defaultValue: { summary: '{}' } },
     },
     styleConfig: {
       control: 'object',
-      description: '容器样式配置',
       table: {
         type: { summary: 'Object' },
         defaultValue: {

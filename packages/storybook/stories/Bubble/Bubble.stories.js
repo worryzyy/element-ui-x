@@ -22,7 +22,6 @@ export default {
   argTypes: {
     content: {
       control: 'text',
-      description: '汽包显示的文本内容',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -30,7 +29,6 @@ export default {
     },
     avatar: {
       control: 'text',
-      description: '头像图片地址',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -39,7 +37,6 @@ export default {
     placement: {
       control: { type: 'select' },
       options: ['start', 'end'],
-      description: '汽包位置（左侧或右侧）',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'start'" },
@@ -48,7 +45,6 @@ export default {
     variant: {
       control: { type: 'select' },
       options: ['filled', 'outlined', 'borderless', 'shadow'],
-      description: '汽包样式变体',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'filled'" },
@@ -57,7 +53,6 @@ export default {
     shape: {
       control: { type: 'select' },
       options: ['', 'round', 'corner'],
-      description: '汽包形状',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -65,7 +60,6 @@ export default {
     },
     maxWidth: {
       control: 'text',
-      description: '汽包内容最大宽度',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'500px'" },
@@ -78,7 +72,6 @@ export default {
         max: 100,
         step: 4,
       },
-      description: '头像大小（像素）',
       table: {
         type: { summary: 'Number' },
         defaultValue: { summary: '0' },
@@ -91,7 +84,6 @@ export default {
         max: 50,
         step: 2,
       },
-      description: '头像与内容的间距（像素）',
       table: {
         type: { summary: 'Number' },
         defaultValue: { summary: '12' },
@@ -100,7 +92,6 @@ export default {
     avatarShape: {
       control: { type: 'select' },
       options: ['circle', 'square'],
-      description: '头像形状',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'circle'" },
@@ -108,7 +99,6 @@ export default {
     },
     avatarSrcSet: {
       control: 'text',
-      description: '头像 srcset 属性',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -116,7 +106,6 @@ export default {
     },
     avatarAlt: {
       control: 'text',
-      description: '头像 alt 属性',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -125,7 +114,6 @@ export default {
     avatarFit: {
       control: { type: 'select' },
       options: ['fill', 'contain', 'cover', 'none', 'scale-down'],
-      description: '头像图片适应方式',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'cover'" },
@@ -133,7 +121,6 @@ export default {
     },
     noStyle: {
       control: 'boolean',
-      description: '是否禁用默认样式',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -141,8 +128,6 @@ export default {
     },
     typing: {
       control: 'object',
-      description:
-        '打字机效果配置。可以是布尔值或对象 { step: 每次打字字符数, interval: 间隔毫秒, suffix: 光标字符 }',
       table: {
         type: { summary: 'Boolean | Object' },
         defaultValue: { summary: 'undefined' },
@@ -150,7 +135,6 @@ export default {
     },
     loading: {
       control: 'boolean',
-      description: '是否显示加载状态',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -158,7 +142,6 @@ export default {
     },
     isMarkdown: {
       control: 'boolean',
-      description: '是否渲染为 Markdown',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -166,7 +149,6 @@ export default {
     },
     isFog: {
       control: 'object',
-      description: '雾化效果配置。可以是布尔值或对象 { bgColor: 背景色, width: 雾化宽度 }',
       table: {
         type: { summary: 'Boolean | Object' },
         defaultValue: { summary: 'true' },

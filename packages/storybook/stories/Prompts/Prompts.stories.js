@@ -12,7 +12,6 @@ export default {
   argTypes: {
     items: {
       control: 'object',
-      description: '包含多个提示项的列表',
       table: {
         type: { summary: 'Array' },
         defaultValue: { summary: '[]' },
@@ -20,7 +19,6 @@ export default {
     },
     title: {
       control: 'text',
-      description: '显示在提示列表顶部的标题',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -28,7 +26,6 @@ export default {
     },
     onItemClick: {
       control: false,
-      description: 'Item 提示项被点击时的回调函数',
       table: {
         type: { summary: 'Function' },
         defaultValue: { summary: 'null' },
@@ -36,7 +33,6 @@ export default {
     },
     vertical: {
       control: 'boolean',
-      description: '提示列表是否垂直排列',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -44,7 +40,6 @@ export default {
     },
     wrap: {
       control: 'boolean',
-      description: '提示列表是否换行',
       table: {
         type: { summary: 'Boolean' },
         defaultValue: { summary: 'false' },
@@ -52,7 +47,6 @@ export default {
     },
     styles: {
       control: 'object',
-      description: '自定义样式，用于各个提示项的不同部分',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: '{}' },
@@ -60,7 +54,6 @@ export default {
     },
     classNames: {
       control: 'object',
-      description: '自定义样式类名，用于各个提示项的不同部分',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: '{}' },
@@ -68,7 +61,6 @@ export default {
     },
     rootClassName: {
       control: 'text',
-      description: '根节点的样式类名',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -76,7 +68,6 @@ export default {
     },
     customStyle: {
       control: 'object',
-      description: '自定义样式',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: '{}' },
@@ -85,7 +76,6 @@ export default {
     direction: {
       control: { type: 'select' },
       options: ['ltr', 'rtl'],
-      description: '文本方向',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'ltr'" },

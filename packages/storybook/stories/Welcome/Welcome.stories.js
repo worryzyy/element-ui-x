@@ -7,7 +7,6 @@ export default {
   argTypes: {
     className: {
       control: 'text',
-      description: '自定义类名',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -15,7 +14,6 @@ export default {
     },
     rootClassName: {
       control: 'text',
-      description: '根容器自定义类名',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -24,7 +22,6 @@ export default {
     variant: {
       control: { type: 'select' },
       options: ['filled', 'borderless'],
-      description: '组件变体样式',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'filled'" },
@@ -33,7 +30,6 @@ export default {
     direction: {
       control: { type: 'select' },
       options: ['ltr', 'rtl'],
-      description: '文本方向',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "'ltr'" },
@@ -41,7 +37,6 @@ export default {
     },
     classNames: {
       control: 'object',
-      description: '各部分的自定义类名对象',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: '{}' },
@@ -49,7 +44,6 @@ export default {
     },
     icon: {
       control: 'text',
-      description: '图标 URL',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -57,7 +51,6 @@ export default {
     },
     title: {
       control: 'text',
-      description: '标题文本',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -65,7 +58,6 @@ export default {
     },
     extra: {
       control: 'text',
-      description: '额外内容',
       table: {
         type: { summary: 'String | Object' },
         defaultValue: { summary: "''" },
@@ -73,7 +65,6 @@ export default {
     },
     description: {
       control: 'text',
-      description: '描述文本',
       table: {
         type: { summary: 'String' },
         defaultValue: { summary: "''" },
@@ -81,7 +72,6 @@ export default {
     },
     styleConfig: {
       control: 'object',
-      description: '样式配置对象',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: '{}' },
@@ -89,7 +79,6 @@ export default {
     },
     styles: {
       control: 'object',
-      description: '各部分的样式对象',
       table: {
         type: { summary: 'Object' },
         defaultValue: { summary: '{}' },
