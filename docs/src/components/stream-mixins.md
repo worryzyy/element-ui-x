@@ -49,7 +49,7 @@ export default {
       <el-button
         type="danger"
         :disabled="!streamLoading"
-        @click="cancelStream"
+        @click="stopStream"
       >
         中断请求
       </el-button>
@@ -82,9 +82,9 @@ export default {
       };
     },
     methods: {
-      cancelStream() {
+      stopStream() {
         if (typeof window !== 'undefined') {
-          this.stopStream();
+          this.cancelStream();
         }
       },
       async startSSE() {
@@ -98,7 +98,7 @@ export default {
         } catch (err) {
           console.error('Fetch error:', err);
         }
-      }
+      },
     },
     watch: {
       // 监听流数据变化，更新内容
@@ -177,7 +177,7 @@ export default {
 
       <el-button
         :disabled="!streamLoading"
-        @click="cancelStream"
+        @click="stopStream"
         type="danger"
       >
         中断请求
@@ -211,9 +211,9 @@ export default {
       };
     },
     methods: {
-      cancelStream() {
+      stopStream() {
         if (typeof window !== 'undefined') {
-          this.stopStream();
+          this.cancelStream();
         }
       },
       async startSIPStream() {
@@ -239,7 +239,7 @@ export default {
         } catch (err) {
           console.error('Fetch error:', err);
         }
-      }
+      },
     },
     watch: {
       // 监听流数据变化，更新内容

@@ -49,7 +49,7 @@ Demonstrates how to handle SSE stream data and display Markdown content in the B
       <el-button
         type="danger"
         :disabled="!streamLoading"
-        @click="cancelStream"
+        @click="stopStream"
       >
         Cancel Request
       </el-button>
@@ -83,9 +83,9 @@ Demonstrates how to handle SSE stream data and display Markdown content in the B
       };
     },
     methods: {
-      cancelStream() {
+      stopStream() {
         if (typeof window !== 'undefined') {
-          this.stopStream();
+          this.cancelStream();
         }
       },
       async startSSE() {
@@ -99,7 +99,7 @@ Demonstrates how to handle SSE stream data and display Markdown content in the B
         } catch (err) {
           console.error('Fetch error:', err);
         }
-      }
+      },
     },
     watch: {
       // Watch for changes in stream data and update content
@@ -178,7 +178,7 @@ Demonstrates how to handle SIP protocol stream data and use a custom transform s
 
       <el-button
         :disabled="!streamLoading"
-        @click="cancelStream"
+        @click="stopStream"
         type="danger"
       >
         Cancel Request
@@ -212,9 +212,9 @@ Demonstrates how to handle SIP protocol stream data and use a custom transform s
       };
     },
     methods: {
-      cancelStream() {
+      stopStream() {
         if (typeof window !== 'undefined') {
-          this.stopStream();
+          this.cancelStream();
         }
       },
       async startSIPStream() {
@@ -240,7 +240,7 @@ Demonstrates how to handle SIP protocol stream data and use a custom transform s
         } catch (err) {
           console.error('Fetch error:', err);
         }
-      }
+      },
     },
     watch: {
       // Watch for changes in stream data and update content
