@@ -15,6 +15,23 @@ module.exports = merge(commonConfig, {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: { browsers: ['> 1%', 'last 2 versions', 'not ie <= 11'] },
+                modules: false,
+                loose: true,
+              },
+            ],
+          ],
+        },
+      },
+      {
         test: /\.scss$/,
         use: [
           'style-loader',

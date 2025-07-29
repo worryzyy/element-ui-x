@@ -1,20 +1,11 @@
 {
   "name": "vue-element-ui-x",
-  "version": "1.0.31-beta",
+  "version": "1.0.43-beta",
   "description": "基于Vue 2 + Element UI的AI聊天组件库",
   "module": "lib/index.esm.js",
   "main": "lib/index.common.js",
-  "jsnext:main": "lib/index.esm.js",
-  "exports": {
-    ".": {
-      "import": "./lib/index.esm.js",
-      "require": "./lib/index.common.js"
-    },
-    "./lib/*": "./lib/*.js"
-  },
   "files": [
     "lib",
-    "src",
     "components.json",
     "package.json",
     "README.md"
@@ -58,6 +49,10 @@
     "vue": "^2.6.14"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/plugin-transform-arrow-functions": "^7.16.0",
+    "@babel/plugin-transform-block-scoping": "^7.16.0",
     "babel-loader": "^8.2.3",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.7",
