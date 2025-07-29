@@ -43,7 +43,7 @@ export default {
         <el-button
           type="primary"
           :disabled="recordLoading"
-          @click="startRecord"
+          @click="start"
         >
           开始录音
         </el-button>
@@ -52,7 +52,7 @@ export default {
         <el-button
           type="danger"
           :disabled="!recordLoading"
-          @click="stopRecord"
+          @click="stop"
         >
           停止录音
         </el-button>
@@ -70,48 +70,38 @@ export default {
 <script>
   // 此处是为避免构建时的报错
   let recordMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
-    } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
-    }
-  } catch (e) {
-    recordMixin = {
-      data() {
-        return {
-          recordLoading: false,
-          recordValue: '',
-          recordRecognition: null,
-          recordOptions: {},
-        };
-      },
-      methods: {
-        initRecord() {},
-        startRecord() {},
-        stopRecord() {},
-        cleanupRecord() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    recordMixin = require('vue-element-ui-x').recordMixin;
   }
+
   export default {
     name: 'BasicRecordDemo',
     mixins: [recordMixin],
     mounted() {
-      this.initRecord({
-        onStart: () => {
-          console.log('开始录音');
-        },
-        onEnd: value => {
-          console.log('录音结束', value);
-        },
-        onError: error => {
-          this.$message.error('录音失败：' + error.message);
-        },
-        onResult: result => {
-          console.log('实时识别结果：', result);
-        },
-      });
+      if (typeof window !== 'undefined') {
+        this.initRecord({
+          onStart: () => {
+            console.log('开始录音');
+          },
+          onEnd: value => {
+            console.log('录音结束', value);
+          },
+          onError: error => {
+            this.$message.error('录音失败：' + error.message);
+          },
+          onResult: result => {
+            console.log('实时识别结果：', result);
+          },
+        });
+      }
+    },
+    methods: {
+      start() {
+        this.startRecord();
+      },
+      stop() {
+        this.stopRecord();
+      },
     },
   };
 </script>
@@ -142,7 +132,7 @@ export default {
         <el-button
           type="success"
           :disabled="recordLoading"
-          @click="startRecord"
+          @click="start"
         >
           开始录音
         </el-button>
@@ -151,7 +141,7 @@ export default {
         <el-button
           type="danger"
           :disabled="!recordLoading"
-          @click="stopRecord"
+          @click="stop"
         >
           停止录音
         </el-button>
@@ -187,51 +177,41 @@ export default {
 </template>
 <script>
   let recordMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
-    } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
-    }
-  } catch (e) {
-    recordMixin = {
-      data() {
-        return {
-          recordLoading: false,
-          recordValue: '',
-          recordRecognition: null,
-          recordOptions: {},
-        };
-      },
-      methods: {
-        initRecord() {},
-        startRecord() {},
-        stopRecord() {},
-        cleanupRecord() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    recordMixin = require('vue-element-ui-x').recordMixin;
   }
+
   export default {
     name: 'CustomControlDemo',
     mixins: [recordMixin],
     mounted() {
-      this.initRecord({
-        onStart: () => {
-          this.$message({
-            type: 'success',
-            message: '开始录音',
-          });
-        },
-        onEnd: value => {
-          this.$message({
-            type: 'info',
-            message: '录音结束',
-          });
-        },
-        onError: error => {
-          this.$message.error(error.message);
-        },
-      });
+      if (typeof window !== 'undefined') {
+        this.initRecord({
+          onStart: () => {
+            this.$message({
+              type: 'success',
+              message: '开始录音',
+            });
+          },
+          onEnd: value => {
+            this.$message({
+              type: 'info',
+              message: '录音结束',
+            });
+          },
+          onError: error => {
+            this.$message.error(error.message);
+          },
+        });
+      }
+    },
+    methods: {
+      start() {
+        this.startRecord();
+      },
+      stop() {
+        this.stopRecord();
+      },
     },
   };
 </script>
@@ -289,30 +269,10 @@ export default {
 </template>
 <script>
   let recordMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
-    } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
-    }
-  } catch (e) {
-    recordMixin = {
-      data() {
-        return {
-          recordLoading: false,
-          recordValue: '',
-          recordRecognition: null,
-          recordOptions: {},
-        };
-      },
-      methods: {
-        initRecord() {},
-        startRecord() {},
-        stopRecord() {},
-        cleanupRecord() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    recordMixin = require('vue-element-ui-x').recordMixin;
   }
+
   export default {
     name: 'ErrorHandlingDemo',
     mixins: [recordMixin],
@@ -332,12 +292,14 @@ export default {
       },
     },
     mounted() {
-      this.initRecord({
-        onError: error => {
-          this.error = error;
-          this.recordLoading = false;
-        },
-      });
+      if (typeof window !== 'undefined') {
+        this.initRecord({
+          onError: error => {
+            this.error = error;
+            this.recordLoading = false;
+          },
+        });
+      }
     },
   };
 </script>

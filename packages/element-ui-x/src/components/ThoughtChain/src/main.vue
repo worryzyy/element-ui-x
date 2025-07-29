@@ -16,7 +16,7 @@
           :type="getType(item)"
           :icon="dotIsIcon ? item.icon : 'el-icon-more'"
           :color="dotIsIcon ? item.iconColor : null"
-          :size="dotIsIcon ? item.iconSize : 'normal'"
+          :size="dotIsIcon ? item.iconSize || dotSize : 'normal'"
           :timestamp="getTitle(item)"
           :hide-timestamp="item.hideTitle"
           :placement="item.placement || 'top'"

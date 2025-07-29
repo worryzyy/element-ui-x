@@ -43,7 +43,7 @@ An example of a basic speech recognition feature.
         <el-button
           type="primary"
           :disabled="recordLoading"
-          @click="startRecord"
+          @click="start"
         >
           Start Recording
         </el-button>
@@ -52,7 +52,7 @@ An example of a basic speech recognition feature.
         <el-button
           type="danger"
           :disabled="!recordLoading"
-          @click="stopRecord"
+          @click="stop"
         >
           Stop Recording
         </el-button>
@@ -70,30 +70,10 @@ An example of a basic speech recognition feature.
 <script>
   // This is to avoid build errors
   let recordMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
-    } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
-    }
-  } catch (e) {
-    recordMixin = {
-      data() {
-        return {
-          recordLoading: false,
-          recordValue: '',
-          recordRecognition: null,
-          recordOptions: {},
-        };
-      },
-      methods: {
-        initRecord() {},
-        startRecord() {},
-        stopRecord() {},
-        cleanupRecord() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    recordMixin = require('vue-element-ui-x').recordMixin;
   }
+
   export default {
     name: 'BasicRecordDemo',
     mixins: [recordMixin],
@@ -112,6 +92,14 @@ An example of a basic speech recognition feature.
           console.log('Real-time recognition result:', result);
         },
       });
+    },
+    methods: {
+      start() {
+        this.startRecord();
+      },
+      stop() {
+        this.stopRecord();
+      },
     },
   };
 </script>
@@ -142,7 +130,7 @@ Shows how to customize the start and end of speech recognition.
         <el-button
           type="success"
           :disabled="recordLoading"
-          @click="startRecord"
+          @click="start"
         >
           Start Recording
         </el-button>
@@ -151,7 +139,7 @@ Shows how to customize the start and end of speech recognition.
         <el-button
           type="danger"
           :disabled="!recordLoading"
-          @click="stopRecord"
+          @click="stop"
         >
           Stop Recording
         </el-button>
@@ -187,29 +175,8 @@ Shows how to customize the start and end of speech recognition.
 </template>
 <script>
   let recordMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
-    } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
-    }
-  } catch (e) {
-    recordMixin = {
-      data() {
-        return {
-          recordLoading: false,
-          recordValue: '',
-          recordRecognition: null,
-          recordOptions: {},
-        };
-      },
-      methods: {
-        initRecord() {},
-        startRecord() {},
-        stopRecord() {},
-        cleanupRecord() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    recordMixin = require('vue-element-ui-x').recordMixin;
   }
   export default {
     name: 'CustomControlDemo',
@@ -232,6 +199,14 @@ Shows how to customize the start and end of speech recognition.
           this.$message.error(error.message);
         },
       });
+    },
+    methods: {
+      start() {
+        this.startRecord();
+      },
+      stop() {
+        this.stopRecord();
+      },
     },
   };
 </script>
@@ -289,29 +264,8 @@ Shows how to handle errors during the speech recognition process.
 </template>
 <script>
   let recordMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      recordMixin = window['vue-element-ui-x'].customMixins.recordMixin;
-    } else if (typeof require !== 'undefined') {
-      recordMixin = require('vue-element-ui-x').customMixins.recordMixin;
-    }
-  } catch (e) {
-    recordMixin = {
-      data() {
-        return {
-          recordLoading: false,
-          recordValue: '',
-          recordRecognition: null,
-          recordOptions: {},
-        };
-      },
-      methods: {
-        initRecord() {},
-        startRecord() {},
-        stopRecord() {},
-        cleanupRecord() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    recordMixin = require('vue-element-ui-x').recordMixin;
   }
   export default {
     name: 'ErrorHandlingDemo',

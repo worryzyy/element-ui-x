@@ -1,0 +1,39 @@
+{
+  "name": "@element-ui-x/storybook",
+  "version": "1.0.3",
+  "description": "Storybook for Element UI X Components",
+  "private": true,
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "dev": "npm run storybook",
+    "build": "npm run build-storybook"
+  },
+  "devDependencies": {
+    "@storybook/addon-controls": "^7.6.7",
+    "@storybook/addon-docs": "^7.6.7",
+    "@storybook/addon-essentials": "^7.6.7",
+    "@storybook/builder-webpack5": "^7.6.7",
+    "@storybook/vue": "^7.6.7",
+    "@storybook/vue-webpack5": "^7.6.7",
+    "element-ui": "2.15.14",
+    "sass": "^1.32.13",
+    "sass-loader": "^10.0.0",
+    "storybook": "^7.6.7",
+    "vue": "^2.6.14",
+    "vue-element-ui-x": "file:../element-ui-x",
+    "vue-loader": "^15.9.8",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "peerDependencies": {
+    "element-ui": "2.15.14",
+    "vue": "^2.6.14"
+  },
+  "dependencies": {
+    "katex": "^0.16.22",
+    "markdown-it-container": "^4.0.0",
+    "markdown-it-emoji": "^3.0.0",
+    "markdown-it-katex": "^2.0.3",
+    "mermaid": "^11.9.0"
+  }
+}

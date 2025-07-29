@@ -9,8 +9,8 @@ import ElXThinking from './components/Thinking/index.js';
 import ElXThoughtChain from './components/ThoughtChain/index.js';
 import ElXTypewriter from './components/Typewriter/index.js';
 import ElXWelcome from './components/Welcome/index.js';
-// 导入所有 mixins
-import * as customMixins from './mixins';
+
+// 导入 mixins
 import {
   createSendUtils,
   createStreamUtils,
@@ -57,7 +57,11 @@ export {
   // Mixins
   createSendUtils,
   createStreamUtils,
-  customMixins,
+  recordMixin,
+  sendMixin,
+  streamMixin,
+  XRequest,
+  XStream,
   // 组件
   ElXAttachments,
   ElXBubble,
@@ -73,11 +77,6 @@ export {
   lang,
   // 国际化
   locale,
-  recordMixin,
-  sendMixin,
-  streamMixin,
-  XRequest,
-  XStream,
 };
 
 // 默认导出（完整引入）
@@ -94,7 +93,6 @@ components.forEach(component => {
 });
 
 // 添加mixins
-ElementUIX.customMixins = customMixins;
 ElementUIX.streamMixin = streamMixin;
 ElementUIX.sendMixin = sendMixin;
 ElementUIX.recordMixin = recordMixin;

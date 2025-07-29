@@ -397,21 +397,15 @@
       internalValue(newVal, oldVal) {
         this.$emit('input', newVal);
 
-        // 当内容变化时，修复高度问题
-
         if (this.isComposing) return;
-        // 新增：如果处于防抖状态，则不进行触发检测
         if (this.triggerDebounce) return;
 
-        // 触发逻辑：检测输入内容中是否出现了触发字符
         const triggerStrings = this.triggerStrings || []; // 如果为 undefined，就使用空数组
 
-        // 新的检测逻辑：检查是否在当前光标位置前有触发字符
         if (this.inputRef && triggerStrings.length > 0) {
           const textArea = this.inputRef.$el.querySelector('textarea');
           if (textArea) {
             const cursorPosition = textArea.selectionStart;
-            // 检查光标前是否有新增的触发字符
             if (cursorPosition > 0 && newVal.length > oldVal.length) {
               const lastChar = newVal.charAt(cursorPosition - 1);
               if (triggerStrings.includes(lastChar)) {
@@ -431,7 +425,7 @@
             }
           }
         }
-
+        // V2.7X 兼容问题
         // 原有的处理逻辑，用于向后兼容
         const validOldVal = typeof oldVal === 'string' ? oldVal : '';
         const wasOldValTrigger = triggerStrings.includes(validOldVal);
@@ -479,6 +473,31 @@
     },
 
     methods: {
+      /* 确保光标在可视区域内 */
+      ensureCursorVisible() {
+        if (!this.inputRef) return;
+
+        const textareaEl = this.inputRef.$el.querySelector('textarea');
+        if (!textareaEl) return;
+
+        this.$nextTick(() => {
+          // 获取光标位置信息
+          const cursorPosition = textareaEl.selectionStart;
+          const textBeforeCursor = this.internalValue.substring(0, cursorPosition);
+          const linesBeforeCursor = textBeforeCursor.split('\n').length;
+
+          const lineHeight = parseInt(window.getComputedStyle(textareaEl).lineHeight) || 20;
+          const maxVisibleHeight = textareaEl.offsetHeight;
+          const maxVisibleLines = Math.floor(maxVisibleHeight / lineHeight);
+
+          // 如果光标超出可视范围，滚动到光标位置
+          if (linesBeforeCursor > maxVisibleLines) {
+            const targetScrollTop = (linesBeforeCursor - maxVisibleLines) * lineHeight;
+            textareaEl.scrollTop = targetScrollTop;
+          }
+        });
+      },
+
       /* 直接应用输入框样式 */
       applyInputStyles() {
         if (!this.inputRef) return;
@@ -486,13 +505,17 @@
         const textareaEl = this.inputRef.$el.querySelector('textarea');
         if (!textareaEl) return;
 
-        // 设置默认基础样式
+        // 设置默认基础样式（当启用autosize时，不设置固定高度）
         const defaultStyles = {
           width: this.inputWidth || '100%',
-          height: '24px',
           maxHeight: '176px',
           boxSizing: 'border-box',
         };
+
+        // 只有在未启用autosize时才设置固定高度
+        if (!this.computedAutoSize) {
+          defaultStyles.height = '24px';
+        }
 
         // 应用默认样式
         Object.keys(defaultStyles).forEach(key => {
@@ -502,11 +525,15 @@
         // 如果用户传入了样式对象，则应用覆盖默认样式
         if (this.inputStyle && typeof this.inputStyle === 'object') {
           Object.keys(this.inputStyle).forEach(key => {
+            // 当启用autosize时，避免覆盖height相关属性
+            if (this.computedAutoSize && (key === 'height' || key === 'minHeight')) {
+              return;
+            }
             textareaEl.style[key] = this.inputStyle[key];
           });
 
-          // 如果用户设置了字体大小，需要调整高度
-          if (this.inputStyle.fontSize) {
+          // 如果用户设置了字体大小，需要调整高度（仅在未启用autosize时）
+          if (this.inputStyle.fontSize && !this.computedAutoSize) {
             // 确保高度能完全容纳当前字体大小
             const computedFontSize = window.getComputedStyle(textareaEl).fontSize;
             const fontSize = parseInt(computedFontSize);
@@ -665,6 +692,8 @@
             this.internalValue = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
             this.$nextTick(() => {
               e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
+              // 确保光标在可视区域内
+              this.ensureCursorVisible();
             });
           } else if (e.keyCode === 13 && !e.shiftKey) {
             // 阻止掉 Enter 的默认换行行为
@@ -687,6 +716,8 @@
             this.internalValue = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
             this.$nextTick(() => {
               e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
+              // 确保光标在可视区域内
+              this.ensureCursorVisible();
             });
           }
         }
@@ -758,8 +789,11 @@
     },
 
     updated() {
-      // 确保在组件更新后重新应用样式
-      this.applyInputStyles();
+      // 只在特定条件下重新应用样式，避免干扰autosize功能
+      // 当启用autosize时，减少样式重新应用的频率
+      if (!this.computedAutoSize) {
+        this.applyInputStyles();
+      }
     },
   };
 </script>

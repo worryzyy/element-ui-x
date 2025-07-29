@@ -50,9 +50,9 @@
             ref="imgRef"
             class="el-x-filescard-img"
             :src="_previewImgUrl"
-            :preview-src-list="_previewImgUrl ? [_previewImgUrl] : []"
+            :preview-src-list="imgPreview && _previewImgUrl ? [_previewImgUrl] : []"
             fit="cover"
-            @click="handlePreviewAction('self')"
+            @click="imgPreview ? handlePreviewAction('self') : null"
           />
 
           <!-- 无预览地址时显示默认图标 -->
@@ -338,6 +338,12 @@
       },
     },
     watch: {
+      name: {
+        handler() {
+          this.parseFileName();
+        },
+        immediate: true,
+      },
       imgFile: {
         handler: async function (newFile) {
           if (newFile) {
@@ -358,23 +364,19 @@
         immediate: true,
       },
     },
-    mounted() {
-      this.parseFileName();
-    },
+    mounted() {},
     methods: {
       handleDelete() {
-        this.$emit('delete', {
-          ...this.propsData,
-        });
+        this.$emit('delete', { ...this.propsData });
       },
       handlePreviewAction(type) {
-        if (this.imgPreview && this.$refs.imgRef && this._previewImgUrl && type === 'mask') {
+        if (!this.imgPreview) return;
+
+        if (this.$refs.imgRef && this._previewImgUrl && type === 'mask') {
           this.$refs.imgRef.clickHandler();
         }
         if (type === 'self') {
-          this.$emit('image-preview', {
-            ...this.propsData,
-          });
+          this.$emit('image-preview', { ...this.propsData });
         }
       },
       parseFileName() {

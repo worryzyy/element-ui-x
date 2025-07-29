@@ -25,11 +25,19 @@
       </template>
       <template #content="{ item }">
         <el-x-typewriter
+          v-if="item.content && item.placement === 'start'"
           :content="item.content"
           :md-plugins="mdPlugins"
           :typing="item.typing"
           :is-markdown="item.isMarkdown"
         />
+        <div
+          v-if="item.content && item.placement === 'end'"
+          class="user-content"
+          style="white-space: pre-wrap"
+        >
+          {{ item.content }}
+        </div>
       </template>
       <template #footer="{ item }">
         <bubble-list-footer

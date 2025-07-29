@@ -8,13 +8,29 @@ module.exports = merge(commonConfig, {
   output: {
     path: path.join(__dirname, '../lib'),
     filename: 'index.esm.js',
-    library: 'ElementUIX',
-    libraryTarget: 'umd',
-    globalObject: 'this',
-    umdNamedDefine: true,
+    library: { type: 'module' },
+    environment: { module: true },
   },
+  experiments: { outputModule: true },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: { browsers: ['> 1%', 'last 2 versions', 'not ie <= 11'] },
+                modules: false,
+                loose: true,
+              },
+            ],
+          ],
+        },
+      },
       {
         test: /\.scss$/,
         use: [
@@ -77,7 +93,6 @@ module.exports = merge(commonConfig, {
         parallel: true,
       }),
     ],
-    sideEffects: true, // 启用副作用标记
   },
   plugins: [
     // 定义环境变量

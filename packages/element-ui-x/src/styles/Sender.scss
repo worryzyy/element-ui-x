@@ -42,7 +42,10 @@ $--el-x-fill-color: $--background-color-base;
   &:after {
     content: '';
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     pointer-events: none;
     transition: border-color $--el-x-transition-duration;
     border-radius: inherit;
@@ -110,9 +113,10 @@ $--el-x-fill-color: $--background-color-base;
     display: flex;
     gap: $--el-x-padding-xs;
     width: 100%;
-    padding-block: $--el-x-padding-sm;
-    padding-inline-start: $--el-x-padding;
-    padding-inline-end: $--el-x-padding-sm;
+    padding-top: $--el-x-padding-sm;
+    padding-bottom: $--el-x-padding-sm;
+    padding-left: $--el-x-padding;
+    padding-right: $--el-x-padding-sm;
     box-sizing: border-box;
     align-items: flex-end;
 
@@ -129,7 +133,7 @@ $--el-x-fill-color: $--background-color-base;
       align-self: center;
 
       ::v-deep .el-textarea__inner {
-        padding: 0;
+        padding: 0 !important;
         margin: 0;
         color: $--el-x-text-color-primary;
         font-size: $--el-x-sender-input-font-size;

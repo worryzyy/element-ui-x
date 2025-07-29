@@ -41,7 +41,7 @@ export default {
       <el-button
         :disabled="loading"
         type="primary"
-        @click="handleSend"
+        @click="customSend"
       >
         {{ loading ? '加载中...' : '模拟请求' }}
       </el-button>
@@ -70,24 +70,8 @@ export default {
 </template>
 <script>
   let sendMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      sendMixin = window['vue-element-ui-x'].customMixins.sendMixin;
-    } else if (typeof require !== 'undefined') {
-      sendMixin = require('vue-element-ui-x').customMixins.sendMixin;
-    }
-  } catch (e) {
-    sendMixin = {
-      data() {
-        return { loading: false };
-      },
-      methods: {
-        initSend() {},
-        handleSend() {},
-        handleFinish() {},
-        handleAbort() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    sendMixin = require('vue-element-ui-x').sendMixin;
   }
   export default {
     name: 'SendBasicDemo',
@@ -98,15 +82,32 @@ export default {
       };
     },
     mounted() {
-      // 初始化发送配置
-      this.initSend({
-        sendHandler: this.startFn,
-        finishHandler: this.finishBasicRequest,
-        abortHandler: this.abortBasicRequest,
-        onAbort: this.onBasicAbort,
-      });
+      if (typeof window !== 'undefined') {
+        // 初始化发送配置
+        this.initSend({
+          sendHandler: this.startFn,
+          finishHandler: this.finishBasicRequest,
+          abortHandler: this.abortBasicRequest,
+          onAbort: this.onBasicAbort,
+        });
+      }
     },
     methods: {
+      customSend() {
+        if (typeof window !== 'undefined') {
+          this.handleSend();
+        }
+      },
+      handleFinish() {
+        if (typeof window !== 'undefined') {
+          this.handleFinish();
+        }
+      },
+      handleAbort() {
+        if (typeof window !== 'undefined') {
+          this.handleAbort();
+        }
+      },
       async startFn() {
         // 在这里做一个异步操作，可以是发请求
         console.log('开始模拟请求');
@@ -557,7 +558,7 @@ export default {
           v-else
           class="message-display"
         >
-{{ str }}</pre
+ {{ str }}</pre
         >
       </div>
     </div>
@@ -580,7 +581,7 @@ export default {
     methods: {
       initXRequest() {
         // 导入 XRequest 类
-        const { XRequest } = require('vue-element-ui-x').customMixins;
+        const { XRequest } = require('vue-element-ui-x');
 
         // 创建 XRequest 实例
         this.sse = new XRequest({
@@ -846,7 +847,7 @@ export default {
     methods: {
       initXRequest() {
         // 导入 XRequest 类
-        const { XRequest } = require('vue-element-ui-x').customMixins;
+        const { XRequest } = require('vue-element-ui-x');
 
         // 创建 XRequest 实例
         this.sse = new XRequest({
@@ -1037,7 +1038,7 @@ export default {
       plain
       icon="el-icon-position"
       size="large"
-      @click="handleSend"
+      @click="customSend"
     ></el-button>
 
     <el-button
@@ -1067,24 +1068,8 @@ export default {
 </template>
 <script>
   let sendMixin = {};
-  try {
-    if (typeof window !== 'undefined' && window['vue-element-ui-x']) {
-      sendMixin = window['vue-element-ui-x'].customMixins.sendMixin;
-    } else if (typeof require !== 'undefined') {
-      sendMixin = require('vue-element-ui-x').customMixins.sendMixin;
-    }
-  } catch (e) {
-    sendMixin = {
-      data() {
-        return { loading: false };
-      },
-      methods: {
-        initSend() {},
-        handleSend() {},
-        handleFinish() {},
-        handleAbort() {},
-      },
-    };
+  if (typeof window !== 'undefined') {
+    sendMixin = require('vue-element-ui-x').sendMixin;
   }
   export default {
     name: 'XRequestDemo',
@@ -1097,18 +1082,23 @@ export default {
     },
     mounted() {
       // 初始化 XRequest 实例
-      this.initXRequest();
-      this.initSend({
-        sendHandler: this.startFn,
-        finishHandler: this.finishBasicRequest,
-        abortHandler: this.abortBasicRequest,
-        onAbort: this.onBasicAbort,
-      });
+      if (typeof window !== 'undefined') {
+        this.initXRequest();
+        this.initSend({
+          sendHandler: this.startFn,
+          finishHandler: this.finishBasicRequest,
+          abortHandler: this.abortBasicRequest,
+          onAbort: this.onBasicAbort,
+        });
+      }
     },
     methods: {
+      customSend() {
+        this.handleSend();
+      },
       initXRequest() {
         // 导入 XRequest 类
-        const { XRequest } = require('vue-element-ui-x').customMixins;
+        const { XRequest } = require('vue-element-ui-x');
 
         // 创建 XRequest 实例
         this.sse = new XRequest({
