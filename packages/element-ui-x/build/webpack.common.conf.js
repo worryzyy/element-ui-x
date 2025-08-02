@@ -84,12 +84,12 @@ module.exports = {
             drop_console: true,
             drop_debugger: true,
             pure_funcs: ['console.log'],
-            unused: false, // 禁用删除未使用变量，可能导致问题
-            dead_code: false, // 禁用删除不可达代码，可能导致问题
-            sequences: false, // 禁用逗号表达式优化
-            conditionals: false, // 禁用条件表达式优化
+            unused: true,
+            dead_code: true,
+            sequences: true,
+            conditionals: true,
           },
-          mangle: false, // 禁用变量名混淆，避免语法错误
+          mangle: true,
           output: {
             comments: false,
             beautify: false,

@@ -56,12 +56,6 @@ webpack(config, (err, stats) => {
     console.log(`   - ${asset.name} (${(asset.size / 1024).toFixed(1)}KB)`);
   });
 
-  console.log('\n🎉 现在可以按需引入组件了：');
-  console.log('   import { ElXTypewriter, ElXBubble } from "vue-element-ui-x"');
-  console.log('   Vue.component(ElXTypewriter.name, ElXTypewriter);');
-  console.log('   Vue.component(ElXBubble.name, ElXBubble);');
-  console.log('   // ... 其他组件');
-
   // 生成组件列表
   let componentList = '';
   components.forEach(component => {

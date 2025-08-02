@@ -17,4 +17,4 @@ lib/
 .DS_Store
 Thumbs.db
 .vscode/
-
+storybook-static
