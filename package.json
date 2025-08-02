@@ -16,11 +16,13 @@
     "publish:lib": "cd packages/element-ui-x && npm publish",
     "release": "npm run lint && npm run build:lib && npm run publish:lib",
     "commit": "git-cz",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "changelog:docs": "npx conventional-changelog -p angular -i docs/src/changelog/README.md -s -r 0 && sed -i 's/## <small>\\(.*\\)<\\/small>/## \\1/g' docs/src/changelog/README.md",
+    "changelog:docs:en": "npx conventional-changelog -p angular -i docs/src/en/changelog/README.md -s -r 0 && sed -i 's/## <small>\\(.*\\)<\\/small>/## \\1/g' docs/src/en/changelog/README.md",
+    "changelog:all": " npm run changelog:docs && npm run changelog:docs:en",
     "lint:commit": "commitlint --from HEAD~1 --to HEAD --verbose",
     "prepare": "husky install",
     "version": "node -e \"const fs=require('fs');const pkg=JSON.parse(fs.readFileSync('./package.json','utf8'));['./packages/element-ui-x/package.json','./examples/package.json','./docs/package.json'].forEach(p=>{const subPkg=JSON.parse(fs.readFileSync(p,'utf8'));subPkg.version=pkg.version;fs.writeFileSync(p,JSON.stringify(subPkg,null,2)+'\\n');console.log('Updated '+p+' to version '+pkg.version);});\" && git add .",
-    "postversion": "npm run changelog && git add CHANGELOG.md && git commit --amend --no-edit"
+    "postversion": "npm run changelog:all && git add CHANGELOG.md docs/src/changelog/README.md docs/src/en/changelog/README.md && git commit --amend --no-edit"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
