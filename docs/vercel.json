@@ -4,6 +4,11 @@
   "outputDirectory": "src/.vuepress/dist",
   "installCommand": "npm install",
   "framework": null,
+  "build": {
+    "env": {
+      "VERCEL_DEEP_CLONE": "true"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
