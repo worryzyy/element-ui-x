@@ -28,13 +28,32 @@
                   ✨开始使用
                 </el-button>
               </div>
-              <div class="action">
-                <el-button
-                  size="medium"
-                  @click="openLink('https://demo.element-ui-x.com')"
-                >
-                  👉在线预览
-                </el-button>
+              <div class="action preview-dropdown">
+                <div class="dropdown-container">
+                  <el-button
+                    size="medium"
+                    class="dropdown-trigger"
+                  >
+                    👉在线预览
+                    <i class="el-icon-arrow-down"></i>
+                  </el-button>
+                  <div class="dropdown-menu">
+                    <div
+                      class="dropdown-item"
+                      @click="openLink('https://demo.element-ui-x.com/')"
+                    >
+                      <i class="el-icon-monitor"></i>
+                      <span>Demo 演示</span>
+                    </div>
+                    <div
+                      class="dropdown-item"
+                      @click="openLink('https://storybook.element-ui-x.com/')"
+                    >
+                      <i class="el-icon-document"></i>
+                      <span>Storybook</span>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="action">
                 <el-button
@@ -236,6 +255,146 @@
 
         .action {
           margin-right: 8px;
+        }
+
+        .preview-dropdown {
+          position: relative;
+
+          .dropdown-container {
+            position: relative;
+            display: inline-block;
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 100%;
+              left: 0;
+              right: 0;
+              height: 8px;
+              background: transparent;
+              z-index: 999;
+            }
+
+            .dropdown-trigger {
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              transition: all 0.3s ease;
+
+              .el-icon-arrow-down {
+                font-size: 12px;
+                transition: transform 0.3s ease;
+              }
+
+              &:hover {
+                box-shadow: 0 4px 12px rgba(64, 158, 255, 0.2);
+              }
+            }
+
+            .dropdown-menu {
+              position: absolute;
+              top: calc(100% + 4px);
+              left: 0;
+              min-width: 180px;
+              background: #fff;
+              border: 1px solid #e4e7ed;
+              border-radius: 8px;
+              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+              z-index: 1000;
+              opacity: 0;
+              visibility: hidden;
+              transform: translateY(-20px) scaleY(0.8);
+              transform-origin: top center;
+              transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+              overflow: hidden;
+
+              &::before {
+                content: '';
+                position: absolute;
+                top: -8px;
+                left: 20px;
+                width: 0;
+                height: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 8px solid #fff;
+                filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
+              }
+
+              .dropdown-item {
+                padding: 14px 18px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: #606266;
+                font-size: 14px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid #f5f7fa;
+                position: relative;
+                overflow: hidden;
+
+                &::before {
+                  content: '';
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  width: 0;
+                  height: 100%;
+                  background: linear-gradient(
+                    90deg,
+                    rgba(64, 158, 255, 0.1),
+                    rgba(64, 158, 255, 0.05)
+                  );
+                  transition: width 0.3s ease;
+                  z-index: 0;
+                }
+
+                &:hover {
+                  color: #409eff;
+                  background: rgba(64, 158, 255, 0.03);
+                  transform: translateX(4px);
+
+                  &::before {
+                    width: 100%;
+                  }
+                }
+
+                &:last-child {
+                  border-bottom: none;
+                }
+
+                i {
+                  font-size: 16px;
+                  transition: transform 0.3s ease;
+                  z-index: 1;
+                  position: relative;
+                }
+
+                span {
+                  z-index: 1;
+                  position: relative;
+                }
+
+                &:hover i {
+                  transform: scale(1.1);
+                }
+              }
+            }
+
+            &:hover {
+              .dropdown-trigger .el-icon-arrow-down {
+                transform: rotate(180deg);
+              }
+
+              .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) scaleY(1);
+              }
+            }
+          }
         }
       }
 
@@ -547,6 +706,24 @@
 
         .actions {
           justify-content: center;
+          flex-wrap: wrap;
+
+          .preview-dropdown .dropdown-container {
+            .dropdown-menu {
+              left: 50%;
+              transform: translateX(-50%) translateY(-20px) scaleY(0.8);
+              min-width: 160px;
+
+              &::before {
+                left: 50%;
+                transform: translateX(-50%);
+              }
+            }
+
+            &:hover .dropdown-menu {
+              transform: translateX(-50%) translateY(0) scaleY(1);
+            }
+          }
         }
 
         .image {
