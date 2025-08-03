@@ -3,6 +3,9 @@ const path = require('path');
 module.exports = {
   stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
 
+  // 自定义标题
+  title: 'Element UI X',
+
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-controls',
@@ -47,6 +50,8 @@ module.exports = {
   // 自定义页面标题
   managerHead: head => `
     ${head}
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
     <title>Element UI X</title>
     <meta name="description" content="Element UI X 组件库 Storybook 文档" />
   `,
