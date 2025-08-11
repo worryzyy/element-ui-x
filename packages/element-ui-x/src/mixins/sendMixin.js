@@ -72,9 +72,7 @@ export class XRequest {
           }
 
           if (value) {
-            const chunk = decoder.decode(value, {
-              stream: true,
-            });
+            const chunk = decoder.decode(value, { stream: true });
             // console.log('chunk:', chunk);
             // 将新数据添加到缓冲区
             buffer += chunk;
@@ -132,36 +130,19 @@ export class XRequest {
     if (!line.trim()) {
       return;
     }
-
     // 处理 data: 开头的行
     if (line.startsWith('data: ')) {
       const dataContent = line.slice(6);
-
-      // 检查是否是结束标识
-      if (dataContent.trim() === '[DONE]') {
-        this._isFinished = true;
-        this._onFinish && this._onFinish(this._messages);
-        this.abort();
-        return;
-      }
-
-      // 跳过空数据
       if (!dataContent.trim()) {
         return;
       }
-
       try {
-        // 尝试解析和处理数据
         let processedData;
         try {
-          // 首先尝试作为 JSON 解析
           processedData = JSON.parse(dataContent);
         } catch {
-          // 如果不是 JSON，使用原始数据
           processedData = dataContent;
         }
-        // console.log('processedData:', processedData, processedData.answer);
-
         const res = this._transformer ? this._transformer(processedData) : processedData;
         this._messages.push(res);
         this._onMessage && this._onMessage(res);
@@ -170,8 +151,27 @@ export class XRequest {
         this._onError && this._onError(error);
         this._controller && this._controller.abort();
       }
+      return;
     }
-    // 可以在这里处理其他类型的行（如果需要）
+
+    //  处理其他 SSE 标准字段
+    // if (line.startsWith('event: ') || line.startsWith('id: ') || line.startsWith('retry: ')) {
+    //   console.log('SSE control field:', line);
+    //   return;
+    // }
+
+    // 兜底处理
+    if (line.trim()) {
+      try {
+        const res = this._transformer ? this._transformer(line) : line;
+        this._messages.push(res);
+        this._onMessage && this._onMessage(res);
+      } catch (error) {
+        console.error('Error processing non-SSE line:', line, error);
+        this._onError && this._onError(error);
+        this._controller && this._controller.abort();
+      }
+    }
   }
 
   /**
@@ -403,9 +403,7 @@ export const sendMixin = {
  * @returns {Object} 包含发送相关方法的对象
  */
 export function createSendUtils(options = {}) {
-  const state = {
-    loading: false,
-  };
+  const state = { loading: false };
 
   const handleSend = (...args) => {
     if (state.loading) {
