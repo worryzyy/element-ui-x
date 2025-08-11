@@ -9,6 +9,7 @@ import FilesCard from '../views/FilesCard.vue';
 import Overview from '../views/Overview.vue';
 import Prompts from '../views/Prompts.vue';
 import RecordMixins from '../views/RecordMixins.vue';
+import Request from '../views/Request.vue';
 import Sender from '../views/Sender.vue';
 import SendMixins from '../views/SendMixins.vue';
 import StreamMixins from '../views/StreamMixins.vue';
@@ -127,6 +128,11 @@ export default new Router({
       name: 'DifyChat',
       component: DifyChat,
       meta: { hideInMenu: true },
+    },
+    {
+      path: '/xRequest',
+      name: 'xRequest',
+      component: Request,
     },
     {
       path: '*',
