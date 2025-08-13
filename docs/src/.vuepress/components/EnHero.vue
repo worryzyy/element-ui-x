@@ -12,37 +12,55 @@
           <div class="main">
             <h1 class="heading">
               <span class="name clip">Element-UI-X</span>
-              <span class="text">New Order of AI Experience</span>
+              <span class="text">Vue2 AI Component Savior</span>
             </h1>
             <p class="tagline">
-              An out-of-the-box enterprise-level AI interaction component library that makes
-              building intelligent interfaces as simple as building blocks. RICH design paradigm,
-              creating excellent AI interface solutions and leading intelligent new experiences.
+              Stop envying Vue3 for having so many AI components. Vue2 can also handle chat dialogs and typewriter effects.
+              Copy, paste, and you're done - I'm the savior for legacy projects 🎯
             </p>
             <div class="actions">
               <div class="action">
                 <el-button
                   type="primary"
                   size="medium"
-                  @click="navigateTo('/components/typewriter/')"
+                  @click="navigateTo('/en/components/typewriter/')"
                 >
-                  ✨Get Started
+                  🎉 Copy Code
                 </el-button>
               </div>
-              <div class="action">
-                <el-button
-                  size="medium"
-                  @click="openLink('https://demo.element-ui-x.com')"
-                >
-                  👉Live Preview
-                </el-button>
+              <div class="action preview-dropdown">
+                <div class="dropdown-container">
+                  <el-button
+                    size="medium"
+                    class="dropdown-trigger"
+                  >
+                    👀 Check Effects
+                    <i class="el-icon-arrow-down"></i>
+                  </el-button>
+                  <div class="dropdown-menu">
+                    <div
+                      class="dropdown-item"
+                      @click="openLink('https://demo.element-ui-x.com/')"
+                    >
+                      <i class="el-icon-monitor"></i>
+                      <span>Demo Preview</span>
+                    </div>
+                    <div
+                      class="dropdown-item"
+                      @click="openLink('https://storybook.element-ui-x.com/')"
+                    >
+                      <i class="el-icon-document"></i>
+                      <span>Storybook</span>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="action">
                 <el-button
                   size="medium"
                   @click="openLink('https://github.com/worryzyy/element-ui-x.git')"
                 >
-                  ⭐Star
+                  ⭐Star Support
                 </el-button>
               </div>
             </div>
@@ -63,21 +81,25 @@
       <div class="vue2-ai-section">
         <div class="container">
           <div class="content-box">
-            <h2 class="section-title">AI Application Development for Vue2</h2>
+            <h2 class="section-title">Still Using Vue2?</h2>
             <div class="description">
-              <p>
-                If you are developing AI applications using Vue2, Element-UI-X will be your ideal
-                choice:
-              </p>
-              <ul>
-                <li>Fully compatible with Vue2 ecosystem</li>
-                <li>Based on mature and stable Element-UI</li>
-                <li>Provides rich AI interaction components</li>
-                <li>Out-of-the-box Dify API integration</li>
-              </ul>
-              <p class="highlight-text">
-                Inject unlimited innovation possibilities into your AI applications
-              </p>
+              <p>Everyone else has upgraded to Vue3, but your project is still on Vue2? No worries, I've been there too 😄</p>
+              <div class="real-talk">
+                <div class="pain-point">
+                  <h3>🤦‍♂️ Legacy Project Pain</h3>
+                  <p>Want to add an AI chat dialog, but all component libraries are for Vue3</p>
+                </div>
+                <div class="solution">
+                  <h3>💡 Savior is Here</h3>
+                  <p>This library is specifically built for Vue2 legacy projects, copy-paste ready</p>
+                </div>
+              </div>
+              <div class="feature-list">
+                <span class="tag">Seamless Element-UI Integration</span>
+                <span class="tag">Silky Smooth Typewriter Effects</span>
+                <span class="tag">No Legacy Code Refactoring</span>
+              </div>
+              <p class="bottom-text">Let your legacy projects also play with AI, come try it if you don't believe 👊</p>
             </div>
           </div>
         </div>
@@ -129,18 +151,17 @@
       return {
         features: [
           {
-            title: 'Classic Replication',
-            details: 'Based on Element Plus X ',
+            title: '🎯 Inherit Excellent Design',
+            details: 'Based on the mature design philosophy of Element Plus X',
           },
           {
-            title: 'High Performance & Flexibility',
+            title: '⚡ Vue2 Seamless Integration',
             details:
-              'Carefully optimized code structure ensures high-performance component operation while supporting high customization to adapt to various complex business logic.',
+              'Fully compatible with Vue2 projects, no additional configuration required, one-click installation. Perfect integration with Element-UI, zero pressure for legacy project upgrades',
           },
           {
-            title: 'Visual Interaction & Experience Upgrade',
-            details:
-              'Typewriter atomization animation, auto-scrolling, loading effects, and other details provide users with vivid visual experiences, enhancing application interactivity and appeal.',
+            title: '✨ Rich Components, Choose Freely',
+            details: 'Abundant practical components to meet your needs, flexible customization and extension',
           },
         ],
       };
@@ -157,6 +178,16 @@
 </script>
 
 <style lang="scss" scoped>
+  // Animation definitions
+  @keyframes borderSlide {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 0% 100%;
+    }
+  }
+
   #share-banner {
     width: 100vw;
     min-height: 30px;
@@ -243,6 +274,146 @@
         .action {
           margin-right: 8px;
         }
+
+        .preview-dropdown {
+          position: relative;
+
+          .dropdown-container {
+            position: relative;
+            display: inline-block;
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 100%;
+              left: 0;
+              right: 0;
+              height: 8px;
+              background: transparent;
+              z-index: 999;
+            }
+
+            .dropdown-trigger {
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              transition: all 0.3s ease;
+
+              .el-icon-arrow-down {
+                font-size: 12px;
+                transition: transform 0.3s ease;
+              }
+
+              &:hover {
+                box-shadow: 0 4px 12px rgba(64, 158, 255, 0.2);
+              }
+            }
+
+            .dropdown-menu {
+              position: absolute;
+              top: calc(100% + 4px);
+              left: 0;
+              min-width: 180px;
+              background: #fff;
+              border: 1px solid #e4e7ed;
+              border-radius: 8px;
+              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+              z-index: 1000;
+              opacity: 0;
+              visibility: hidden;
+              transform: translateY(-20px) scaleY(0.8);
+              transform-origin: top center;
+              transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+              overflow: hidden;
+
+              &::before {
+                content: '';
+                position: absolute;
+                top: -8px;
+                left: 20px;
+                width: 0;
+                height: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 8px solid #fff;
+                filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
+              }
+
+              .dropdown-item {
+                padding: 14px 18px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: #606266;
+                font-size: 14px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid #f5f7fa;
+                position: relative;
+                overflow: hidden;
+
+                &::before {
+                  content: '';
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  width: 0;
+                  height: 100%;
+                  background: linear-gradient(
+                    90deg,
+                    rgba(64, 158, 255, 0.1),
+                    rgba(64, 158, 255, 0.05)
+                  );
+                  transition: width 0.3s ease;
+                  z-index: 0;
+                }
+
+                &:hover {
+                  color: #409eff;
+                  background: rgba(64, 158, 255, 0.03);
+                  transform: translateX(4px);
+
+                  &::before {
+                    width: 100%;
+                  }
+                }
+
+                &:last-child {
+                  border-bottom: none;
+                }
+
+                i {
+                  font-size: 16px;
+                  transition: transform 0.3s ease;
+                  z-index: 1;
+                  position: relative;
+                }
+
+                span {
+                  z-index: 1;
+                  position: relative;
+                }
+
+                &:hover i {
+                  transform: scale(1.1);
+                }
+              }
+            }
+
+            &:hover {
+              .dropdown-trigger .el-icon-arrow-down {
+                transform: rotate(180deg);
+              }
+
+              .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) scaleY(1);
+              }
+            }
+          }
+        }
       }
 
       .image {
@@ -276,47 +447,19 @@
       }
     }
     .vue2-ai-section {
-      position: relative;
-      padding: 2rem 0;
-      background: linear-gradient(
-        135deg,
-        rgba(64, 158, 255, 0.1) 0%,
-        rgba(121, 187, 255, 0.08) 50%,
-        rgba(64, 158, 255, 0.06) 100%
-      );
-      overflow: hidden;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: radial-gradient(
-            circle at 20% 80%,
-            rgba(64, 158, 255, 0.1) 0%,
-            transparent 50%
-          ),
-          radial-gradient(circle at 80% 20%, rgba(121, 187, 255, 0.08) 0%, transparent 50%);
-        pointer-events: none;
-      }
+      padding: 3rem 0;
 
       .container {
-        position: relative;
-        z-index: 1;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 2rem;
       }
 
       .content-box {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        padding: 1.5rem;
-        box-shadow: 0 8px 32px rgba(64, 158, 255, 0.1), 0 2px 16px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: #fff;
+        border-radius: 8px;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e4e7ed;
       }
     }
 
@@ -347,42 +490,121 @@
       max-width: 900px;
       margin: 0 auto;
 
-      p {
+      > p {
         font-size: 1.1rem;
         line-height: 1.8;
         color: #2c3e50;
-        // margin-bottom: 1.5rem;
         text-align: center;
+        margin-bottom: 2rem;
       }
 
-      ul {
+      .real-talk {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1rem;
-        list-style: none;
-        padding: 0;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
         margin: 2rem 0;
-      }
 
-      li {
-        background: rgba(64, 158, 255, 0.05);
-        padding: 1rem 0.5rem;
-        border-radius: 12px;
-        border-left: 4px solid #409eff;
-        position: relative;
-        transition: all 0.3s ease;
-        font-size: 1.1rem;
-        color: #2c3e50;
+        .pain-point,
+        .solution {
+          background: rgba(255, 255, 255, 0.8);
+          padding: 1.5rem;
+          border-radius: 16px;
+          text-align: left;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
 
-        &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 20px rgba(64, 158, 255, 0.15);
+          h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+          }
+
+          p {
+            font-size: 1rem;
+            color: #606266;
+            line-height: 1.6;
+            margin: 0;
+          }
+
+          &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(64, 158, 255, 0.1);
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(
+              to bottom,
+              var(--border-color) 0%,
+              transparent 30%,
+              transparent 70%,
+              var(--border-color) 100%
+            );
+            background-size: 100% 50%;
+            animation: borderSlide 2s linear infinite;
+          }
         }
 
-        &::before {
-          content: '🚀';
-          margin-right: 0.5rem;
-          font-size: 1.1rem;
+        .pain-point {
+          --border-color: #f56c6c;
+        }
+
+        .solution {
+          --border-color: #67c23a;
+        }
+      }
+
+      .feature-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+        margin: 2rem 0;
+
+        .tag {
+          background: linear-gradient(135deg, #409eff, #79bbff);
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          cursor: default;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(64, 158, 255, 0.3);
+          }
+        }
+      }
+
+      .bottom-text {
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-align: center;
+        color: #409eff;
+        margin-top: 1.5rem !important;
+      }
+
+      @media (max-width: 768px) {
+        .real-talk {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .feature-list {
+          gap: 0.5rem;
+          
+          .tag {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+          }
         }
       }
     }
@@ -403,98 +625,42 @@
       }
     }
     .custom-features {
-      position: relative;
-      padding: 2rem 0;
-      margin-top: 1rem;
-      background: linear-gradient(
-        135deg,
-        rgba(64, 158, 255, 0.12) 0%,
-        rgba(64, 158, 255, 0.08) 50%,
-        rgba(121, 187, 255, 0.06) 100%
-      );
-      overflow: hidden;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: radial-gradient(
-            circle at 80% 20%,
-            rgba(64, 158, 255, 0.1) 0%,
-            transparent 60%
-          ),
-          radial-gradient(circle at 20% 80%, rgba(121, 187, 255, 0.08) 0%, transparent 60%);
-        pointer-events: none;
-      }
-
       .container {
-        position: relative;
-        z-index: 1;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 2rem;
       }
 
       .items {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: 1fr;
         gap: 2rem;
         padding: 0;
       }
 
       .feature-box {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
+        background: #fff;
+        border-radius: 8px;
         padding: 2rem;
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        box-shadow: 0 10px 40px rgba(64, 158, 255, 0.1), 0 4px 20px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        position: relative;
-        overflow: hidden;
-
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 4px;
-          background: linear-gradient(90deg, #409eff, #79bbff, #409eff);
-        }
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e4e7ed;
 
         &:hover {
-          transform: translateY(-8px) scale(1.02);
-          box-shadow: 0 20px 60px rgba(64, 158, 255, 0.15), 0 8px 30px rgba(0, 0, 0, 0.1);
+          transform: translateY(-4px);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
 
         .title {
-          font-size: 1.4rem;
-          font-weight: 700;
+          font-size: 1.3rem;
+          font-weight: 600;
           color: #2c3e50;
           margin-bottom: 1rem;
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-
-          &::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: linear-gradient(45deg, #409eff, #79bbff);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(64, 158, 255, 0.5);
-          }
         }
 
         .details {
           font-size: 1rem;
           color: #606266;
-          line-height: 1.7;
-          padding-left: 1.75rem;
+          line-height: 1.6;
         }
       }
     }
@@ -530,7 +696,7 @@
     }
   }
 
-  // 响应式设计
+  // Responsive design
   @media (max-width: 768px) {
     .custom-home {
       .custom-hero {
@@ -553,6 +719,24 @@
 
         .actions {
           justify-content: center;
+          flex-wrap: wrap;
+
+          .preview-dropdown .dropdown-container {
+            .dropdown-menu {
+              left: 50%;
+              transform: translateX(-50%) translateY(-20px) scaleY(0.8);
+              min-width: 160px;
+
+              &::before {
+                left: 50%;
+                transform: translateX(-50%);
+              }
+            }
+
+            &:hover .dropdown-menu {
+              transform: translateX(-50%) translateY(0) scaleY(1);
+            }
+          }
         }
 
         .image {
@@ -561,7 +745,7 @@
       }
 
       .custom-features {
-        padding: 1rem 0;
+        padding: 2rem 0;
 
         .container {
           padding: 0 1rem;
@@ -576,7 +760,7 @@
           padding: 1.5rem;
 
           &:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
           }
 
           .title {
@@ -604,7 +788,7 @@
           font-size: 1.8rem;
         }
 
-        .description ul {
+        .description .real-talk {
           grid-template-columns: 1fr;
         }
       }

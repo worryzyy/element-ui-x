@@ -12,11 +12,11 @@
           <div class="main">
             <h1 class="heading">
               <span class="name clip">Element-UI-X</span>
-              <span class="text">AI体验新秩序</span>
+              <span class="text">Vue2 的 AI 组件救星</span>
             </h1>
             <p class="tagline">
-              开箱即用的企业级 AI 交互组件库，让构建智能界面像搭积木一样简单。 RICH
-              设计范式，打造卓越 AI 界面解决方案，引领智能新体验。
+              别再羡慕 Vue3 有那么多 AI 组件了，Vue2 也能玩转对话框、打字机效果。
+              复制粘贴就能用，老项目救星就是我 🎯
             </p>
             <div class="actions">
               <div class="action">
@@ -25,7 +25,7 @@
                   size="medium"
                   @click="navigateTo('/components/typewriter/')"
                 >
-                  ✨开始使用
+                  🎉 来抄代码
                 </el-button>
               </div>
               <div class="action preview-dropdown">
@@ -34,7 +34,7 @@
                     size="medium"
                     class="dropdown-trigger"
                   >
-                    👉在线预览
+                    👀 康康效果
                     <i class="el-icon-arrow-down"></i>
                   </el-button>
                   <div class="dropdown-menu">
@@ -81,16 +81,25 @@
       <div class="vue2-ai-section">
         <div class="container">
           <div class="content-box">
-            <h2 class="section-title">适用于 Vue2 的 AI 应用开发</h2>
+            <h2 class="section-title">还在用 Vue2?</h2>
             <div class="description">
-              <p>如果您正在使用 Vue2 开发 AI 应用，Element-UI-X 将是您的理想选择：</p>
-              <ul>
-                <li>完全兼容 Vue2 生态系统</li>
-                <li>基于成熟稳定的 Element-UI</li>
-                <li>提供丰富的 AI 交互组件</li>
-                <li>开箱即用的 Dify API 集成</li>
-              </ul>
-              <p class="highlight-text">为您的 AI 应用注入无限创新可能</p>
+              <p>别人都升 Vue3 了，但你的项目还在 Vue2？没关系，我也是过来人 😄</p>
+              <div class="real-talk">
+                <div class="pain-point">
+                  <h3>🤦‍♂️ 老项目的痛</h3>
+                  <p>想加个 AI 对话框，结果找到的组件库都是 Vue3 的</p>
+                </div>
+                <div class="solution">
+                  <h3>💡 救星来了</h3>
+                  <p>这个库专门为 Vue2 老项目而生，复制粘贴就能用</p>
+                </div>
+              </div>
+              <div class="feature-list">
+                <span class="tag">和 Element-UI 无缝配合</span>
+                <span class="tag">打字机效果超丝滑</span>
+                <span class="tag">不用重构老代码</span>
+              </div>
+              <p class="bottom-text">让你的老项目也能玩转 AI，不服来试试 👊</p>
             </div>
           </div>
         </div>
@@ -142,18 +151,17 @@
       return {
         features: [
           {
-            title: '复刻经典',
-            details: '基于Element Plus X ',
+            title: '🎯 继承优秀设计',
+            details: '基于 Element Plus X 的成熟设计理念',
           },
           {
-            title: '高性能 灵活性兼备',
+            title: '⚡ Vue2 无缝接入',
             details:
-              '精心优化的代码结构，保证组件高性能运行，同时支持高度自定义，适配各种复杂业务逻辑。',
+              '完全兼容 Vue2 项目，无需额外配置，一键安装即可使用。与 Element-UI 完美融合，老项目升级无压力',
           },
           {
-            title: '可视化交互 体验升级',
-            details:
-              '打字器雾化动画、自动滚动、加载效果、等细节满满，为用户带来生动的可视化体验，增强应用交互性和吸引力。',
+            title: '✨ 组件丰富，选用自如',
+            details: '大量实用组件满足你的需求 , 灵活定制与拓展',
           },
         ],
       };
@@ -170,6 +178,16 @@
 </script>
 
 <style lang="scss" scoped>
+  // 动画定义
+  @keyframes borderSlide {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 0% 100%;
+    }
+  }
+
   #share-banner {
     width: 100vw;
     min-height: 30px;
@@ -429,47 +447,19 @@
       }
     }
     .vue2-ai-section {
-      position: relative;
-      padding: 2rem 0;
-      background: linear-gradient(
-        135deg,
-        rgba(64, 158, 255, 0.1) 0%,
-        rgba(121, 187, 255, 0.08) 50%,
-        rgba(64, 158, 255, 0.06) 100%
-      );
-      overflow: hidden;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: radial-gradient(
-            circle at 20% 80%,
-            rgba(64, 158, 255, 0.1) 0%,
-            transparent 50%
-          ),
-          radial-gradient(circle at 80% 20%, rgba(121, 187, 255, 0.08) 0%, transparent 50%);
-        pointer-events: none;
-      }
+      padding: 3rem 0;
 
       .container {
-        position: relative;
-        z-index: 1;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 2rem;
       }
 
       .content-box {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        padding: 1.5rem;
-        box-shadow: 0 8px 32px rgba(64, 158, 255, 0.1), 0 2px 16px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: #fff;
+        border-radius: 8px;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e4e7ed;
       }
     }
 
@@ -500,42 +490,121 @@
       max-width: 900px;
       margin: 0 auto;
 
-      p {
+      > p {
         font-size: 1.1rem;
         line-height: 1.8;
         color: #2c3e50;
-        // margin-bottom: 1.5rem;
         text-align: center;
+        margin-bottom: 2rem;
       }
 
-      ul {
+      .real-talk {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1rem;
-        list-style: none;
-        padding: 0;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
         margin: 2rem 0;
-      }
 
-      li {
-        background: rgba(64, 158, 255, 0.05);
-        padding: 1rem 0.5rem;
-        border-radius: 12px;
-        border-left: 4px solid #409eff;
-        position: relative;
-        transition: all 0.3s ease;
-        font-size: 1.1rem;
-        color: #2c3e50;
+        .pain-point,
+        .solution {
+          background: rgba(255, 255, 255, 0.8);
+          padding: 1.5rem;
+          border-radius: 16px;
+          text-align: left;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
 
-        &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 20px rgba(64, 158, 255, 0.15);
+          h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+          }
+
+          p {
+            font-size: 1rem;
+            color: #606266;
+            line-height: 1.6;
+            margin: 0;
+          }
+
+          &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(64, 158, 255, 0.1);
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(
+              to bottom,
+              var(--border-color) 0%,
+              transparent 30%,
+              transparent 70%,
+              var(--border-color) 100%
+            );
+            background-size: 100% 50%;
+            animation: borderSlide 2s linear infinite;
+          }
         }
 
-        &::before {
-          content: '🚀';
-          margin-right: 0.5rem;
-          font-size: 1.1rem;
+        .pain-point {
+          --border-color: #f56c6c;
+        }
+
+        .solution {
+          --border-color: #67c23a;
+        }
+      }
+
+      .feature-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+        margin: 2rem 0;
+
+        .tag {
+          background: linear-gradient(135deg, #409eff, #79bbff);
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          cursor: default;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(64, 158, 255, 0.3);
+          }
+        }
+      }
+
+      .bottom-text {
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-align: center;
+        color: #409eff;
+        margin-top: 1.5rem !important;
+      }
+
+      @media (max-width: 768px) {
+        .real-talk {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .feature-list {
+          gap: 0.5rem;
+
+          .tag {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+          }
         }
       }
     }
@@ -556,98 +625,42 @@
       }
     }
     .custom-features {
-      position: relative;
-      padding: 2rem 0;
-      margin-top: 1rem;
-      background: linear-gradient(
-        135deg,
-        rgba(64, 158, 255, 0.12) 0%,
-        rgba(64, 158, 255, 0.08) 50%,
-        rgba(121, 187, 255, 0.06) 100%
-      );
-      overflow: hidden;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: radial-gradient(
-            circle at 80% 20%,
-            rgba(64, 158, 255, 0.1) 0%,
-            transparent 60%
-          ),
-          radial-gradient(circle at 20% 80%, rgba(121, 187, 255, 0.08) 0%, transparent 60%);
-        pointer-events: none;
-      }
-
       .container {
-        position: relative;
-        z-index: 1;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 2rem;
       }
 
       .items {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: 1fr;
         gap: 2rem;
         padding: 0;
       }
 
       .feature-box {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
+        background: #fff;
+        border-radius: 8px;
         padding: 2rem;
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        box-shadow: 0 10px 40px rgba(64, 158, 255, 0.1), 0 4px 20px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        position: relative;
-        overflow: hidden;
-
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 4px;
-          background: linear-gradient(90deg, #409eff, #79bbff, #409eff);
-        }
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e4e7ed;
 
         &:hover {
-          transform: translateY(-8px) scale(1.02);
-          box-shadow: 0 20px 60px rgba(64, 158, 255, 0.15), 0 8px 30px rgba(0, 0, 0, 0.1);
+          transform: translateY(-4px);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
 
         .title {
-          font-size: 1.4rem;
-          font-weight: 700;
+          font-size: 1.3rem;
+          font-weight: 600;
           color: #2c3e50;
           margin-bottom: 1rem;
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-
-          &::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: linear-gradient(45deg, #409eff, #79bbff);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(64, 158, 255, 0.5);
-          }
         }
 
         .details {
           font-size: 1rem;
           color: #606266;
-          line-height: 1.7;
-          padding-left: 1.75rem;
+          line-height: 1.6;
         }
       }
     }
@@ -732,7 +745,7 @@
       }
 
       .custom-features {
-        padding: 1rem 0;
+        padding: 2rem 0;
 
         .container {
           padding: 0 1rem;
@@ -747,7 +760,7 @@
           padding: 1.5rem;
 
           &:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
           }
 
           .title {
@@ -775,7 +788,7 @@
           font-size: 1.8rem;
         }
 
-        .description ul {
+        .description .real-talk {
           grid-template-columns: 1fr;
         }
       }
