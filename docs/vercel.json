@@ -1,13 +1,17 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
   "outputDirectory": "src/.vuepress/dist",
   "installCommand": "npm install",
   "framework": null,
   "build": {
     "env": {
       "VERCEL_DEEP_CLONE": "true"
-    }
+    },
+    "commands": [
+      "git config --global user.email 'vercel@build.com'",
+      "git config --global user.name 'Vercel Build'",
+      "npm run build"
+    ]
   },
   "rewrites": [
     {
