@@ -119,6 +119,9 @@
   import ClearButton from './components/ClearButton.vue';
   import LoadingButton from './components/LoadingButton.vue';
   import SendButton from './components/SendButton.vue';
+  import ChatArea from 'chatarea';
+  import 'chatarea/lib/ChatArea.css';
+
   export default {
     name: 'ElXEditorSender',
     components: {
@@ -208,8 +211,11 @@
         default: false,
       },
     },
+    emits: ['submit', 'change', 'cancel', 'showAtDialog', 'showSelectDialog', 'showTagDialog'],
     data() {
       return {
+        chat: null,
+        opNode: null,
         chatState: {
           isEmpty: true,
           textLength: 0, // 该属性值只会在配置了maxLength情况下才拥有赋值
@@ -221,15 +227,352 @@
         },
       };
     },
+    watch: {
+      disabled(val) {
+        val ? this.chat?.disable() : this.chat?.enable();
+      },
+      placeholder(val) {
+        this.chat?.updateConfig({ placeholder: val });
+      },
+      maxLength(val) {
+        this.chat?.updateConfig({ maxLength: val });
+      },
+      submitType(val) {
+        this.chat?.updateConfig({
+          sendKeyFun:
+            val === 'enter'
+              ? event => !event.shiftKey && event.key === 'Enter'
+              : event => event.shiftKey && event.key === 'Enter',
+          wrapKeyFun:
+            val === 'shiftEnter'
+              ? event => !event.shiftKey && event.key === 'Enter'
+              : event => event.shiftKey && event.key === 'Enter',
+        });
+      },
+      userList: {
+        handler(val) {
+          this.chat?.updateConfig({ userList: JSON.parse(JSON.stringify(val)) });
+        },
+        deep: true,
+      },
+      selectList: {
+        handler(val) {
+          this.chat?.updateConfig({ selectList: val });
+        },
+        deep: true,
+      },
+      customTrigger: {
+        handler(val) {
+          this.chat?.updateConfig({ customTrigger: val });
+        },
+        deep: true,
+      },
+    },
+    mounted() {
+      this.createChat();
+    },
+    beforeDestroy() {
+      if (this.chat) {
+        this.chat.dispose();
+        this.chat = null;
+        this.opNode = null;
+        window.removeEventListener('keydown', this.keydownESC);
+      }
+    },
     methods: {
+      // 创建输入框
+      createChat() {
+        this.chat = new ChatArea({
+          elm: this.$refs.container,
+          ...this.$props,
+          userList: JSON.parse(JSON.stringify(this.userList)),
+          needDialog: !this.customDialog && this.device === 'pc',
+          copyType: ['text'],
+          asyncMatch: Boolean(this.asyncMatchFun),
+          needDebounce: true,
+          needCallSpace: false,
+          sendKeyFun:
+            this.submitType === 'enter'
+              ? event => !event.shiftKey && event.key === 'Enter'
+              : event => event.shiftKey && event.key === 'Enter',
+          wrapKeyFun:
+            this.submitType === 'shiftEnter'
+              ? event => !event.shiftKey && event.key === 'Enter'
+              : event => event.shiftKey && event.key === 'Enter',
+        });
+        this.opNode = this.chat.createOperateNode();
+        // 订阅发送事件
+        this.chat.addEventListener('enterSend', this.onSubmit);
+        // 对输入框进行操作事件
+        this.chat.addEventListener('operate', () => {
+          this.chatState.isEmpty = this.chat.isEmpty(true);
+          this.chatState.textLength = this.chat.textLength;
+          this.$emit('change');
+        });
+        // 失去焦点记录最后一次光标Node节点
+        this.chat.richText.addEventListener(
+          'blur',
+          () => {
+            const sel = getSelection();
+            this.chatState.lastFocusNode = sel.focusNode;
+            this.chatState.lastOffset = sel.focusOffset;
+          },
+          true,
+        );
+        // 订阅标签选择事件
+        this.chat.addEventListener('selectCheck', () => {
+          if (this.chatState.wrapCallSelectDialog && this.chatState.beforeText) {
+            this.chat.insertText(this.chatState.beforeText);
+            this.chatState.beforeText = '';
+          }
+        });
+        this.chat.addEventListener('afterSelectCheck', () => {
+          if (this.chatState.wrapCallSelectDialog && this.chatState.afterText) {
+            this.chat.insertText(this.chatState.afterText);
+            this.chatState.afterText = '';
+            this.chatState.wrapCallSelectDialog = false;
+          }
+        });
+        // 接管异步匹配
+        if (this.asyncMatchFun) {
+          this.chat.addEventListener('atMatch', this.asyncMatchFun);
+        }
+        // 检测多种弹窗唤起事件
+        this.chat.addEventListener('showAtDialog', () => {
+          this.$emit('showAtDialog');
+        });
+        this.chat.addEventListener('showSelectDialog', (key, elm) => {
+          this.$emit('showSelectDialog', key, elm);
+        });
+        this.chat.addEventListener('showTagDialog', prefix => {
+          this.$emit('showTagDialog', prefix);
+        });
+        // 禁用编辑器
+        if (this.disabled) {
+          this.chat.disabled();
+        }
+        // 绑定ESC按键关闭提示标签
+        window.addEventListener('keydown', this.keydownESC);
+      },
+      // 获取输入框当前内容
+      getCurrentValue() {
+        const text = this.chat.getText();
+        const html = this.chat.getHtml();
+        const inputTags = this.chat.getInputTagList();
+        const userTags = this.userList.length > 0 ? this.chat.getCallUserTagList() : undefined;
+        const selectTags = this.selectList.length > 0 ? this.chat.getSelectTagList() : undefined;
+        const customTags = this.customTrigger.length > 0 ? this.chat.getCustomTagList() : undefined;
+        return {
+          text,
+          html,
+          inputTags,
+          userTags,
+          selectTags,
+          customTags,
+        };
+      },
       // 提交发送方法
-      onSubmit() {},
+      onSubmit() {
+        // 内容纯空 拦截发送
+        if (this.chatState.isEmpty) {
+          return;
+        }
+        this.$emit('submit', this.getCurrentValue());
+      },
       // 取消发送方法
-      onCancel() {},
+      onCancel() {
+        this.$emit('cancel');
+      },
       // 清空输入框方法
-      onClear() {},
+      onClear(txt) {
+        this.chat.clear(txt);
+        // 将光标移动到末尾
+        this.focusToEnd();
+      },
       // 点击内容区域聚焦输入框
-      onContentMouseDown() {},
+      onContentMouseDown() {
+        requestAnimationFrame(() => {
+          const focusElm = this.chatState.lastFocusNode?.parentElement;
+          const chatInput = this.chat.chatInput;
+          if (focusElm && focusElm.classList.contains('input-write')) {
+            chatInput.setInputTagRange(this.chatState.lastFocusNode, this.chatState.lastOffset);
+          } else {
+            chatInput.restCursorPos(chatInput.vnode, chatInput.cursorIndex);
+          }
+        });
+      },
+      // 聚焦到文本最前方
+      focusToStart() {
+        if (this.chat && this.opNode) {
+          this.opNode.setCursorNode(
+            this.opNode.getNodeByRank(this.opNode.getRank(0) + this.opNode.getRank(0)),
+            0,
+          );
+        }
+      },
+      // 聚焦到文本最后方
+      focusToEnd() {
+        if (this.chat && this.opNode) {
+          this.opNode.setCursorNode(
+            this.opNode.getNodeByRank(this.opNode.getRank(-1) + this.opNode.getRank(-1)),
+          );
+        }
+      },
+      // 失去焦点
+      blur() {
+        if (this.chat) {
+          const selection = getSelection();
+          selection.removeAllRanges();
+          this.chat.richText.blur();
+        }
+      },
+      // 内容全选
+      selectAll() {
+        if (this.chat && this.opNode) {
+          const firstNode = this.opNode.getNodeByRank(
+            this.opNode.getRank(0) + this.opNode.getRank(0),
+          );
+          const lastNode = this.opNode.getNodeByRank(
+            this.opNode.getRank(-1) + this.opNode.getRank(-1),
+          );
+          this.opNode.setSelectNodes(firstNode, lastNode);
+        }
+      },
+      // 插入一个选择标签
+      setSelectTag(key, tagId) {
+        this.chatState.wrapCallSelectDialog = false;
+        const tag = this.selectList
+          ?.find(option => option.key === key)
+          ?.options.find(tag => tag.id === tagId);
+        if (tag) {
+          this.chat.setSelectTag(tag, key);
+        }
+      },
+      // 插入一个输入标签
+      setInputTag(key, placeholder, defaultValue) {
+        this.chat.setInputTag(key, placeholder, defaultValue);
+      },
+      // 插入一个@提及标签
+      setUserTag(userId) {
+        const user = this.userList?.find(user => user.id === userId);
+        if (user) {
+          this.chat.setUserTag(user);
+        }
+      },
+      // 插入一个自定义触发符标签
+      setCustomTag(prefix, id) {
+        const custom = this.customTrigger
+          ?.find(option => option.prefix === prefix)
+          ?.tagList.find(tag => tag.id === id);
+        if (custom) {
+          this.chat.setCustomTag(custom, prefix);
+        }
+      },
+      // 混合式插入
+      setMixTags(tags) {
+        // 整合ChatNode
+        const chatNodes = tags.map((row, index) => {
+          return {
+            type: 'gridBox',
+            rank: this.opNode.getRank(index),
+            children: row.map(cRow => {
+              return {
+                type: cRow.type,
+                text: cRow.value,
+                html: cRow.value,
+                dataset: {
+                  id: cRow.value,
+                  name: this.getNameByTypeId(cRow),
+                  prefix: cRow.key,
+                  key: cRow.key,
+                  placeholder: cRow.placeholder,
+                  value: cRow.value,
+                },
+              };
+            }),
+          };
+        });
+        this.opNode.coverNodes(chatNodes);
+      },
+      // 根据id和类型捕获目标name
+      getNameByTypeId(mixTag) {
+        const { type, value, key } = mixTag;
+        switch (type) {
+          case 'userTag':
+            return this.userList?.find(user => user.id === value)?.name || '';
+          case 'selectTag':
+            return (
+              this.selectList
+                ?.find(row => row.key === key)
+                ?.options.find(select => select.id === value)?.name || ''
+            );
+          case 'customTag':
+            return (
+              this.customTrigger
+                ?.find(row => row.prefix === key)
+                ?.tagList.find(custom => custom.id === value)?.name || ''
+            );
+          default:
+            return '';
+        }
+      },
+      // 在当前光标处插入html片段
+      setHtml(html) {
+        // 注* 插入的html标签必须是 行内 或 行内块元素，如果需要块级元素标签 请自行插入行内元素然后修改其css属性为块级元素
+        this.chat.insertHtml(html);
+      },
+      // 在当前光标处插入text内容
+      setText(txt) {
+        this.chat.insertText(txt);
+      },
+      // 外部调用唤起标签选择弹窗
+      openSelectDialog(option) {
+        this.chatState.beforeText = option.beforeText || '';
+        this.chatState.afterText = option.afterText || '';
+        this.chatState.wrapCallSelectDialog = true;
+        this.chat.showPCSelectDialog(option.key, option.elm);
+      },
+      // 打开前置提示标签
+      openTipTag(options) {
+        this.chat.openTipTag({
+          ...options,
+          codeLabel: 'ESC',
+        });
+      },
+      // 关闭前置提示标签
+      closeTipTag() {
+        this.chat.closeTipTag();
+      },
+      // 绑定ESC按键关闭提示标签
+      keydownESC(event) {
+        if (event.key === 'Escape') {
+          this.closeTipTag();
+        }
+      },
+      // 用户自定义弹窗写入@提及标签
+      customSetUser(user) {
+        // 该方法并未写入ts 因为是一个私有api没暴露给用户 其区别 setUserTag 相比会去向前截取掉触发符
+        this.chat.onceSetTag(user);
+      },
+      // 用户自定义弹窗写入自定义触发符号标签
+      customSetTag(prefix, tag) {
+        this.chat.onceSetCustomTag(tag, prefix);
+      },
+      // 用户自定义弹窗更新选择标签
+      updateSelectTag(elm, tag) {
+        const rank = this.opNode.getRankByElm(elm.parentElement);
+        if (!rank) {
+          return;
+        }
+        const chatNode = this.opNode.getNodeByRank(rank);
+        if (!chatNode) {
+          return;
+        }
+        const dataset = chatNode.dataset;
+        dataset.id = tag.id;
+        dataset.name = tag.name;
+        this.opNode.updateNode(chatNode);
+      },
     },
   };
 </script>
