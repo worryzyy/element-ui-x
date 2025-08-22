@@ -211,7 +211,14 @@
         default: false,
       },
     },
-    emits: ['submit', 'change', 'cancel', 'showAtDialog', 'showSelectDialog', 'showTagDialog'],
+    emits: [
+      'submit',
+      'change',
+      'cancel',
+      'show-at-dialog',
+      'show-select-dialog',
+      'show-tag-dialog',
+    ],
     data() {
       return {
         chat: null,
@@ -339,13 +346,13 @@
         }
         // 检测多种弹窗唤起事件
         this.chat.addEventListener('showAtDialog', () => {
-          this.$emit('showAtDialog');
+          this.$emit('show-at-dialog');
         });
         this.chat.addEventListener('showSelectDialog', (key, elm) => {
-          this.$emit('showSelectDialog', key, elm);
+          this.$emit('show-select-dialog', key, elm);
         });
         this.chat.addEventListener('showTagDialog', prefix => {
-          this.$emit('showTagDialog', prefix);
+          this.$emit('show-tag-dialog', prefix);
         });
         // 禁用编辑器
         if (this.disabled) {

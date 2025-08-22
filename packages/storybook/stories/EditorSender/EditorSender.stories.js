@@ -1,4 +1,5 @@
 import BasicDemo from './BasicDemo.vue';
+import CustomDemo from './CustomDemo.vue';
 
 export default {
   title: '组件库/EditorSender 消息发送器',
@@ -102,6 +103,16 @@ export const Basic = {
   render: args => ({
     components: { BasicDemo },
     template: '<BasicDemo v-bind="$props" />',
+    props: Object.keys(args),
+  }),
+  args: {},
+};
+
+export const Custom = {
+  name: '自定义弹窗用法',
+  render: args => ({
+    components: { CustomDemo },
+    template: '<CustomDemo v-bind="$props" />',
     props: Object.keys(args),
   }),
   args: {},
