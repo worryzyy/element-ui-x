@@ -2,6 +2,7 @@
   <div class="el-x-send-button">
     <el-button
       circle
+      :disabled="disabled"
       @click="$emit('clear')"
       size="small"
     >
@@ -13,6 +14,12 @@
 <script>
   export default {
     name: 'ClearButton',
+    props: {
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
+    },
   };
 </script>
 

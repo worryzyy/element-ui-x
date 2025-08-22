@@ -174,7 +174,7 @@ $--el-x-fill-color: $--background-color-base;
       border var(--el-editor-sender-header-duration);
     overflow: hidden;
   }
-  .slide-enter-from,
+  .slide-enter,
   .slide-leave-to {
     height: 0;
     opacity: 0 !important;

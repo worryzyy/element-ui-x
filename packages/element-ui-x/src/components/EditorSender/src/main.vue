@@ -104,14 +104,14 @@
       </div>
     </div>
     <!-- 底部容器 -->
-    <Transition name="slide">
+    <transition name="slide">
       <div
         v-if="$slots.footer"
         class="el-editor-sender-footer"
       >
         <slot name="footer" />
       </div>
-    </Transition>
+    </transition>
   </div>
 </template>
 
@@ -229,7 +229,7 @@
     },
     watch: {
       disabled(val) {
-        val ? this.chat?.disable() : this.chat?.enable();
+        val ? this.chat?.disabled() : this.chat?.enable();
       },
       placeholder(val) {
         this.chat?.updateConfig({ placeholder: val });
@@ -419,7 +419,7 @@
         }
       },
       // 失去焦点
-      blur() {
+      onBlur() {
         if (this.chat) {
           const selection = getSelection();
           selection.removeAllRanges();
