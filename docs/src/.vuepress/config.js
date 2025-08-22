@@ -55,7 +55,7 @@ module.exports = {
                 {
                   title: '交互类组件',
                   collapsable: false,
-                  children: ['sender', 'attachments', 'files-card'],
+                  children: ['sender', 'editor-sender', 'attachments', 'files-card'],
                 },
                 {
                   title: '导航类组件',
@@ -137,7 +137,7 @@ module.exports = {
                 {
                   title: 'Interactive Components',
                   collapsable: false,
-                  children: ['sender', 'attachments', 'files-card'],
+                  children: ['sender', 'editor-sender', 'attachments', 'files-card'],
                 },
                 {
                   title: 'Navigation Components',
