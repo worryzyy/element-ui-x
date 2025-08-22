@@ -9,6 +9,7 @@ import ElXThinking from './components/Thinking/index.js';
 import ElXThoughtChain from './components/ThoughtChain/index.js';
 import ElXTypewriter from './components/Typewriter/index.js';
 import ElXWelcome from './components/Welcome/index.js';
+import ElXEditorSender from './components/EditorSender/index.js';
 
 // 导入 mixins
 import {
@@ -36,6 +37,7 @@ const components = [
   ElXFilesCard,
   ElXAttachments,
   ElXWelcome,
+  ElXEditorSender,
 ];
 
 const install = function (Vue, opts = {}) {
@@ -74,6 +76,7 @@ export {
   ElXThoughtChain,
   ElXTypewriter,
   ElXWelcome,
+  ElXEditorSender,
   lang,
   // 国际化
   locale,

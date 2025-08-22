@@ -1,0 +1,35 @@
+<template>
+  <div class="el-x-send-button">
+    <el-button
+      circle
+      :disabled="disabled"
+      @click="$emit('clear')"
+      size="small"
+    >
+      <i class="el-icon-brush"></i>
+    </el-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'ClearButton',
+    props: {
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
+    },
+  };
+</script>
+
+<style scoped lang="scss">
+  .el-x-send-button {
+    .el-button {
+      .el-icon-brush {
+        // 旋转180
+        transform: rotate(180deg);
+      }
+    }
+  }
+</style>
