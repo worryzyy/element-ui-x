@@ -31,22 +31,6 @@ module.exports = merge(commonConfig, {
           ],
         },
       },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              sassOptions: {
-                outputStyle: 'compressed',
-                silenceDeprecations: ['legacy-js-api', 'import'],
-              },
-            },
-          },
-        ],
-      },
     ],
   },
   // 外部化依赖，不打包进组件库
