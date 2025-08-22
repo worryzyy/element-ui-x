@@ -5,6 +5,7 @@ import Bubble from '../views/Bubble.vue';
 import BubbleList from '../views/BubbleList.vue';
 import Conversations from '../views/Conversations.vue';
 import DifyChat from '../views/DifyChat/index.vue';
+import EditorSender from '../views/EditorSender.vue';
 import FilesCard from '../views/FilesCard.vue';
 import Overview from '../views/Overview.vue';
 import Prompts from '../views/Prompts.vue';
@@ -97,6 +98,11 @@ export default new Router({
       path: '/sender',
       name: 'Sender',
       component: Sender,
+    },
+    {
+      path: '/editorsender',
+      name: 'EditorSender',
+      component: EditorSender,
     },
     {
       path: '/filescard',

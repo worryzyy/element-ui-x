@@ -57,6 +57,11 @@ export const menuGroups = [
         icon: 'el-icon-s-promotion',
         title: 'Sender - 消息发送',
       },
+      {
+        index: '/editorsender',
+        icon: 'el-icon-edit-outline',
+        title: 'EditorSender - 编辑器发送',
+      },
     ],
   },
   {

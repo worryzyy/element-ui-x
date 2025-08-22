@@ -44,10 +44,7 @@ a {
 /*img标签要清除border。*/
 /*display设为block设置为块级元素，默认为display:inline;
 存在下边线多出4px状况,所以一般设为block*/
-img {
-  border: 0;
-  display: block;
-}
+
 /*清除浮动破坏带来的塌陷问题*/
 /*清除浮动的兼容IE*/
 .clearfloat {
