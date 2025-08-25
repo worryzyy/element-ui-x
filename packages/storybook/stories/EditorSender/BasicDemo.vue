@@ -357,7 +357,7 @@
     :deep(.img-tag) {
       width: auto;
       height: 24px;
-      vertical-align: bottom;
+      vertical-align: middle;
     }
   }
 </style>
