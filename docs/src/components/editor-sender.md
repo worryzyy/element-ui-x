@@ -1,4 +1,4 @@
-# EditorSender 高级编辑器
+# EditorSender 编辑输入框
 
 ## 功能说明
 
@@ -11,6 +11,7 @@ EditorSender 是一个功能强大的富文本输入组件，基于 ChatArea 构
 - 多种布局变体（默认布局和上下布局）
 - 可扩展的插槽系统
 - 完善的 API 接口，支持程序化操作
+- 更多功能请前往 [ChatArea](https://jianfv.top/ChatAreaDoc/home)查看
 
 ## 使用示例
 
@@ -161,9 +162,9 @@ EditorSender 是一个功能强大的富文本输入组件，基于 ChatArea 构
     data() {
       return {
         userList: [
-          { id: '1', name: '张三', avatar: 'https://via.placeholder.com/32' },
-          { id: '2', name: '李四', avatar: 'https://via.placeholder.com/32' },
-          { id: '3', name: '王五', avatar: 'https://via.placeholder.com/32' },
+          { id: '1', name: '张三', avatar: 'https://element-ui-x.com/images/logo.png' },
+          { id: '2', name: '李四', avatar: 'https://element-ui-x.com/images/logo.png' },
+          { id: '3', name: '王五', avatar: 'https://element-ui-x.com/images/logo.png' },
         ],
       };
     },
@@ -836,7 +837,7 @@ EditorSender 是一个功能强大的富文本输入组件，基于 ChatArea 构
   .el-editor-sender-wrap img.img-tag {
     width: auto;
     height: 24px;
-    vertical-align: bottom;
+    vertical-align: middle;
   }
 </style>
 ```
@@ -845,24 +846,24 @@ EditorSender 是一个功能强大的富文本输入组件，基于 ChatArea 构
 
 ## 属性
 
-| 参数                 | 说明                                   | 类型     | 默认值       |
-| -------------------- | -------------------------------------- | -------- | ------------ |
-| placeholder          | 输入框占位文本                         | String   | '请输入内容' |
-| device               | 设备类型，影响弹窗交互方式             | String   | 'pc'         |
-| autoFocus            | 是否自动聚焦                           | Boolean  | false        |
-| variant              | 布局变体，可选 'default'、'updown'     | String   | 'default'    |
-| selectList           | 选择标签配置列表                       | Array    | []           |
-| userList             | 用户列表，用于 @ 功能                  | Array    | []           |
-| customTrigger        | 自定义触发符配置                       | Array    | []           |
-| maxLength            | 最大字符数限制                         | Number   | undefined    |
-| submitType           | 提交快捷键，可选 'enter'、'shiftEnter' | String   | 'enter'      |
-| customStyle          | 自定义输入框样式                       | Object   | {}           |
-| loading              | 加载状态                               | Boolean  | false        |
-| disabled             | 是否禁用                               | Boolean  | false        |
-| clearable            | 是否显示清空按钮                       | Boolean  | false        |
-| headerAnimationTimer | 头部动画时长(ms)                       | Number   | 300          |
-| asyncMatchFun        | 异步匹配函数，用于 @ 功能              | Function | undefined    |
-| customDialog         | 是否使用自定义弹窗                     | Boolean  | false        |
+| 参数                 | 说明                                        | 类型     | 默认值       |
+| -------------------- | ------------------------------------------- | -------- | ------------ |
+| placeholder          | 输入框占位文本                              | String   | '请输入内容' |
+| device               | 设备类型，影响弹窗交互方式，可选 'pc'、'h5' | String   | 'pc'         |
+| autoFocus            | 是否自动聚焦                                | Boolean  | false        |
+| variant              | 布局变体，可选 'default'、'updown'          | String   | 'default'    |
+| selectList           | 选择标签配置列表                            | Array    | []           |
+| userList             | 用户列表，用于 @ 功能                       | Array    | []           |
+| customTrigger        | 自定义触发符配置                            | Array    | []           |
+| maxLength            | 最大字符数限制                              | Number   | undefined    |
+| submitType           | 提交快捷键，可选 'enter'、'shiftEnter'      | String   | 'enter'      |
+| customStyle          | 自定义输入框样式                            | Object   | {}           |
+| loading              | 加载状态                                    | Boolean  | false        |
+| disabled             | 是否禁用                                    | Boolean  | false        |
+| clearable            | 是否显示清空按钮                            | Boolean  | false        |
+| headerAnimationTimer | 头部动画时长(ms)                            | Number   | 300          |
+| asyncMatchFun        | 异步匹配函数，用于 @ 功能                   | Function | undefined    |
+| customDialog         | 是否使用自定义弹窗                          | Boolean  | false        |
 
 ### selectList 配置项
 

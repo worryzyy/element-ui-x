@@ -1,4 +1,4 @@
-# EditorSender Advanced Editor
+# EditorSender Input Box
 
 ## Overview
 
@@ -11,6 +11,7 @@ EditorSender is a powerful rich text input component built on ChatArea, providin
 - Multiple layout variants (default and up-down layouts)
 - Extensible slot system
 - Comprehensive API for programmatic operations
+- For more features, please visit [ChatArea](https://jianfv.top/ChatAreaDoc/home) to view
 
 ## Examples
 
@@ -157,9 +158,9 @@ Supports @ mentioning users with static user lists or async loading.
     data() {
       return {
         userList: [
-          { id: '1', name: 'John Doe', avatar: 'https://via.placeholder.com/32' },
-          { id: '2', name: 'Jane Smith', avatar: 'https://via.placeholder.com/32' },
-          { id: '3', name: 'Bob Johnson', avatar: 'https://via.placeholder.com/32' },
+          { id: '1', name: 'John Doe', avatar: 'https://element-ui-x.com/images/logo.png' },
+          { id: '2', name: 'Jane Smith', avatar: 'https://element-ui-x.com/images/logo.png' },
+          { id: '3', name: 'Bob Johnson', avatar: 'https://element-ui-x.com/images/logo.png' },
         ],
       };
     },
@@ -830,7 +831,7 @@ Demonstrates all advanced editor features including text operations, tag inserti
   .el-editor-sender-wrap img.img-tag {
     width: auto;
     height: 24px;
-    vertical-align: bottom;
+    vertical-align: middle;
   }
 </style>
 ```
@@ -839,24 +840,24 @@ Demonstrates all advanced editor features including text operations, tag inserti
 
 ## Props
 
-| Property             | Description                             | Type     | Default      |
-| -------------------- | --------------------------------------- | -------- | ------------ |
-| placeholder          | Input placeholder text                  | String   | '请输入内容' |
-| device               | Device type, affects dialog interaction | String   | 'pc'         |
-| autoFocus            | Auto focus on mount                     | Boolean  | false        |
-| variant              | Layout variant: 'default', 'updown'     | String   | 'default'    |
-| selectList           | Select tag configuration list           | Array    | []           |
-| userList             | User list for @ mentions                | Array    | []           |
-| customTrigger        | Custom trigger configuration            | Array    | []           |
-| maxLength            | Maximum character limit                 | Number   | undefined    |
-| submitType           | Submit shortcut: 'enter', 'shiftEnter'  | String   | 'enter'      |
-| customStyle          | Custom input box styles                 | Object   | {}           |
-| loading              | Loading state                           | Boolean  | false        |
-| disabled             | Disabled state                          | Boolean  | false        |
-| clearable            | Show clear button                       | Boolean  | false        |
-| headerAnimationTimer | Header animation duration (ms)          | Number   | 300          |
-| asyncMatchFun        | Async match function for @ mentions     | Function | undefined    |
-| customDialog         | Use custom dialogs                      | Boolean  | false        |
+| Property             | Description                                        | Type     | Default      |
+| -------------------- | -------------------------------------------------- | -------- | ------------ |
+| placeholder          | Input placeholder text                             | String   | '请输入内容' |
+| device               | Device type, affects dialog interaction: 'pc','h5' | String   | 'pc'         |
+| autoFocus            | Auto focus on mount                                | Boolean  | false        |
+| variant              | Layout variant: 'default', 'updown'                | String   | 'default'    |
+| selectList           | Select tag configuration list                      | Array    | []           |
+| userList             | User list for @ mentions                           | Array    | []           |
+| customTrigger        | Custom trigger configuration                       | Array    | []           |
+| maxLength            | Maximum character limit                            | Number   | undefined    |
+| submitType           | Submit shortcut: 'enter', 'shiftEnter'             | String   | 'enter'      |
+| customStyle          | Custom input box styles                            | Object   | {}           |
+| loading              | Loading state                                      | Boolean  | false        |
+| disabled             | Disabled state                                     | Boolean  | false        |
+| clearable            | Show clear button                                  | Boolean  | false        |
+| headerAnimationTimer | Header animation duration (ms)                     | Number   | 300          |
+| asyncMatchFun        | Async match function for @ mentions                | Function | undefined    |
+| customDialog         | Use custom dialogs                                 | Boolean  | false        |
 
 ### selectList Configuration
 

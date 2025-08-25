@@ -10,6 +10,7 @@ Here are various examples of the Element-UI-X component library to help you unde
 - [Thinking](./thinking/)
 - [ThoughtChain](./thought-chain/)
 - [Sender](./sender/)
+- [EditorSender](./editor-sender/)
 - [Attachments](./attachments/)
 - [FilesCard](./files-card/)
 - [Conversations](./conversations/)
