@@ -34,14 +34,15 @@
     "url": "https://github.com/worryzyy/element-ui-x/issues"
   },
   "scripts": {
-    "build": "npm run build:common && npm run build:esm && npm run build:umd && npm run build:components && npm run build:locale",
+    "build": "npm run update:plugin && npm run build:common && npm run build:esm && npm run build:umd && npm run build:components && npm run build:locale",
     "build:common": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import webpack --config build/webpack.common.conf.js",
     "build:esm": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import webpack --config build/webpack.esm.conf.js",
     "build:umd": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import webpack --config build/webpack.umd.conf.js",
     "build:components": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import node build/build-components.js",
     "build:locale": "cross-env SASS_SILENCE_DEPRECATIONS=legacy-js-api,import node build/build-locale.js",
     "build:lib": "npm run build",
-    "publish:lib": "npm publish"
+    "publish:lib": "npm publish",
+    "update:plugin": "npm i --save chatarea@latest"
   },
   "peerDependencies": {
     "element-ui": "^2.14.1",
