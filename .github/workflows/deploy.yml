@@ -6,18 +6,6 @@ on:
     paths:
       - 'docs/**'
       - 'examples/**'
-  pull_request:
-    types: [opened, synchronize, reopened]
-    branches: [master]
-    paths:
-      - 'docs/**'
-      - 'examples/**'
-  pull_request_target:
-    types: [closed]
-    branches: [master]
-    paths:
-      - 'docs/**'
-      - 'examples/**'
   workflow_dispatch:
     inputs:
       deploy_target:
@@ -71,19 +59,7 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
           working-directory: ./docs
-          vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
-
-      - name: Comment deployment URL
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '📖 文档预览: ${{ steps.deploy-docs.outputs.preview-url }}'
-            })
+          vercel-args: '--prod'
 
   deploy-examples:
     name: 部署示例项目
@@ -120,16 +96,4 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_EXAMPLES }}
           working-directory: ./examples
-          vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
-
-      - name: Comment deployment URL
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🚀 示例预览: ${{ steps.deploy-examples.outputs.preview-url }}'
-            })
+          vercel-args: '--prod'
