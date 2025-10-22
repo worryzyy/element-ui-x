@@ -415,7 +415,7 @@
 
 <script>
   import markdownItMermaidPlugin from '@/utils/markdownMermaidPlugin';
-  import 'katex/dist/katex.min.css'; // 确保样式被引入
+  // import 'katex/dist/katex.min.css'; // 确保样式被引入
   import { full as emoji } from 'markdown-it-emoji';
   import markdownItKatex from 'markdown-it-katex';
 
@@ -446,6 +446,10 @@
 $$
 \\int_{a}^{b} x^2 dx
 $$
+
+$1000\\mathrm{m}^3s$
+
+$\\sqrt{3x-1}+(1+x)^2$
 
 $E=mc^2$
 
