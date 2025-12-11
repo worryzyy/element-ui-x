@@ -74,7 +74,7 @@
       >
         <div class="header-self-wrap">
           <div class="header-self-title">
-            <div class="header-left">💯 欢迎使用 Element Plus X</div>
+            <div class="header-left">迎使用 Element UI X</div>
             <div class="header-right">
               <el-button @click.stop="showHeaderFlog = false">
                 <span>关闭头部</span>
