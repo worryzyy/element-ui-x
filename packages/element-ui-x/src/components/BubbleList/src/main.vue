@@ -100,7 +100,12 @@
       }"
       @click="scrollToBottom"
     >
-      <slot name="backToBottom">
+      <!-- 使用条件渲染兼容 Vue 2.5.x -->
+      <slot
+        v-if="$slots.backToBottom"
+        name="backToBottom"
+      />
+      <template v-else>
         <i
           class="el-icon-bottom el-x-bubble-list-back-to-bottom-icon"
           :style="{ color: btnColor }"
@@ -110,7 +115,7 @@
           class="back-to-bottom-loading-svg-bg"
           :style="{ color: btnColor }"
         />
-      </slot>
+      </template>
     </div>
   </div>
 </template>

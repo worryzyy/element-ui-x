@@ -16,10 +16,13 @@
       @click="changeExpand"
     >
       <span class="status-icon">
+        <!-- 使用条件渲染兼容 Vue 2.5.x -->
         <slot
+          v-if="$scopedSlots['status-icon']"
           name="status-icon"
           :status="localStatus"
-        >
+        />
+        <template v-else>
           <i
             v-if="localStatus === 'thinking'"
             class="is-loading el-icon-center el-icon-loading"
@@ -36,14 +39,17 @@
             v-if="localStatus === 'error'"
             class="el-icon-center error-color el-icon-circle-close"
           ></i>
-        </slot>
+        </template>
       </span>
 
       <span class="label">
+        <!-- 使用条件渲染兼容 Vue 2.5.x -->
         <slot
+          v-if="$scopedSlots.label"
           name="label"
           :status="localStatus"
-        >
+        />
+        <template v-else>
           {{
             localStatus === 'thinking'
               ? elXt('el_x.thinking.processing')
@@ -53,7 +59,7 @@
               ? elXt('el_x.thinking.completed')
               : elXt('el_x.thinking.start')
           }}
-        </slot>
+        </template>
       </span>
 
       <transition name="rotate">
@@ -62,9 +68,15 @@
           class="thinking-arrow el-icon-center"
           :class="{ expanded: isExpanded }"
         >
-          <slot name="arrow">
-            <i class="el-icon-center el-icon-arrow-up"></i>
-          </slot>
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
+          <slot
+            v-if="$slots.arrow"
+            name="arrow"
+          />
+          <i
+            v-else
+            class="el-icon-center el-icon-arrow-up"
+          ></i>
         </span>
       </transition>
     </button>
@@ -76,21 +88,29 @@
         :class="{ 'error-state': localStatus === 'error' }"
       >
         <div class="content">
-          <slot
-            v-if="localStatus !== 'error'"
-            name="content"
-            :content="displayedContent"
-          >
-            <pre>{{ displayedContent }}</pre>
-          </slot>
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
+          <template v-if="localStatus !== 'error'">
+            <slot
+              v-if="$scopedSlots.content"
+              name="content"
+              :content="displayedContent"
+            />
+            <pre v-else>{{ displayedContent }}</pre>
+          </template>
 
-          <slot
-            v-else
-            name="error"
-            :error-content="displayedContent"
-          >
-            <div class="error-message">{{ displayedContent }}</div>
-          </slot>
+          <template v-else>
+            <slot
+              v-if="$scopedSlots.error"
+              name="error"
+              :error-content="displayedContent"
+            />
+            <div
+              v-else
+              class="error-message"
+            >
+              {{ displayedContent }}
+            </div>
+          </template>
         </div>
       </div>
     </transition>

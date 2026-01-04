@@ -23,140 +23,170 @@
       :style="{ width: `${percent || 0}%` }"
     />
 
-    <slot
-      v-if="$slots.icon || _fileType"
-      name="icon"
-      :item="propsData"
-    >
-      <component
-        :is="svgIconMap[_fileType]"
-        v-if="!isImageFile"
-        class="el-x-filescard-icon"
-        :color="iconColor || colorMap[_fileType]"
+    <template v-if="$slots.icon || _fileType">
+      <!-- 使用条件渲染兼容 Vue 2.5.x -->
+      <slot
+        v-if="$scopedSlots.icon"
+        name="icon"
+        :item="propsData"
       />
+      <template v-else>
+        <component
+          :is="svgIconMap[_fileType]"
+          v-if="!isImageFile"
+          class="el-x-filescard-icon"
+          :color="iconColor || colorMap[_fileType]"
+        />
 
-      <!-- 图片文件处理区域（新增遮罩层逻辑） -->
-      <template v-if="isImageFile">
-        <div
-          class="image-preview-container"
-          :class="{
-            'image-preview-container-square': isSquareVariant && isImageFile,
-          }"
-          @mouseenter="imageHovered = true"
-          @mouseleave="imageHovered = false"
-        >
-          <el-image
-            v-if="_previewImgUrl"
-            ref="imgRef"
-            class="el-x-filescard-img"
-            :src="_previewImgUrl"
-            :preview-src-list="imgPreview && _previewImgUrl ? [_previewImgUrl] : []"
-            fit="cover"
-            @click="imgPreview ? handlePreviewAction('self') : null"
-          />
-
-          <!-- 无预览地址时显示默认图标 -->
-          <component
-            :is="svgIconMap[_fileType]"
-            v-else
-            class="el-x-filescard-img"
-            :color="iconColor || colorMap[_fileType]"
-          />
-
-          <!-- 遮罩层 -->
-          <!-- 悬停时才展示 -->
-          <transition name="fade">
-            <slot
-              v-if="imageHovered && _previewImgUrl && imgPreviewMask && imgPreview"
-              name="image-preview-actions"
-              :item="{ ...propsData, prefix: namePrefix, suffix: nameSuffix }"
-            >
-              <div
-                class="preview-mask"
-                @click="handlePreviewAction('mask')"
-              >
-                <i class="el-icon-view"></i>
-                <span>预览</span>
-              </div>
-            </slot>
-          </transition>
-
-          <!-- 如果有状态，不悬停，也展示 -->
-          <!-- 状态判断显示区域 -->
+        <!-- 图片文件处理区域（新增遮罩层逻辑） -->
+        <template v-if="isImageFile">
           <div
-            v-if="status === 'uploading' && isSquareVariant"
-            class="preview-mask-loading"
+            class="image-preview-container"
+            :class="{
+              'image-preview-container-square': isSquareVariant && isImageFile,
+            }"
+            @mouseenter="imageHovered = true"
+            @mouseleave="imageHovered = false"
           >
-            <el-progress
-              color="#fff"
-              type="circle"
-              :percentage="percent"
-              class="circle-progress"
+            <el-image
+              v-if="_previewImgUrl"
+              ref="imgRef"
+              class="el-x-filescard-img"
+              :src="_previewImgUrl"
+              :preview-src-list="imgPreview && _previewImgUrl ? [_previewImgUrl] : []"
+              fit="cover"
+              @click="imgPreview ? handlePreviewAction('self') : null"
             />
-          </div>
-          <div
-            v-else-if="status === 'error' && isSquareVariant"
-            class="preview-mask-error"
-          >
-            <span class="error-text">{{ errorTip || '上传失败' }}</span>
-          </div>
-        </div>
-      </template>
-    </slot>
 
-    <slot
-      v-if="($slots.content || name || description) && !(isSquareVariant && isImageFile)"
-      name="content"
-      :item="propsData"
-    >
-      <div class="el-x-filescard-content">
+            <!-- 无预览地址时显示默认图标 -->
+            <component
+              :is="svgIconMap[_fileType]"
+              v-else
+              class="el-x-filescard-img"
+              :color="iconColor || colorMap[_fileType]"
+            />
+
+            <!-- 遮罩层 -->
+            <!-- 悬停时才展示 -->
+            <transition name="fade">
+              <template v-if="imageHovered && _previewImgUrl && imgPreviewMask && imgPreview">
+                <!-- 使用条件渲染兼容 Vue 2.5.x -->
+                <slot
+                  v-if="$scopedSlots['image-preview-actions']"
+                  name="image-preview-actions"
+                  :item="{ ...propsData, prefix: namePrefix, suffix: nameSuffix }"
+                />
+                <div
+                  v-else
+                  class="preview-mask"
+                  @click="handlePreviewAction('mask')"
+                >
+                  <i class="el-icon-view"></i>
+                  <span>预览</span>
+                </div>
+              </template>
+            </transition>
+
+            <!-- 如果有状态，不悬停，也展示 -->
+            <!-- 状态判断显示区域 -->
+            <div
+              v-if="status === 'uploading' && isSquareVariant"
+              class="preview-mask-loading"
+            >
+              <el-progress
+                color="#fff"
+                type="circle"
+                :percentage="percent"
+                class="circle-progress"
+              />
+            </div>
+            <div
+              v-else-if="status === 'error' && isSquareVariant"
+              class="preview-mask-error"
+            >
+              <span class="error-text">{{ errorTip || '上传失败' }}</span>
+            </div>
+          </div>
+        </template>
+      </template>
+    </template>
+
+    <template v-if="($slots.content || name || description) && !(isSquareVariant && isImageFile)">
+      <!-- 使用条件渲染兼容 Vue 2.5.x -->
+      <slot
+        v-if="$scopedSlots.content"
+        name="content"
+        :item="propsData"
+      />
+      <div
+        v-else
+        class="el-x-filescard-content"
+      >
         <div
           v-if="name"
           class="el-x-filescard-name"
         >
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
           <slot
+            v-if="$scopedSlots['name-prefix']"
             name="name-prefix"
             :item="{ ...propsData, prefix: namePrefix, suffix: nameSuffix }"
+          />
+          <div
+            v-else
+            class="el-x-filescard-name-prefix"
           >
-            <div class="el-x-filescard-name-prefix">{{ namePrefix }}</div>
-          </slot>
+            {{ namePrefix }}
+          </div>
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
           <slot
+            v-if="$scopedSlots['name-suffix']"
             name="name-suffix"
             :item="{ ...propsData, prefix: namePrefix, suffix: nameSuffix }"
+          />
+          <div
+            v-else
+            class="el-x-filescard-name-suffix"
           >
-            <div class="el-x-filescard-name-suffix">{{ nameSuffix }}</div>
-          </slot>
+            {{ nameSuffix }}
+          </div>
         </div>
 
+        <!-- 使用条件渲染兼容 Vue 2.5.x -->
         <slot
+          v-if="$scopedSlots.description"
           name="description"
           :item="{ ...propsData, prefix: namePrefix, suffix: nameSuffix }"
+        />
+        <div
+          v-else
+          class="el-x-filescard-description"
+          :class="{
+            'el-x-filescard-description-error': status === 'error',
+            'el-x-filescard-description-done': status === 'done',
+            'el-x-filescard-description-uploading': status === 'uploading',
+          }"
         >
-          <div
-            class="el-x-filescard-description"
-            :class="{
-              'el-x-filescard-description-error': status === 'error',
-              'el-x-filescard-description-done': status === 'done',
-              'el-x-filescard-description-uploading': status === 'uploading',
-            }"
-          >
-            {{ _description }}
-          </div>
-        </slot>
+          {{ _description }}
+        </div>
       </div>
-    </slot>
+    </template>
 
     <div
       v-if="showDelIcon && isHovered"
       class="el-x-filescard-delete-icon"
       @click="handleDelete"
     >
+      <!-- 使用条件渲染兼容 Vue 2.5.x -->
       <slot
+        v-if="$scopedSlots['del-icon']"
         name="del-icon"
         :item="propsData"
-      >
-        <i class="el-icon-error"></i>
-      </slot>
+      />
+      <i
+        v-else
+        class="el-icon-error"
+      ></i>
     </div>
   </div>
 </template>

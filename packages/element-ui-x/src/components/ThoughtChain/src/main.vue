@@ -65,30 +65,32 @@
               class="el-x-thoughtchain-item-dot"
               :style="{ margin: dotMargin }"
             >
+              <!-- 使用条件渲染兼容 Vue 2.5.x -->
               <slot
+                v-if="$scopedSlots.icon"
                 name="icon"
                 :item="item"
+              />
+              <el-button
+                v-else
+                circle
+                :type="getType(item)"
+                :loading="isLoading(item)"
+                :size="dotSize"
               >
-                <el-button
-                  circle
-                  :type="getType(item)"
-                  :loading="isLoading(item)"
-                  :size="dotSize"
-                >
-                  <template slot="loading">
-                    <i class="el-icon-loading el-x-thoughtchain-loading"></i>
-                  </template>
+                <template slot="loading">
+                  <i class="el-icon-loading el-x-thoughtchain-loading"></i>
+                </template>
 
-                  <i
-                    v-if="!isLoading(item) && !isError(item)"
-                    class="el-icon-check"
-                  ></i>
-                  <i
-                    v-if="!isLoading(item) && isError(item)"
-                    class="el-icon-close"
-                  ></i>
-                </el-button>
-              </slot>
+                <i
+                  v-if="!isLoading(item) && !isError(item)"
+                  class="el-icon-check"
+                ></i>
+                <i
+                  v-if="!isLoading(item) && isError(item)"
+                  class="el-icon-close"
+                ></i>
+              </el-button>
             </div>
           </template>
         </el-timeline-item>

@@ -44,12 +44,16 @@
           v-if="info.icon"
           class="el-x-prompts-icon"
         >
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
           <slot
+            v-if="$scopedSlots.icon"
             name="icon"
             :item="info"
-          >
-            <i :class="info.icon"></i>
-          </slot>
+          />
+          <i
+            v-else
+            :class="info.icon"
+          ></i>
         </div>
 
         <!-- 内容 -->
@@ -62,11 +66,13 @@
             v-if="info.label"
             class="el-x-prompts-label"
           >
+            <!-- 使用条件渲染兼容 Vue 2.5.x -->
             <slot
+              v-if="$scopedSlots.label"
               name="label"
               :item="info"
-              >{{ info.label }}</slot
-            >
+            />
+            <template v-else>{{ info.label }}</template>
           </h6>
 
           <!-- 描述 -->
@@ -74,11 +80,13 @@
             v-if="info.description"
             class="el-x-prompts-desc"
           >
+            <!-- 使用条件渲染兼容 Vue 2.5.x -->
             <slot
+              v-if="$scopedSlots.description"
               name="description"
               :item="info"
-              >{{ info.description }}</slot
-            >
+            />
+            <template v-else>{{ info.description }}</template>
           </p>
 
           <!-- 子项 -->
@@ -192,27 +200,19 @@
 
     computed: {
       titleStyle() {
-        return {
-          ...this.styles.title,
-        };
+        return { ...this.styles.title };
       },
 
       listStyle() {
-        return {
-          ...this.styles.list,
-        };
+        return { ...this.styles.list };
       },
 
       itemStyle() {
-        return {
-          ...this.styles.item,
-        };
+        return { ...this.styles.item };
       },
 
       itemContentStyle() {
-        return {
-          ...this.styles.itemContent,
-        };
+        return { ...this.styles.itemContent };
       },
     },
 
@@ -229,14 +229,10 @@
         if (this.hasChildren(info)) {
           return;
         }
-        this.$emit('on-item-click', {
-          data: info,
-        });
+        this.$emit('on-item-click', { data: info });
         // 向后兼容性
         if (this.onItemClick) {
-          this.onItemClick({
-            data: info,
-          });
+          this.onItemClick({ data: info });
         }
       },
     },

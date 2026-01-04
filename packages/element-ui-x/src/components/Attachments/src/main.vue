@@ -12,20 +12,24 @@
     }"
   >
     <div v-if="!items.length && !hideUpload">
-      <slot name="empty-upload">
-        <el-upload
-          class="el-x-attachments-upload-btn"
-          v-bind="$attrs"
-          :action="uploadAction"
-          :http-request="customUpload"
-          :show-file-list="false"
-          :on-change="handleUploadChange"
-          :on-success="handleUploadSuccess"
-          :on-error="handleUploadError"
-        >
-          <i class="el-icon-plus uploader-icon"></i>
-        </el-upload>
-      </slot>
+      <!-- 使用条件渲染兼容 Vue 2.5.x -->
+      <slot
+        v-if="$slots['empty-upload']"
+        name="empty-upload"
+      />
+      <el-upload
+        v-else
+        class="el-x-attachments-upload-btn"
+        v-bind="$attrs"
+        :action="uploadAction"
+        :http-request="customUpload"
+        :show-file-list="false"
+        :on-change="handleUploadChange"
+        :on-success="handleUploadSuccess"
+        :on-error="handleUploadError"
+      >
+        <i class="el-icon-plus uploader-icon"></i>
+      </el-upload>
     </div>
 
     <div class="el-x-attachments-background">
@@ -60,10 +64,13 @@
           'el-x-attachments-file-card-wrap': overflow === 'scrollX',
         }"
       >
+        <!-- 使用条件渲染兼容 Vue 2.5.x -->
         <slot
+          v-if="$scopedSlots['file-list']"
           name="file-list"
           :items="items"
-        >
+        />
+        <template v-else>
           <div
             v-for="(item, index) in items"
             :key="item.uid"
@@ -78,62 +85,68 @@
               />
             </transition>
           </div>
-        </slot>
+        </template>
 
         <div
           v-if="items.length && !isOverLimit && !hideUpload"
           class="el-x-attachments-upload-placeholder"
         >
-          <slot name="no-empty-upload">
-            <el-upload
-              v-bind="$attrs"
-              :action="uploadAction"
-              :http-request="customUpload"
-              :show-file-list="false"
-              :style="{
-                height: overflow === 'scrollY' && '',
-              }"
-              class="el-x-attachments-upload-btn"
-              :on-change="handleUploadChange"
-              :on-success="handleUploadSuccess"
-              :on-error="handleUploadError"
-            >
-              <i class="el-icon-plus uploader-icon"></i>
-            </el-upload>
-          </slot>
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
+          <slot
+            v-if="$slots['no-empty-upload']"
+            name="no-empty-upload"
+          />
+          <el-upload
+            v-else
+            v-bind="$attrs"
+            :action="uploadAction"
+            :http-request="customUpload"
+            :show-file-list="false"
+            :style="{
+              height: overflow === 'scrollY' && '',
+            }"
+            class="el-x-attachments-upload-btn"
+            :on-change="handleUploadChange"
+            :on-success="handleUploadSuccess"
+            :on-error="handleUploadError"
+          >
+            <i class="el-icon-plus uploader-icon"></i>
+          </el-upload>
         </div>
       </div>
     </div>
 
+    <!-- 使用条件渲染兼容 Vue 2.5.x -->
     <slot
+      v-if="$scopedSlots['prev-button']"
       name="prev-button"
       :show="overflow === 'scrollX' && pingStart"
       :on-scroll-left="onScrollLeft"
+    />
+    <el-button
+      v-else-if="overflow === 'scrollX' && pingStart"
+      size="small"
+      class="el-x-attachments-prev-btn"
+      @click="onScrollLeft"
     >
-      <el-button
-        v-if="overflow === 'scrollX' && pingStart"
-        size="small"
-        class="el-x-attachments-prev-btn"
-        @click="onScrollLeft"
-      >
-        <i class="el-icon-arrow-left"></i>
-      </el-button>
-    </slot>
+      <i class="el-icon-arrow-left"></i>
+    </el-button>
 
+    <!-- 使用条件渲染兼容 Vue 2.5.x -->
     <slot
+      v-if="$scopedSlots['next-button']"
       name="next-button"
       :show="overflow === 'scrollX' && pingEnd"
       :on-scroll-right="onScrollRight"
+    />
+    <el-button
+      v-else-if="overflow === 'scrollX' && pingEnd"
+      size="small"
+      class="el-x-attachments-next-btn"
+      @click="onScrollRight"
     >
-      <el-button
-        v-if="overflow === 'scrollX' && pingEnd"
-        size="small"
-        class="el-x-attachments-next-btn"
-        @click="onScrollRight"
-      >
-        <i class="el-icon-arrow-right"></i>
-      </el-button>
-    </slot>
+      <i class="el-icon-arrow-right"></i>
+    </el-button>
 
     <!-- 使用传统 DOM 放置方式代替 Teleport -->
     <div
@@ -141,15 +154,19 @@
       ref="dropAreaContainer"
       style="display: none"
     >
-      <slot name="drop-area">
-        <div
-          ref="dropAreaRef"
-          class="el-x-attachments-drop-area"
-        >
-          <i class="el-icon-upload el-x-attachments-drop-area-icon"></i>
-          <div class="el-x-attachments-drop-area-text">在此处拖放文件上传</div>
-        </div>
-      </slot>
+      <!-- 使用条件渲染兼容 Vue 2.5.x -->
+      <slot
+        v-if="$slots['drop-area']"
+        name="drop-area"
+      />
+      <div
+        v-else
+        ref="dropAreaRef"
+        class="el-x-attachments-drop-area"
+      >
+        <i class="el-icon-upload el-x-attachments-drop-area-icon"></i>
+        <div class="el-x-attachments-drop-area-text">在此处拖放文件上传</div>
+      </div>
     </div>
   </div>
 </template>

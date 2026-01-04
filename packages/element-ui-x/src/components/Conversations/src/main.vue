@@ -31,12 +31,13 @@
                   class="el-x-conversation-group-title sticky-title"
                   :class="{ 'active-sticky': stickyGroupKeys.has(group.key) }"
                 >
+                  <!-- 使用条件渲染兼容 Vue 2.5.x -->
                   <slot
+                    v-if="$scopedSlots['group-title']"
                     name="group-title"
                     :group="group"
-                  >
-                    {{ group.title }}
-                  </slot>
+                  />
+                  <template v-else>{{ group.title }}</template>
                 </div>
                 <div class="el-x-conversation-group-items">
                   <conversations-item
@@ -66,7 +67,7 @@
                     <!-- 传递插槽 -->
                     <template
                       v-if="$scopedSlots.label"
-                      #label
+                      slot="label"
                     >
                       <slot
                         name="label"
@@ -76,17 +77,18 @@
 
                     <template
                       v-if="$scopedSlots['more-filled']"
-                      #more-filled="moreFilledSoltProps"
+                      slot="more-filled"
+                      slot-scope="moreFilledSlotProps"
                     >
                       <slot
                         name="more-filled"
-                        v-bind="moreFilledSoltProps"
+                        v-bind="moreFilledSlotProps || {}"
                       ></slot>
                     </template>
 
                     <template
                       v-if="$scopedSlots.menu"
-                      #menu
+                      slot="menu"
                     >
                       <slot
                         name="menu"
@@ -126,7 +128,7 @@
                 <!-- 传递插槽 -->
                 <template
                   v-if="$scopedSlots.label"
-                  #label
+                  slot="label"
                 >
                   <slot
                     name="label"
@@ -136,17 +138,18 @@
 
                 <template
                   v-if="$scopedSlots['more-filled']"
-                  #more-filled="moreFilledSoltProps"
+                  slot="more-filled"
+                  slot-scope="moreFilledSlotProps"
                 >
                   <slot
                     name="more-filled"
-                    v-bind="moreFilledSoltProps"
+                    v-bind="moreFilledSlotProps || {}"
                   ></slot>
                 </template>
 
                 <template
                   v-if="$scopedSlots.menu"
-                  #menu
+                  slot="menu"
                 >
                   <slot
                     name="menu"
@@ -161,10 +164,15 @@
               v-if="loadMoreLoading"
               class="el-x-conversations-load-more"
             >
-              <slot name="load-more">
+              <!-- 使用条件渲染兼容 Vue 2.5.x -->
+              <slot
+                v-if="$slots['load-more']"
+                name="load-more"
+              />
+              <template v-else>
                 <i class="el-icon-loading el-x-conversations-load-more-is-loading"></i>
                 <span>加载更多...</span>
-              </slot>
+              </template>
             </div>
           </div>
         </div>

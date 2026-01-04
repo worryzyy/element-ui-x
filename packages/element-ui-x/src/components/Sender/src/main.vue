@@ -69,8 +69,67 @@
           v-if="variant === 'default'"
           class="el-x-sender-action-list"
         >
-          <slot name="action-list">
-            <div class="el-x-sender-action-list-presets">
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
+          <slot
+            v-if="$slots['action-list']"
+            name="action-list"
+          />
+          <div
+            v-else
+            class="el-x-sender-action-list-presets"
+          >
+            <send-button
+              v-if="!loading"
+              :disabled="isSubmitDisabled"
+              @submit="submit"
+            ></send-button>
+
+            <loading-button
+              v-if="loading"
+              @cancel="cancel"
+            ></loading-button>
+
+            <speech-button
+              v-if="!speechLoading && allowSpeech"
+              @click="startRecognition"
+            ></speech-button>
+
+            <speech-loading-button
+              v-if="speechLoading && allowSpeech"
+              @click="stopRecognition"
+            ></speech-loading-button>
+
+            <clear-button
+              v-if="clearable"
+              @clear="clear"
+            ></clear-button>
+          </div>
+        </div>
+
+        <!-- 变体样式 -->
+        <div
+          v-if="variant === 'updown' && showUpdown"
+          class="el-x-sender-updown-wrap"
+        >
+          <!-- 变体 updown： Prefix 前缀 -->
+          <div
+            v-if="$slots.prefix"
+            class="el-x-sender-prefix"
+          >
+            <slot name="prefix"></slot>
+          </div>
+
+          <!-- 变体 updown：操作列表 -->
+          <div class="el-x-sender-action-list">
+            <!-- 使用条件渲染兼容 Vue 2.5.x -->
+            <slot
+              v-if="$slots['action-list']"
+              name="action-list"
+            />
+            <div
+              v-else
+              class="el-x-sender-action-list-presets"
+            >
               <send-button
                 v-if="!loading"
                 :disabled="isSubmitDisabled"
@@ -97,53 +156,6 @@
                 @clear="clear"
               ></clear-button>
             </div>
-          </slot>
-        </div>
-
-        <!-- 变体样式 -->
-        <div
-          v-if="variant === 'updown' && showUpdown"
-          class="el-x-sender-updown-wrap"
-        >
-          <!-- 变体 updown： Prefix 前缀 -->
-          <div
-            v-if="$slots.prefix"
-            class="el-x-sender-prefix"
-          >
-            <slot name="prefix"></slot>
-          </div>
-
-          <!-- 变体 updown：操作列表 -->
-          <div class="el-x-sender-action-list">
-            <slot name="action-list">
-              <div class="el-x-sender-action-list-presets">
-                <send-button
-                  v-if="!loading"
-                  :disabled="isSubmitDisabled"
-                  @submit="submit"
-                ></send-button>
-
-                <loading-button
-                  v-if="loading"
-                  @cancel="cancel"
-                ></loading-button>
-
-                <speech-button
-                  v-if="!speechLoading && allowSpeech"
-                  @click="startRecognition"
-                ></speech-button>
-
-                <speech-loading-button
-                  v-if="speechLoading && allowSpeech"
-                  @click="stopRecognition"
-                ></speech-loading-button>
-
-                <clear-button
-                  v-if="clearable"
-                  @clear="clear"
-                ></clear-button>
-              </div>
-            </slot>
           </div>
         </div>
       </div>
@@ -172,14 +184,17 @@
         @show="onPopoverShow"
       >
         <template slot="default">
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
           <slot
+            v-if="$scopedSlots['trigger-popover']"
             name="trigger-popover"
             :trigger-string="triggerString"
             :readonly="readOnly"
-          >
+          />
+          <template v-else>
             当前触发的字符为：{{ `${triggerString}` }} 在这里定义的内容，但注意这里的回车事件将会被
             输入框 覆盖
-          </slot>
+          </template>
         </template>
       </el-popover>
     </div>

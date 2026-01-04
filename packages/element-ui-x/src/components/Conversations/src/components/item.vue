@@ -1,6 +1,6 @@
 <template>
   <li
-    :key="item.key"
+    :key="item.uniqueKey"
     class="el-x-conversation-item"
     :class="{
       disabled: item.disabled,
@@ -14,14 +14,19 @@
       ...(isShowMenuBtn ? itemsMenuOpenedStyle : {}),
       ...(active ? itemsActiveStyle : {}),
     }"
-    @click="handleClick(item.key)"
+    @click="handleClick(item.uniqueKey)"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
     <div class="el-x-conversation-content">
       <!-- 标签区域 - 通过插槽自定义 -->
       <div class="el-x-conversation-content-main">
-        <slot name="label">
+        <!-- 使用条件渲染兼容 Vue 2.5.x -->
+        <slot
+          v-if="$slots.label"
+          name="label"
+        />
+        <template v-else>
           <!-- 前缀图标 -->
           <span
             v-if="prefixIconRender"
@@ -56,7 +61,7 @@
               {{ item.label }}
             </span>
           </div>
-        </slot>
+        </template>
       </div>
 
       <!-- 后缀图标 -->
@@ -83,22 +88,31 @@
             @command="onMenuCommand"
           >
             <span class="el-dropdown-link">
+              <!-- 使用条件渲染兼容 Vue 2.5.x -->
               <slot
+                v-if="$scopedSlots['more-filled']"
                 name="more-filled"
                 :item="item"
                 :is-hovered="item.disabled ? false : isHovered"
                 :is-active="active"
                 :is-menu-opened="isShowMenuBtn"
                 :is-disabled="item.disabled"
-              >
-                <i class="el-icon-more el-x-conversation-dropdown-more-icon"></i>
-              </slot>
+              />
+              <i
+                v-else
+                class="el-icon-more el-x-conversation-dropdown-more-icon"
+              ></i>
             </span>
             <el-dropdown-menu
               slot="dropdown"
               :style="mergedMenuStyle"
             >
-              <slot name="menu">
+              <!-- 使用条件渲染兼容 Vue 2.5.x -->
+              <slot
+                v-if="$slots.menu"
+                name="menu"
+              />
+              <template v-else>
                 <el-dropdown-item
                   v-for="menuItem in menu"
                   :key="menuItem.key"
@@ -110,7 +124,7 @@
                 >
                   {{ menuItem.label }}
                 </el-dropdown-item>
-              </slot>
+              </template>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -255,9 +269,7 @@
       },
 
       mergedMenuStyle() {
-        return {
-          ...this.menuStyle,
-        };
+        return { ...this.menuStyle };
       },
     },
 

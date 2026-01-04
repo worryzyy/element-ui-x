@@ -4,20 +4,22 @@
     :style="styleConfig"
     class="el-x-welcome"
   >
-    <!--  image -->
-    <slot name="image">
-      <div
-        v-if="hasIcon"
-        :class="iconClass"
-        :style="styles && styles.icon"
-        class="el-x-welcome-icon"
-      >
-        <el-image
-          :src="icon"
-          class="icon-image"
-        />
-      </div>
-    </slot>
+    <!--  image - 使用条件渲染兼容 Vue 2.5.x -->
+    <slot
+      v-if="$slots.image"
+      name="image"
+    />
+    <div
+      v-else-if="hasIcon"
+      :class="iconClass"
+      :style="styles && styles.icon"
+      class="el-x-welcome-icon"
+    >
+      <el-image
+        :src="icon"
+        class="icon-image"
+      />
+    </div>
 
     <div class="content-wrapper">
       <!-- extra -->
@@ -39,7 +41,12 @@
           :style="styles && styles.extra"
           class="el-x-welcome-extra"
         >
-          <slot name="extra">{{ extra }}</slot>
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
+          <slot
+            v-if="$slots.extra"
+            name="extra"
+          />
+          <template v-else>{{ extra }}</template>
         </div>
       </div>
 
@@ -125,9 +132,7 @@
           this.className,
           this.rootClassName,
           `el-x-welcome-${this.variant}`,
-          {
-            'el-x-welcome-rtl': this.direction === 'rtl',
-          },
+          { 'el-x-welcome-rtl': this.direction === 'rtl' },
         ];
       },
       iconClass() {

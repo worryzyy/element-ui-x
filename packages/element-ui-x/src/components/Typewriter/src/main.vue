@@ -66,25 +66,32 @@
         typingIndex: 0,
         contentCache: '',
         timer: null,
-        md: new MarkdownIt({
-          html: true,
-          linkify: true,
-          typographer: true,
-          breaks: true,
-          highlight: (code, lang) => {
-            try {
-              const grammar = Prism.languages[lang];
-              if (grammar) {
-                const highlighted = Prism.highlight(code, grammar, lang);
-                return highlighted;
-              }
-              return code;
-            } catch {
-              return code;
-            }
-          },
-        }),
+        md: null,
       };
+    },
+    created() {
+      this.md = new MarkdownIt({
+        html: true,
+        linkify: true,
+        typographer: true,
+        breaks: true,
+        highlight: (code, lang) => {
+          // 优先使用用户传入的 highlight 函数
+          if (this.highlight) {
+            return this.highlight(code, lang);
+          }
+          // 默认使用 Prism 高亮
+          try {
+            const grammar = Prism.languages[lang];
+            if (grammar) {
+              return Prism.highlight(code, grammar, lang);
+            }
+            return code;
+          } catch {
+            return code;
+          }
+        },
+      });
     },
     computed: {
       mergedConfig() {
@@ -123,6 +130,8 @@
       },
       renderedContent() {
         if (!this.isMarkdown) return this.processedContent;
+        // 兼容 Vue 2.5.x：computed 可能在 created 之前被访问
+        if (!this.md) return '';
         return DOMPurify.sanitize(this.md.render(this.processedContent));
       },
     },

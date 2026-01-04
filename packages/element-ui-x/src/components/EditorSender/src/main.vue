@@ -44,8 +44,57 @@
         v-if="variant === 'default'"
         class="el-editor-sender-action-list"
       >
-        <slot name="action-list">
-          <div class="el-editor-sender-action-list-presets">
+        <!-- 使用条件渲染兼容 Vue 2.5.x -->
+        <slot
+          v-if="$slots['action-list']"
+          name="action-list"
+        />
+        <div
+          v-else
+          class="el-editor-sender-action-list-presets"
+        >
+          <SendButton
+            v-if="!loading"
+            :disabled="chatState.isEmpty || disabled"
+            @submit="onSubmit"
+          />
+
+          <LoadingButton
+            v-if="loading"
+            @cancel="onCancel"
+          />
+
+          <ClearButton
+            v-if="clearable"
+            :disabled="chatState.isEmpty || disabled"
+            @clear="onClear"
+          />
+        </div>
+      </div>
+      <!-- 变体操作列表 -->
+      <div
+        v-else-if="variant === 'updown'"
+        class="el-editor-sender-updown-action-list"
+      >
+        <!-- 变体 updown： Prefix 前缀 -->
+        <div
+          v-if="$slots.prefix"
+          class="el-editor-sender-prefix"
+        >
+          <slot name="prefix" />
+        </div>
+
+        <!-- 变体 updown：操作列表 -->
+        <div class="el-editor-sender-action-list">
+          <!-- 使用条件渲染兼容 Vue 2.5.x -->
+          <slot
+            v-if="$slots['action-list']"
+            name="action-list"
+          />
+          <div
+            v-else
+            class="el-editor-sender-action-list-presets"
+          >
             <SendButton
               v-if="!loading"
               :disabled="chatState.isEmpty || disabled"
@@ -63,43 +112,6 @@
               @clear="onClear"
             />
           </div>
-        </slot>
-      </div>
-      <!-- 变体操作列表 -->
-      <div
-        v-else-if="variant === 'updown'"
-        class="el-editor-sender-updown-action-list"
-      >
-        <!-- 变体 updown： Prefix 前缀 -->
-        <div
-          v-if="$slots.prefix"
-          class="el-editor-sender-prefix"
-        >
-          <slot name="prefix" />
-        </div>
-
-        <!-- 变体 updown：操作列表 -->
-        <div class="el-editor-sender-action-list">
-          <slot name="action-list">
-            <div class="el-editor-sender-action-list-presets">
-              <SendButton
-                v-if="!loading"
-                :disabled="chatState.isEmpty || disabled"
-                @submit="onSubmit"
-              />
-
-              <LoadingButton
-                v-if="loading"
-                @cancel="onCancel"
-              />
-
-              <ClearButton
-                v-if="clearable"
-                :disabled="chatState.isEmpty || disabled"
-                @clear="onClear"
-              />
-            </div>
-          </slot>
         </div>
       </div>
     </div>
