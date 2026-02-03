@@ -4,7 +4,8 @@
     class="el-x-bubble-list"
     :class="{ 'always-scrollbar': alwaysShowScrollbar }"
     :style="{
-      '--el-x-bubble-list-max-height': `${maxHeight}`,
+      '--el-x-bubble-list-height': height,
+      '--el-x-bubble-list-max-height': maxHeight,
       '--el-x-bubble-list-btn-size': `${btnIconSize}px`,
     }"
     @scroll="handleScroll"
@@ -140,6 +141,10 @@
       list: {
         type: Array,
         default: () => [],
+      },
+      height: {
+        type: String,
+        default: '',
       },
       maxHeight: {
         type: String,
