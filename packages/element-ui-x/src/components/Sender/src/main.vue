@@ -52,6 +52,7 @@
         <el-input
           ref="inputRef"
           v-model="internalValue"
+          v-bind="$attrs"
           class="el-x-sender-input"
           :rows="1"
           :autosize="computedAutoSize"
@@ -211,6 +212,7 @@
 
   export default {
     name: 'ElXSender',
+    inheritAttrs: false,
     mixins: [Locale],
 
     components: {
