@@ -89,17 +89,17 @@ EditorSender 是一个功能强大的富文本输入组件，基于 ChatArea 构
               {
                 id: '1',
                 name: '人像摄影',
-                preview: 'https://www.jianfv.top/style/style1.webp',
+                preview: 'https://jianfv.top/style/style1.webp',
               },
               {
                 id: '2',
                 name: '电影写真',
-                preview: 'https://www.jianfv.top/style/style2.webp',
+                preview: 'https://jianfv.top/style/style2.webp',
               },
               {
                 id: '3',
                 name: '中国风',
-                preview: 'https://www.jianfv.top/style/style3.webp',
+                preview: 'https://jianfv.top/style/style3.webp',
               },
             ],
           },
@@ -639,17 +639,17 @@ EditorSender 是一个功能强大的富文本输入组件，基于 ChatArea 构
               {
                 id: '1',
                 name: '人像摄影',
-                preview: 'https://www.jianfv.top/style/style1.webp',
+                preview: 'https://jianfv.top/style/style1.webp',
               },
               {
                 id: '2',
                 name: '电影写真',
-                preview: 'https://www.jianfv.top/style/style2.webp',
+                preview: 'https://jianfv.top/style/style2.webp',
               },
               {
                 id: '3',
                 name: '中国风',
-                preview: 'https://www.jianfv.top/style/style3.webp',
+                preview: 'https://jianfv.top/style/style3.webp',
               },
             ],
           },

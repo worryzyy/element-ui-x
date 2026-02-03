@@ -89,13 +89,13 @@ Supports insertion and management of various tag types including select tags and
               {
                 id: '1',
                 name: 'Minimal Style',
-                preview: 'https://www.jianfv.top/style/style1.webp',
+                preview: 'https://jianfv.top/style/style1.webp',
               },
-              { id: '2', name: 'Tech Style', preview: 'https://www.jianfv.top/style/style2.webp' },
+              { id: '2', name: 'Tech Style', preview: 'https://jianfv.top/style/style2.webp' },
               {
                 id: '3',
                 name: 'Vintage Style',
-                preview: 'https://www.jianfv.top/style/style3.webp',
+                preview: 'https://jianfv.top/style/style3.webp',
               },
             ],
           },
@@ -635,13 +635,13 @@ Demonstrates all advanced editor features including text operations, tag inserti
               {
                 id: '1',
                 name: 'Portrait Photography',
-                preview: 'https://www.jianfv.top/style/style1.webp',
+                preview: 'https://jianfv.top/style/style1.webp',
               },
-              { id: '2', name: 'Cinematic', preview: 'https://www.jianfv.top/style/style2.webp' },
+              { id: '2', name: 'Cinematic', preview: 'https://jianfv.top/style/style2.webp' },
               {
                 id: '3',
                 name: 'Chinese Style',
-                preview: 'https://www.jianfv.top/style/style3.webp',
+                preview: 'https://jianfv.top/style/style3.webp',
               },
             ],
           },

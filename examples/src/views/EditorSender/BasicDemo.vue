@@ -48,6 +48,10 @@
       ref="elEditorRef"
       v-bind="$props"
       :loading="loading"
+      :select-list="selectList || defaultSelectList"
+      :user-list="userList || defaultUserList"
+      :custom-trigger="customTrigger || defaultCustomTrigger"
+      :clearable="true"
       @change="change"
       @submit="submit"
       @cancel="cancel"
@@ -209,6 +213,55 @@
       return {
         loading: false,
         showHeaderFlog: false,
+        // 默认数据
+        defaultSelectList: [
+          {
+            dialogTitle: '风格选择',
+            key: 'style',
+            options: [
+              {
+                id: '1',
+                name: '人像摄影',
+                preview: 'https://jianfv.top/style/style1.webp',
+              },
+              {
+                id: '2',
+                name: '电影写真',
+                preview: 'https://jianfv.top/style/style2.webp',
+              },
+              {
+                id: '3',
+                name: '中国风',
+                preview: 'https://jianfv.top/style/style3.webp',
+              },
+            ],
+          },
+        ],
+        defaultUserList: [
+          { id: '5', name: '张三丰' },
+          { id: '1', name: '张三' },
+          { id: '2', name: '李四' },
+          { id: '3', name: '王五' },
+          { id: '4', name: '马六' },
+        ],
+        defaultCustomTrigger: [
+          {
+            dialogTitle: '群话题',
+            prefix: '#',
+            tagList: [
+              { id: 'ht1', name: '话题一' },
+              { id: 'ht2', name: '话题二' },
+            ],
+          },
+          {
+            dialogTitle: '群工具',
+            prefix: '!',
+            tagList: [
+              { id: 'gj1', name: '工具一' },
+              { id: 'gj2', name: '工具二' },
+            ],
+          },
+        ],
       };
     },
     computed: {
