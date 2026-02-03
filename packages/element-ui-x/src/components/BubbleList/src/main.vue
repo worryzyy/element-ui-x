@@ -47,6 +47,7 @@
         <slot
           name="avatar"
           :item="item"
+          :index="index"
         ></slot>
       </template>
       <template
@@ -56,6 +57,7 @@
         <slot
           name="header"
           :item="item"
+          :index="index"
         />
       </template>
       <template
@@ -65,6 +67,7 @@
         <slot
           name="content"
           :item="item"
+          :index="index"
         />
       </template>
       <template
@@ -74,6 +77,7 @@
         <slot
           name="footer"
           :item="item"
+          :index="index"
         />
       </template>
       <template
@@ -83,6 +87,7 @@
         <slot
           name="loading"
           :item="item"
+          :index="index"
         />
       </template>
     </Bubble>
