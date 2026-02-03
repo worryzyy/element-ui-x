@@ -1,3 +1,34 @@
+## 1.2.0 (2026-02-03)
+
+### New Features
+
+- feat: Add height property support ([304fd7c](https://github.com/worryzyy/element-ui-x/commit/304fd7c))
+- feat: Add props passthrough for ElXSender component ([73a7c2e](https://github.com/worryzyy/element-ui-x/commit/73a7c2e))
+- feat: Add index parameter to bubble list component slots ([3c2f625](https://github.com/worryzyy/element-ui-x/commit/3c2f625))
+- feat: Optimize component compatibility ([d9dfbb3](https://github.com/worryzyy/element-ui-x/commit/d9dfbb3))
+
+### Bug Fixes
+
+- fix: Fix plugin initialization timing to ensure plugins work on first render ([b046607](https://github.com/worryzyy/element-ui-x/commit/b046607))
+- fix: Style modifications ([b4d6d62](https://github.com/worryzyy/element-ui-x/commit/b4d6d62))
+- fix(core): Fix onMessage not triggering when xRequest type is fetch ([f7b9efa](https://github.com/worryzyy/element-ui-x/commit/f7b9efa))
+
+### Documentation
+
+- docs: Fix image preview link in EditorSender documentation ([ea57dbf](https://github.com/worryzyy/element-ui-x/commit/ea57dbf))
+- docs: Update Element-UI-X installation and environment requirements ([1903749](https://github.com/worryzyy/element-ui-x/commit/1903749))
+- docs: Update Vue version compatibility and recommended versions ([cc7f447](https://github.com/worryzyy/element-ui-x/commit/cc7f447))
+- docs: Update slot parameter description in bubble list component documentation ([e3685d2](https://github.com/worryzyy/element-ui-x/commit/e3685d2))
+
+### Refactor
+
+- refactor: Remove default config for bubble component, simplify documentation ([7e98759](https://github.com/worryzyy/element-ui-x/commit/7e98759))
+
+### Other
+
+- chore(examples): Update vue-element-ui-x to version 1.1.1 ([a2ed35a](https://github.com/worryzyy/element-ui-x/commit/a2ed35a))
+- build: Add VERCEL_DEEP_CLONE environment variable config in vercel.json ([48726ca](https://github.com/worryzyy/element-ui-x/commit/48726ca))
+
 ## 1.0.5 (2025-08-02)
 
 * build: 1.0.5 ([c1cd46e](https://github.com/worryzyy/element-ui-x/commit/c1cd46e))
