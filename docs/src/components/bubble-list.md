@@ -60,56 +60,6 @@
 
 :::
 
-### 全局默认配置(可以用在显示历史消息记录的场景，统一设置)
-
-通过 `default*` 前缀属性统一设置所有气泡的样式，优先级高于 Bubble 组件内的设置。
-
-:::demo
-
-```html
-<template>
-  <div>
-    <client-only>
-      <el-x-bubble-list
-        :list="messageList"
-        defaultShape="round"
-        defaultVariant="shadow"
-        :defaultAvatarSize="40"
-        defaultAvatarShape="circle"
-      />
-    </client-only>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        messageList: [
-          {
-            content: '全局设置了圆形气泡和阴影效果',
-            placement: 'start',
-            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
-          },
-          {
-            content: '所有气泡都会应用这些默认设置',
-            placement: 'end',
-            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
-          },
-          {
-            content: '即使单个气泡没有指定这些属性',
-            placement: 'start',
-            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
-          },
-        ],
-      };
-    },
-  };
-</script>
-```
-
-:::
-
 ### 打字器效果和自动滚动
 
 展示打字器效果和自动滚动到最新消息的功能。
@@ -123,8 +73,6 @@
       <el-x-bubble-list
         :list="typingMessages"
         :max-height="'300px'"
-        :defaultIsMarkdown="true"
-        :defaultTyping="{ interval: 30, step: 2 }"
         @complete="onTypingComplete"
       />
 
@@ -158,20 +106,23 @@
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
             avatarSize: 40,
+            isMarkdown: true,
           },
           {
             content: '这是我的回复',
             placement: 'end',
             avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
             avatarSize: 40,
+            isMarkdown: true,
           },
           {
             content:
               '这是一条**带有打字效果**的消息，会逐字显示出来。\n\n当消息很长时，会自动滚动到底部。',
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
-            typing: true,
+            typing: { interval: 30, step: 2 },
             avatarSize: 40,
+            isMarkdown: true,
           },
         ],
         messageCounter: 0,
@@ -184,6 +135,7 @@
           content: `这是新添加的第${this.messageCounter}条普通消息`,
           placement: this.messageCounter % 2 === 0 ? 'end' : 'start',
           avatarSize: 40,
+          isMarkdown: true,
           avatar:
             this.messageCounter % 2 === 0
               ? 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png'
@@ -196,8 +148,9 @@
           content: `这是新添加的第${this.messageCounter}条**打字效果**消息，会自动滚动到底部。\n\n- 项目1\n- 项目2\n- 项目3`,
           placement: 'start',
           avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
-          typing: true,
+          typing: { interval: 30, step: 2 },
           avatarSize: 40,
+          isMarkdown: true,
         });
       },
       onTypingComplete(instance, index) {
@@ -388,8 +341,6 @@
       <el-x-bubble-list
         :list="complexMessages"
         :max-height="'400px'"
-        :defaultIsMarkdown="true"
-        :defaultAvatarSize="40"
       />
 
       <div style="margin-top: 15px;">
@@ -510,22 +461,6 @@ Element UI 表格组件是一个强大的数据展示工具，提供了以下功
 | btnLoading          | 按钮是否显示加载动画                                    | Boolean        | true                                         |
 | btnColor            | 按钮颜色                                                | String         | '#409EFF'                                    |
 | btnIconSize         | 按钮图标大小                                            | Number         | 24                                           |
-| defaultPlacement    | 默认气泡位置，优先级高于气泡组件                        | String         | ''                                           |
-| defaultLoading      | 默认加载状态，优先级高于气泡组件                        | Boolean        | undefined                                    |
-| defaultShape        | 默认气泡形状，优先级高于气泡组件                        | String         | ''                                           |
-| defaultVariant      | 默认气泡样式，优先级高于气泡组件                        | String         | ''                                           |
-| defaultIsMarkdown   | 默认是否解析 Markdown，优先级高于气泡组件               | Boolean        | true                                         |
-| defaultIsFog        | 默认是否启用雾化效果，优先级高于气泡组件                | Boolean        | false                                        |
-| defaultTyping       | 默认打字效果配置，优先级高于气泡组件                    | Boolean/Object | undefined                                    |
-| defaultMaxWidth     | 默认气泡最大宽度，优先级高于气泡组件                    | String         | ''                                           |
-| defaultAvatar       | 默认头像地址，优先级高于气泡组件                        | String         | ''                                           |
-| defaultAvatarSize   | 默认头像尺寸，优先级高于气泡组件                        | Number         | undefined                                    |
-| defaultAvatarGap    | 默认头像间距，优先级高于气泡组件                        | Number         | undefined                                    |
-| defaultAvatarShape  | 默认头像形状，优先级高于气泡组件                        | String         | ''                                           |
-| defaultAvatarSrcSet | 默认头像 srcset，优先级高于气泡组件                     | String         | ''                                           |
-| defaultAvatarAlt    | 默认头像 alt，优先级高于气泡组件                        | String         | ''                                           |
-| defaultAvatarFit    | 默认头像填充方式，优先级高于气泡组件                    | String         | ''                                           |
-| defaultNoStyle      | 默认是否移除样式，优先级高于气泡组件                    | Boolean        | undefined                                    |
 
 ## 方法
 

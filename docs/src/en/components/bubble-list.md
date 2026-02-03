@@ -60,59 +60,6 @@ Basic usage of the message list component to display multiple messages.
 
 :::
 
-### Global Default Configuration(Can be used in the scene of displaying historical message records, unified setting)
-
-Unify the style of all bubbles through `default*` prefix attributes, with higher priority than settings within the Bubble component.
-
-:::demo
-
-```html
-<template>
-  <div>
-    <client-only>
-      <el-x-bubble-list
-        :list="messageList"
-        defaultShape="round"
-        defaultVariant="shadow"
-        :defaultAvatarSize="40"
-        defaultAvatarShape="circle"
-      />
-    </client-only>
-  </div>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        messageList: [
-          {
-            content: 'Global settings for round bubbles and shadow effects',
-            placement: 'start',
-            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
-            avatarSize: 40,
-          },
-          {
-            content: 'All bubbles will apply these default settings',
-            placement: 'end',
-            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
-            avatarSize: 40,
-          },
-          {
-            content: 'Even if individual bubbles do not specify these properties',
-            placement: 'start',
-            avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
-            avatarSize: 40,
-          },
-        ],
-      };
-    },
-  };
-</script>
-```
-
-:::
-
 ### Typewriter Effect and Auto Scroll
 
 Demonstrate typewriter effect and auto scroll to latest message functionality.
@@ -126,8 +73,6 @@ Demonstrate typewriter effect and auto scroll to latest message functionality.
       <el-x-bubble-list
         :list="typingMessages"
         :max-height="'300px'"
-        :defaultIsMarkdown="true"
-        :defaultTyping="{ interval: 30, step: 2 }"
         @complete="onTypingComplete"
       />
 
@@ -161,12 +106,14 @@ Demonstrate typewriter effect and auto scroll to latest message functionality.
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
             avatarSize: 40,
+            isMarkdown: true,
           },
           {
             content: 'This is my reply',
             placement: 'end',
             avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png',
             avatarSize: 40,
+            isMarkdown: true,
           },
           {
             content:
@@ -174,7 +121,8 @@ Demonstrate typewriter effect and auto scroll to latest message functionality.
             placement: 'start',
             avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
             avatarSize: 40,
-            typing: true,
+            typing: { interval: 30, step: 2 },
+            isMarkdown: true,
           },
         ],
         messageCounter: 0,
@@ -187,6 +135,7 @@ Demonstrate typewriter effect and auto scroll to latest message functionality.
           content: `This is the newly added ${this.messageCounter}th normal message`,
           placement: this.messageCounter % 2 === 0 ? 'end' : 'start',
           avatarSize: 40,
+          isMarkdown: true,
           avatar:
             this.messageCounter % 2 === 0
               ? 'https://game.gtimg.cn/images/lol/act/img/tft/equip/tft_set10_emblem_pbj.png'
@@ -199,8 +148,9 @@ Demonstrate typewriter effect and auto scroll to latest message functionality.
           content: `This is the newly added ${this.messageCounter}th **typewriter effect** message that will automatically scroll to the bottom.\n\n- Item 1\n- Item 2\n- Item 3`,
           placement: 'start',
           avatar: 'https://game.gtimg.cn/images/lol/act/img/tft/equip/HandofJustice.png',
-          typing: true,
+          typing: { interval: 30, step: 2 },
           avatarSize: 40,
+          isMarkdown: true,
         });
       },
       onTypingComplete(instance, index) {
@@ -396,8 +346,6 @@ Display loading states and different types of message content.
       <el-x-bubble-list
         :list="complexMessages"
         :max-height="'400px'"
-        :defaultIsMarkdown="true"
-        :defaultAvatarSize="40"
       />
 
       <div style="margin-top: 15px;">
@@ -518,22 +466,6 @@ The Element UI table component is a powerful data display tool that provides the
 | btnLoading          | Whether button shows loading animation                                         | Boolean        | true                                         |
 | btnColor            | Button color                                                                   | String         | '#409EFF'                                    |
 | btnIconSize         | Button icon size                                                               | Number         | 24                                           |
-| defaultPlacement    | Default bubble placement, higher priority than bubble component                | String         | ''                                           |
-| defaultLoading      | Default loading state, higher priority than bubble component                   | Boolean        | undefined                                    |
-| defaultShape        | Default bubble shape, higher priority than bubble component                    | String         | ''                                           |
-| defaultVariant      | Default bubble variant, higher priority than bubble component                  | String         | ''                                           |
-| defaultIsMarkdown   | Default whether to parse Markdown, higher priority than bubble component       | Boolean        | true                                         |
-| defaultIsFog        | Default whether to enable fog effect, higher priority than bubble component    | Boolean        | false                                        |
-| defaultTyping       | Default typing effect config, higher priority than bubble component            | Boolean/Object | undefined                                    |
-| defaultMaxWidth     | Default bubble max width, higher priority than bubble component                | String         | ''                                           |
-| defaultAvatar       | Default avatar URL, higher priority than bubble component                      | String         | ''                                           |
-| defaultAvatarSize   | Default avatar size, higher priority than bubble component                     | Number         | undefined                                    |
-| defaultAvatarGap    | Default avatar gap, higher priority than bubble component                      | Number         | undefined                                    |
-| defaultAvatarShape  | Default avatar shape, higher priority than bubble component                    | String         | ''                                           |
-| defaultAvatarSrcSet | Default avatar srcset, higher priority than bubble component                   | String         | ''                                           |
-| defaultAvatarAlt    | Default avatar alt, higher priority than bubble component                      | String         | ''                                           |
-| defaultAvatarFit    | Default avatar fit mode, higher priority than bubble component                 | String         | ''                                           |
-| defaultNoStyle      | Default whether to remove styles, higher priority than bubble component        | Boolean        | undefined                                    |
 
 ## Methods
 
