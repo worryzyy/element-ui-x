@@ -1,6 +1,6 @@
 {
   "name": "vue-element-ui-x",
-  "version": "1.2.0-beta.1",
+  "version": "1.2.0",
   "description": "基于Vue 2 + Element UI的AI聊天组件库",
   "module": "lib/index.esm.js",
   "main": "lib/index.common.js",
