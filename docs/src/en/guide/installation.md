@@ -5,8 +5,12 @@ This section will introduce how to install and configure Element-UI-X in your pr
 ## Environment Requirements
 
 - Node.js 14.x+
-- Vue 2.x
+- Vue 2.5.x ~ 2.6.x (recommended 2.6.14)
 - Element UI 2.15.0+
+
+::: warning Vue Version Notice
+This component library is developed based on Vue 2.5+. We recommend using **Vue 2.5.x** or **Vue 2.6.x**. Versions lower than 2.5 may have compatibility issues.
+:::
 
 ## Installation Methods
 
