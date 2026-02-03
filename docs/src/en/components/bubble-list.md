@@ -485,10 +485,11 @@ The Element UI table component is a powerful data display tool that provides the
 
 ## Slots
 
-| Slot Name      | Description                  | Parameters                             |
-| -------------- | ---------------------------- | -------------------------------------- |
-| default        | Custom message content       | { item: message object, index: index } |
-| avatar         | Custom avatar                | { item: message object, index: index } |
-| header         | Custom header content        | { item: message object, index: index } |
-| footer         | Custom footer content        | { item: message object, index: index } |
-| back-to-bottom | Custom back to bottom button | —                                      |
+| Slot Name      | Description                  | Parameters                                    |
+| -------------- | ---------------------------- | --------------------------------------------- |
+| default        | Custom message content       | { item: message object, index: number }       |
+| avatar         | Custom avatar                | { item: message object, index: number }       |
+| header         | Custom header content        | { item: message object, index: number }       |
+| footer         | Custom footer content        | { item: message object, index: number }       |
+| loading        | Custom loading state content | { item: message object, index: number }       |
+| back-to-bottom | Custom back to bottom button | —                                             |
