@@ -92,6 +92,8 @@
           }
         },
       });
+      // 在 md 实例创建后立即初始化插件，确保首次渲染时插件已生效
+      this.initMarkdownPlugins();
     },
     computed: {
       mergedConfig() {
@@ -166,7 +168,6 @@
       },
     },
     mounted() {
-      this.initMarkdownPlugins();
       this.$nextTick(() => {
         Prism.highlightAll();
       });
