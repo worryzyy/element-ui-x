@@ -21,12 +21,7 @@
     <div class="el-x-conversation-content">
       <!-- 标签区域 - 通过插槽自定义 -->
       <div class="el-x-conversation-content-main">
-        <!-- 使用条件渲染兼容 Vue 2.5.x -->
-        <slot
-          v-if="$slots.label"
-          name="label"
-        />
-        <template v-else>
+        <slot name="label">
           <!-- 前缀图标 -->
           <span
             v-if="prefixIconRender"
@@ -61,7 +56,7 @@
               {{ item.label }}
             </span>
           </div>
-        </template>
+        </slot>
       </div>
 
       <!-- 后缀图标 -->
@@ -88,31 +83,22 @@
             @command="onMenuCommand"
           >
             <span class="el-dropdown-link">
-              <!-- 使用条件渲染兼容 Vue 2.5.x -->
               <slot
-                v-if="$scopedSlots['more-filled']"
                 name="more-filled"
                 :item="item"
                 :is-hovered="item.disabled ? false : isHovered"
                 :is-active="active"
                 :is-menu-opened="isShowMenuBtn"
                 :is-disabled="item.disabled"
-              />
-              <i
-                v-else
-                class="el-icon-more el-x-conversation-dropdown-more-icon"
-              ></i>
+              >
+                <i class="el-icon-more el-x-conversation-dropdown-more-icon"></i>
+              </slot>
             </span>
             <el-dropdown-menu
               slot="dropdown"
               :style="mergedMenuStyle"
             >
-              <!-- 使用条件渲染兼容 Vue 2.5.x -->
-              <slot
-                v-if="$slots.menu"
-                name="menu"
-              />
-              <template v-else>
+              <slot name="menu">
                 <el-dropdown-item
                   v-for="menuItem in menu"
                   :key="menuItem.key"
@@ -124,7 +110,7 @@
                 >
                   {{ menuItem.label }}
                 </el-dropdown-item>
-              </template>
+              </slot>
             </el-dropdown-menu>
           </el-dropdown>
         </div>

@@ -31,13 +31,12 @@
                   class="el-x-conversation-group-title sticky-title"
                   :class="{ 'active-sticky': stickyGroupKeys.has(group.key) }"
                 >
-                  <!-- 使用条件渲染兼容 Vue 2.5.x -->
                   <slot
-                    v-if="$scopedSlots['group-title']"
                     name="group-title"
                     :group="group"
-                  />
-                  <template v-else>{{ group.title }}</template>
+                  >
+                    {{ group.title }}
+                  </slot>
                 </div>
                 <div class="el-x-conversation-group-items">
                   <conversations-item
@@ -164,15 +163,10 @@
               v-if="loadMoreLoading"
               class="el-x-conversations-load-more"
             >
-              <!-- 使用条件渲染兼容 Vue 2.5.x -->
-              <slot
-                v-if="$slots['load-more']"
-                name="load-more"
-              />
-              <template v-else>
+              <slot name="load-more">
                 <i class="el-icon-loading el-x-conversations-load-more-is-loading"></i>
                 <span>加载更多...</span>
-              </template>
+              </slot>
             </div>
           </div>
         </div>
