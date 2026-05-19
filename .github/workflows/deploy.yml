@@ -37,8 +37,8 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js 16 (for VuePress build)
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
 
@@ -51,15 +51,22 @@ jobs:
         working-directory: docs
         run: npm run build
 
-      - name: Deploy to Vercel
-        id: deploy-docs
-        uses: amondnet/vercel-action@v25
+      - name: Setup Node.js 20 (for Vercel CLI)
+        uses: actions/setup-node@v4
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
-          working-directory: ./docs
-          vercel-args: '--prod'
+          node-version: '20'
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        working-directory: docs
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
+        run: |
+          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
   deploy-examples:
     name: 部署示例项目
@@ -74,8 +81,8 @@ jobs:
         with:
           fetch-depth: 0  # 获取完整的 Git 历史记录
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js 16 (for build)
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
 
@@ -88,12 +95,19 @@ jobs:
         working-directory: examples
         run: npm run build
 
-      - name: Deploy to Vercel
-        id: deploy-examples
-        uses: amondnet/vercel-action@v25
+      - name: Setup Node.js 20 (for Vercel CLI)
+        uses: actions/setup-node@v4
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_EXAMPLES }}
-          working-directory: ./examples
-          vercel-args: '--prod'
+          node-version: '20'
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        working-directory: examples
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_EXAMPLES }}
+        run: |
+          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
